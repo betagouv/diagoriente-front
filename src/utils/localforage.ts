@@ -10,8 +10,8 @@ export async function setItem(key: string, value: any) {
 
 export async function getItem(key: string) {
   try {
-    const itemString = await localforage.getItem(key);
-    const item = JSON.parse(itemString);
+    const itemString: string = await localforage.getItem(key);
+    return JSON.parse(itemString);
   } catch (e) {
     throw e;
   }
