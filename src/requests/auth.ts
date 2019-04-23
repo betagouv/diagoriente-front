@@ -14,3 +14,11 @@ export interface IUser {
 
 export const LoginUserRequest = (params: ILoginParams): Promise<Response<IUser>> =>
   axiosPost('v1/auth/user', { data: params, sendToken: false });
+
+export interface RefreshTokenParams {
+  userId: string;
+  refreshToken: string;
+}
+
+export const refreshToken = (data: RefreshTokenParams): Promise<Response<IToken>> =>
+  axiosPost('v1/auth/refresh-token', { data, sendToken: false });

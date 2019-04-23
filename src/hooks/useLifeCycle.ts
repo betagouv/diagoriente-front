@@ -9,3 +9,14 @@ export function useDidMount(fn: EffectCallback) {
     }
   });
 }
+
+export function useDidUpdate(fn: EffectCallback, deps?: any[]) {
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      fn();
+    }
+  },        deps);
+}

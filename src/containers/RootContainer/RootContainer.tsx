@@ -1,37 +1,50 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
 
+// types
+import { AnyAction } from 'redux';
 import { ReduxState, IModal } from 'reducers';
 
+// layout
+import Header from '../../layout/Header/Header';
+import Footer from '../../layout/Footer/Footer';
+
+// components
 import Modal from '../../components/ui/Modal/Modal';
 
+// styles
 import classes from './rootContainer.module.scss';
 import classNames from '../../utils/classNames';
 
+// actions
 import startupActions from '../../reducers/startup';
 
+// hooks
 import { useDidMount } from '../../hooks';
 
 type Props = {
   modal: IModal;
   startup: () => void;
+  startupEnd: boolean;
 };
 
-const RootContainer = ({ modal, startup }: Props) => {
+const RootContainer = ({ modal, startup, startupEnd }: Props) => {
   useDidMount(() => {
     startup();
   });
-
+  if (!startupEnd) return <div />;
   return (
     <div className={classNames(classes.container, 'flex_column')}>
+      <Header />
       <Modal {...modal} />
+      <Footer />
     </div>
   );
 };
 
-const mapStateToProps = ({ modal }: ReduxState) => ({
+const mapStateToProps = ({ modal, startup }: ReduxState) => ({
   modal,
+  startupEnd: startup,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
