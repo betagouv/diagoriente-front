@@ -9,6 +9,9 @@ import { ReduxState, IModal } from 'reducers';
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 
+// containers
+import HomeContainer from '../HomeContainer/HomeContainer';
+
 // components
 import Modal from '../../components/ui/Modal/Modal';
 
@@ -21,6 +24,7 @@ import startupActions from '../../reducers/startup';
 
 // hooks
 import { useDidMount } from '../../hooks';
+import { Switch, Route } from 'react-router';
 
 type Props = {
   modal: IModal;
@@ -36,6 +40,10 @@ const RootContainer = ({ modal, startup, startupEnd }: Props) => {
   return (
     <div className={classNames(classes.container, 'flex_column')}>
       <Header />
+      <Switch>
+        <Route path={'/'} exact component={HomeContainer} />
+        {/* TODO add not found page */}
+      </Switch>
       <Modal {...modal} />
       <Footer />
     </div>
