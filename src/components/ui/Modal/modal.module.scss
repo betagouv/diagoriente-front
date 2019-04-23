@@ -1,0 +1,103 @@
+@import "../../../styles/bootstrap/bootstrap.scss";
+
+.modal_container {
+  z-index: $zindex-modal;
+}
+
+.dialog {
+  height: 100%;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  position: relative;
+  transition: all 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  z-index: $zindex-modal;
+  position: relative;
+  pointer-events: none;
+}
+
+.slide_bottom {
+  transform: translate(0, 100%);
+}
+
+.slide_top {
+  transform: translate(0, -100%);
+}
+
+.slide_left {
+  transform: translate(-100%, 0);
+}
+
+.slide_right {
+  transform: translate(100%, 0);
+}
+
+.fade {
+  opacity: 0;
+}
+
+@keyframes scale_enter {
+  0% {
+    transform: scale(0, 0);
+  }
+  80% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.scale_open {
+  animation: scale_enter 225ms;
+}
+
+@keyframes scale_exit {
+  0% {
+    transform: scale(1, 1);
+  }
+  80% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(0, 0);
+  }
+}
+
+.scale_close {
+  animation: scale_exit 225ms;
+}
+
+.scale_0 {
+  transform: scale(0, 0);
+}
+
+.scale_1 {
+  transform: scale(1, 1);
+}
+
+.dialog_show {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.content {
+  width: auto;
+  pointer-events: all;
+}
+
+.backdrop {
+  z-index: $zindex-modal-backdrop;
+  background-color: $modal-backdrop-bg;
+  opacity: 0;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.backdrop_show {
+  opacity: 0.4;
+}
+
+.backdrop_hide {
+  opacity: 0;
+}
