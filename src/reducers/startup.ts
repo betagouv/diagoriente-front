@@ -1,5 +1,4 @@
 import createRedux from '../utils/createRedux';
-import { Reducer } from 'redux';
 
 const INITIAL_STATE: boolean = false;
 

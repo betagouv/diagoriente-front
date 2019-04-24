@@ -1,5 +1,7 @@
-import { AnyAction } from 'redux';
 import createRedux from '../../utils/createRedux';
+
+// types
+import { AnyAction } from 'redux';
 import { User } from 'reducers';
 
 const INITIAL_STATE: User = {};

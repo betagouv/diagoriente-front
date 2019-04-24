@@ -5,7 +5,7 @@ function classNames(...args: any[]): string {
     const keys = Object.keys(current);
     const values = keys.map(row => current[row]);
     return [...result, classNames(...values)];
-  }, []);
+  },                                    []);
 
   return classes.join(' ');
 }

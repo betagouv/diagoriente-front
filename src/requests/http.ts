@@ -2,9 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 const BaseURL = process.env.REACT_APP_API_URL || 'https://api-dev.projetttv.org';
 
-/* eslint-disable import/no-mutable-exports */
 export let authorizationBearer: string | null = null;
-/* eslint-disable import/no-mutable-exports */
 
 export const setAuthorizationBearer = (token: string | null) => {
   authorizationBearer = token;
@@ -18,6 +16,15 @@ export interface Response<T> {
   errors?: string[];
   message?: string;
 }
+
+export type ListResponse<T> = {
+  count?: number;
+  currentPage?: number;
+  data: T[];
+  document?: string;
+  perPage?: number;
+  totalPages?: number;
+};
 
 function axiosRequest<T, P>(
   method: Method,

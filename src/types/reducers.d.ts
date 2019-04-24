@@ -32,6 +32,12 @@ declare module 'reducers' {
 
   export type User = { user: IUser; token: IToken } | {};
 
+  export interface IParcours {
+    readonly themes: string[];
+    readonly activities: { readonly [key: string]: string[] };
+    readonly competences: { readonly [key: string]: { readonly _id: string; readonly value: number }[] };
+  }
+
   export type ReduxState = {
     readonly startup: boolean;
     readonly modal: IModal;
@@ -40,5 +46,6 @@ declare module 'reducers' {
       readonly login: ApiReducer;
       readonly register: ApiReducer;
     };
+    readonly parcours: IParcours;
   };
 }

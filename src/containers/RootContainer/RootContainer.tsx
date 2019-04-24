@@ -8,9 +8,12 @@ import { ReduxState, IModal } from 'reducers';
 // layout
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
+import NotFound from '../../layout/NotFound';
 
 // containers
 import HomeContainer from '../HomeContainer/HomeContainer';
+import ThemesContainer from '../ThemesContainer/ThemesContainer';
+import ThemeContainer from '../ThemeContainer/ThemeContainer';
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
@@ -26,23 +29,34 @@ import startupActions from '../../reducers/startup';
 import { useDidMount } from '../../hooks';
 import { Switch, Route } from 'react-router';
 
-type Props = {
-  modal: IModal;
-  startup: () => void;
-  startupEnd: boolean;
-};
+import loginActions from '../../reducers/authUser/login';
 
-const RootContainer = ({ modal, startup, startupEnd }: Props) => {
+interface IMapToProps {
+  modal: IModal;
+  startupEnd: boolean;
+}
+
+interface IDispatchToProps {
+  startup: () => void;
+  loginRequest: (email: string, password: string) => void;
+}
+
+type Props = IMapToProps & IDispatchToProps;
+
+const RootContainer = ({ modal, startup, startupEnd, loginRequest }: Props) => {
   useDidMount(() => {
     startup();
+    // loginRequest('fedi@gmail.com', 'Ff22023755');
   });
   if (!startupEnd) return <div />;
   return (
-    <div className={classNames(classes.container, 'flex_column', 'col-2')}>
+    <div className={classNames(classes.container, 'flex_column')}>
       <Header />
       <Switch>
         <Route path={'/'} exact component={HomeContainer} />
-        {/* TODO add not found page */}
+        <Route path={'/themes'} exact component={ThemesContainer} />
+        <Route path={'/theme/:id'} component={ThemeContainer} />
+        <Route component={NotFound} />
       </Switch>
       <Modal {...modal} />
       <Footer />
@@ -50,13 +64,14 @@ const RootContainer = ({ modal, startup, startupEnd }: Props) => {
   );
 };
 
-const mapStateToProps = ({ modal, startup }: ReduxState) => ({
+const mapStateToProps = ({ modal, startup }: ReduxState): IMapToProps => ({
   modal,
   startupEnd: startup,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   startup: () => dispatch(startupActions.startup()),
+  loginRequest: (email, password) => dispatch(loginActions.loginUserRequest({ email, password })),
 });
 
 export default connect(

@@ -1,6 +1,8 @@
+import createRedux from '../utils/createRedux';
+
+// types
 import { AnyAction } from 'redux';
 import { IModal } from 'reducers';
-import createRedux from '../utils/createRedux';
 
 const INITIAL_STATE: IModal = {
   open: false,

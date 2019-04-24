@@ -9,7 +9,7 @@ import userActions from '../reducers/authUser/user';
 function* startup() {
   try {
     const user: IUser = yield call(getItem, 'token');
-    if (isEmpty(user)) {
+    if (!isEmpty(user)) {
       const response: Response<IToken> = yield call(refreshToken, {
         userId: user.user._id,
         refreshToken: user.token.refreshToken,

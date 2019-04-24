@@ -1,14 +1,10 @@
-
 import { PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-
-
-
 const REDUX_PERSIST: PersistConfig = {
-  key: 'root',
   storage,
-  whitelist: [],
+  key: 'root',
+  whitelist: ['parcours'],
   blacklist: [],
 };
 

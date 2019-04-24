@@ -1,0 +1,12 @@
+@import "../../styles/bootstrap/bootstrap.scss";
+
+.theme {
+  width: 100%;
+  height: 50px;
+  padding-left: 15px;
+  text-align: left;
+}
+
+.theme_selected {
+  color: $teal;
+}
