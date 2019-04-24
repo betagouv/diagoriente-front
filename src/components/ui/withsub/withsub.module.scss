@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.title {
+color: #2e2e2e;
+width: 100%;
+font-family: sans-serif;
+transition: .3s all;
+font-weight: 600;
+}
+
+.subtitle {
+    color: #909090;
+    width: 100%;
+    font-family: sans-serif;
+    transition: .3s all;
+}

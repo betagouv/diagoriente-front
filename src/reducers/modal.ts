@@ -10,8 +10,8 @@ const INITIAL_STATE: IModal = {
 
 const openModal = (state: IModal, { children, animationType }: AnyAction): IModal => ({
   ...state,
-  open: true,
   children,
+  open: true,
   animationType: animationType || 'slide_bottom',
 });
 const closeModal = (state: IModal) => ({ ...state, open: false });
