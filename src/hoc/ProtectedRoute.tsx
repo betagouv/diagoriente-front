@@ -5,10 +5,14 @@ import { ReduxState } from 'reducers';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { IUser } from '../requests';
 
+import { encodeUri } from '../utils/url';
+
 type Props = { user: IUser | {} } & RouteProps;
 
 const ProtectedRoute = ({ user, ...other }: Props) => {
-  if (isEmpty(user)) return <Redirect to={'/login/user'} />;
+  if (isEmpty(user)) {
+    return <Redirect to={`login/user${encodeUri({ from: window.location.pathname + window.location.search })}`} />;
+  }
   return <Route {...other} />;
 };
 

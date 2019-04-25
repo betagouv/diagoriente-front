@@ -4,8 +4,7 @@ import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 
 const LazyLoginContainer = lazy(() => import('./LoginContainer'));
 
-// TODO add RouteComponentProps to props when we start add functionality
-export default (props: any) => (
+export default (props: RouteComponentProps) => (
   <Suspense fallback={<LazyLoader />}>
     <LazyLoginContainer {...props} />
   </Suspense>
