@@ -15,10 +15,13 @@ const loginUserSuccess = (state: ApiReducer) => ({ ...state, fetching: false });
 
 const loginUserFailure = (state: ApiReducer, { error }: AnyAction) => ({ error, ...state, fetching: false });
 
+const logout = (state: ApiReducer) => state;
+
 const { actions, types: loginTypes, reducer } = createRedux(INITIAL_STATE, {
   loginUserRequest,
   loginUserSuccess,
   loginUserFailure,
+  logout,
 });
 
 export default actions;
