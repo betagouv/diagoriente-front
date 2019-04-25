@@ -38,7 +38,7 @@ const RootContainer = ({ modal, startup, startupEnd }: Props) => {
   });
   if (!startupEnd) return <div />;
   return (
-    <div className={classNames(classes.container, 'flex_column', 'col-2')}>
+    <div className={classNames(classes.container)}>
       <Header />
       <Switch>
         <Route path={'/'} exact component={HomeContainer} />

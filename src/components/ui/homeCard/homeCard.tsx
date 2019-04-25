@@ -26,16 +26,16 @@ const HomeCard = ({
   return (
     <div className={classNames(classes.card, className)} {...other}>
       <div className={classes.imageContainer}>
-        <img src={image} className={classes.image} />
+        <img className={classes.image} />
       </div>
       <div className={classes.textContainer}>
         <WithSub className={classes.withsub} title={title} subTitle={subTitle} />
       </div>
-      <div className={classes.buttonContainer}>
-      <Button>{buttonText}</Button>
-      </div>
+      {/* <div className={classes.buttonContainer}>
+        <Button>{buttonText}</Button>
+      </div> */}
       <div className={classes.circleContainer}>
-      <Circle className={classes.cardNumber}>{cardNumber}</Circle>
+        <Circle className={classes.cardNumber}>{cardNumber}</Circle>
       </div>
     </div>
   );

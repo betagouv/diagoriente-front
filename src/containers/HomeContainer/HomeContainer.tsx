@@ -1,25 +1,35 @@
 import React from 'react';
 import Button from '../../components/ui/button/button';
 import Circle from '../../components/ui/Circle/Circle';
+/* import classNames from '../../../utils/classNames';
+*/ import classes from './home.module.scss';
 import Card from '../../components/ui/card/card';
 import WithSub from '../../components/ui/withsub/withSub';
-import './home.css';
 import HomeCard from '../../components/ui/homeCard/homeCard';
 
 const HomeContainer = () => {
   return (
-    <div style={{ width: 300 }}>
-      hello world
-      <Button>Commencer</Button>
-      <Circle>1</Circle>
-      <div>
-        <Card>Numerique</Card>
-      </div>
-      <WithSub title={'Voyage'} subTitle={'Releve tex competence'} />
-      <div style={{ width: 500 }}>
+    <div className={classes.home}>
+      <WithSub  className={classes.WithSub} title={'Trouve ta voie !'} subTitle={'Réleve tes competences et choisis ton futur métier'}  />
+      <Button className={classes.commencerBtn}>Commencer</Button>
+      <div className={classes.CardContainer}>
         <HomeCard
-          title="repond a quelques questions sur tes passions"
-          subTitle="lorem ipsum yanap butomatu crown lavat froma class tacktic slfsdlfjk skdjf ssdfljkns dmlfk sdmlf,sdlkf sldkjfsdlfkjsd sdlfk jsdlf "
+          title=""
+          subTitle="Réponds à quelques questions sur tes passions, et joue à des jeux"
+          image="https://steemitimages.com/p/hgjbkodzNP3kumx8jDvG5UJWWNpEGQeXqQ3r48B8V6PwVj3oj4MLE4JUz5Fdxy8kEpZLox2JDyr5N2ki5XzdFgSFRv?format=match&mode=fit"
+          buttonText="commencer"
+          cardNumber={1}
+        />
+        <HomeCard
+          title=""
+          subTitle="Réponds à quelques questions sur tes passions, et joue à des jeux"
+          image="https://steemitimages.com/p/hgjbkodzNP3kumx8jDvG5UJWWNpEGQeXqQ3r48B8V6PwVj3oj4MLE4JUz5Fdxy8kEpZLox2JDyr5N2ki5XzdFgSFRv?format=match&mode=fit"
+          buttonText="commencer"
+          cardNumber={1}
+        />
+        <HomeCard
+          title=""
+          subTitle="Réponds à quelques questions sur tes passions, et joue à des jeux"
           image="https://steemitimages.com/p/hgjbkodzNP3kumx8jDvG5UJWWNpEGQeXqQ3r48B8V6PwVj3oj4MLE4JUz5Fdxy8kEpZLox2JDyr5N2ki5XzdFgSFRv?format=match&mode=fit"
           buttonText="commencer"
           cardNumber={1}
