@@ -1,10 +1,10 @@
 import React from 'react';
-import Button from '../../components/ui/button/button';
+import Button from '../../components/buttons/RoundButton/RoundButton';
 import Circle from '../../components/ui/Circle/Circle';
-import Card from '../../components/ui/card/card';
-import WithSub from '../../components/ui/withsub/withSub';
+import Card from '../../components/cards/Card/Card';
+import WithSub from '../../components/ui/WithSub/WithSub';
 import './home.css';
-import HomeCard from '../../components/ui/homeCard/homeCard';
+import HomeCard from '../../components/cards/HomeCard/HomeCard';
 
 const HomeContainer = () => {
   return (

@@ -61,7 +61,7 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
       <Switch>
         <Route path={'/theme/:id/activities'} render={props => <ActivitiesContainer {...props} theme={data} />} exact />
         <Route
-          path={'/theme/:id/competences'}
+          path={'/theme/:id/skills'}
           exact
           render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} />}
         />

@@ -17,7 +17,7 @@ export default function* ({ email, password }: ILoginRequestAction) {
     const response: WrappedResponse<IUser> = yield call(wrapApiCall, LoginUserRequest, { email, password });
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
-      yield call(setItem, 'token', response.data);
+      yield call(setItem, 'user', response.data);
       yield all([put(userActions.userChange(response.data)), put(loginActions.loginUserSuccess())]);
     } else {
       yield put(loginActions.loginUserFailure(response.message));

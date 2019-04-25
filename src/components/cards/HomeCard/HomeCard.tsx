@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './homeCard.module.scss';
 import classNames from '../../../utils/classNames';
-import WithSub from '../withsub/withSub';
-import Button from '../button/button';
-import Circle from '../Circle/Circle';
+import WithSub from '../../ui/WithSub/WithSub';
+import Button from '../../buttons/RoundButton/RoundButton';
+import Circle from '../../ui/Circle/Circle';
 
 interface Props {
   image: string;
@@ -32,10 +32,10 @@ const HomeCard = ({
         <WithSub className={classes.withsub} title={title} subTitle={subTitle} />
       </div>
       <div className={classes.buttonContainer}>
-      <Button>{buttonText}</Button>
+        <Button>{buttonText}</Button>
       </div>
       <div className={classes.circleContainer}>
-      <Circle className={classes.cardNumber}>{cardNumber}</Circle>
+        <Circle className={classes.cardNumber}>{cardNumber}</Circle>
       </div>
     </div>
   );

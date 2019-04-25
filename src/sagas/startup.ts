@@ -8,7 +8,7 @@ import userActions from '../reducers/authUser/user';
 
 function* startup() {
   try {
-    const user: IUser = yield call(getItem, 'token');
+    const user: IUser = yield call(getItem, 'user');
     if (!isEmpty(user)) {
       const response: Response<IToken> = yield call(refreshToken, {
         userId: user.user._id,
@@ -17,7 +17,7 @@ function* startup() {
       if (response.code === 200 && response.data) {
         const newUser = { user: user.user, token: response.data };
         setAuthorizationBearer(newUser.token.accessToken);
-        yield call(setItem, 'token', newUser);
+        yield call(setItem, 'user', newUser);
         yield put(userActions.userChange(newUser));
       }
     }

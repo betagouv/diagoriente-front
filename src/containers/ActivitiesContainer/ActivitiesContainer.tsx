@@ -25,7 +25,7 @@ type Props = RouteComponentProps<{ id: string }> & { theme: ITheme } & IMapToPro
 
 const ActivitiesContainer = ({ theme, activities, add, remove, history, match }: Props) => {
   const navigate = () => {
-    history.push(`/theme/${match.params.id}/competences`);
+    history.push(`/theme/${match.params.id}/skills`);
   };
 
   if (isEmpty(theme.activities)) {
