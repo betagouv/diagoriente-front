@@ -6,11 +6,14 @@ import WithSub from '../../components/ui/WithSub/WithSub';
 import './home.css';
 import HomeCard from '../../components/cards/HomeCard/HomeCard';
 
-const HomeContainer = () => {
+const HomeContainer = ({ history }: any) => {
+  const navigate = () => {
+    history.push('/themes');
+  };
   return (
     <div style={{ width: 300 }}>
       hello world
-      <Button>Commencer</Button>
+      <Button onClick={navigate}>Commencer</Button>
       <Circle>1</Circle>
       <div>
         <Card>Numerique</Card>
