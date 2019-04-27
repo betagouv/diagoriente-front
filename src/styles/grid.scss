@@ -1,0 +1,55 @@
+@import "variables.scss";
+
+.container {
+  display: flex;
+  width: calc(100% + #{map-get($container-spacing, "xl")});
+  flex-direction: row;
+  padding: 0 map-get($container-padding, "xl");
+  flex: 0 0 auto;
+  position: relative;
+  left: calc(-#{map-get($container-spacing, "xl")} / 2);
+  flex-wrap: wrap;
+  @each $breakpoint in map-keys($breakpoints) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      padding: 0 map-get($container-padding, $breakpoint);
+      left: calc(-#{map-get($container-spacing, $breakpoint)} / 2);
+      width: calc(100% + #{map-get($container-spacing, $breakpoint)});
+    }
+  }
+}
+
+*[class^="item"] {
+  margin: 0 calc(#{map-get($container-spacing, "xl")} / 2);
+  position: relative;
+  max-width: 100%;
+
+  @each $breakpoint in map-keys($breakpoints) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      margin: 0 calc(#{map-get($container-spacing, $breakpoint)} / 2);
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+  .item-#{$i} {
+    flex: 0 0 calc(#{map-get($grid-item-percent, $i)} - #{map-get($container-spacing, "xl")});
+    max-width: calc(#{map-get($grid-item-percent, $i)} - #{map-get($container-spacing, "xl")});
+    @each $breakpoint in map-keys($breakpoints) {
+      @media (max-width: map-get($breakpoints, $breakpoint)) {
+        flex-basis: calc(#{map-get($grid-item-percent, $i)} - #{map-get($container-spacing, $breakpoint)});
+        max-width: calc(#{map-get($grid-item-percent, $i)} - #{map-get($container-spacing, $breakpoint)});
+      }
+    }
+  }
+}
+
+@each $breakpoint in map-keys($breakpoints) {
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @for $i from 1 through 12 {
+      .item-#{$breakpoint}-#{$i} {
+        flex: 0 0 calc(#{map-get($grid-item-percent, $i)} - #{map-get($container-spacing, "xl")});
+        max-width: calc(#{map-get($grid-item-percent, $i)} - #{map-get($container-spacing, "xl")});
+      }
+    }
+  }
+}

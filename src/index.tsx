@@ -7,14 +7,14 @@ import App from './App';
 
 import * as serviceWorker from './serviceWorker';
 
-// styles entry point
+// styles entry points
 import './styles/index.scss';
+import './styles/grid.scss';
 
 // localDataConfig
 localforage.config({
   name: process.env.REACT_APP_LOCALFORAGE_NAME,
   version: 1.0,
-  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
   storeName: process.env.REACT_APP_LOCALFORAGE_STORE_NAME, // Should be alphanumeric, with underscores.
 });
 

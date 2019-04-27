@@ -54,14 +54,16 @@ const RootContainer = ({ modal, startup, startupEnd, loginRequest }: Props) => {
   return (
     <div className={classNames(classes.container, 'flex_column')}>
       <Header />
-      <Switch>
-        <Route path={'/'} exact component={HomeContainer} />
-        <Route path={'/login'} component={LoginUserContainer} />
-        <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
-        <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
-        <Route component={NotFound} />
-      </Switch>
-      <Modal {...modal} />
+      <div className={classes.app_container}>
+        <Switch>
+          <Route path={'/'} exact component={HomeContainer} />
+          <Route path={'/login'} component={LoginUserContainer} />
+          <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
+          <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
+          <Route component={NotFound} />
+        </Switch>
+        <Modal {...modal} />
+      </div>
       <Footer />
     </div>
   );
