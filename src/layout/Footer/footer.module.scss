@@ -1,0 +1,110 @@
+.footerWrapper {
+  width: 100%;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+}
+.footer {
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+}
+.textFooter {
+  width: 238px;
+  height: 48px;
+  font-family: Lato;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: #666666;
+}
+.logosContainer {
+ display: flex;
+ align-items: center;
+ justify-content: space-evenly;
+}
+
+.footerContainer {
+  max-width: 1280px;
+    align-items: center;
+    margin: auto;
+}
+.gpi {
+    width: 186px;
+  height: 117px;
+  object-fit: contain;
+}
+.national {
+    width: 69.7px;
+  height: 70px;
+  object-fit: contain;
+}
+.beta {
+    width: 75px;
+  height: 59px;
+  object-fit: contain;
+}
+.orange {
+    width: 75px;
+  height: 26.5px;
+  object-fit: contain;
+}
+@media only screen and (max-width:1280px)
+{
+  .intermediate{
+    width: 20%;
+  }
+
+}
+@media only screen and (max-width:1024px)
+{
+  .intermediate{
+    width: 8%;
+  }
+
+}
+@media only screen and (max-width:768px)
+{
+  .intermediate{
+    width: 10px;
+  }
+
+}
+@media only screen and (max-width:568px)
+{
+  .intermediate{
+    width: 0px;
+  }
+  .beta{
+    width:50px;
+  }
+  .gpi{
+    width:50px;
+  }
+  .national{
+    width:50px;
+  }
+  .orange{
+    width:50px;
+  }
+
+}
+@media only screen and (max-width:375px) {
+  .gpi{
+    width:50px;
+  }
+  .national{
+    width:25px;
+  }
+  .beta {
+    width:25px;
+  }
+  .orange{
+    width:25px;
+  }
+}
+
