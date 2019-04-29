@@ -20,7 +20,7 @@ export default function* ({ email, password }: ILoginRequestAction) {
       yield call(setItem, 'user', response.data);
       yield all([put(userActions.userChange(response.data)), put(loginActions.loginUserSuccess())]);
     } else {
-      yield put(loginActions.loginUserFailure(response.message));
+      yield put(loginActions.loginUserFailure({ error: response.message }));
     }
   } catch (e) {
     // TODO improve erreur message

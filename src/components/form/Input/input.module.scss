@@ -1,0 +1,46 @@
+.login_container_input {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 999;
+    height: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-position: 0% 0%;
+    background: linear-gradient(to right, #b03dfd, #52e6c6, #443ad8, #52e6c6, #b03dfd, #52e6c6);
+    background-size: 500% auto;
+    animation: gradient 3s linear infinite;
+  }
+
+  .input_login {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 1px solid #999;
+    outline: 0;
+    padding-left: 10px;
+    line-height: 2
+  }
+  .label_input {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .error_input {
+    color: red;
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: left;
+  }
+}

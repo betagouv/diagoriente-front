@@ -1,0 +1,93 @@
+.container_home {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: url("../../assets/images/bg-01.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .container_title {
+      margin: 20px 20px;
+      h3 {
+        display: block;
+        font-size: 39px;
+        color: #555555;
+        line-height: 1.2;
+        text-align: center;
+      }
+    }
+  }
+  .container_form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 85vh;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.6);
+    overflow: auto;
+    .container_input {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+    }
+    .container_button {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      margin: 15px;
+    }
+    .container_forget_Password {
+      margin: 15px;
+      h5 {
+        color: #999999;
+        font-size: 16px;
+        line-height: 1.2;
+        text-align: left;
+      }
+    }
+  }
+  @media (max-width: 567px) {
+    .container_home {
+      .container_title {
+        margin: 35px 20px;
+        h3 {
+          display: block;
+          font-size: 30px;
+          color: #666;
+          line-height: 1.2;
+          text-align: center;
+        }
+      }
+    }
+    .container_form {
+      display: flex;
+      flex-direction: column;
+      width: 80vw;
+      height: 100%;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10px;
+      .container_input {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        margin: 15px;
+      }
+    }
+  }
+  
+  // gradient animation
+  @keyframes gradient {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+  

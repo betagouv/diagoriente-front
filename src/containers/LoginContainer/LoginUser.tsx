@@ -1,14 +1,27 @@
 import React, { MouseEvent, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import loginUserActions from '../../reducers/authUser/login';
+import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState } from 'reducers';
-import { useTextInput, useDidUpdate, useDidMount } from '../../hooks';
-import { validateEmail, validatePassword } from '../../utils/validation';
-import { RouteComponentProps } from 'react-router';
 
+// hooks
+import { useTextInput, useDidUpdate, useDidMount } from '../../hooks';
+
+// utils
+import { validateEmail, validatePassword } from '../../utils/validation';
 import { decodeUri } from '../../utils/url';
+
+// actions
+import loginUserActions from '../../reducers/authUser/login';
+
+// style
+import classes from './login.module.scss';
+
+// components
+import Button from '../../components/buttons/RoundButton/RoundButton';
+import Input from '../../components/form/Input/Input';
 
 interface DispatchToProps {
   loginRequest: (email: string, password: string) => void;
@@ -28,7 +41,7 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
   const emailValid = emailTouched ? validateEmail(email) : '';
   const passwordValid = passwordTouched ? validatePassword(password) : '';
 
-  const onSubmit = (e: MouseEvent<HTMLInputElement>) => {
+  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     loginRequest(email, password);
   };
@@ -39,19 +52,36 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
 
       history.push(path);
     }
-  },           [fetching]);
+  }, [fetching]);
 
   return (
-    <div>
-      <div>
-        <input value={email} onChange={emailChange} />
-        <span>{emailValid}</span>
+    <div className={classes.container_home}>
+      <div className={classes.container_form}>
+        <div className={classes.container_title}>
+          <h3>Sign In With</h3>
+        </div>
+        <Input
+          name="Email"
+          validation={emailValid}
+          onChange={emailChange}
+          className={classes.container_input}
+        />
+        <Input
+          name="Password"
+          validation={passwordValid}
+          onChange={passwordChange}
+          className={classes.container_input}
+        />
+
+        <div className={classes.container_button}>
+          {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
+          <Button onClick={onSubmit}> login</Button >
+        </div>
+        <div className={classes.container_forget_Password}>
+          <h5>Not a member ? <Link to="/register">  Sign up now </Link></h5>
+        </div>
       </div>
-      <div>
-        <input value={password} onChange={passwordChange} />
-        <span>{passwordValid}</span>
-      </div>
-      <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} />
+
     </div>
   );
 };

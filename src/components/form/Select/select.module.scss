@@ -1,0 +1,71 @@
+.login_container_input {
+  width: 90%;
+  display: flex;
+  margin: 15px;
+  position: relative;
+  border: 1px solid #999;
+  line-height: 2;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding-left: 10px;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 30px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 999;
+    height: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-position: 0% 0%;
+    background: linear-gradient(to right, #b03dfd, #52e6c6, #443ad8, #52e6c6, #b03dfd, #52e6c6);
+    background-size: 500% auto;
+    animation: gradient 3s linear infinite;
+  }
+}
+
+.text_container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.img_container {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+  .arrow {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    background-color: #443ad8;
+    transform: rotate(90deg)
+  }
+}
+.img {
+  width: 18px;
+  height: 18px;
+  transform: rotate(180deg);
+}
+.select_drop {
+  position: absolute;
+  border-radius: 5px;
+  top: 34px;
+  left: 0px;
+  right: 0px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  max-height: 300px;
+  overflow: auto;
+  box-shadow: 0 2px 8px 0 rgba(40, 57, 82, 0.08);
+}
+.select_item {
+  padding: 5px;
+  padding-left: 15px;
+}
