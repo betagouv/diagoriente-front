@@ -19,6 +19,7 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.2",
     "reselect": "^4.0.0",
+    "styled-components": "^4.2.0",
     "typescript": "3.4.4"
   },
   "scripts": {
@@ -43,6 +44,7 @@
     "@types/react-router-dom": "^4.3.2",
     "@types/react-transition-group": "^2.9.0",
     "@types/redux-logger": "^3.0.7",
+    "@types/styled-components": "^4.1.14",
     "tslint": "^5.12.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
