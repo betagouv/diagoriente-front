@@ -78,6 +78,8 @@ const HomeContainer = ({ history }: any) => {
       <div style={{ marginTop: 20 }} className={'container'}>
         <div className={'item-12'} style={{ background: 'blue', height: 50 }} />
       </div>
+
+      <Card>Famille</Card> 
     </div>
   );
 };
