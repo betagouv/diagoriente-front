@@ -4,14 +4,10 @@
 }
 .home {
   background-color: #f7f7f7;
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
   overflow: hidden;
-  margin: 0;
 }
 .commencerBtn {
   width: 242px;
@@ -29,17 +25,66 @@
   letter-spacing: 2.7px;
   text-align: center;
   color: #666666;
+  margin: auto !important;
 }
 .CardContainer {
   display: flex;
   justify-content: space-around;
   margin-top: 45px;
+  height: 360px;
 }
-.WithSub{
+.WithSub {
   display: flex;
   -webkit-justify-content: center;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   height: 22%;
+}
+.cardContainer {
+  background-image: linear-gradient(255deg, #ff0060, #7533ff 51%, #00cfff);
+  margin-top: 80px;
+}
+
+.cardContainer::before {
+  position: absolute;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  content: "";
+  border-bottom: 20px solid #6023b3;
+  left: calc(50% - 10px);
+  bottom: 100%;
+}
+.arrow_up {
+  width: 15px;
+  height: 15px;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-bottom: 20px solid #6023b3;
+}
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.homeAsset {
+  position: absolute;
+  top: -232px;
+  left: -7px;
+}
+@media only screen and (max-width: 950px) {
+  .commencerBtn {
+  }
+}
+@media only screen and (max-width: 768px) {
+  .commencerBtn {
+  }
+}
+@media only screen and (max-width: 480px) {
+  .commencerBtn {
+    width: 150px;
+    height: 50px;
+  }
 }

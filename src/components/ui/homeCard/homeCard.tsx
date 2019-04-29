@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './homeCard.module.scss';
 import classNames from '../../../utils/classNames';
-import WithSub from '../../ui/WithSub/WithSub';
-import Button from '../../buttons/RoundButton/RoundButton';
-import Circle from '../../ui/Circle/Circle';
+import WithSub from '../Withsub/WithSub';
+import Button from '../button/button';
+import Circle from '../Circle/Circle';
 
 interface Props {
   image: string;
@@ -22,18 +22,18 @@ const HomeCard = ({
   buttonText,
   cardNumber,
   ...other
-}: React.HTMLAttributes<HTMLElement> & Props) => {
+}: React.HTMLAttributes<HTMLDivElement> & Props) => {
   return (
-    <div className={classNames(classes.card, className)} {...other}>
+    <div className={classNames(className, classes.card)} {...other}>
       <div className={classes.imageContainer}>
-        <img src={image} className={classes.image} />
+        <img className={classes.image} />
       </div>
       <div className={classes.textContainer}>
-        <WithSub className={classes.withsub} title={title} subTitle={subTitle} />
+        <span className={classNames(classes.subtitle)}>{subTitle}</span>
       </div>
-      <div className={classes.buttonContainer}>
+      {/* <div className={classes.buttonContainer}>
         <Button>{buttonText}</Button>
-      </div>
+      </div> */}
       <div className={classes.circleContainer}>
         <Circle className={classes.cardNumber}>{cardNumber}</Circle>
       </div>
