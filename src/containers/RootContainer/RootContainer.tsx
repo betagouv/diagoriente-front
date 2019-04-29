@@ -56,28 +56,17 @@ const RootContainer = ({ modal, startup, startupEnd, loginRequest }: Props) => {
   return (
     <div className={classNames(classes.container, 'flex_column')}>
       <Header />
-<<<<<<< Updated upstream
       <div className={classes.app_container}>
         <Switch>
           <Route path={'/'} exact component={HomeContainer} />
           <Route path={'/login'} component={LoginUserContainer} />
+          <Route path={'/register'} component={RegisterUserContainer} />
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />
       </div>
-=======
-      <Switch>
-        <Route path={'/'} exact component={HomeContainer} />
-        <Route path={'/login'} component={LoginUserContainer} />
-        <Route path={'/register'} component={RegisterUserContainer} />
-        <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
-        <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
-        <Route component={NotFound} />
-      </Switch>
-      <Modal {...modal} />
->>>>>>> Stashed changes
       <Footer />
     </div>
   );
