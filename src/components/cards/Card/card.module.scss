@@ -10,6 +10,12 @@
   width: 210px;
   height: 90px;
   cursor: pointer;
+  position: relative;
+  border:none;
+  .check{
+    opacity: 0;
+  }
+
 }
 .title {
   font-family: Lato;
@@ -33,7 +39,7 @@
 }
 
 .card:hover {
-  background-image: linear-gradient(247deg, #a422c9, #5065ff);
+  background-image: linear-gradient(247deg, #a422c9b3, #5065ffb3);
   box-sizing: border-box;
   .title {
     color: #ffffff;
@@ -41,10 +47,23 @@
 }
 .card:focus {
   background-image: linear-gradient(247deg, #a422c9, #5065ff);
+  outline: none;
+  .title {
+    color: #ffffff;
+  }
+  .check {
+    opacity: 1;
+  }
+  
 }
-.card:focus::before{
-  content:'';
+
+.check {
+  position: absolute;
+  top:10px;
+  left: 10px;
   width: 20px;
   height: 20px;
   object-fit: contain;
 }
+
+
