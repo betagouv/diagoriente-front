@@ -49,6 +49,12 @@ $green: #52e6c6 !default;
 $teal: #20c997 !default;
 $cyan: #00cfff !default;
 $brown: #660066 !default;
+$wisteria: #ce93e6 !default;
+$perano: #acaefc !default;
+$darkOrchid: #a422c9 !default;
+$neonBlue: #5065ff !default;
+
+
 
 $colors: () !default;
 $colors: map-merge(
@@ -265,3 +271,5 @@ $zindex-modal-backdrop: 1040 !default;
 $zindex-modal: 1050 !default;
 $zindex-popover: 1060 !default;
 $zindex-tooltip: 1070 !default;
+
+$icon-size: 100px !default;
