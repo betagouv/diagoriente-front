@@ -3,7 +3,8 @@ import { call, all, put } from 'redux-saga/effects';
 import userActions from '../../reducers/authUser/user';
 import registerActions from '../../reducers/authUser/register';
 
-import { wrapApiCall, RegisterUserRequest, WrappedResponse, IUser } from '../../requests';
+import { wrapApiCall, RegisterUserRequest, WrappedResponse, IUser, setAuthorizationBearer } from '../../requests';
+import { setItem } from '../../utils/localforage';
 
 interface IRegisterRequestAction {
   type: 'REGISTER_REQUEST';
@@ -20,16 +21,17 @@ interface IRegisterRequestAction {
 
 export default function* ({ email, password, firstName, lastName, institution, question }: IRegisterRequestAction) {
   try {
-    // TODO change login api with register when it's ready
-    const response: WrappedResponse<IUser> = yield call(wrapApiCall, RegisterUserRequest,{ email, password, firstName, lastName, institution, question });
+    const response: WrappedResponse<IUser> = yield call(wrapApiCall, RegisterUserRequest, { email, password, firstName, lastName, institution, question });
     if (response.success) {
+      setAuthorizationBearer(response.data.token.accessToken);
+      yield call(setItem, 'user', response.data);
       yield all([put(userActions.userChange(response.data)), put(registerActions.registerUserSuccess())]);
     } else {
       yield put(registerActions.registerUserFailure({ error: response.message }));
     }
   } catch (e) {
     // TODO improve error message
-    yield put(registerActions.registerUserFailure('error unknown'));
+    yield put(registerActions.registerUserFailure({ error: e }));
 
   }
 }

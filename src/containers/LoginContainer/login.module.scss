@@ -1,3 +1,4 @@
+@import "../../styles//variables.scss";
 .container_home {
   width: 100vw;
   height: 100vh;
@@ -13,7 +14,7 @@
     h3 {
       display: block;
       font-size: 39px;
-      color: #555555;
+      color: $gray-700;
       line-height: 1.2;
       text-align: center;
     }
@@ -25,9 +26,9 @@
   width: 60vw;
   height: 70vh;
   align-items: center;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 10px;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.6);
+  box-shadow: $box-shadow;
   .container_input {
     width: 70%;
     display: flex;
@@ -42,21 +43,21 @@
   .container_forget_Password {
     margin: 15px;
     h5 {
-      color: #999999;
-      font-size: 16px;
+      color: $gray-700;
+      font-size: $h6-font-size;
       line-height: 1.2;
       text-align: left;
     }
   }
 }
-@media (max-width: 567px) {
+@media (max-width: map-get($breakpoints, "md")) {
   .container_home {
     .container_title {
-      margin: 35px 20px;
+      margin: 25px 20px;
       h3 {
         display: block;
         font-size: 30px;
-        color: #666;
+        color: $gray-700;
         line-height: 1.2;
         text-align: center;
       }
@@ -68,7 +69,7 @@
     width: 80vw;
     height: 70vh;
     align-items: center;
-    background-color: #fff;
+    background-color: $white;
     border-radius: 10px;
     .container_input {
       width: 90%;

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-const BaseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const BaseURL = process.env.REACT_APP_API_URL || 'https://api2.projetttv.org';
 
 export let authorizationBearer: string | null = null;
 

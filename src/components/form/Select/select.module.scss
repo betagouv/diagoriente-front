@@ -1,14 +1,15 @@
+@import "../../../styles/variables.scss";
+
 .login_container_input {
   width: 90%;
   display: flex;
   margin: 15px;
   position: relative;
-  border: 1px solid #999;
+  border: 1px solid $gray-500;
   line-height: 2;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   padding-left: 10px;
-
 }
 
 .text_container {
@@ -27,14 +28,9 @@
     width: 15px;
     height: 15px;
     object-fit: contain;
-    background-color: #443ad8;
-    transform: rotate(90deg)
+    background-color: $indigo;
+    transform: rotate(90deg);
   }
-}
-.img {
-  width: 18px;
-  height: 18px;
-  transform: rotate(180deg);
 }
 .select_drop {
   position: absolute;
@@ -45,12 +41,19 @@
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  background-color: var(--white);
+  background-color: $white;
   max-height: 300px;
   overflow: auto;
-  box-shadow: 0 2px 8px 0 rgba(40, 57, 82, 0.08);
+  box-shadow: $box-shadow;
 }
 .select_item {
   padding: 5px;
   padding-left: 15px;
+}
+@media (max-width: map-get($breakpoints, "md")) {
+  .login_container_input {
+    margin: 5px;
+
+  }
+
 }

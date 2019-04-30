@@ -1,13 +1,13 @@
-import React, { MouseEvent, useState, useEffect } from 'react';
+import React, { MouseEvent, useState } from 'react';
+import { map } from 'lodash'
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState, IQuestion } from 'reducers';
+import { ReduxState } from 'reducers';
 
 // hooks
-import { useTextInput, useDidUpdate, useDidMount } from '../../hooks';
+import { useTextInput, useDidUpdate, useDidMount, useSelectInput } from '../../hooks';
 
 // utils
 import { validateEmail, validatePassword, validateNom } from '../../utils/validation';
@@ -27,6 +27,8 @@ import classes from './register.module.scss';
 import Button from '../../components/buttons/RoundButton/RoundButton';
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
+
+
 
 interface DispatchToProps {
   registerRequest: (
@@ -60,9 +62,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
   const [firstName, firstNameChange, firstNameTouched] = useTextInput('');
   const [response, responseChange, responseTouched] = useTextInput('');
   const [lastName, lastNameChange, lastNameTouched] = useTextInput('');
-  const [Question, setQuestion] = useState();
-  const [questionSelected, setQuestionSelected] = useState('Choisi un question de sécurité');
-  const [open, setOpen] = useState(false);
+  const [questionValue, open, onChange, onOpen, onClose] = useSelectInput('');
 
   const emailValid = emailTouched ? validateEmail(email) : '';
   const passwordValid = passwordTouched ? validatePassword(password) : '';
@@ -76,22 +76,11 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
     e.preventDefault();
     const question: any = {
       response,
-      _id: Question._id,
+      _id: questionValue,
     }
     registerRequest(email, password, firstName, lastName, institution, question);
   };
 
-  const selectQuestion = (Question: IQuestion) => {
-    setQuestion(Question);
-    setQuestionSelected(Question.title);
-  }
-
-  const selectOpen = () => {
-    setOpen(true);
-  }
-  const selectClose = () => {
-    setOpen(false);
-  }
   useDidUpdate(() => {
     if (!(fetching || error)) {
       const path = decodeUri(location.search).from || '/';
@@ -104,6 +93,9 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
       <div className={classes.container_form}>
         <div className={classes.container_title}>
           <h3>Sign Up</h3>
+        </div>
+        <div>
+          <span>{error}</span>
         </div>
         <Input
           name="First name"
@@ -137,13 +129,14 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         />
 
         <Select
-          options={data}
+          options={map(data, question => ({ value: question._id, label: question.title }))}
           open={open}
-          selectOpen={selectOpen}
-          selectClose={selectClose}
-          onChange={selectQuestion}
-          value={questionSelected}
+          onChange={onChange}
+          value={questionValue}
           className={classes.container_input}
+          placeholder='Choisi un question de sécurité'
+          selectOpen={onOpen}
+          selectClose={onClose}
 
         />
         <Input
@@ -154,11 +147,10 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         />
 
         <div className={classes.container_button}>
-          {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
           <Button onClick={onSubmit}> Sign in</Button >
         </div>
         <div className={classes.container_forget_Password}>
-          <h5>have an account ?<Link to="/login"> Sign in now </Link></h5>
+          <h5>have an account already ?<Link to="/login"> Sign in now </Link></h5>
         </div>
       </div>
 

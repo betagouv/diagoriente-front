@@ -58,7 +58,7 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <h3>Sign In With</h3>
+          <h3>Sign In</h3>
         </div>
         <Input
           name="Email"
