@@ -15,7 +15,7 @@ const Footer = () => {
           - Beta.gouv
         </p>
         <div className={classes.intermediate}></div>
-        <div className={classNames(classes.logosContainer, 'item-4 item-xl-3 item-lg-4 item-md-6 item-sm-6 item-xs-6')}>
+        <div className={classNames(classes.logosContainer, 'item-4 item-xl-3 item-lg-4 item-md-12 item-sm-12 item-xs-12')}>
           <img src={gpi1x} srcSet={`${gpi2x} 2x, ${gpi3x} 3x `} alt="gpi" className={classes.gpi} />
           <img
             src={national1x}
@@ -24,7 +24,7 @@ const Footer = () => {
             className={classes.national}
           />
           </div>
-          <div className={classNames(classes.logosContainer, 'item-4 item-xl-3 item-lg-4 item-md-6 item-sm-6 item-xs-6')}>
+          <div className={classNames(classes.logosContainer, 'item-4 item-xl-3 item-lg-4 item-md-12 item-sm-12 item-xs-12')}>
           <img src={beta1x} srcSet={`${beta2x} 2x, ${beta3x} 3x`} alt="beta" className={classes.beta} />
           <img src={orange1x} srcSet={`${orange2x} 2x, ${orange3x} 3x`} alt="orange" className={classes.orange} />
         </div>

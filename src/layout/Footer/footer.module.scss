@@ -21,6 +21,7 @@
   line-height: 1.33;
   letter-spacing: normal;
   color: #666666;
+  text-align: center;
 }
 .logosContainer {
  display: flex;
@@ -38,6 +39,7 @@
   height: 117px;
   object-fit: contain;
   padding-right:20px;
+  padding-left: 20px;
 }
 .national {
     width: 100px;
@@ -76,7 +78,11 @@
 @media only screen and (max-width:768px)
 {
   .intermediate{
-    width: 10px;
+    width: 0px;
+  }
+  .textFooter {
+    padding-top: 25px; 
+    padding-bottom: 25px;
   }
 
 }
