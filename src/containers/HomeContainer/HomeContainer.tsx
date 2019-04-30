@@ -2,9 +2,9 @@ import React from 'react';
 import Circle from '../../components/ui/Circle/Circle';
 import classes from './home.module.scss';
 import Card from '../../components/ui/card/card';
-import WithSub from '../../components/ui/Withsub/WithSub';
+import WithSub from '../../components/ui/Sub/Sub';
 import HomeCard from '../../components/ui/homeCard/homeCard';
-import Button from '../../components/ui/button/button';
+import Button from '../../components/buttons/RoundButton/RoundButton';
 import classNames from '../../utils/classNames';
 import { home } from '../../assets/homeasset';
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
@@ -30,7 +30,7 @@ const HomeContainer = ({ history }: any) => {
           {/*           {!isEmpty(user) && <button onClick={logout}>logout</button>}
            */}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '109px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '109px', alignItems: 'center' }}>
           <WithSub
             className={'item-8 item-sm-12'}
             style={{ margin: '0 auto', flexBasis: 'auto' }}
@@ -38,7 +38,7 @@ const HomeContainer = ({ history }: any) => {
             subTitle={'Réleve tes competences et choisis ton futur métier'}
           />
           <Button className={classes.commencerBtn}>
-            <span>Commencer</span>
+            <span className={classes.btn_text}>Commencer</span>
             <img src={start_arrow} alt="start" />
           </Button>
         </div>

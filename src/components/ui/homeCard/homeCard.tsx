@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './homeCard.module.scss';
 import classNames from '../../../utils/classNames';
-import WithSub from '../Withsub/WithSub';
-import Button from '../button/button';
+import WithSub from '../Sub/Sub';
+import Button from '../../buttons/RoundButton/RoundButton';
 import Circle from '../Circle/Circle';
 
 interface Props {
