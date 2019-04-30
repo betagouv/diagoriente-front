@@ -1,9 +1,10 @@
 .button {
   border: none;
   color: white;
-  padding: 20px 40px;
+  padding: 8px 20px;
   text-align: center;
   text-decoration: none;
+  display: inline-block;
   font-size: 16px;
   margin: 4px 15px;
   cursor: pointer;
@@ -11,7 +12,10 @@
   background-color: #ff0060;
   transition: 0.5s all;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
+  padding: 0 4%;
 }
 .button:hover {
   background-color: #666666;

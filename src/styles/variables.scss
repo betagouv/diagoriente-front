@@ -176,6 +176,7 @@ $breakpoints: (
   xl: 1280px,
   lg: 1024px,
   md: 768px,
+  smd: 576px,
   sm: 375px,
   xs: 320px
 ) !default;
@@ -188,6 +189,7 @@ $container-spacing: (
   xs: 20px,
   sm: 15px,
   md: 20px,
+  smd: 20px,
   lg: 16px,
   xl: 20px
 );
@@ -196,6 +198,7 @@ $container-padding: (
   xs: 20px,
   sm: 15px,
   md: 34px,
+  smd: 26px,
   lg: 64px,
   xl: 80px
 );
