@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 22%;
+}
+.title {
+  font-family: "Nunito";
+  font-size: 85px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #003189;
+  margin-block-end: 0;
+}
+.subtitle {
+  font-family: "Lato";
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  text-align: center;
+  color: #3f3f3f;
+}
+@media only screen and (max-width: 950px) {
+  .title {
+    font-size: 67px;
+  }
+  .subtitle {
+    font-size: 19px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .title {
+    font-size: 45px;
+  }
+  .subtitle {
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .title {
+    font-size: 34px;
+  }
+  .subtitle {
+    font-size: 10px;
+  }
+}
