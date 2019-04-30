@@ -15,6 +15,8 @@ import HomeContainer from '../HomeContainer/HomeContainer';
 import ThemesContainer from '../ThemesContainer/ThemesContainer';
 import ThemeContainer from '../ThemeContainer/ThemeContainer';
 import LoginUserContainer from '../LoginContainer';
+import RegisterUserContainer from '../RegistreContainer';
+
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
@@ -58,6 +60,7 @@ const RootContainer = ({ modal, startup, startupEnd, loginRequest }: Props) => {
         <Switch>
           <Route path={'/'} exact component={HomeContainer} />
           <Route path={'/login'} component={LoginUserContainer} />
+          <Route path={'/register'} component={RegisterUserContainer} />
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
           <Route component={NotFound} />

@@ -37,6 +37,10 @@ declare module 'reducers' {
     readonly activities: { readonly [key: string]: string[] };
     readonly competences: { readonly [key: string]: { readonly _id: string; readonly value: number }[] };
   }
+  export interface IQuestion {
+    readonly _id: string;
+    readonly title: string
+  }
 
   export type ReduxState = {
     readonly startup: boolean;
@@ -47,5 +51,7 @@ declare module 'reducers' {
       readonly register: ApiReducer;
     };
     readonly parcours: IParcours;
+    readonly questions: IQuestion;
   };
+
 }
