@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-const BaseURL = process.env.REACT_APP_API_URL || 'https://api-dev.projetttv.org';
+const BaseURL = process.env.REACT_APP_API_URL || 'https://api2.projetttv.org';
 
 export let authorizationBearer: string | null = null;
 
@@ -70,7 +70,7 @@ function axiosRequest<T, P>(
 /* ------ Request POST ------ */
 export function axiosPost<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
   let p: any = {
-    sendToken: true,
+    sendToken: false,
     data: {},
     headers: {},
   };

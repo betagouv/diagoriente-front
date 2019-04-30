@@ -49,6 +49,12 @@ $green: #52e6c6 !default;
 $teal: #20c997 !default;
 $cyan: #00cfff !default;
 $brown: #660066 !default;
+$wisteria: #ce93e6 !default;
+$perano: #acaefc !default;
+$darkOrchid: #a422c9 !default;
+$neonBlue: #5065ff !default;
+
+
 
 $colors: () !default;
 $colors: map-merge(
@@ -94,7 +100,7 @@ $theme-colors: map-merge(
   ),
   $theme-colors
 );
-
+$box-shadow : 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
 $modal-backdrop-bg: rgba(0, 0, 0, 0.5) !default;
 
 // Set a specific jump point for requesting color jumps
@@ -265,3 +271,5 @@ $zindex-modal-backdrop: 1040 !default;
 $zindex-modal: 1050 !default;
 $zindex-popover: 1060 !default;
 $zindex-tooltip: 1070 !default;
+
+$icon-size: 100px !default;
