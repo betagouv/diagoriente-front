@@ -23,10 +23,21 @@ const HomeCard = ({
   cardNumber,
   ...other
 }: React.HTMLAttributes<HTMLDivElement> & Props) => {
+  const background = [
+    'linear-gradient(257deg, #4e66ff, #00cfff)',
+    'linear-gradient(257deg, #a422c9, #5065ff)',
+    'linear-gradient(257deg, #ff009a, #a521c8)',
+  ];
+  const numberColor = ['#289BFF', '#7746E7', '#CF12B2'];
+  console.log(background[cardNumber - 1]);
   return (
     <div className={classNames(className, classes.card)} {...other}>
-      <div className={classes.imageContainer}>
-        <img className={classes.image} />
+      <div
+        className={classes.imageContainer}
+        style={{ backgroundImage: `${background[cardNumber - 1]}`, mixBlendMode: 'normal' }}
+      >
+        {/*         <img className={classes.image} />
+         */}{' '}
       </div>
       <div className={classes.textContainer}>
         <span className={classNames(classes.subtitle)}>{subTitle}</span>
@@ -35,7 +46,9 @@ const HomeCard = ({
         <Button>{buttonText}</Button>
       </div> */}
       <div className={classes.circleContainer}>
-        <Circle className={classes.cardNumber}>{cardNumber}</Circle>
+        <Circle className={classes.cardNumber} color={numberColor[cardNumber - 1]}>
+          {cardNumber}
+        </Circle>
       </div>
     </div>
   );

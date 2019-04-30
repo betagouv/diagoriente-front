@@ -11,6 +11,11 @@
   border-radius: 30px;
   background-color: #ff0060;
   transition: 0.5s all;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 4%;
 }
 .button:hover {
   background-color: #666666;

@@ -1,7 +1,3 @@
-@font-face {
-  font-family: "Lato-Light";
-  src: local("Lato-Light"), url("../../assets/font/Lato-Light.ttf") format("opentype");
-}
 .home {
   background-color: #f7f7f7;
   display: flex;
@@ -16,7 +12,7 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #efefef;
   background-color: #ffffff;
-  font-family: "Lato-Light";
+  font-family: "Lato";
   font-size: 16px;
   font-weight: bold;
   font-style: normal;
@@ -25,7 +21,8 @@
   letter-spacing: 2.7px;
   text-align: center;
   color: #666666;
-  margin: auto !important;
+  margin: 0 auto !important;
+  z-index: 1000;
 }
 .CardContainer {
   display: flex;
@@ -43,7 +40,8 @@
 }
 .cardContainer {
   background-image: linear-gradient(255deg, #ff0060, #7533ff 51%, #00cfff);
-  margin-top: 80px;
+  mix-blend-mode: multiply;
+  margin-top: 20px;
 }
 
 .cardContainer::before {
@@ -51,22 +49,30 @@
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   content: "";
-  border-bottom: 20px solid #6023b3;
+  border-bottom: 20px solid #8a2ce9;
   left: calc(50% - 10px);
   bottom: 100%;
 }
-.arrow_up {
-  width: 15px;
-  height: 15px;
+
+.cardContainer::after {
+  position: absolute;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-
-  border-bottom: 20px solid #6023b3;
+  content: "";
+  border-bottom: 20px solid rgba(0, 0, 0, 0.25);
+  left: calc(50% - 10px);
+  bottom: 100%;
 }
+
 .contentContainer {
   display: flex;
   flex-direction: column;
   position: relative;
+  background-image: url("../../assets/homeasset/im-undraw-career-progress-ivdb-1.png");
+  background-position: center;
+  justify-content: space-between;
+
+  height: 600px;
 }
 
 .homeAsset {
@@ -74,17 +80,61 @@
   top: -232px;
   left: -7px;
 }
+.logo {
+  width: 229px;
+  height: 60px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.headerContainer::before {
+  width: 100%;
+  height: 5px;
+  background-image: linear-gradient(to left, #ff0060, #7533ff 51%, #00cfff);
+  content: "";
+  position: fixed;
+  top: 0;
+}
+
+.logoWrapper {
+  padding-top: 40.1px;
+  padding-left: 40.1px;
+}
+
+.cardContainerBackground {
+  background: #000;
+  opacity: 0.25;
+}
+
 @media only screen and (max-width: 950px) {
-  .commencerBtn {
+  .logoWrapper {
+    padding-top: 40.1px;
+    padding-left: 40.1px;
   }
 }
 @media only screen and (max-width: 768px) {
-  .commencerBtn {
+  .logoWrapper {
+    padding-top: 14.1px;
+    padding-left: 20.1px;
+  }
+  .contentContainer {
+    height: 568px;
   }
 }
 @media only screen and (max-width: 480px) {
   .commencerBtn {
     width: 150px;
     height: 50px;
+  }
+  .logoWrapper {
+    padding-top: 5.1px;
+    padding-left: 10.1px;
+  }
+  .contentContainer {
+    height: 568px;
   }
 }
