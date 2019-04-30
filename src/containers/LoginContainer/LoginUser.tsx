@@ -52,7 +52,7 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
 
       history.push(path);
     }
-  }, [fetching]);
+  },           [fetching]);
 
   return (
     <div className={classes.container_home}>
@@ -60,12 +60,7 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
         <div className={classes.container_title}>
           <h3>Sign In</h3>
         </div>
-        <Input
-          name="Email"
-          validation={emailValid}
-          onChange={emailChange}
-          className={classes.container_input}
-        />
+        <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
         <Input
           name="Password"
           validation={passwordValid}
@@ -75,13 +70,14 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
 
         <div className={classes.container_button}>
           {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
-          <Button onClick={onSubmit}> login</Button >
+          <Button onClick={onSubmit}> login</Button>
         </div>
         <div className={classes.container_forget_Password}>
-          <h5>Not a member ? <Link to="/register">  Sign up now </Link></h5>
+          <h5>
+            Not a member ? <Link to="/register"> Sign up now </Link>
+          </h5>
         </div>
       </div>
-
     </div>
   );
 };

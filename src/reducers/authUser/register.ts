@@ -13,7 +13,7 @@ const registerUserRequest = (state: ApiReducer) => ({ ...state, fetching: true, 
 
 const registerUserSuccess = (state: ApiReducer) => ({ ...state, fetching: false });
 
-const registerUserFailure = (state: ApiReducer, { error }: AnyAction) => ({ error, ...state, fetching: false });
+const registerUserFailure = (state: ApiReducer, { error }: AnyAction) => ({ ...state, error, fetching: false });
 
 const { actions, types: registerTypes, reducer } = createRedux(INITIAL_STATE, {
   registerUserRequest,

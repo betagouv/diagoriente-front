@@ -1,5 +1,5 @@
 import React, { MouseEvent, useState } from 'react';
-import { map } from 'lodash'
+import { map } from 'lodash';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -28,8 +28,6 @@ import Button from '../../components/buttons/RoundButton/RoundButton';
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
 
-
-
 interface DispatchToProps {
   registerRequest: (
     email: string,
@@ -39,10 +37,10 @@ interface DispatchToProps {
     institution: string,
     question: {
       _id: string;
-      response: string
+      response: string;
     },
   ) => void;
-};
+}
 
 interface MapToProps {
   fetching: boolean;
@@ -71,23 +69,15 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
   const lastNameValid = lastNameTouched ? validateNom(lastName) : '';
   const responseValid = responseTouched ? validateNom(response) : '';
 
-
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const question: any = {
       response,
       _id: questionValue,
-    }
+    };
     registerRequest(email, password, firstName, lastName, institution, question);
   };
 
-  useDidUpdate(() => {
-    if (!(fetching || error)) {
-      const path = decodeUri(location.search).from || '/';
-      history.push(path)
-    }
-  }
-    , [fetching]);
   return (
     <div className={classes.container_home}>
       <div className={classes.container_form}>
@@ -109,12 +99,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
           onChange={lastNameChange}
           className={classes.container_input}
         />
-        <Input
-          name="Email"
-          validation={emailValid}
-          onChange={emailChange}
-          className={classes.container_input}
-        />
+        <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
         <Input
           name="Password"
           validation={passwordValid}
@@ -134,10 +119,9 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
           onChange={onChange}
           value={questionValue}
           className={classes.container_input}
-          placeholder='Choisi un question de sécurité'
+          placeholder="Choisi un question de sécurité"
           selectOpen={onOpen}
           selectClose={onClose}
-
         />
         <Input
           name="Votre réponse"
@@ -147,13 +131,14 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         />
 
         <div className={classes.container_button}>
-          <Button onClick={onSubmit}> Sign in</Button >
+          <Button onClick={onSubmit}> Sign in</Button>
         </div>
         <div className={classes.container_forget_Password}>
-          <h5>have an account already ?<Link to="/login"> Sign in now </Link></h5>
+          <h5>
+            have an account already ?<Link to="/login"> Sign in now </Link>
+          </h5>
         </div>
       </div>
-
     </div>
   );
 };
@@ -164,7 +149,8 @@ const mapStateToProps = ({ authUser }: ReduxState): MapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
-  registerRequest: (email, password, firstName, lastName, institution, question) => dispatch(registerUserActions.registerUserRequest({ email, password, firstName, lastName, institution, question })),
+  registerRequest: (email, password, firstName, lastName, institution, question) =>
+    dispatch(registerUserActions.registerUserRequest({ email, password, firstName, lastName, institution, question })),
 });
 
 export default connect(

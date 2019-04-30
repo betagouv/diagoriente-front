@@ -15,6 +15,7 @@ import HomeContainer from '../HomeContainer/HomeContainer';
 import ThemesContainer from '../ThemesContainer/ThemesContainer';
 import ThemeContainer from '../ThemeContainer/ThemeContainer';
 import LoginUserContainer from '../LoginContainer';
+import ProfileContainer from '../ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer';
 
 
@@ -33,8 +34,6 @@ import startupActions from '../../reducers/startup';
 import { useDidMount } from '../../hooks';
 import { Switch, Route } from 'react-router';
 
-import loginActions from '../../reducers/authUser/login';
-
 interface IMapToProps {
   modal: IModal;
   startupEnd: boolean;
@@ -42,15 +41,13 @@ interface IMapToProps {
 
 interface IDispatchToProps {
   startup: () => void;
-  loginRequest: (email: string, password: string) => void;
 }
 
 type Props = IMapToProps & IDispatchToProps;
 
-const RootContainer = ({ modal, startup, startupEnd, loginRequest }: Props) => {
+const RootContainer = ({ modal, startup, startupEnd }: Props) => {
   useDidMount(() => {
     startup();
-    // loginRequest('fedi@gmail.com', 'Ff22023755');
   });
   if (!startupEnd) return <div />;
   return (
@@ -64,6 +61,7 @@ const RootContainer = ({ modal, startup, startupEnd, loginRequest }: Props) => {
           <Route path={'/register'} component={RegisterUserContainer} />
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
+          <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />
@@ -80,7 +78,6 @@ const mapStateToProps = ({ modal, startup }: ReduxState): IMapToProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   startup: () => dispatch(startupActions.startup()),
-  loginRequest: (email, password) => dispatch(loginActions.loginUserRequest({ email, password })),
 });
 
 export default connect(

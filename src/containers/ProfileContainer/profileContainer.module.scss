@@ -1,0 +1,19 @@
+@import "../../styles/variables.scss";
+.container {
+  width: 100%;
+  min-height: 100%;
+  background: $white;
+}
+
+.title {
+  font-family: ArialRoundedMT;
+  font-size: 49px;
+  font-weight: bold;
+  text-align: center;
+  color: $darkblue;
+  padding: 55px 0;
+}
+
+.steps_container {
+  padding-top: 44px;
+}

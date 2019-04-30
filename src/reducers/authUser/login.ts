@@ -13,7 +13,7 @@ const loginUserRequest = (state: ApiReducer) => ({ ...state, fetching: true, err
 
 const loginUserSuccess = (state: ApiReducer) => ({ ...state, fetching: false });
 
-const loginUserFailure = (state: ApiReducer, { error }: AnyAction) => ({ error, ...state, fetching: false });
+const loginUserFailure = (state: ApiReducer, { error }: AnyAction) => ({ ...state, error, fetching: false });
 
 const logout = (state: ApiReducer) => state;
 

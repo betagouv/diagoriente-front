@@ -1,14 +1,14 @@
 import React, { CSSProperties, HTMLAttributes } from 'react';
-
 import styled from 'styled-components';
-import classes from './grid.module.scss';
 
+import classes from './grid.module.scss';
 import classNames from '../../../utils/classNames';
 
 const breakpoints: { [key: string]: string } = {
   xl: '1280px',
   lg: '1024px',
   md: '768px',
+  smd: '576px',
   sm: '375px',
   xs: '320px',
 };
@@ -17,6 +17,7 @@ interface BreakPoints {
   xl?: number;
   lg?: number;
   md?: number;
+  smd?: number;
   sm?: number;
   xs?: number;
 }
@@ -62,6 +63,8 @@ interface ItemProps extends BaseProps, BreakPoints {
   item: true;
   container?: false;
 }
+
+const ExtraPropsRemover = styled.div(() => ({}));
 
 const ContainerComponent = styled.div(
   ({ spacingValues, paddingValues }: { spacingValues: BreakPoints; paddingValues: BreakPoints }) => ({
@@ -120,13 +123,13 @@ const Grid = ({ className, children, container, item, ...other }: Props) => {
     );
   }
 
-  const { xs, sm, md, lg, xl, spacing, padding, ...rest } = other as any;
+  const { xs, sm, md, lg, xl, smd, spacing, padding, ...rest } = other as any;
 
   return (
-    <ItemComponent className={classNames(classes.item)} xs={xs} xl={xl} md={md} sm={sm} lg={lg}>
-      <div {...rest} className={classNames(classes.itemWrapper, className)}>
+    <ItemComponent className={classNames(classes.item)} xs={xs} xl={xl} md={md} sm={sm} lg={lg} smd={smd}>
+      <ExtraPropsRemover {...rest} className={classNames(classes.item_wrapper, className)}>
         {children}
-      </div>
+      </ExtraPropsRemover>
     </ItemComponent>
   );
 };
@@ -136,12 +139,14 @@ Grid.defaultProps = {
     xs: 20,
     sm: 15,
     md: 34,
+    smd: 26,
     lg: 64,
     xl: 80,
   },
   spacing: {
     xs: 20,
     sm: 15,
+    smd: 16,
     md: 20,
     lg: 16,
     xl: 20,

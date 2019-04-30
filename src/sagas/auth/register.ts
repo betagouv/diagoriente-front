@@ -15,13 +15,20 @@ interface IRegisterRequestAction {
   institution: string;
   question: {
     _id: string;
-    response: string
+    response: string;
   };
 }
 
 export default function* ({ email, password, firstName, lastName, institution, question }: IRegisterRequestAction) {
   try {
-    const response: WrappedResponse<IUser> = yield call(wrapApiCall, RegisterUserRequest, { email, password, firstName, lastName, institution, question });
+    const response: WrappedResponse<IUser> = yield call(wrapApiCall, RegisterUserRequest, {
+      email,
+      password,
+      firstName,
+      lastName,
+      institution,
+      question,
+    });
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
       yield call(setItem, 'user', response.data);
@@ -32,6 +39,5 @@ export default function* ({ email, password, firstName, lastName, institution, q
   } catch (e) {
     // TODO improve error message
     yield put(registerActions.registerUserFailure({ error: e }));
-
   }
 }
