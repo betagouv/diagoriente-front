@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './circles.module.scss';
-import classNames from '../../../../utils/classNames';
+import classNames from '../../../utils/classNames';
 
 const Circles = ({ className, children, ...other }: React.HTMLAttributes<HTMLElement>) => {
   return (

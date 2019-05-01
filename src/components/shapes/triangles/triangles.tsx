@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './triangles.module.scss';
-import classNames from '../../../../utils/classNames';
-import Triangle from '../../../../assets/icons/svg/custom2.svg';
+import classNames from '../../../utils/classNames';
+import Triangle from '../../../assets/icons/svg/triangle.svg';
 
 const Triangles = ({ className, children, ...other }: React.HTMLAttributes<HTMLElement>) => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './question.module.scss';
-import classNames from '../../../../utils/classNames';
+import classNames from '../../../utils/classNames';
 
 const QuestionMarks = ({ className, children, ...other }: React.HTMLAttributes<HTMLElement>) => {
   return (

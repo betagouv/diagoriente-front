@@ -5,9 +5,9 @@ import Card from '../../components/cards/Card/Card';
 import WithSub from '../../components/ui/WithSub/WithSub';
 import './home.css';
 import HomeCard from '../../components/cards/HomeCard/HomeCard';
-import Circles from  '../../components/ui/shapes/circles/circles';
-import Triangles from '../../components/ui/shapes/triangles/triangles';
-import Questionmarks from '../../components/ui/shapes/questionMark/questionMark';
+import Circles from  '../../components/shapes/circles/circles';
+import Triangles from '../../components/shapes/triangles/triangles';
+import Questionmarks from '../../components/shapes/questionMark/questionMark';
 
 const HomeContainer = ({ history }: any) => {
   const navigate = () => {
