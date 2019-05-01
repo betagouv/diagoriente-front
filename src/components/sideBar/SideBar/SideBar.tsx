@@ -1,5 +1,7 @@
 import React from 'react';
-import LOGO from '../../assets/icons/logo/diagoriente-logo-01.png';
+import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
+import logo2x from '../../../assets/icons/logo/diagoriente-logo-01@2x.png';
+import logo3x from '../../../assets/icons/logo/diagoriente-logo-01@3x.png';
 // components
 import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 
@@ -15,7 +17,9 @@ const SideBar = ({ options }: IProps) => {
     return (
         <div className={classes.container_sideBar}>
             <div className={classes.logo_container}>
-                <img alt='logo' className={classes.logo} />
+                <img
+                    src={logo}
+                    srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />
             </div>
             <div className={classes.selection_title_container}>
                 <span className={classes.selection_title}>ma sélection</span>

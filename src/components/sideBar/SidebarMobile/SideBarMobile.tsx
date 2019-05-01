@@ -8,7 +8,6 @@ import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 // style
 import classes from './sideBarMobile.module.scss';
 
-
 type IProps = {
     options: { value: string }[];
     open: boolean;
