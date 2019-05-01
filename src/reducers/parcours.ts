@@ -1,4 +1,5 @@
 import createRedux from '../utils/createRedux';
+import { uniq } from 'lodash'
 
 // types
 import { AnyAction } from 'redux';
@@ -10,7 +11,7 @@ const INITIAL_STATE: IParcours = {
   competences: {},
 };
 
-const add = (table: string[], row: string) => [...table, row];
+const add = (table: string[], row: string) => uniq([...table, row]);
 const remove = (table: string[], row: string) => table.filter(item => item !== row);
 
 const addTheme = (state: IParcours, { id }: AnyAction) => ({ ...state, themes: add(state.themes, id) });

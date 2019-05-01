@@ -28,13 +28,14 @@ const Triangle: any = styled(Grid)(({ triangleBackgroundColor, triangleBorderCol
 }));
 
 const Info = ({ children, className, backgroundColor, borderColor }: Props) => (
-  <Grid container>
+  <Grid padding={{ xl: 0 }} container>
     <Container
       containerBackgroundColor={backgroundColor}
       containerBorderColor={borderColor}
       className={classNames(classes.info, className)}
       item
       xl={12}
+
     >
       {children}
     </Container>

@@ -1,0 +1,67 @@
+@import "../../../styles/variables.scss";
+
+.card {
+  background-color: #f5f5f5;
+ 
+  border-radius: 8px;
+  transition: 0.5s all;
+  width: 100%;
+  max-width: 210px;
+  height: 90px;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  .check {
+    opacity: 0;
+  }
+}
+.title {
+  font-family: Lato;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.78;
+  letter-spacing: normal;
+  text-align: center;
+  color: #696969;
+  word-wrap: break-word;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.title:hover {
+  color: #ffffff;
+}
+
+.title_focus {
+  color: #ffffff;
+}
+
+.card:hover {
+  background-image: linear-gradient(247deg, $wisteria, $perano);
+  box-sizing: border-box;
+  .title {
+    color: #ffffff;
+  }
+}
+.card_focus {
+  background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
+  outline: none;
+  .title {
+    color: #ffffff;
+  }
+  .check {
+    opacity: 1;
+  }
+}
+
+.check {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
