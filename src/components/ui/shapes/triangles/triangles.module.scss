@@ -1,0 +1,40 @@
+.container {
+    width: 360px;
+    height: 80px;
+    background-image: linear-gradient(257deg, #ff009a, #a521c8);
+  position: relative;
+  overflow: hidden;
+}
+.t1 {
+    height: 145%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    left: 48%;
+    top: -30%;
+}
+.t2 {
+    width: 85px;
+    height: 93%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    left: 63%;
+    bottom: 38%;
+}
+.t3 {
+    height: 171%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(50deg);
+    position: absolute;
+    left: 65%;
+    bottom: -21%;
+}
+.t4 {
+    height: 120%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    left: 87%;
+    bottom: -10%;
+}

@@ -5,6 +5,9 @@ import Card from '../../components/cards/Card/Card';
 import WithSub from '../../components/ui/WithSub/WithSub';
 import './home.css';
 import HomeCard from '../../components/cards/HomeCard/HomeCard';
+import Circles from  '../../components/ui/shapes/circles/circles';
+import Triangles from '../../components/ui/shapes/triangles/triangles';
+import Questionmarks from '../../components/ui/shapes/questionMark/questionMark';
 
 const HomeContainer = ({ history }: any) => {
   const navigate = () => {
@@ -28,7 +31,7 @@ const HomeContainer = ({ history }: any) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <div className={'container'}>{items1}</div>
+      {/* <div className={'container'}>{items1}</div>
       <div style={{ marginTop: 20 }} className={'container'}>
         {items2}
       </div>
@@ -77,9 +80,12 @@ const HomeContainer = ({ history }: any) => {
 
       <div style={{ marginTop: 20 }} className={'container'}>
         <div className={'item-12'} style={{ background: 'blue', height: 50 }} />
-      </div>
+      </div> */}
 
-      <Card>Famille</Card> 
+      
+      <Questionmarks/>
+      <Circles/>
+      <Triangles/>
     </div>
   );
 };
