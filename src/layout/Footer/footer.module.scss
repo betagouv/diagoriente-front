@@ -1,18 +1,19 @@
+@import "../../styles/variables.scss";
+
 .footerWrapper {
   width: 100%;
   background-color: #efefef;
   display: flex;
   align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .footer {
   width: 100%;
-  
   display: flex;
   align-items: center;
 }
 .textFooter {
-  width: 238px;
-  height: 48px;
   font-family: Lato;
   font-size: 12px;
   font-weight: normal;
@@ -21,96 +22,70 @@
   line-height: 1.33;
   letter-spacing: normal;
   color: #666666;
-}
-.logosContainer {
- display: flex;
- align-items: center;
- justify-content: space-evenly;
+  @media (max-width: map-get($breakpoints, "lg" )) {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 15px;
+    margin: 15px 0;
+    font-size: 14px;
+  }
 }
 
 .footerContainer {
-  max-width: 1280px;
-    align-items: center;
-    margin: auto;
+  align-items: center;
+  margin: auto;
 }
-.gpi {
-    width: 186px;
-  height: 117px;
-  object-fit: contain;
-  padding-right:20px;
+
+.logosContainer {
+  width: 186px;
+  height: auto;
 }
-.national {
-    width: 100px;
+.national1x {
   height: 70px;
-  object-fit: contain;
-  padding-left: 20px;
-  padding-right:25px;
+  height: auto;
 }
 .beta {
-    width: 100px;
-  height: 59px;
-  object-fit: contain;
-  padding-left:25px;
-  padding-right:25px;
+  width: 75px;
+  height: auto;
 }
 .orange {
-    width: 100px;
-  height: 26.5px;
-  object-fit: contain;
-  padding-left:25px;
-}
-@media only screen and (max-width:1280px)
-{
-  .intermediate{
-    width: 20%;
-  }
-
-}
-@media only screen and (max-width:1024px)
-{
-  .intermediate{
-    width: 8%;
-  }
-
-}
-@media only screen and (max-width:768px)
-{
-  .intermediate{
-    width: 10px;
-  }
-
-}
-@media only screen and (max-width:568px)
-{
-  .intermediate{
-    width: 0px;
-  }
-  .beta{
-    width: icon-size;
-  }
-  .gpi{
-    width: icon-size;
-  }
-  .national{
-    width: icon-size;
-  }
-  .orange{
-    width: icon-size;
-  }
-
-}
-@media only screen and (max-width:375px) {
-  .gpi{
-    width:90px;
-  }
-  .national{
-    width:80px;
-  }
-  .beta {
-    width:80px;
-  }
-  .orange{
-    width:80px;
+  width: 75px;
+  height: auto;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    height: 26px;
   }
 }
 
+.images {
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  img {
+    margin: 15px;
+  }
+  @media (max-width: map-get($breakpoints, "lg" )) {
+    justify-content: space-between;
+    align-items: center;
+    img {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    justify-content: space-between;
+    align-items: center;
+    .row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin: 15px 0;
+      align-items: center;
+      img {
+        margin: 0 !important;
+      }
+    }
+  }
+}
