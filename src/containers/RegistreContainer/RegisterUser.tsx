@@ -134,9 +134,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
           <Button onClick={onSubmit}> Sign in</Button>
         </div>
         <div className={classes.container_forget_Password}>
-          <h5>
-            have an account already ?<Link to="/login"> Sign in now </Link>
-          </h5>
+            <h5>Have an account already ?</h5> <Link to="/login"><h6>Sign in now </h6> </Link>
         </div>
       </div>
     </div>

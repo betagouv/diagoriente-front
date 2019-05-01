@@ -14,6 +14,7 @@ import { listThemes } from '../../requests/themes';
 // components
 import SideBar from '../../components/sideBar/SideBar/SideBar';
 import SideBarMobile from '../../components/sideBar/SidebarMobile/SideBarMobile';
+import PathStepper from '../../components/PathStepper/Path';
 import Info from '../../components/ui/Info/Info';
 import Grid from '../../components/ui/Grid/Grid';
 import CardTheme from '../../components/cards/Card/Card';
@@ -78,6 +79,9 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
         <SideBar options={map(themes, theme => ({ value: theme }))} />
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme }))} />
         <div className={classes.content_themes}>
+          <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
+            <PathStepper options={['Mes passions et mes hobbies']} />
+          </Grid>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12} className={classes.grid_padding}>
               <Title title='Trouve ta voie' />
