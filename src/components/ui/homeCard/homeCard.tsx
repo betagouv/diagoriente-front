@@ -3,7 +3,7 @@ import classes from './homeCard.module.scss';
 import classNames from '../../../utils/classNames';
 import WithSub from '../Sub/Sub';
 import Button from '../../buttons/RoundButton/RoundButton';
-import Circle from '../Circle/Circle';
+import Circle from '../../ui/Circle/Circle';
 
 interface Props {
   image: string;

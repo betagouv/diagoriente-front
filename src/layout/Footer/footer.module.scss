@@ -2,7 +2,7 @@
 
 .footerWrapper {
   width: 100%;
-  background-color: #efefef;
+  background-color: $footer_wrapper;
   display: flex;
   align-items: center;
   padding-top: 20px;
@@ -21,7 +21,7 @@
   font-stretch: normal;
   line-height: 1.33;
   letter-spacing: normal;
-  color: #666666;
+  color: $footer_color;
   @media (max-width: map-get($breakpoints, "lg" )) {
     align-items: center;
     display: flex;

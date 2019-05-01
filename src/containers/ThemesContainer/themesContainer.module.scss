@@ -1,12 +1,24 @@
 @import "../../styles/variables.scss";
-
+.container_themes {
+  display: flex;
+  width: 100%;
+  align-self: stretch;
+  .content_themes {
+    padding-left: 0px;
+    width: calc(100% - 250px);
+    @media (max-width: map-get($breakpoints, "md" )) {
+      width: 100%;
+      padding-left: 60px;
+    }
+    .grid_padding {
+      padding-bottom: 15px;
+      padding-top: 38px;
+    }
+  }
+}
 .theme {
   width: 100%;
   height: 50px;
-  padding-left: 15px;
+  padding: 0 15px;
   text-align: left;
-}
-
-.theme_selected {
-  color: $teal;
 }

@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent } from 'react';
 import { map } from 'lodash';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
