@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .home {
   background-color: #f7f7f7;
   display: flex;
@@ -9,7 +11,7 @@
   border-radius: 30px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #efefef;
-  background-color: #ffffff;
+  background-color: $white;
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 2.7px;
@@ -42,26 +44,67 @@
   background-image: linear-gradient(255deg, #ff0060, #7533ff 51%, #00cfff);
   mix-blend-mode: multiply;
   margin-top: 20px;
+  padding-top: 20px;
 }
 
-.cardContainer::before {
+.left_triangle_container {
+  height: 21px;
+  width: calc(50% - 15px);
+  left: 0;
+  top: -1px;
   position: absolute;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  content: "";
-  border-bottom: 20px solid #8a2ce9;
-  left: calc(50% - 10px);
-  bottom: 100%;
 }
 
-.cardContainer::after {
+.left_triangle_container::before {
+  background: $white;
   position: absolute;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
+  top: 0;
+  bottom: -1px;
+  left: 0;
+  right: 0;
   content: "";
-  border-bottom: 20px solid rgba(0, 0, 0, 0.25);
-  left: calc(50% - 10px);
-  bottom: 100%;
+}
+
+.left_triangle_container::after {
+  width: 0;
+  height: 0;
+  border-top: 21px solid $white;
+  border-right: 21px solid transparent;
+  position: absolute;
+  content: "";
+  left: calc(100% - 1px);
+  bottom: 0;
+  transform: rotate(-5deg);
+}
+
+.right_triangle_container {
+  height: 21px;
+  width: calc(50% - 20px);
+  right: 0;
+  top: -1px;
+  position: absolute;
+}
+
+.right_triangle_container::before {
+  background: $white;
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  content: "";
+}
+
+.right_triangle_container::after {
+  width: 0;
+  height: 0;
+  border-top: 21px solid $white;
+  border-left: 21px solid transparent;
+  position: absolute;
+  content: "";
+  right: calc(100% - 1px);
+  bottom: 0;
+  transform: rotate(5deg);
 }
 
 .contentContainer {
