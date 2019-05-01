@@ -2,7 +2,6 @@ import React from 'react';
 import check from '../../../assets/icons/check/ic-check-01.png';
 import classes from './card.module.scss';
 import classNames from '../../../utils/classNames';
-import { spawn } from 'redux-saga/effects';
 interface Props {
   checked?: boolean;
 }

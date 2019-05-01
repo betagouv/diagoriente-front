@@ -24,7 +24,6 @@ import { useDidMount } from '../../hooks';
 import parcoursActions from '../../reducers/parcours';
 
 // styles
-import classNames from '../../utils/classNames';
 import classes from './themesContainer.module.scss';
 
 interface IMapToProps {
@@ -84,7 +83,12 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
               <Title title='Trouve ta voie' />
             </Grid>
             <Grid item xl={12}>
-              <Info borderColor='#ede7ff' backgroundColor='#f7f7ff'>Complète les différentes rubriques pour enrichir ton profil de compétences</Info>
+              <Info
+                borderColor='#ede7ff'
+                backgroundColor='#f7f7ff'
+              >
+                Complète les différentes rubriques pour enrichir ton profil de compétences
+              </Info>
             </Grid>
           </Grid>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 30, md: 25 }}>
@@ -92,9 +96,6 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
           </Grid>
         </div>
       </div>
-      <button disabled={themes.length === 0} onClick={onClick}>
-        Next
-  </button>
     </>
   );
 };
