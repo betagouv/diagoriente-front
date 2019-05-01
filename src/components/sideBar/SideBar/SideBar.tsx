@@ -25,7 +25,7 @@ const SideBar = ({ options }: IProps) => {
                 <span className={classes.selection_title}>ma sélection</span>
             </div>
             <div className={classes.themes_container}>
-                {options.map(o => <SelectThemeCard isSelected={true} title={o.value} />)}
+                {options.map(o => <SelectThemeCard isSelected={false} title={o.value} />)}
             </div>
 
         </div>
