@@ -1,8 +1,11 @@
 declare module 'reducers' {
-  interface ApiReducer {
-    readonly fetching: boolean;
-    readonly error: string;
-  }
+  type ApiReducer<T = undefined> = T extends undefined
+    ? { readonly fetching: boolean; readonly error: string }
+    : {
+      readonly fetching: boolean;
+      readonly error: string;
+      readonly data: T;
+    };
 
   export interface IModal {
     readonly open: boolean;
@@ -32,14 +35,51 @@ declare module 'reducers' {
 
   export type User = { user: IUser; token: IToken } | {};
 
+  export interface IInterests {
+    _id: string;
+    weight: number;
+    rank: string;
+    nom: string;
+  }
+
+  export interface IActivity {
+    _id: string;
+    title: string;
+    type: string;
+    verified: boolean;
+    interests: IInterests[];
+  }
+
+  export interface ITheme {
+    _id: string;
+    title: string;
+    parentId: string;
+    description: string;
+    type: string;
+    verified: boolean;
+    createdAt: string;
+    activities: IActivity[];
+    resources: { color: string; backgroundColor: string; icon: string };
+  }
+
+  export type ICurrentParcours = {
+    completed: boolean;
+    createdAt: string;
+    families: [];
+    skills: [];
+    updatedAt: string;
+    userId: string;
+    _id: string;
+  };
+
   export interface IParcours {
-    readonly themes: string[];
-    readonly activities: { readonly [key: string]: string[] };
+    readonly themes: ITheme[];
+    readonly activities: { readonly [key: string]: IActivity[] };
     readonly competences: { readonly [key: string]: { readonly _id: string; readonly value: number }[] };
   }
   export interface IQuestion {
     readonly _id: string;
-    readonly title: string
+    readonly title: string;
   }
 
   export type ReduxState = {
@@ -52,6 +92,6 @@ declare module 'reducers' {
     };
     readonly parcours: IParcours;
     readonly questions: IQuestion;
+    readonly currentParcours: ApiReducer<ICurrentParcours>;
   };
-
 }

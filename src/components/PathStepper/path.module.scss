@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+.container {
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+}
+.item_container {
+  display: flex;
+  margin: 0 5px 0px 7.5px;
+}
+.item {
+  display: flex;
+  margin: 0 5px 0px 7.5px;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.54;
+  letter-spacing: normal;
+  color: $footer_color;
+}
+.item_selected {
+  display: flex;
+  margin: 0 5px 0px 7.5px;
+  font-size: 13px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.54;
+  letter-spacing: normal;
+  color: $purple;
+}

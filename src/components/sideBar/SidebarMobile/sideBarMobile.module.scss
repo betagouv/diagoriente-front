@@ -1,0 +1,68 @@
+@import "../../../styles/variables.scss";
+.container_sideBar {
+  display: none;
+}
+@media (max-width: map-get($breakpoints, "md")) {
+  .container_sideBar {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: fixed;
+    z-index: $zindex-fixed;
+    width: $side_bar_width_close;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $white;
+    transition: width 0.3s ease-in;
+    box-shadow: $box-shadow;
+    .logo_container {
+      width: 100%;
+      height: 100px;
+      background-color: $white;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-shadow: $box-shadow;
+      .logo {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .selection_title_container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding: 20px;
+      background-color: $white;
+
+      .selection_title {
+        font-family: Lato;
+        font-size: 11px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.36;
+        letter-spacing: 2.2px;
+        text-align: center;
+        color: $secondary;
+        text-transform: uppercase;
+      }
+    }
+    .themes_container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 10px;
+    }
+  }
+}
+.animation {
+  width: 70% !important;
+}
+.animationClose {
+  width: $side_bar_width_close;
+}

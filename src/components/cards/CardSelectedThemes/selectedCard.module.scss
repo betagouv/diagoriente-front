@@ -1,0 +1,102 @@
+@import "../../../styles/variables.scss";
+.wrapper {
+  display: flex;
+  position: relative;
+}
+.container {
+  width: 170px;
+  height: 65px;
+  border-radius: 5px;
+  background-color: $white;
+  margin-bottom: 20px;
+  padding-left: 5px;
+  overflow: hidden;
+  .theme_title {
+    color: $footer_color;
+  }
+}
+
+.logo_container {
+  height: calc(#{$side_bar_width_close} - 10px);
+  width: calc(#{$side_bar_width_close} - 10px);
+  background: $purple;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  .logo {
+    max-width: calc(#{$side_bar_width_close} - 40px);
+    max-height: calc(#{$side_bar_width_close} - 40px);
+  }
+}
+
+.theme_title {
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  margin: 19px 25px;
+}
+.box_selected {
+  background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
+  max-width: 170px;
+  width: 100%;
+  height: 65px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.white_div {
+  background-color: transparent;
+  width: 20px;
+}
+.triangle {
+  width: 0px;
+  position: absolute;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #992bcf;
+  transform: rotate(90deg);
+  top: 30px;
+  right: 13px;
+}
+
+@media (max-width: map-get($breakpoints, "md")) {
+  .container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-right: 10px;
+  }
+  .wrapper {
+    width: 100%;
+  }
+
+  .theme_title {
+    flex: 1 1 0%;
+    margin: 0;
+    margin-left: 15px;
+    text-align: left;
+  }
+}
+.tooltip {
+  color: $purple !important;
+  background-color: $white !important;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  &.place-right {
+    &:after {
+      border-right-color: $white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
+    }
+  }
+}

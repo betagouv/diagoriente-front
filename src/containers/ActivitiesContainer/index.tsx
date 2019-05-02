@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
-import { ITheme } from '../../requests/themes';
+import { ITheme } from 'reducers';
 
 const LazyActivitiesContainer = lazy(() => import('./ActivitiesContainer'));
 

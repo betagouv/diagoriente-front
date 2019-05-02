@@ -1,6 +1,25 @@
 .container {
-    display: flex;
+  display: flex;
+  position: relative;
 }
 .star {
-    
+  display: flex;
+  width: 32px;
+  height: 30px;
+  background-image: url('../../assets/icons/stars/ic_star_empty.svg');
+  background-repeat: no-repeat;
+  &:hover {
+      background-image: url('../../assets/icons/stars/ic_star_opacity.svg');
+  }
+  &:focus {
+      background-image: url('../../assets/icons/stars/ic_star_full.svg');
+      outline: none;
+  }
+}
+.star_checked {
+    background-image: url('../../assets/icons/stars/ic_star_full.svg');
+    display: flex;
+    width: 32px;
+    height: 30px; 
+    background-repeat: no-repeat;
 }
