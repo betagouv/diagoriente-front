@@ -1,6 +1,7 @@
 import React, { Dispatch, useState } from 'react';
 import { connect } from 'react-redux';
 import { map } from 'lodash';
+import ReactTooltip from 'react-tooltip';
 
 // types
 import { RouteComponentProps } from 'react-router-dom';
@@ -19,6 +20,7 @@ import Info from '../../components/ui/Info/Info';
 import Grid from '../../components/ui/Grid/Grid';
 import CardTheme from '../../components/cards/Card/Card';
 import Title from '../../components/Title/Title';
+import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
 // hooks
 import { useDidMount } from '../../hooks';
@@ -61,8 +63,12 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
       };
       return (
         <Grid key={theme._id} item xl={3} md={6} sm={12} className={classes.grid_padding}>
-          <CardTheme key={theme._id} onClick={onClick} checked={!!selected}>
+          <CardTheme data-tip data-for={theme._id} key={theme._id} onClick={onClick} checked={!!selected}>
             {theme.title}
+            <ReactTooltip id={theme._id} type="light" className={classes.tooltip}>
+              {theme.title}
+            </ReactTooltip>
+
           </CardTheme>
         </Grid>
       );
@@ -76,9 +82,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme.title }))} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
-            <PathStepper options={['Mes passions et mes hobbies']} />
-          </Grid>
-          <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
+            <Grid item xl={12} ><PathStepper options={['Mes passions et mes hobbies']} /></Grid>
             <Grid item xl={12} className={classes.grid_padding}>
               <Title title="Trouve ta voie" />
             </Grid>
@@ -87,13 +91,16 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
                 Complète les différentes rubriques pour enrichir ton profil de compétences
               </Info>
             </Grid>
+            <Grid item xl={12} ><Grid container padding={{ xl: 0 }} spacing={{ xl: 30, md: 25 }} > {themesComponents}</Grid>  </Grid>
+            <Grid item xl={12} style={{ display: 'flex', justifyContent: 'flex-end' }} >
+
+              <ContinueButton disabled={themes.length === 0} onClick={onClick} />
+            </Grid>
           </Grid>
-          <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 30, md: 25 }}>
-            {themesComponents}
-          </Grid>
-          <button disabled={themes.length === 0} onClick={onClick}>
-            Next
-          </button>
+
+
+
+
         </div>
       </div>
     </>

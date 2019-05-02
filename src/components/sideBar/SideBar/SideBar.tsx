@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../../assets/icons/logo/diagoriente-logo-01@3x.png';
@@ -9,16 +10,20 @@ import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 import classes from './sideBar.module.scss';
 type IProps = {
   options: { value: string }[];
-};
-const SideBar = ({ options }: IProps) => {
 
+} & RouteComponentProps;
+
+const SideBar = ({ options, history }: IProps) => {
+  const navigate = () => {
+    history.push('/');
+  }
   return (
     <div className={classes.container_sideBar}>
-      <div className={classes.logo_container}>
+      <button className={classes.logo_container} onClick={navigate}>
         <img
           src={logo}
           srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />
-      </div>
+      </button>
       <div className={classes.selection_title_container}>
         <span className={classes.selection_title}>ma sélection</span>
       </div>
@@ -29,4 +34,4 @@ const SideBar = ({ options }: IProps) => {
     </div>
   );
 };
-export default SideBar;
+export default withRouter(SideBar);

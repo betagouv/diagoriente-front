@@ -9,6 +9,7 @@
   cursor: pointer;
   position: relative;
   border: none;
+  border: solid 1px #dddddd;
   .check {
     opacity: 0;
   }
@@ -31,6 +32,7 @@
 }
 .title:hover {
   color: $white;
+  
 }
 
 .title_focus {
@@ -40,6 +42,7 @@
 .card:hover {
   background-image: linear-gradient(247deg, $wisteria, $perano);
   box-sizing: border-box;
+  border: none;
   .title {
     color: $white;
   }
@@ -47,6 +50,7 @@
 .card_focus {
   background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
   outline: none;
+  border: none;
   .title {
     color: $white;
   }
@@ -62,4 +66,5 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  border: none;
 }

@@ -22,3 +22,29 @@
   padding: 0 15px;
   text-align: left;
 }
+.tooltip {
+  color: $purple !important;
+  background-color: $white !important;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  &.place-top {
+    &:after {
+    border-top-color: $white !important;
+    border-top-style: solid !important;
+    border-top-width: 6px !important;
+    }
+    }
+}
+.commencerBtn {
+  border-radius: 30px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+  border: solid 1px #efefef;
+  background-color: $white;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2.7px;
+  text-align: center;
+  color: $footer_color;
+  margin: 0 auto;
+  width: auto;
+  text-transform: uppercase;
+}
