@@ -45,7 +45,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
   const [open, setOpen] = useState(false);
 
   const onClick = () => {
-    history.push(`/theme/${themes[0]}`);
+    history.push(`/theme/${themes[0]._id}`);
   };
   const toggleOpen = () => setOpen(!open);
 
@@ -93,9 +93,8 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
           </Grid>
           <button disabled={themes.length === 0} onClick={onClick}>
             Next
-  </button>
+          </button>
         </div>
-
       </div>
     </>
   );
