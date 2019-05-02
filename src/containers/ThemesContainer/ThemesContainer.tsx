@@ -45,11 +45,11 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
     list.call();
   });
   const [open, setOpen] = useState(false);
+  const toggleOpen = () => setOpen(!open);
 
   const onClick = () => {
     history.push(`/theme/${themes[0]._id}`);
   };
-  const toggleOpen = () => setOpen(!open);
 
   if (list.fetching) return <div>...loading</div>;
   const { data } = list.data;
