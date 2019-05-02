@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ReduxState, ITheme } from 'reducers';
 import { isEmpty } from 'lodash';
+import ReactTooltip from 'react-tooltip';
 
 // containers
 import ActivitiesContainer from '../ActivitiesContainer';
