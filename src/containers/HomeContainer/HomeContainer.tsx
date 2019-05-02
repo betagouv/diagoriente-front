@@ -9,6 +9,7 @@ import classNames from '../../utils/classNames';
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 
 import start_arrow from '../../../src/assets/icons/start-arrow.png';
+import Stars from  '../../components/stars/stars';
 
 import Grid from '../../components/ui/Grid/Grid';
 
@@ -76,6 +77,7 @@ const HomeContainer = ({ history }: any) => {
           />
         </Grid>
       </Grid>
+      <Stars/>
     </div>
   );
 };
