@@ -8,6 +8,8 @@ import classNames from '../../utils/classNames';
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 
 import start_arrow from '../../../src/assets/icons/start-arrow.png';
+import O from '../../assets/homeasset/O.png';
+
 
 import Grid from '../../components/ui/Grid/Grid';
 import QuestionMarks from '../../components/shapes/questionMark/questionMark';
@@ -49,7 +51,9 @@ const HomeContainer = ({ history }: any) => {
         <div className={classes.content}>
           <WithSub
             className={classes.WithSub}
-            title={'Trouve ta voie !'}
+            title1={'Trouve ta v'}
+            titleIcon={O}
+            title2={'ie !'}
             subTitle={'Réleve tes competences et choisis ton futur métier'}
           />
           <Button onClick={navigate} className={classes.commencerBtn}>
