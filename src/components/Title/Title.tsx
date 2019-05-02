@@ -10,7 +10,7 @@ const Title = ({ title, logo }: IProps) => (
   <div className={classes.title_container}>
     {logo && (
       <div className={classes.logo_container}>
-        <img alt="logo" src={logo} />
+        <img className={classes.logo} alt="logo" src={logo} />
       </div>
     )}
 

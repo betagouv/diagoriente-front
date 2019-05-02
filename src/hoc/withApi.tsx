@@ -20,7 +20,6 @@ export type ApiComponentProps<R extends { [key: string]: (...args: any[]) => Pro
     data: ReturnPromiseType<R[K]>;
     errors: any[];
     call: R[K];
-    cancel: () => void;
   }
 };
 

@@ -1,15 +1,20 @@
 import React from 'react';
-import MENU from '../../../assets/icons/svg/menu.svg';
-import CHECK from '../../../assets/icons/check/ic-check-01.png';
-import classNames from '../../../utils/classNames';
+
+// types
+import { ITheme } from 'reducers';
 // components
 import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 
+// icons
+import MENU from '../../../assets/icons/svg/menu.svg';
+import CHECK from '../../../assets/icons/check/ic-check-01.png';
+
 // style
+import classNames from '../../../utils/classNames';
 import classes from './sideBarMobile.module.scss';
 
 type IProps = {
-  options: { value: string }[];
+  options: ITheme[];
   open: boolean;
   toggleOpen: () => void;
 };
@@ -26,8 +31,8 @@ const SideBarMobile = ({ options, open, toggleOpen }: IProps) => {
       </div>
 
       <div className={classes.themes_container}>
-        {options.map(o => (
-          <SelectThemeCard key={o.value} open={open} logo={CHECK} title={o.value} />
+        {options.map(option => (
+          <SelectThemeCard key={option.title} open={open} logo={option.resources.icon || CHECK} title={option.title} />
         ))}
       </div>
     </div>

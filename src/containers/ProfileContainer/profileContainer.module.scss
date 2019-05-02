@@ -68,13 +68,50 @@
 .step_card_footer_text {
   font-family: Lato;
   font-size: 12px;
-  line-height: 2.33;
+  line-height: 40px;
   letter-spacing: 2px;
   color: #666666;
   width: 100%;
   cursor: pointer;
   @media (max-width: map-get($breakpoints, "lg" )) and (min-width: map-get($breakpoints, "md" )) {
     margin-top: 10px;
+  }
+}
+
+.round_button {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 40px;
+  width: 150px;
+  font-size: 12px;
+  margin-top: 10px;
+  text-transform: uppercase;
+  &:disabled {
+    background-color: transparent;
+  }
+}
+
+.step2_round_button {
+  background-color: $purple;
+  &:disabled {
+    color: $purple;
+  }
+}
+
+.step3_round_button {
+  background-color: $purple-red;
+  &:disabled {
+    color: $purple-red;
+  }
+}
+
+.step4_round_button {
+  background-color: $darkblue;
+  &:disabled {
+    color: $darkblue;
   }
 }
 
@@ -105,6 +142,9 @@
   font-size: 16px;
   padding-top: 0;
   height: 80px;
+  @media (max-width: map-get($breakpoints, "lg" )) and (min-width: map-get($breakpoints, "md" )) {
+    height: 110px;
+  }
   @media (max-width: map-get($breakpoints, "smd" )) {
     padding-top: 20px;
   }

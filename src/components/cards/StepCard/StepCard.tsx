@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 import classNames from '../../../utils/classNames';
 import classes from './stepCard.module.scss';
@@ -32,18 +32,28 @@ const StepCard = ({
   disabled,
   className,
   classes: classesProps,
-}: Props) => (
-  <div className={classNames(classes.container, className, classesProps.root)}>
-    {headerComponent && <div className={classNames(classes.header, classesProps.header)}>{headerComponent}</div>}
-    <div className={classNames(classes.content, classesProps.content)}>
-      <div className={classNames(classes.circle, classesProps.circle)}>{circleComponent}</div>
-      {title && <div className={classNames(classes.title, classesProps.title)}>{title}</div>}
-      {description && <div className={classNames(classes.description, classesProps.description)}>{description}</div>}
-      {footerComponent}
+}: Props) => {
+  const preventPropagation = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
+
+  return (
+    <div className={classNames(classes.container, className, classesProps.root)}>
+      {headerComponent && (
+        <div onClick={preventPropagation} className={classNames(classes.header, classesProps.header)}>
+          {headerComponent}
+        </div>
+      )}
+      <div className={classNames(classes.content, classesProps.content)}>
+        <div className={classNames(classes.circle, classesProps.circle)}>{circleComponent}</div>
+        {title && <div className={classNames(classes.title, classesProps.title)}>{title}</div>}
+        {description && <div className={classNames(classes.description, classesProps.description)}>{description}</div>}
+        {footerComponent}
+      </div>
+      {disabled && <div className={classNames('absolute_fill', classes.disabled, classesProps.disabled)} />}
     </div>
-    {disabled && <div className={classNames('absolute_fill', classes.disabled, classesProps.disabled)} />}
-  </div>
-);
+  );
+};
 
 StepCard.defaultProps = {
   classes: {},
