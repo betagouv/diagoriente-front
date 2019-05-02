@@ -52,7 +52,7 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
   useLayoutEffect(() => {
     if (!mounted.current) mounted.current = true;
     get.call(id);
-  }, [match.params.id]);
+  },              [match.params.id]);
 
   if (currentIndex === -1) return <NotFound />;
   if (match.isExact) return <Redirect to={`/theme/${id}/activities`} />;
@@ -76,12 +76,18 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme.title }))} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
-            <Grid item xl={12} ><PathStepper options={['Mes passions et mes hobbies']} /></Grid>
+            <Grid item xl={12}>
+              <PathStepper options={['Mes passions et mes hobbies']} />
+            </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
               <Title title={'theme title'} />
             </Grid>
             <Switch>
-              <Route path={'/theme/:id/activities'} render={props => <ActivitiesContainer {...props} theme={data} />} exact />
+              <Route
+                path={'/theme/:id/activities'}
+                render={props => <ActivitiesContainer {...props} theme={data} />}
+                exact
+              />
               <Route
                 path={'/theme/:id/skills'}
                 exact

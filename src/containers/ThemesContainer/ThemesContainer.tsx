@@ -68,7 +68,6 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
             <ReactTooltip id={theme._id} type="light" className={classes.tooltip}>
               {theme.title}
             </ReactTooltip>
-
           </CardTheme>
         </Grid>
       );
@@ -82,7 +81,9 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme.title }))} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
-            <Grid item xl={12} ><PathStepper options={['Mes passions et mes hobbies']} /></Grid>
+            <Grid item xl={12}>
+              <PathStepper options={['Mes passions et mes hobbies']} />
+            </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
               <Title title="Trouve ta voie" />
             </Grid>
@@ -91,16 +92,16 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
                 Complète les différentes rubriques pour enrichir ton profil de compétences
               </Info>
             </Grid>
-            <Grid item xl={12} ><Grid container padding={{ xl: 0 }} spacing={{ xl: 30, md: 25 }} > {themesComponents}</Grid>  </Grid>
-            <Grid item xl={12} style={{ display: 'flex', justifyContent: 'flex-end' }} >
-
+            <Grid item xl={12}>
+              <Grid container padding={{ xl: 0 }} spacing={{ xl: 30, md: 25 }}>
+                {' '}
+                {themesComponents}
+              </Grid>{' '}
+            </Grid>
+            <Grid item xl={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <ContinueButton disabled={themes.length === 0} onClick={onClick} />
             </Grid>
           </Grid>
-
-
-
-
         </div>
       </div>
     </>
