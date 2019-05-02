@@ -8,11 +8,19 @@ import { isEmpty } from 'lodash';
 import ActivitiesContainer from '../ActivitiesContainer';
 import CompetenceContainer from '../CompetenceContainer';
 
+// components
+import Grid from '../../components/ui/Grid/Grid';
+import Path from '../../components/PathStepper/Path';
+import SideBar from '../../components/sideBar/SideBar/SideBar';
+import SideBarMobile from '../../components/sideBar/SidebarMobile/SideBarMobile';
+
 // not found
 import NotFound from '../../layout/NotFound';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getTheme } from '../../requests/themes';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
+// style
+import classes from './theme.module.scss';
 
 interface IMapToProps {
   themes: ITheme[];
@@ -33,12 +41,13 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
   };
 
   const mounted = useRef(false);
+  const [open, setOpen] = useState(false);
 
   useLayoutEffect(() => {
     if (!mounted.current) mounted.current = true;
     get.call(id);
-  },              [match.params.id]);
-
+  }, [match.params.id]);
+  const toggleOpen = () => setOpen(!open);
   if (currentIndex === -1) return <NotFound />;
   if (match.isExact) return <Redirect to={`/theme/${id}/activities`} />;
   const { data, fetching, error } = get;
@@ -55,20 +64,25 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
   if (isEmpty(data)) return <NotFound />;
 
   return (
-    <div>
-      <h1>{data.title}</h1>
-
-      <Switch>
-        <Route path={'/theme/:id/activities'} render={props => <ActivitiesContainer {...props} theme={data} />} exact />
-        <Route
-          path={'/theme/:id/skills'}
-          exact
-          render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} />}
-        />
-        <Route component={NotFound} />
-      </Switch>
-      {fetching && fetchingComponent}
-    </div>
+    <>
+      <div className={classes.container_themes}>
+        <SideBar options={map(themes, theme => ({ value: theme }))} />
+        <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme }))} />
+        <div className={classes.content_themes}>
+          <Path />
+          <Switch>
+            <Route path={'/theme/:id/activities'} render={props => <ActivitiesContainer {...props} theme={data} />} exact />
+            <Route
+              path={'/theme/:id/skills'}
+              exact
+              render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} />}
+            />
+            <Route component={NotFound} />
+          </Switch>
+          {fetching && fetchingComponent}
+        </div>
+      </div>
+    </>
   );
 };
 
