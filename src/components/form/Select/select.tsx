@@ -16,45 +16,45 @@ type IProps = {
   value: string;
   options: { value: string; label: string }[];
   className: string;
-  placeholder: string
-}
+  placeholder: string;
+};
 
 const Select = ({ className, selectOpen, selectClose, value, options, onChange, open, placeholder }: IProps) => {
   (Select as any).handleClickOutside = () => selectClose();
 
-  let title = placeholder
+  let title = placeholder;
   if (value) {
-    const selectedOption = options.find(o => o.value === value)
-    title = selectedOption ? selectedOption.label : placeholder
+    const selectedOption = options.find(o => o.value === value);
+    title = selectedOption ? selectedOption.label : placeholder;
   }
-
 
   return (
     <div className={className} onClick={selectOpen}>
       <div className={style.login_container_input}>
-
-        <div className={style.text_container}>
-          {title}
-        </div>
+        <div className={style.text_container}>{title}</div>
         <div onClick={selectOpen} className={style.img_container}>
           <img src={Arrow} className={style.arrow} />
         </div>
-        {open && <div className={style.select_drop}>
-          {!isEmpty(options) && options.map(el => {
-            const onChangeText = (e: React.MouseEvent<HTMLDivElement>) => {
-              e.stopPropagation()
-              onChange(el.value);
-            }
-            return (
-              <div key={el.value} onClick={onChangeText} className={style.select_item}>{el.label}</div>
-            )
-          })}
-        </div>
-        }
+        {open && (
+          <div className={style.select_drop}>
+            {!isEmpty(options) &&
+              options.map(el => {
+                const onChangeText = (e: React.MouseEvent<HTMLDivElement>) => {
+                  e.stopPropagation();
+                  onChange(el.value);
+                };
+                return (
+                  <div key={el.value} onClick={onChangeText} className={style.select_item}>
+                    {el.label}
+                  </div>
+                );
+              })}
+          </div>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 const clickOutsideConfig = {
   handleClickOutside: () => (Select as any).handleClickOutside,
 };
