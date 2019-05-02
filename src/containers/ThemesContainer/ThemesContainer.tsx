@@ -42,12 +42,12 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
   useDidMount(() => {
     list.call();
   });
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const onClick = () => {
     history.push(`/theme/${themes[0]}`);
   };
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = () => setOpen(!open);
 
   if (list.fetching) return <div>...loading</div>;
   const { data } = list.data;
@@ -98,7 +98,11 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 30, md: 25 }}>
             {themesComponents}
           </Grid>
+          <button disabled={themes.length === 0} onClick={onClick}>
+            Next
+  </button>
         </div>
+
       </div>
     </>
   );
