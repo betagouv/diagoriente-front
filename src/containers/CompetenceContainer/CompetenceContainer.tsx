@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // types
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState } from 'reducers';
+import { ReduxState, ITheme } from 'reducers';
 import { RouteComponentProps } from 'react-router-dom';
 
 // components
@@ -15,7 +15,7 @@ import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { useDidMount } from '../../hooks';
 
 // requests
-import { listCompetences, ITheme } from '../../requests';
+import { listCompetences } from '../../requests';
 
 // redux
 import parcoursActions from '../../reducers/parcours';

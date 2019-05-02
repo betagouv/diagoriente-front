@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 // types
 import { RouteComponentProps } from 'react-router-dom';
-import { ReduxState } from 'reducers';
+import { ReduxState, ITheme } from 'reducers';
 import { AnyAction } from 'redux';
 
 // Api
@@ -28,12 +28,12 @@ import parcoursActions from '../../reducers/parcours';
 import classes from './themesContainer.module.scss';
 
 interface IMapToProps {
-  themes: string[];
+  themes: ITheme[];
 }
 
 interface IDispatchToProps {
-  addTheme: (id: string) => void;
-  removeTheme: (id: string) => void;
+  addTheme: (theme: ITheme) => void;
+  removeTheme: (theme: ITheme) => void;
 }
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
@@ -54,18 +54,14 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
   let themesComponents: JSX.Element[] = [];
   if (data) {
     themesComponents = data.map(theme => {
-      const selected = themes.find(id => id === theme._id);
+      const selected = themes.find(row => row._id === theme._id);
       const onClick = () => {
         const action = selected ? removeTheme : addTheme;
-        action(theme._id);
+        action(theme);
       };
       return (
         <Grid key={theme._id} item xl={3} md={6} sm={12} className={classes.grid_padding}>
-          <CardTheme
-            key={theme._id}
-            onClick={onClick}
-            checked={!!selected}
-          >
+          <CardTheme key={theme._id} onClick={onClick} checked={!!selected}>
             {theme.title}
           </CardTheme>
         </Grid>
@@ -76,21 +72,18 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
   return (
     <>
       <div className={classes.container_themes}>
-        <SideBar options={map(themes, theme => ({ value: theme }))} />
-        <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme }))} />
+        <SideBar options={map(themes, theme => ({ value: theme.title }))} />
+        <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme.title }))} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <PathStepper options={['Mes passions et mes hobbies']} />
           </Grid>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12} className={classes.grid_padding}>
-              <Title title='Trouve ta voie' />
+              <Title title="Trouve ta voie" />
             </Grid>
             <Grid item xl={12}>
-              <Info
-                borderColor='#ede7ff'
-                backgroundColor='#f7f7ff'
-              >
+              <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
                 Complète les différentes rubriques pour enrichir ton profil de compétences
               </Info>
             </Grid>
@@ -113,8 +106,8 @@ const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
-  addTheme: id => dispatch(parcoursActions.addTheme({ id })),
-  removeTheme: id => dispatch(parcoursActions.removeTheme({ id })),
+  addTheme: theme => dispatch(parcoursActions.addTheme({ theme })),
+  removeTheme: theme => dispatch(parcoursActions.removeTheme({ theme })),
 });
 
 export default connect(

@@ -1,43 +1,45 @@
+@import "../../../styles/variables.scss";
+
 .container {
-    background-image: linear-gradient(257deg, #a422c9, #5065ff);
-  width: 360px;
-  height: 80px;
+  background-image: linear-gradient(257deg, $darkOrchid, $neonBlue);
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
 }
 .round {
-    border: 1px solid white;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 60%;
-    left: 30%;
+  border: 1px solid white;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 60%;
+  left: 30%;
 }
 .round2 {
-    border: 1px solid white;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 40%;
-    left: 30%;
+  border: 1px solid white;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 40%;
+  left: 30%;
 }
 .round3 {
-    border: 1px solid white;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 20%;
-    left: 30%;
+  border: 1px solid white;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 20%;
+  left: 30%;
 }
 .round4 {
-    border: 1px solid white;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 0%;
-    left: 30%;
+  border: 1px solid white;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0%;
+  left: 30%;
 }

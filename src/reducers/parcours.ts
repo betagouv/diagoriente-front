@@ -1,5 +1,5 @@
 import createRedux from '../utils/createRedux';
-import { uniq } from 'lodash'
+import { uniqBy } from 'lodash';
 
 // types
 import { AnyAction } from 'redux';
@@ -11,20 +11,22 @@ const INITIAL_STATE: IParcours = {
   competences: {},
 };
 
-const add = (table: string[], row: string) => uniq([...table, row]);
-const remove = (table: string[], row: string) => table.filter(item => item !== row);
+const add = <T extends { _id: string; [key: string]: any }>(table: T[], row: T) =>
+  uniqBy([...table, row], ({ _id }) => _id);
+const remove = <T extends { _id: string; [key: string]: any }>(table: T[], row: T) =>
+  table.filter(item => item._id !== row._id);
 
-const addTheme = (state: IParcours, { id }: AnyAction) => ({ ...state, themes: add(state.themes, id) });
-const removeTheme = (state: IParcours, { id }: AnyAction) => ({ ...state, themes: remove(state.themes, id) });
+const addTheme = (state: IParcours, { theme }: AnyAction) => ({ ...state, themes: add(state.themes, theme) });
+const removeTheme = (state: IParcours, { theme }: AnyAction) => ({ ...state, themes: remove(state.themes, theme) });
 
-const addActivity = (state: IParcours, { themeId, id }: AnyAction) => {
+const addActivity = (state: IParcours, { themeId, activity }: AnyAction) => {
   const current = state.activities[themeId] ? [...state.activities[themeId]] : [];
-  return { ...state, activities: { ...state.activities, [themeId]: add(current, id) } };
+  return { ...state, activities: { ...state.activities, [themeId]: add(current, activity) } };
 };
 
-const removeActivity = (state: IParcours, { themeId, id }: AnyAction) => {
+const removeActivity = (state: IParcours, { themeId, activity }: AnyAction) => {
   const current = state.activities[themeId] ? [...state.activities[themeId]] : [];
-  return { ...state, activities: { ...state.activities, [themeId]: remove(current, id) } };
+  return { ...state, activities: { ...state.activities, [themeId]: remove(current, activity) } };
 };
 
 const changeCompetence = (state: IParcours, { themeId, id, value }: AnyAction) => {

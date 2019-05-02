@@ -11,6 +11,14 @@ body {
   box-sizing: border-box;
 }
 
+button {
+  border: none;
+  background: transparent;
+  &:focus {
+    outline: none;
+  }
+}
+
 .flex_column {
   display: flex;
   flex-direction: column;

@@ -1,36 +1,26 @@
 import React from 'react';
 import classes from './path.module.scss';
+import classNames from '../../utils/classNames';
 
 interface IProps {
   options: string[];
 }
-const PathStepper = ({ options }: IProps) => {
 
-  const addSeparator = (length: number, index: number) => {
-    if (length > index) {
-      return <div className={classes.item}> > </div>;
-    }
-  };
-  const isLast = (p: string, length: number, index: number) => {
-    if (length === index) {
-      return <div className={classes.item_selected}> {p} </div>;
-    }
-    return <div className={classes.item}> {p} </div>;
-  };
+const PathStepper = ({ options }: IProps) => (
+  <div className={classes.container}>
+    {['Accueil', ...options].map((p, index, array) => {
+      const isLast = index === array.length - 1;
 
-  return (
-    <div className={classes.container}>
-      {['Accueil', ...options].map((p, index) => (
+      return (
         <div key={p} className={classes.item_container}>
-          {isLast(p, options.length, index)}
-          {addSeparator(options.length, index)}
+          <div className={classNames(isLast ? classes.item_selected : classes.item)}>{p}</div>
+          {!isLast && <div className={classes.item}>></div>}
         </div>
-      ),
-      )}
-    </div>
+      );
+    })}
+  </div>
+);
 
-  );
-};
 PathStepper.defaultProps = {
   options: [],
 };

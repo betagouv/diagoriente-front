@@ -1,5 +1,6 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
+import { Switch, Route, RouteComponentProps, matchPath } from 'react-router-dom';
 
 // types
 import { AnyAction } from 'redux';
@@ -18,7 +19,6 @@ import LoginUserContainer from '../LoginContainer';
 import ProfileContainer from '../ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer';
 
-
 // components
 import Modal from '../../components/ui/Modal/Modal';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
@@ -32,7 +32,8 @@ import startupActions from '../../reducers/startup';
 
 // hooks
 import { useDidMount } from '../../hooks';
-import { Switch, Route } from 'react-router';
+
+const footerRoutes = ['/'];
 
 interface IMapToProps {
   modal: IModal;
@@ -43,12 +44,13 @@ interface IDispatchToProps {
   startup: () => void;
 }
 
-type Props = IMapToProps & IDispatchToProps;
+type Props = IMapToProps & IDispatchToProps & RouteComponentProps;
 
-const RootContainer = ({ modal, startup, startupEnd }: Props) => {
+const RootContainer = ({ modal, startup, startupEnd, location }: Props) => {
   useDidMount(() => {
     startup();
   });
+
   if (!startupEnd) return <div />;
   return (
     <div className={classNames(classes.container)}>
@@ -66,7 +68,7 @@ const RootContainer = ({ modal, startup, startupEnd }: Props) => {
         </Switch>
         <Modal {...modal} />
       </div>
-      <Footer />
+      {footerRoutes.find(route => !!matchPath(location.pathname, { path: route, exact: true })) && <Footer />}
     </div>
   );
 };
