@@ -25,7 +25,7 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
   const currentIndex = themes.findIndex(theme => theme._id === id);
   const goNext = () => {
     if (currentIndex < themes.length - 1) {
-      history.push(`/theme/${themes[currentIndex + 1]}`);
+      history.push(`/theme/${themes[currentIndex + 1]._id}`);
     } else {
       // Don't know with url to redirect user when he end all themes
       history.push('/');
