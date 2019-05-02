@@ -32,14 +32,41 @@ declare module 'reducers' {
 
   export type User = { user: IUser; token: IToken } | {};
 
+  export interface IInterests {
+    _id: string;
+    weight: number;
+    rank: string;
+    nom: string;
+  }
+
+  export interface IActivity {
+    _id: string;
+    title: string;
+    type: string;
+    verified: boolean;
+    interests: IInterests[];
+  }
+
+  export interface ITheme {
+    _id: string;
+    title: string;
+    parentId: string;
+    description: string;
+    type: string;
+    verified: boolean;
+    createdAt: string;
+    activities: IActivity[];
+    resources: { color: string; backgroundColor: string; icon: string };
+  }
+
   export interface IParcours {
-    readonly themes: string[];
-    readonly activities: { readonly [key: string]: string[] };
+    readonly themes: ITheme[];
+    readonly activities: { readonly [key: string]: IActivity[] };
     readonly competences: { readonly [key: string]: { readonly _id: string; readonly value: number }[] };
   }
   export interface IQuestion {
     readonly _id: string;
-    readonly title: string
+    readonly title: string;
   }
 
   export type ReduxState = {
@@ -53,5 +80,4 @@ declare module 'reducers' {
     readonly parcours: IParcours;
     readonly questions: IQuestion;
   };
-
 }

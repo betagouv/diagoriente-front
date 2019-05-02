@@ -10,7 +10,6 @@ import { useListener } from '../../hooks/useListner';
 const Footer = () => {
   const [width, widthChange] = useState(window.innerWidth);
   useListener('resize', () => {
-    console.log('resize');
     widthChange(window.innerWidth);
   });
 

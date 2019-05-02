@@ -14,6 +14,98 @@
   padding: 55px 0;
 }
 
+.cards_container {
+  align-items: stretch;
+}
+
+.card {
+  padding-bottom: 20px;
+}
+
 .steps_container {
   padding-top: 44px;
+}
+
+.step {
+  margin: auto;
+  font-family: Nunito;
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 0.58;
+}
+
+.step_1 {
+  color: $medium-blue;
+}
+
+.step_2 {
+  color: $purple;
+}
+
+.step_3 {
+  color: #cf11b2;
+}
+
+.step_4 {
+  color: $darkblue;
+}
+
+.info_step_header {
+  background-color: $darkblue;
+  height: 100%;
+  width: 100%;
+}
+
+.step_card_content {
+  padding-left: 40px;
+  padding-right: 40px;
+  @media (max-width: map-get($breakpoints, "lg" )) and (min-width: map-get($breakpoints, "md" )) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.step_card_footer_text {
+  font-family: Lato;
+  font-size: 12px;
+  line-height: 2.33;
+  letter-spacing: 2px;
+  color: #666666;
+  width: 100%;
+  cursor: pointer;
+  @media (max-width: map-get($breakpoints, "lg" )) and (min-width: map-get($breakpoints, "md" )) {
+    margin-top: 10px;
+  }
+}
+
+.step1_card_title {
+  color: $medium-blue;
+}
+
+.step2_card_title {
+  color: $purple;
+}
+
+.step3_card_title {
+  color: #cf11b2;
+}
+
+.step4_card_title {
+  color: $darkblue;
+}
+
+.card_title {
+  @media (max-width: map-get($breakpoints, "lg" )) and (min-width: map-get($breakpoints, "md" )) {
+    height: 100px;
+  }
+}
+
+.card_description {
+  color: $footer_color;
+  font-size: 16px;
+  padding-top: 0;
+  height: 80px;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    padding-top: 20px;
+  }
 }

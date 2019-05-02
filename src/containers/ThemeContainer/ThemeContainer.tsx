@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ReduxState } from 'reducers';
+import { ReduxState, ITheme } from 'reducers';
 import { isEmpty } from 'lodash';
 
 // containers
@@ -15,14 +15,14 @@ import { getTheme } from '../../requests/themes';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 
 interface IMapToProps {
-  themes: string[];
+  themes: ITheme[];
 }
 
 type Props = RouteComponentProps<{ id: string }> & IMapToProps & ApiComponentProps<{ get: typeof getTheme }>;
 
 const ThemeContainer = ({ match, themes, history, get }: Props) => {
   const { id } = match.params;
-  const currentIndex = themes.findIndex(theme => theme === id);
+  const currentIndex = themes.findIndex(theme => theme._id === id);
   const goNext = () => {
     if (currentIndex < themes.length - 1) {
       history.push(`/theme/${themes[currentIndex + 1]}`);
@@ -45,7 +45,7 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
 
   const fetchingComponent = (
     <div style={{ background: '#fff' }} className={'absolute_fill flex_center'}>
-      {<LazyLoader />}
+      <LazyLoader />
     </div>
   );
 

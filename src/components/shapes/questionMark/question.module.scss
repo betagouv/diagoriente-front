@@ -1,16 +1,15 @@
+@import "../../../styles/variables.scss";
 .container {
-  width: 360px;
-  height: 80px;
-  background-image: linear-gradient(257deg, #4e66ff, #00cfff);
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(257deg, $neon-blue-light, $cyan);
   position: relative;
   overflow: hidden;
 }
 .mark1::before {
-  width: 28px;
-  height: 28px;
   -webkit-text-stroke: 1px #ffffff;
   font-family: Georgia;
-  font-size: 50px;
+  font-size: 300%;
   font-weight: bold;
   font-style: normal;
   font-stretch: normal;
@@ -20,43 +19,38 @@
   color: rgba(255, 255, 255, 0);
   content: "?";
   position: absolute;
-    left: 55%;
-    top: 20%;
+  left: 52%;
+  top: 15%;
 }
 .mark2::before {
-    width: 28px;
-    height: 28px;
-    -webkit-text-stroke: 1px #ffffff;
-    font-family: Georgia;
-    font-size: 100px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 0.56;
-    letter-spacing: normal;
-    text-align: center;
-    color: rgba(255, 255, 255, 0);
-    content: "?";
-    position: absolute;
-    left: 65%;
-    top: 35%;
-
-  }
-  .mark3::before {
-    width: 28px;
-    height: 28px;
-    -webkit-text-stroke: 1px #ffffff;
-    font-family: Georgia;
-    font-size: 200px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 0.56;
-    letter-spacing: normal;
-    text-align: center;
-    color: rgba(255, 255, 255, 0);
-    content: "?";
-    position: absolute;
-    left: 75%;
-    bottom: 75%;
-  }
+  -webkit-text-stroke: 1px #ffffff;
+  font-family: Georgia;
+  font-size: 600%;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.56;
+  letter-spacing: normal;
+  text-align: center;
+  color: rgba(255, 255, 255, 0);
+  content: "?";
+  position: absolute;
+  right: 22%;
+  top: 37%;
+}
+.mark3::before {
+  -webkit-text-stroke: 1px #ffffff;
+  font-family: Georgia;
+  font-size: 1200%;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.56;
+  letter-spacing: normal;
+  text-align: center;
+  color: rgba(255, 255, 255, 0);
+  content: "?";
+  position: absolute;
+  right: -5%;
+  top: -3%;
+}

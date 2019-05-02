@@ -4,8 +4,7 @@ import { isEmpty, map } from 'lodash';
 import { connect } from 'react-redux';
 
 // types
-import { ITheme } from '../../requests/themes';
-import { ReduxState } from 'reducers';
+import { ReduxState, ITheme, IActivity } from 'reducers';
 import { Dispatch, AnyAction } from 'redux';
 
 // actions
@@ -13,12 +12,12 @@ import parcoursActions from '../../reducers/parcours';
 import { currentActivitiesSelector } from '../../selectors/parcours';
 
 interface IMapToProps {
-  activities: string[];
+  activities: IActivity[];
 }
 
 interface IDispatchToProps {
-  add: (id: string) => void;
-  remove: (id: string) => void;
+  add: (activity: IActivity) => void;
+  remove: (activity: IActivity) => void;
 }
 
 type Props = RouteComponentProps<{ id: string }> & { theme: ITheme } & IMapToProps & IDispatchToProps;
@@ -38,11 +37,11 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
   }
 
   const activitiesComponents = map(theme.activities, activity => {
-    const selected = activities.find(id => activity._id === id);
+    const selected = activities.find(row => activity._id === row._id);
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       const action = selected ? remove : add;
-      action(activity._id);
+      action(activity);
     };
 
     return (
@@ -70,8 +69,8 @@ const mapDispatchToProps = (
   dispatch: Dispatch<AnyAction>,
   { match }: RouteComponentProps<{ id: string }>,
 ): IDispatchToProps => ({
-  add: id => dispatch(parcoursActions.addActivity({ id, themeId: match.params.id })),
-  remove: id => dispatch(parcoursActions.removeActivity({ id, themeId: match.params.id })),
+  add: activity => dispatch(parcoursActions.addActivity({ activity, themeId: match.params.id })),
+  remove: activity => dispatch(parcoursActions.removeActivity({ activity, themeId: match.params.id })),
 });
 
 export default connect(
