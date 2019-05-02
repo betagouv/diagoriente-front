@@ -11,6 +11,8 @@ import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
 import start_arrow from '../../../src/assets/icons/start-arrow.png';
+import O from '../../assets/homeasset/O.png';
+
 const HomeContainer = ({ history }: any) => {
   const navigate = () => {
     history.push('/themes');
@@ -34,7 +36,9 @@ const HomeContainer = ({ history }: any) => {
           <WithSub
             className={'item-8 item-sm-12'}
             style={{ margin: '0 auto', flexBasis: 'auto' }}
-            title={'Trouve ta voie !'}
+            title2={'ie !'}
+            titleIcon={O}
+            title1={'Trouve ta v'}
             subTitle={'Réleve tes competences et choisis ton futur métier'}
           />
           <Button className={classes.commencerBtn}>
