@@ -7,7 +7,7 @@ import StepCard from '../../components/cards/StepCard/StepCard';
 import QuestionMarks from '../../components/shapes/questionMark/questionMark';
 import Circles from '../../components/shapes/circles/circles';
 import Triangles from '../../components/shapes/triangles/triangles';
-
+import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import classes from './profileContainer.module.scss';
 
 const ProfileContainer = ({ history }: RouteComponentProps) => {
@@ -78,7 +78,9 @@ const ProfileContainer = ({ history }: RouteComponentProps) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item xl={4} />
+        <Grid item xl={4}>
+          <CardProgress progress={4} />
+        </Grid>
       </Grid>
     </div>
   );
