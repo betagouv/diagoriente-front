@@ -1,8 +1,11 @@
 declare module 'reducers' {
-  interface ApiReducer {
-    readonly fetching: boolean;
-    readonly error: string;
-  }
+  type ApiReducer<T = undefined> = T extends undefined
+    ? { readonly fetching: boolean; readonly error: string }
+    : {
+      readonly fetching: boolean;
+      readonly error: string;
+      readonly data: T;
+    };
 
   export interface IModal {
     readonly open: boolean;
@@ -59,6 +62,16 @@ declare module 'reducers' {
     resources: { color: string; backgroundColor: string; icon: string };
   }
 
+  export type ICurrentParcours = {
+    completed: boolean;
+    createdAt: string;
+    families: [];
+    skills: [];
+    updatedAt: string;
+    userId: string;
+    _id: string;
+  };
+
   export interface IParcours {
     readonly themes: ITheme[];
     readonly activities: { readonly [key: string]: IActivity[] };
@@ -79,5 +92,6 @@ declare module 'reducers' {
     };
     readonly parcours: IParcours;
     readonly questions: IQuestion;
+    readonly currentParcours: ApiReducer<ICurrentParcours>;
   };
 }

@@ -12,10 +12,9 @@
     align-items: center;
     background-color: $purple;
     margin-right: 20px;
-    @media (max-width: map-get($breakpoints, "md")) {
-      width: 30px;
-      height: 30px;
-      border-radius: 15px;
+    .logo {
+      max-height: 30px;
+      max-width: 30px;
     }
   }
   .title_content {

@@ -78,14 +78,14 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
     <>
       <div className={classes.container_themes}>
         <SideBar options={map(themes, theme => ({ value: theme.title }))} />
-        <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme.title }))} />
+        <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
               <PathStepper options={['Mes passions et mes hobbies']} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
-              <Title title="Trouve ta voie" />
+              <Title logo={themes[themes.length - 1].resources.icon} title="Trouve ta voie" />
             </Grid>
             <Grid item xl={12}>
               <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
@@ -94,9 +94,8 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
             </Grid>
             <Grid item xl={12}>
               <Grid container padding={{ xl: 0 }} spacing={{ xl: 30, md: 25 }}>
-                {' '}
                 {themesComponents}
-              </Grid>{' '}
+              </Grid>
             </Grid>
             <Grid item xl={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <ContinueButton disabled={themes.length === 0} onClick={onClick} />

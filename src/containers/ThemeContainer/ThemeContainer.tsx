@@ -40,8 +40,7 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
     if (currentIndex < themes.length - 1) {
       history.push(`/theme/${themes[currentIndex + 1]._id}`);
     } else {
-      // Don't know with url to redirect user when he end all themes
-      history.push('/');
+      history.push('/profile');
     }
   };
 
@@ -69,18 +68,24 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
   if (error) return <div>{error}</div>;
   if (isEmpty(data)) return <NotFound />;
 
+  const stepperOptions = ['Mes passions et mes hobbies'];
+  const currentTheme = themes.find(theme => theme._id === match.params.id);
+  if (currentTheme) {
+    stepperOptions.push(currentTheme.title);
+  }
+
   return (
     <>
       <div className={classes.container_themes}>
         <SideBar options={map(themes, theme => ({ value: theme.title }))} />
-        <SideBarMobile toggleOpen={toggleOpen} open={open} options={map(themes, theme => ({ value: theme.title }))} />
+        <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
-              <PathStepper options={['Mes passions et mes hobbies']} />
+              <PathStepper options={stepperOptions} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
-              <Title title={'theme title'} />
+              {currentTheme && <Title title={currentTheme.title} logo={currentTheme.resources.icon} />}
             </Grid>
             <Switch>
               <Route

@@ -70,7 +70,7 @@ function axiosRequest<T, P>(
 /* ------ Request POST ------ */
 export function axiosPost<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
   let p: any = {
-    sendToken: false,
+    sendToken: true,
     data: {},
     headers: {},
   };
