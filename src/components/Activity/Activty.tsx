@@ -13,7 +13,7 @@ interface Props {
 const Activity = ({ title, subTitle, id, selected, OnCheckChange }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
     <div className={classes.activityContainer}>
-      <ActivitiesCheck id={id} selected={selected} OnCheckChange={OnCheckChange} />
+      <ActivitiesCheck id={id} selected={selected} OnCheckChange={OnCheckChange} tooltip={title} />
       <div className={classes.activityContentContainer}>
         <span className={classes.title}>{title}</span>
         <span className={classes.subtitle}>{subTitle}</span>
