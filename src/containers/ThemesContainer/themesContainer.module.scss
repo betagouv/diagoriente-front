@@ -22,15 +22,3 @@
   padding: 0 15px;
   text-align: left;
 }
-.tooltip {
-  color: $purple !important;
-  background-color: $white !important;
-  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
-  &.place-top {
-    &:after {
-      border-top-color: $white !important;
-      border-top-style: solid !important;
-      border-top-width: 6px !important;
-    }
-  }
-}
