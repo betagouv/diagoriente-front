@@ -75,8 +75,8 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
         item
         xl={12}
         sm={8}
-        smd={12}
-        xs={8}
+        smd={10}
+        xs={6}
         /*  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} */
         className={'flex_center'}
       >
