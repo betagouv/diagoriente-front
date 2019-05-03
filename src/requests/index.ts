@@ -5,3 +5,4 @@ export * from './competence';
 export * from './themes';
 export * from './register';
 export * from './question';
+export * from './parcours';

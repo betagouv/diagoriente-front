@@ -9,7 +9,7 @@
     overflow: hidden;
     position: fixed;
     z-index: $zindex-fixed;
-    width: 60px;
+    width: $side_bar_width_close;
     top: 0;
     left: 0;
     bottom: 0;
@@ -56,9 +56,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      margin-bottom: 15px;
-      padding-left: 20px;
-      padding-top: 20px;
+      padding-top: 10px;
     }
   }
 }
@@ -66,5 +64,5 @@
   width: 70% !important;
 }
 .animationClose {
-  width: 60px;
+  width: $side_bar_width_close;
 }
