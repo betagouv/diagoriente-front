@@ -8,8 +8,7 @@ import classNames from '../../utils/classNames';
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 
 import start_arrow from '../../../src/assets/icons/start-arrow.png';
-import O from '../../assets/homeasset/O.png';
-
+import O from '../../assets/icons/svg/O.svg';
 
 import Grid from '../../components/ui/Grid/Grid';
 import QuestionMarks from '../../components/shapes/questionMark/questionMark';
@@ -54,7 +53,7 @@ const HomeContainer = ({ history }: any) => {
             title1={'Trouve ta v'}
             titleIcon={O}
             title2={'ie !'}
-            subTitle={'Réleve tes competences et choisis ton futur métier'}
+            subTitle={'Révèle tes compétences et engage toi dans ton orientation'}
           />
           <Button onClick={navigate} className={classes.commencerBtn}>
             <span className={classes.btn_text}>Commencer</span>

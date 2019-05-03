@@ -1,0 +1,11 @@
+.activityContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  min-width: 70%;
+}
+.infoStyle {
+  border: solid 1px rgba(117, 51, 255, 0.15);
+  background-image: linear-gradient(83deg, #5065ff, #a422c9);
+}

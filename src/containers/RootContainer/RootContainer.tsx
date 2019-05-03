@@ -61,6 +61,7 @@ const RootContainer = ({ modal, startup, startupEnd, location }: Props) => {
           <Route path={'/'} exact component={HomeContainer} />
           <Route path={'/login'} component={LoginUserContainer} />
           <Route path={'/register'} component={RegisterUserContainer} />
+
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
           <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
