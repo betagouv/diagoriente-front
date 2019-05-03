@@ -54,7 +54,7 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
         subTitle="Fusce vehicula dolor arcu, sit amet blandit dol."
         key={activity._id}
         selected={!!selected}
-        OnCheckChange={onClick}
+        onCheckChange={onClick}
         id={activity._id}
       />
     );
@@ -70,7 +70,14 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
       <Grid item xl={12} sm={12} smd={12} xs={8} style={{ margin: '5% 9%' }}>
         {activitiesComponents}
       </Grid>
-      <Grid item xl={12} sm={12} smd={12} xs={8} style={{ margin: '5% 0' }}>
+      <Grid
+        item
+        xl={12}
+        sm={12}
+        smd={12}
+        xs={8}
+        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
         <ContinueButton disabled={false} onClick={navigate} />
       </Grid>
     </div>

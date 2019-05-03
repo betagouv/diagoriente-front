@@ -4,13 +4,13 @@ import ReactTooltip from 'react-tooltip';
 import classes from './ActiviesCheck.module.scss';
 interface Props {
   selected: boolean;
-  OnCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
   tooltip: string;
 }
 const CheckBox = ({
   selected,
-  OnCheckChange,
+  onCheckChange,
   id,
   tooltip,
   ...other
@@ -20,7 +20,7 @@ const CheckBox = ({
     <div className={classes.squaredCheck}>
       <input
         type="checkbox"
-        onChange={OnCheckChange}
+        onChange={onCheckChange}
         checked={selected}
         id={id}
         className={classes.checkInput}

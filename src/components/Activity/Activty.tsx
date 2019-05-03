@@ -7,13 +7,13 @@ interface Props {
   title: string;
   subTitle: string;
   selected: boolean;
-  OnCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
 }
-const Activity = ({ title, subTitle, id, selected, OnCheckChange }: React.HTMLAttributes<HTMLElement> & Props) => {
+const Activity = ({ title, subTitle, id, selected, onCheckChange }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
     <div className={classes.activityContainer}>
-      <ActivitiesCheck id={id} selected={selected} OnCheckChange={OnCheckChange} tooltip={title} />
+      <ActivitiesCheck id={id} selected={selected} onCheckChange={onCheckChange} tooltip={title} />
       <div className={classes.activityContentContainer}>
         <span className={classes.title}>{title}</span>
         <span className={classes.subtitle}>{subTitle}</span>
@@ -22,18 +22,4 @@ const Activity = ({ title, subTitle, id, selected, OnCheckChange }: React.HTMLAt
   );
 };
 
-/* class Activity extends React.Component<Props, State> {
-  public render(): JSX.Element {
-    const { title, subTitle, id } = this.props;
-    return (
-      <div className={classes.activityContainer}>
-        <ActivitiesCheck id={id} selected={this.props.selected} OnCheckChange={this.props.OnCheckChange} />
-        <div className={classes.activityContentContainer}>
-          <span className={classes.title}>{title}</span>
-          <span className={classes.subtitle}>{subTitle}</span>
-        </div>
-      </div>
-    );
-  }
-} */
 export default Activity;
