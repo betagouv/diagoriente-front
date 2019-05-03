@@ -31,7 +31,7 @@ const ProgressBar = ({ width }: IProps) => {
   return (
     <div className={classes.progress}>
       <div className={classes.progress_bar} style={style} />
-      <div className={classes.background_bar} style={gray}/>
+      <div className={classes.background_bar} style={gray} />
     </div>
   );
 };

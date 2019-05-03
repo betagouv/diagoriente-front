@@ -1,5 +1,5 @@
 import React from 'react';
-import ProgressBar from '../../ui/ProgressBar/ProgressBar';
+import ProgressBar from '../../ui/progressBars/ProgressBar/ProgressBar';
 import Logo from '../../../assets/images/bird.svg';
 import classes from './progress.module.scss';
 type IProps = {

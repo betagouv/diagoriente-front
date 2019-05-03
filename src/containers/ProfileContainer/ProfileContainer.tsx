@@ -14,7 +14,7 @@ import Circles from '../../components/shapes/circles/circles';
 import Triangles from '../../components/shapes/triangles/triangles';
 import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import RoundButton from '../../components/buttons/RoundButton/RoundButton';
-
+import CardCompetence from '../../components/cards/CardCompetence/Competence';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -98,7 +98,6 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       ),
     },
   ];
-
   return (
     <div className={classes.container}>
       <Grid container className={'flex_center'}>
@@ -112,10 +111,10 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
         </Grid>
       </Grid>
       <Grid className={classes.steps_container} container>
-        <Grid item xl={8} md={12}>
+        <Grid item xl={8} lg={6} md={12}>
           <Grid className={classes.cards_container} padding={{ xl: 0 }} container>
             {steps.map((step, i) => (
-              <Grid className={classes.card} key={i} item xl={6} smd={12}>
+              <Grid className={classes.card} key={i} item xl={6} lg={12}>
                 <StepCard
                   classes={{
                     content: classes.step_card_content,
@@ -128,8 +127,9 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item xl={4}>
+        <Grid item xl={4} lg={6} md={12}>
           <CardProgress progress={4} />
+          <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>
     </div>

@@ -1,0 +1,27 @@
+@import "../../../styles/variables.scss";
+.container {
+  border-radius: 5px;
+  border: solid 1px $progress_bar;
+  height: auto;
+  padding: 40px 22px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 20px;
+}
+.title_container {
+  font-family: Nunito;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.45;
+  text-align: center;
+  color: $darkblue;
+}
+.footer {
+  font-size: 12px;
+  line-height: 2.33;
+  letter-spacing: 2px;
+  text-align: center;
+  color: $footer_color;
+}
