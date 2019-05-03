@@ -12,6 +12,8 @@
   justify-content: space-between;
   align-items: flex-start;
   margin: 15px 0;
+  flex: 1 1 0%;
+  overflow: hidden;
 }
 .title {
   height: 30px;
@@ -23,6 +25,10 @@
   line-height: 1.36;
   letter-spacing: normal;
   color: #7533ff;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .subtitle {
   height: 20px;

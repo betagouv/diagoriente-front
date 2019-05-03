@@ -62,20 +62,21 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
 
   return (
     <div className={classes.activityContainer}>
-      <Grid item xl={12} sm={12} smd={12} xs={8}>
+      <Grid item xl={12} sm={8} smd={9} xs={6}>
         <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
           Je précise mes expérience
         </Info>
       </Grid>
-      <Grid item xl={12} sm={12} smd={12} xs={8} className={classes.checkContainer}>
+
+      <Grid item xl={12} sm={8} smd={9} xs={6} className={classes.checkContainer}>
         {activitiesComponents}
       </Grid>
       <Grid
         item
         xl={12}
-        sm={12}
-        smd={12}
-        xs={8}
+        sm={8}
+        smd={9}
+        xs={6}
         /*  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} */
         className={'flex_center'}
       >
