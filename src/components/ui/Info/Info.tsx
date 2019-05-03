@@ -9,8 +9,8 @@ import classes from './info.module.scss';
 interface Props {
   children?: ReactNode;
   className?: string;
-  backgroundColor: string;
-  borderColor: string;
+  backgroundColor?: string;
+  borderColor?: string;
 }
 
 const Container: any = styled(Grid)(({ containerBackgroundColor, containerBorderColor }: any) => ({
@@ -35,7 +35,6 @@ const Info = ({ children, className, backgroundColor, borderColor }: Props) => (
       className={classNames(classes.info, className)}
       item
       xl={12}
-
     >
       {children}
     </Container>

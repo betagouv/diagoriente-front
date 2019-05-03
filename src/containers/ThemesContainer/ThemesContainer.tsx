@@ -65,7 +65,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
         <Grid key={theme._id} item xl={3} md={6} sm={12} className={classes.grid_padding}>
           <CardTheme data-tip data-for={theme._id} key={theme._id} onClick={onClick} checked={!!selected}>
             {theme.title}
-            <ReactTooltip id={theme._id} type="light" className={classes.tooltip}>
+            <ReactTooltip id={theme._id} type="light" className={'tooltip'}>
               {theme.title}
             </ReactTooltip>
           </CardTheme>
