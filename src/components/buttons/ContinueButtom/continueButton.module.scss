@@ -29,3 +29,19 @@
   color: inherit;
   margin-right: 15px;
 }
+
+@media (max-width: 576px) {
+  .button {
+    font-size: 12px;
+    padding: 15px 30px;
+  }
+
+}
+@media (max-width: 375px) {
+  .button {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+
+}
+

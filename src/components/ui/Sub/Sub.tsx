@@ -4,9 +4,9 @@ import classNames from '../../../utils/classNames';
 
 interface Props {
   title1: string;
-  subTitle: string;
-  title2: string;
-  titleIcon: string;
+  subTitle?: string;
+  title2?: string;
+  titleIcon?: string;
 }
 
 const WithSub = ({

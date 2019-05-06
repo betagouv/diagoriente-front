@@ -41,14 +41,12 @@ const SideBar = ({ options, history, lastIndex }: IProps) => {
       </div>
       <div className={classes.themes_container}>
         {options.map((o, i) => {
-          const disabled = !(lastIndex > 0 && i <= lastIndex);
           return (
             <SelectThemeCard
-              onClick={navigate(`/theme/${o._id}/activities`)}
+              /* onClick={navigate(`/theme/${o._id}/activities`)} */
               key={o._id}
               isSelected={o.isSelected}
               title={o.title}
-              disabled={disabled}
             />
           );
         })}
