@@ -1,32 +1,18 @@
 import React from 'react';
 import classes from './progressBar.module.scss';
-
+import { progress } from '../../../../utils/getWidth';
+import classNames from '../../../../utils/classNames';
 interface IProps {
   width: number;
 }
 
 const ProgressBar = ({ width }: IProps) => {
-  let WIDTH: string = '';
-  switch (width) {
-    case 1:
-      WIDTH = '25%';
-      break;
-    case 2:
-      WIDTH = '50%';
-      break;
-    case 3:
-      WIDTH = '75%';
-      break;
-    case 4:
-      WIDTH = '100%';
-      break;
-  }
-
+  const styleWidth = progress(width);
   const style = {
-    width: WIDTH,
+    width: styleWidth,
   };
   const gray = {
-    left: WIDTH,
+    left: styleWidth,
   };
   return (
     <div className={classes.progress}>

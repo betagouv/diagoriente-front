@@ -17,7 +17,7 @@ const CompetenceItem = ({ parcours }: IProps) => {
           <div key={item._id} className={classes.item}>
             <div className={classes.label}>{item.title}</div>
             <div className={classes.value}>
-              <Progress width={4} />
+              <Progress width={item.value} />
             </div>
           </div>
         );
