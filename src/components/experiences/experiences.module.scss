@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: calc(100% - 40px);
+  height: 70px;
+  border-radius: 5px;
+  border: solid 1px #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 30px;
+}
+.title div {
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.75;
+  letter-spacing: normal;
+  text-align: center;
+  color: #666666;
+}
+.check_wrapper {
+  width: 12px;
+  height: 9.2px;
+  margin-right: 20px;
+}
+
+.check {
+  width: 100%;
+}
+.list_item {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #666666;
+  text-align: center;
+  display: flex;
+  word-break: break-word;
+  white-space: normal;
+  flex-wrap: wrap;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: calc(100% - 40px);
+  margin: auto;
+}
+.title_text {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.75;
+  letter-spacing: normal;
+  text-align: center;
+  color: #666666;
+}
+
+.edit_button {
+  color: #666666;
+  background-color: white;
+  border: solid 1px #dddddd;
+  padding: 10px 40px;
+  font-family: Lato;
+
+  &:hover {
+    color: white; 
+  background-color:#666666; 
+  border: solid 1px #dddddd;
+  padding: 10px 40px;
+  }
+}
+
