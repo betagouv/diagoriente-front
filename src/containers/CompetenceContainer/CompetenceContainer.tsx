@@ -55,6 +55,7 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
   if (isEmpty(data)) return <div>Aucun competence a afficher</div>;
 
   const competenceComponents = data.map(competence => {
+    const current = competences.find(({ _id }) => competence._id === _id);
     const buttons: JSX.Element[] = [];
     for (let i = 1; i <= 4; i += 1) {
       const current = competences.find(({ _id }) => competence._id === _id);
@@ -63,13 +64,21 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
         competenceChange(competence._id, i);
       };
       buttons.push(
-        <Stars onChange={onClick} checked={!!selected} style={{ margin: '0 5px' }} onClick={onClick} key={i} />,
+        <Stars
+          title={`${competence.title} niveau ${i} `}
+          onChange={onClick}
+          checked={!!selected}
+          style={{ margin: '0 5px' }}
+          onClick={onClick}
+          key={i}
+        />,
       );
     }
-
     return (
       <div key={competence._id} className={classes.title_stars}>
-        <h1 className={classes.title}>{competence.title}</h1>
+        <h1 className={current && current._id === competence._id ? classes.title_active : classes.title}>
+          {competence.title}
+        </h1>
 
         <div style={{ display: 'flex' }}> {buttons}</div>
       </div>
@@ -78,7 +87,7 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
   return (
     <div style={{ display: 'flex' }} className="item-12">
       <div className={classNames('item-4 item-xl-3 ', classes.experiences)}>
-        <Experiences title="Mes Experiences" experience={activities} OnClick={goBack} />
+        <Experiences title="Mes expériences" experience={activities} OnClick={goBack} />
       </div>
       <div className={classNames('item-8 item-xl-9 item-lg-10 item-md-12 item-smd-12 item-sm-12', classes.list_stars)}>
         <Info>J’évalue mes compétences</Info>
