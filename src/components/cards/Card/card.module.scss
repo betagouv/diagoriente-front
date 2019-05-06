@@ -1,15 +1,29 @@
 @import "../../../styles/variables.scss";
 
+.container {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #dddddd;
+  &:hover {
+    border: none;
+    padding: 1px;
+  }
+}
+
+.container_focus {
+  border: none;
+  padding: 1px;
+}
+
 .card {
   background-color: $card_background;
-  border-radius: 8px;
   transition: 0.25s all;
   width: 100%;
   height: 90px;
   cursor: pointer;
   position: relative;
-  border: none;
-  border: solid 1px #dddddd;
+  border-radius: 8px;
   .check {
     opacity: 0;
   }
@@ -40,8 +54,7 @@
 
 .card:hover {
   background-image: linear-gradient(247deg, $wisteria, $perano);
-  box-sizing: border-box;
-  border: none;
+
   .title {
     color: $white;
   }

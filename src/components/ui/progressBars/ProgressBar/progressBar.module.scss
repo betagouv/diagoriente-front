@@ -1,0 +1,29 @@
+@import "../../../../styles/variables.scss";
+.progress {
+  display: flex;
+  height: 10px;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-image: linear-gradient(to left, $rose, $purple 51%, $cyan);
+  border-radius: 5px;
+  border: solid 1px $progress_bar;
+  position: relative;
+  margin: 40px 40px 0 40px;
+}
+.progress_bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+  transition: width 0.6s ease;
+}
+.background_bar {
+  position: absolute;
+  background-color: $card_background;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}

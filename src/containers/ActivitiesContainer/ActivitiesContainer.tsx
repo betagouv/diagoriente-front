@@ -10,7 +10,12 @@ import { Dispatch, AnyAction } from 'redux';
 // actions
 import parcoursActions from '../../reducers/parcours';
 import { currentActivitiesSelector } from '../../selectors/parcours';
+import Activity from '../../components/Activity/Activty';
+import Info from '../../components/ui/Info/Info';
+import Grid from '../../components/ui/Grid/Grid';
 
+import classes from './ActivitiesContainer.module.scss';
+import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 interface IMapToProps {
   activities: IActivity[];
 }
@@ -38,25 +43,39 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
 
   const activitiesComponents = map(theme.activities, activity => {
     const selected = activities.find(row => activity._id === row._id);
-    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
+    const onClick = (e: React.ChangeEvent<HTMLInputElement>) => {
       const action = selected ? remove : add;
       action(activity);
     };
 
     return (
-      <button style={{ color: selected ? 'green' : '#000' }} onClick={onClick} key={activity._id}>
-        {activity.title}
-      </button>
+      <Activity
+        title={activity.title}
+        subTitle="Fusce vehicula dolor arcu, sit amet blandit dol."
+        key={activity._id}
+        selected={!!selected}
+        onCheckChange={onClick}
+        id={activity._id}
+      />
     );
   });
 
   return (
-    <div>
-      {activitiesComponents}
-      <button disabled={activities.length === 0} onClick={navigate}>
-        Next
-      </button>
+    <div className={classes.activityContainer}>
+      <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
+        <Grid item xl={12} sm={8} smd={9} xs={6}>
+          <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
+            Je précise mes expérience
+          </Info>
+        </Grid>
+
+        <Grid item xl={12} sm={8} smd={9} xs={6}>
+          <div className={classes.activitiesContainer}>{activitiesComponents}</div>
+        </Grid>
+        <Grid item xl={12} sm={8} smd={9} xs={6} className={'flex_center'}>
+          <ContinueButton disabled={false} onClick={navigate} />
+        </Grid>
+      </Grid>
     </div>
   );
 };

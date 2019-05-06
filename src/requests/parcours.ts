@@ -10,4 +10,5 @@ export const createParcours = (data: ICreateParcoursParams): Promise<Response<an
 
 export const getParcours = (id: string): Promise<Response<any>> => axiosGet(`v1/parcours/${id}`);
 
-export const updateParcours = (id: string): Promise<Response<any>> => axiosPost(`v1/parcours/${id}`);
+export const updateParcours = (id: string, data: any): Promise<Response<any>> =>
+  axiosPost(`v1/parcours/${id}`, { data });

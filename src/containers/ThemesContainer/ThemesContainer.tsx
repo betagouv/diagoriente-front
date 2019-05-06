@@ -25,6 +25,7 @@ import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButt
 // hooks
 import { useDidMount } from '../../hooks';
 import parcoursActions from '../../reducers/parcours';
+import currentParcoursActions from '../../reducers/currentParcours';
 
 // styles
 import classes from './themesContainer.module.scss';
@@ -36,12 +37,12 @@ interface IMapToProps {
 interface IDispatchToProps {
   addTheme: (theme: ITheme) => void;
   removeTheme: (theme: ITheme) => void;
+  currentParcoursRequest: (args: any) => void;
 }
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
 
-const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props) => {
-  console.log('helo', themes);
+const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, currentParcoursRequest }: Props) => {
   useDidMount(() => {
     list.call();
   });
@@ -49,6 +50,9 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
   const toggleOpen = () => setOpen(!open);
 
   const onClick = () => {
+    /* currentParcoursRequest({
+      skills: themes.map(theme => ({ theme: theme._id, type: theme.type, activities: [], competences: [] })),
+    }); */
     history.push(`/theme/${themes[0]._id}`);
   };
 
@@ -66,7 +70,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
         <Grid key={theme._id} item xl={3} md={6} sm={12} className={classes.grid_padding}>
           <CardTheme data-tip data-for={theme._id} key={theme._id} onClick={onClick} checked={!!selected}>
             {theme.title}
-            <ReactTooltip id={theme._id} type="light" className={classes.tooltip}>
+            <ReactTooltip id={theme._id} type="light" className={'tooltip'}>
               {theme.title}
             </ReactTooltip>
           </CardTheme>
@@ -78,7 +82,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
   return (
     <>
       <div className={classes.container_themes}>
-        <SideBar options={map(themes, theme => ({ value: theme.title }))} />
+        <SideBar options={themes} />
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
@@ -86,7 +90,10 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
               <PathStepper options={['Mes passions et mes hobbies']} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
-              <Title logo={themes.length ? themes[themes.length - 1].resources.icon : ''} title="Trouve ta voie" />
+              <Title
+                logo={themes.length ? themes[themes.length - 1].resources.icon : undefined}
+                title="Trouve ta voie"
+              />
             </Grid>
             <Grid item xl={12}>
               <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
@@ -98,7 +105,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
                 {themesComponents}
               </Grid>
             </Grid>
-            <Grid item xl={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Grid item xl={12} className={classes.continue_container}>
               <ContinueButton disabled={themes.length === 0} onClick={onClick} />
             </Grid>
           </Grid>
@@ -115,6 +122,7 @@ const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   addTheme: theme => dispatch(parcoursActions.addTheme({ theme })),
   removeTheme: theme => dispatch(parcoursActions.removeTheme({ theme })),
+  currentParcoursRequest: args => dispatch(currentParcoursActions.currentParcoursRequest(args)),
 });
 
 export default connect(

@@ -1,0 +1,79 @@
+/* SQUARED FOUR */
+.squaredCheck {
+  width: 30px;
+  margin: 0px 3%;
+  position: relative;
+  height: 30px;
+}
+
+.squaredCheck label {
+  cursor: pointer;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+  background: white;
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+  &:after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 8px;
+    background: transparent;
+    top: 5px;
+    left: 5px;
+    border: 3px solid white;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-48deg);
+  }
+  &:hover:after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    filter: alpha(opacity=30);
+    opacity: 0.5;
+  }
+  &:hover {
+    /*     border: 2px solid #dcdcdc;
+ */
+    background-color: #7533ff;
+    opacity: 0.5;
+  }
+}
+
+.squaredCheck .checkInput:checked + label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+.squaredCheck .checkInput:checked + label {
+  cursor: pointer;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  border-radius: 4px;
+  border: 1px solid #9060fc;
+  background: #7533ff;
+  &:hover {
+    background-color: #7533ff;
+
+    opacity: 1;
+  }
+}
+
+.squaredCheck .checkInput + label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.squaredCheck .checkInput {
+  display: none;
+}

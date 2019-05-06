@@ -12,8 +12,9 @@ import StepCard from '../../components/cards/StepCard/StepCard';
 import QuestionMarks from '../../components/shapes/questionMark/questionMark';
 import Circles from '../../components/shapes/circles/circles';
 import Triangles from '../../components/shapes/triangles/triangles';
+import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import RoundButton from '../../components/buttons/RoundButton/RoundButton';
-
+import CardCompetence from '../../components/cards/CardCompetence/Competence';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -47,7 +48,11 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
       title: 'Introduction',
       description: 'Découvre un jeu d’introduction sur les compétences en entreprise',
-      footerComponent: <button className={classes.step_card_footer_text}>Rejouer</button>,
+      footerComponent: (
+        <div className={classes.step_footer}>
+          <button className={classes.step_card_footer_text}>Rejouer</button>
+        </div>
+      ),
     },
     {
       headerComponent: <Circles />,
@@ -55,13 +60,20 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       title: 'Mes passions et mes hobbies',
       description: 'Tu as des compétences sans le savoir, aide-nous à les identifier !',
       footerComponent: true ? (
-        <RoundButton onClick={navigate('/themes')} className={`${classes.round_button} ${classes.step2_round_button}`}>
-          Commencer
-        </RoundButton>
+        <div className={classes.step_footer}>
+          <RoundButton
+            onClick={navigate('/themes')}
+            className={`${classes.round_button} ${classes.step2_round_button}`}
+          >
+            Commencer
+          </RoundButton>
+        </div>
       ) : (
-        <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
-          Mettre à jour
-        </button>
+        <div className={classes.step_footer}>
+          <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+            Mettre à jour
+          </button>
+        </div>
       ),
     },
     {
@@ -70,13 +82,17 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       title: 'Compléter mes petits boulots',
       description: 'Ton expérience intéresse tes futurs employeurs !',
       footerComponent: true ? (
-        <RoundButton disabled={true} className={`${classes.round_button} ${classes.step3_round_button}`}>
-          Bientôt
-        </RoundButton>
+        <div className={classes.step_footer}>
+          <RoundButton disabled={true} className={`${classes.round_button} ${classes.step3_round_button}`}>
+            Bientôt
+          </RoundButton>
+        </div>
       ) : (
-        <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
-          Mettre à jour
-        </button>
+        <div className={classes.step_footer}>
+          <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+            Mettre à jour
+          </button>
+        </div>
       ),
       disabled: true,
     },
@@ -87,17 +103,20 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       title: 'Compléter mes informations',
       description: 'On a encore quelques questions à te poser',
       footerComponent: true ? (
-        <RoundButton disabled={true} className={`${classes.round_button} ${classes.step4_round_button}`}>
-          Bientôt
-        </RoundButton>
+        <div className={classes.step_footer}>
+          <RoundButton disabled={true} className={`${classes.round_button} ${classes.step4_round_button}`}>
+            Bientôt
+          </RoundButton>
+        </div>
       ) : (
-        <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
-          Mettre à jour
-        </button>
+        <div className={classes.step_footer}>
+          <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+            Mettre à jour
+          </button>
+        </div>
       ),
     },
   ];
-
   return (
     <div className={classes.container}>
       <Grid container className={'flex_center'}>
@@ -111,10 +130,10 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
         </Grid>
       </Grid>
       <Grid className={classes.steps_container} container>
-        <Grid item xl={8} md={12}>
+        <Grid item xl={8} lg={6} md={12}>
           <Grid className={classes.cards_container} padding={{ xl: 0 }} container>
             {steps.map((step, i) => (
-              <Grid className={classes.card} key={i} item xl={6} smd={12}>
+              <Grid className={classes.card} key={i} item xl={6} lg={12}>
                 <StepCard
                   classes={{
                     content: classes.step_card_content,
@@ -127,7 +146,10 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item xl={4} />
+        <Grid item xl={4} lg={6} md={12}>
+          <CardProgress progress={3} />
+          <CardCompetence parcours={getParcours.data.globalCopmetences} />
+        </Grid>
       </Grid>
     </div>
   );

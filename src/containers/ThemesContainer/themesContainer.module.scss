@@ -22,15 +22,15 @@
   padding: 0 15px;
   text-align: left;
 }
-.tooltip {
-  color: $purple !important;
-  background-color: $white !important;
-  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
-  &.place-top {
-    &:after {
-      border-top-color: $white !important;
-      border-top-style: solid !important;
-      border-top-width: 6px !important;
-    }
+
+.continue_container {
+  justify-content: flex-end;
+  display: flex;
+  padding-top: 75px;
+  padding-bottom: 65px;
+
+  @media (max-width: map-get($breakpoints, "md" )) {
+    padding-top: 45px;
+    padding-bottom: 35px;
   }
 }

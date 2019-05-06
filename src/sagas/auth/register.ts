@@ -32,7 +32,7 @@ export default function* ({ email, password, firstName, lastName, institution, q
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
       yield call(setItem, 'user', response.data);
-      yield all([put(userActions.userChange(response.data)), put(registerActions.registerUserSuccess())]);
+      yield all([put(userActions.userChange({ user: response.data })), put(registerActions.registerUserSuccess())]);
     } else {
       yield put(registerActions.registerUserFailure({ error: response.message }));
     }
