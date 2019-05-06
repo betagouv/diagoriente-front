@@ -6,20 +6,48 @@
   display: flex;
   width: 32px;
   height: 30px;
-  background-image: url('../../assets/icons/stars/ic_star_empty.svg');
+  background-image: url("../../assets/icons/stars/ic_star_empty.svg");
   background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   &:hover {
-      background-image: url('../../assets/icons/stars/ic_star_opacity.svg');
+    background-image: url("../../assets/icons/stars/ic_star_opacity.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
   }
   &:focus {
-      background-image: url('../../assets/icons/stars/ic_star_full.svg');
-      outline: none;
+    background-image: url("../../assets/icons/stars/ic_star_full.svg");
+    outline: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
   }
 }
 .star_checked {
-    background-image: url('../../assets/icons/stars/ic_star_full.svg');
-    display: flex;
-    width: 32px;
-    height: 30px; 
-    background-repeat: no-repeat;
+  background-image: url("../../assets/icons/stars/ic_star_full.svg");
+  display: flex;
+  width: 32px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+@media (max-width: 576px) {
+  .star {
+    width: 24px;
+  }
+  .star_checked {
+    width: 24px;
+  }
+}
+@media (max-width: 375px) {
+  .star {
+    width: 15px;
+  }
+  .star_checked {
+    width:15px;
+  }
 }

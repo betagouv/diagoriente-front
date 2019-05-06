@@ -5,16 +5,19 @@ import star_full from '../../assets/icons/stars/ic_star_full.svg';
 import star_opacity from '../../assets/icons/stars/ic_star_opacity.svg';
 import star_empty from '../../assets/icons/stars/ic_star_empty.svg';
 
-const stars = ({ className, children, ...other }: React.HTMLAttributes<HTMLElement>) => {
-  const [checked, setchecked] = useState(false);
-  const toggleStar = () => {
-    setchecked(!checked);
-    console.log('clicked');
-  };
+
+interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  checked: boolean;
+  onChange():void;
+}
+
+const stars = ({ className, children,checked,onChange, ...other }: Props) => {
+  
+
 
   return (
     <div className={classNames(classes.container, className)} {...other}>
-      <div className={!checked ? classes.star : classes.star_checked} onClick={toggleStar} />
+      <div className={!checked ? classes.star : classes.star_checked} onClick={onChange} />
     </div>
   );
 };

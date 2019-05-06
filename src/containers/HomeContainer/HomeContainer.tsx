@@ -73,7 +73,6 @@ const HomeContainer = ({ history }: any) => {
           </Grid>
         ))}
       </Grid>
-      
     </div>
   );
 };

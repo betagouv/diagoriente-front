@@ -41,6 +41,7 @@ interface IDispatchToProps {
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
 
 const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props) => {
+  console.log('helo', themes);
   useDidMount(() => {
     list.call();
   });
@@ -85,7 +86,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history }: Props
               <PathStepper options={['Mes passions et mes hobbies']} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
-              <Title logo={themes[themes.length - 1].resources.icon} title="Trouve ta voie" />
+              <Title logo={themes.length ? themes[themes.length - 1].resources.icon : ''} title="Trouve ta voie" />
             </Grid>
             <Grid item xl={12}>
               <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
