@@ -17,11 +17,13 @@
   align-items: center;
   margin-left: 10px;
 }
+
 .Bitmap {
   width: 45px;
   height: 45px;
-/*   mix-blend-mode: multiply;
- */}
+  /*   mix-blend-mode: multiply;
+ */
+}
 .triangle {
   width: 0px;
   position: absolute;
@@ -35,16 +37,23 @@
 .text {
   font-family: Lato;
   font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 2;
-  letter-spacing: normal;
   color: #003189;
 }
 .wrapper {
   display: flex;
   align-items: center;
-
   height: 67px;
 }
+@media (max-width: map-get($breakpoints, "xs" )) {
+  .Oval {
+    display: none;
+  }
+  .wrapper {
+    justify-content: center;
+  }
+  .text{
+   margin-left:0px !important
+  }
+}
+

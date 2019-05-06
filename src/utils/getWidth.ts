@@ -1,3 +1,4 @@
+
 export function getWidth(width: number) {
   let WIDTH: string = '';
   switch (width) {
@@ -71,4 +72,23 @@ export function getProgress(progress: number) {
     STYLE,
     MARGIN,
   };
+}
+export function progress(width: number) {
+
+  let WIDTH: string = '';
+  switch (width) {
+    case 1:
+      WIDTH = '25%';
+      break;
+    case 2:
+      WIDTH = '50%';
+      break;
+    case 3:
+      WIDTH = '75%';
+      break;
+    case 4:
+      WIDTH = '100%';
+      break;
+  }
+  return WIDTH;
 }

@@ -15,6 +15,7 @@ import Triangles from '../../components/shapes/triangles/triangles';
 import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import RoundButton from '../../components/buttons/RoundButton/RoundButton';
 import CardCompetence from '../../components/cards/CardCompetence/Competence';
+import Header from '../../components/Header/Header';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -119,6 +120,7 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
   ];
   return (
     <div className={classes.container}>
+      <Header />
       <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
           Bienvenue sur Diagoriente
@@ -147,7 +149,7 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
           </Grid>
         </Grid>
         <Grid item xl={4} lg={6} md={12}>
-          <CardProgress progress={3} />
+          <CardProgress progress={4} />
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>

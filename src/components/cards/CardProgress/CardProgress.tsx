@@ -10,7 +10,6 @@ type IProps = {
 
 const CardProgress = ({ progress }: IProps) => {
   const style = getProgress(progress);
-  console.log(style.MARGIN)
   return (
     <div className={classes.container}>
       <ProgressBar width={progress} />
