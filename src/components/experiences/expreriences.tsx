@@ -25,7 +25,7 @@ const Experiences = ({
       {experience &&
         experience.map((item: any) => {
           return (
-            <div className={classes.list}>
+            <div key={item._id} className={classes.list}>
               <div className={classes.check_wrapper}>
                 <img className={classes.check} src={check} alt="exists" />
               </div>
@@ -33,7 +33,9 @@ const Experiences = ({
             </div>
           );
         })}
-        <Button onClick={OnClick} className={classes.edit_button}>Modifier</Button>
+      <Button onClick={OnClick} className={classes.edit_button}>
+        Modifier
+      </Button>
     </div>
   );
 };
