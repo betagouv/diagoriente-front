@@ -23,7 +23,7 @@ function createAction(type: string) {
   return (...args: any) => {
     const allArgs = args.reduce((result: object, arg: any) => {
       if (typeof arg !== 'object' && arg !== undefined) {
-        throw new Error(`Action arguments is expected be an object but got ${typeof args}`);
+        throw new Error(`Action arguments is expected be an object but got ${typeof arg}`);
       }
       if (isArray(arg)) {
         throw new Error('Action arguments is expected be an object but got array');

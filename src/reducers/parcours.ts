@@ -9,6 +9,7 @@ const INITIAL_STATE: IParcours = {
   themes: [],
   activities: {},
   competences: {},
+  lastIndex: 0,
 };
 
 const add = <T extends { _id: string; [key: string]: any }>(table: T[], row: T) =>
@@ -41,12 +42,15 @@ const changeCompetence = (state: IParcours, { themeId, id, value }: AnyAction) =
   return { ...state, competences: { ...state.competences, [themeId]: currentCompetence } };
 };
 
+const lastIndexChange = (state: IParcours, { lastIndex }: AnyAction) => ({ ...state, lastIndex });
+
 const { actions, types: parcoursTypes, reducer } = createRedux(INITIAL_STATE, {
   addTheme,
   removeTheme,
   addActivity,
   removeActivity,
   changeCompetence,
+  lastIndexChange,
 });
 
 export default actions;

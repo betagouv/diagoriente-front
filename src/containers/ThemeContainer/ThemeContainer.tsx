@@ -13,31 +13,43 @@ import CompetenceContainer from '../CompetenceContainer';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
 import SideBarMobile from '../../components/sideBar/SidebarMobile/SideBarMobile';
 import PathStepper from '../../components/PathStepper/Path';
-import Info from '../../components/ui/Info/Info';
 import Grid from '../../components/ui/Grid/Grid';
-import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
+import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 import Title from '../../components/Title/Title';
 
 // not found
 import NotFound from '../../layout/NotFound';
+
+// api
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getTheme } from '../../requests/themes';
-import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
+
+// actions
+import parcoursActions from '../../reducers/parcours';
 
 // styles
 import classes from './theme.module.scss';
+import { Dispatch, AnyAction } from 'redux';
 
 interface IMapToProps {
   themes: ITheme[];
 }
 
-type Props = RouteComponentProps<{ id: string }> & IMapToProps & ApiComponentProps<{ get: typeof getTheme }>;
+interface IDispatchToProps {
+  lastIndexChange: (index: number) => void;
+}
 
-const ThemeContainer = ({ match, themes, history, get }: Props) => {
+type Props = RouteComponentProps<{ id: string }> &
+  IMapToProps &
+  IDispatchToProps &
+  ApiComponentProps<{ get: typeof getTheme }>;
+
+const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props) => {
   const { id } = match.params;
   const currentIndex = themes.findIndex(theme => theme._id === id);
   const goNext = () => {
     if (currentIndex < themes.length - 1) {
+      lastIndexChange(currentIndex + 1);
       history.push(`/theme/${themes[currentIndex + 1]._id}`);
     } else {
       history.push('/profile');
@@ -77,7 +89,7 @@ const ThemeContainer = ({ match, themes, history, get }: Props) => {
   return (
     <>
       <div className={classes.container_themes}>
-        <SideBar options={map(themes, theme => ({ value: theme.title }))} />
+        <SideBar options={map(themes, theme => ({ ...theme, isSelected: id === theme._id }))} />
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
@@ -112,4 +124,11 @@ const mapStateToProps = ({ parcours }: ReduxState) => ({
   themes: parcours.themes,
 });
 
-export default connect(mapStateToProps)(withApis({ get: getTheme })(ThemeContainer));
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  lastIndexChange: index => dispatch(parcoursActions.lastIndexChange({ lastIndex: index })),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withApis({ get: getTheme })(ThemeContainer));

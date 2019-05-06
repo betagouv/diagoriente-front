@@ -76,6 +76,7 @@ declare module 'reducers' {
     readonly themes: ITheme[];
     readonly activities: { readonly [key: string]: IActivity[] };
     readonly competences: { readonly [key: string]: { readonly _id: string; readonly value: number }[] };
+    readonly lastIndex: number;
   }
   export interface IQuestion {
     readonly _id: string;

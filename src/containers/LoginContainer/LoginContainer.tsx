@@ -13,7 +13,7 @@ type Props = RouteComponentProps & {
 
 const LoginContainer = ({ user }: Props) => {
   if (!isEmpty(user)) return <Redirect to={'/'} />;
-
+  console.log(location.pathname);
   return (
     <Switch>
       <Route exact path={'/login'} component={LoginUser} />
