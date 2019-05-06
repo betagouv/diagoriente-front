@@ -1,8 +1,7 @@
 import React from 'react';
-
+import { map } from 'lodash';
 import classes from './competenceItem.module.scss';
 import Progress from '../progressBars/ProgressBarCompetence/ProgressCompetence';
-import { map } from 'lodash';
 interface IProps {
   parcours: {
     title: string;
