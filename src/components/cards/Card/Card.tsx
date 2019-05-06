@@ -9,12 +9,14 @@ interface Props {
 
 const Card = ({ className, children, checked, ...other }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
-    <button className={classNames(classes.card, checked && classes.card_focus, className)} {...other}>
-      <img src={check} alt="checked" className={classes.check} />
-      <span className={classNames(classes.title, checked && classes.title_focus, className)} {...other}>
-        {children}
-      </span>
-    </button>
+    <div className={classNames(classes.container, checked && classes.container_focus)}>
+      <button className={classNames(classes.card, checked && classes.card_focus, className)} {...other}>
+        <img src={check} alt="checked" className={classes.check} />
+        <span className={classNames(classes.title, checked && classes.title_focus, className)} {...other}>
+          {children}
+        </span>
+      </button>
+    </div>
   );
 };
 

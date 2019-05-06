@@ -11,7 +11,7 @@ type Props = { user: IUser | {} } & RouteProps;
 
 const ProtectedRoute = ({ user, ...other }: Props) => {
   if (isEmpty(user)) {
-    return <Redirect to={`login/user${encodeUri({ from: window.location.pathname + window.location.search })}`} />;
+    return <Redirect to={`/login/user${encodeUri({ from: window.location.pathname + window.location.search })}`} />;
   }
   return <Route {...other} />;
 };

@@ -18,7 +18,7 @@ export default function* ({ email, password }: ILoginRequestAction) {
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
       yield call(setItem, 'user', response.data);
-      yield all([put(loginActions.loginUserSuccess()), put(userActions.userChange(response.data))]);
+      yield all([put(loginActions.loginUserSuccess()), put(userActions.userChange({ user: response.data }))]);
     } else {
       yield put(loginActions.loginUserFailure({ error: response.message }));
     }

@@ -2,19 +2,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
-  min-width: 70%;
+  width: 100%;
+  padding-bottom: 75px;
 }
+
 .infoStyle {
   border: solid 1px rgba(117, 51, 255, 0.15);
   background-image: linear-gradient(83deg, #5065ff, #a422c9);
 }
-.checkContainer {
-  margin: 5% 9%;
+.activitiesContainer {
+  padding: 5% 9%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 916px) {
-  .checkContainer {
-    margin: 5% 0;
+  .activitiesContainer {
+    padding: 5% 0;
   }
 }

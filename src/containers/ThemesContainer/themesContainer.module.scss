@@ -22,3 +22,15 @@
   padding: 0 15px;
   text-align: left;
 }
+
+.continue_container {
+  justify-content: flex-end;
+  display: flex;
+  padding-top: 75px;
+  padding-bottom: 65px;
+
+  @media (max-width: map-get($breakpoints, "md" )) {
+    padding-top: 45px;
+    padding-bottom: 35px;
+  }
+}

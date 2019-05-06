@@ -49,16 +49,12 @@
 }
 .box_selected {
   background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
-  max-width: 170px;
-  width: 100%;
+  width: 170px;
   height: 65px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
-.white_div {
-  background-color: transparent;
-  width: 20px;
-}
+
 .triangle {
   width: 0px;
   position: absolute;
@@ -67,7 +63,7 @@
   border-bottom: 5px solid #992bcf;
   transform: rotate(90deg);
   top: 30px;
-  right: 13px;
+  right: 0;
 }
 
 @media (max-width: map-get($breakpoints, "md")) {

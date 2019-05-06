@@ -3,15 +3,15 @@ import ReactTooltip from 'react-tooltip';
 
 import classes from './selectedCard.module.scss';
 
-interface IProps {
+interface IProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   title: string;
   logo?: string;
   open?: boolean;
   isSelected?: boolean;
 }
 
-const SelectedCard = ({ title, logo, isSelected }: IProps) => (
-  <div data-tip data-for={title} className={classes.wrapper}>
+const SelectedCard = ({ title, logo, isSelected, ...other }: IProps) => (
+  <button data-tip data-for={title} className={classes.wrapper} {...other}>
     <div className={isSelected ? classes.box_selected : classes.container}>
       {logo && (
         <div className={classes.logo_container}>
@@ -20,14 +20,10 @@ const SelectedCard = ({ title, logo, isSelected }: IProps) => (
       )}
       <span className={classes.theme_title}>{title}</span>
     </div>
-    {isSelected && (
-      <div className={classes.white_div}>
-        <div className={classes.triangle} />
-      </div>
-    )}
+    {isSelected && <div className={classes.triangle} />}
     <ReactTooltip id={title} place="right" type="light" className={classes.tooltip}>
       {title}
     </ReactTooltip>
-  </div>
+  </button>
 );
 export default SelectedCard;
