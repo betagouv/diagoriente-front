@@ -40,11 +40,15 @@ type Props = RouteComponentProps<{ id: string }> &
   ApiComponentProps<{ list: typeof listCompetences }> & { theme: ITheme; goNext: () => void } & IMapToProps &
   IDispatchToProps;
 
-const CompetenceContainer = ({ list, activities, competences, competenceChange, goNext }: Props) => {
+const CompetenceContainer = ({ list, activities, competences, competenceChange, goNext, history, match }: Props) => {
   const mounted = useDidMount(() => {
     list.call();
-    console.log('activities', activities);
   });
+  const goBack = () => {
+    history.replace({
+      pathname: `/theme/${match.params.id}/activities`,
+    });
+  };
 
   const { data, fetching } = list;
   if (fetching || !mounted) return <LazyLoader />;
@@ -74,7 +78,7 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
   return (
     <div style={{ display: 'flex' }} className="item-12">
       <div className={classNames('item-4 item-xl-3 ', classes.experiences)}>
-        <Experiences title="Mes Experiences" experience={activities} />
+        <Experiences title="Mes Experiences" experience={activities} OnClick={goBack} />
       </div>
       <div className={classNames('item-8 item-xl-9 item-lg-10 item-md-12 item-smd-12 item-sm-12', classes.list_stars)}>
         <Info>J’évalue mes compétences</Info>

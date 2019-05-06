@@ -78,19 +78,18 @@
   color: #666666;
 }
 
-@media (max-width: 1024px) {
+.edit_button {
+  color: #666666;
+  background-color: white;
+  border: solid 1px #dddddd;
+  padding: 10px 40px;
+  font-family: Lato;
 
+  &:hover {
+    color: white; 
+  background-color:#666666; 
+  border: solid 1px #dddddd;
+  padding: 10px 40px;
+  }
 }
 
-@media (max-width: 768px) {
-
-}
-@media (max-width: 576px) {
-
-}
-@media (max-width: 375px) {
-
-}
-@media (max-width: 320px) {
-
-}

@@ -2,9 +2,11 @@ import React from 'react';
 import classes from './experiences.module.scss';
 import classNames from '../../utils/classNames';
 import check from '../../assets/icons/svg/checked.svg';
+import Button from '../buttons/RoundButton/RoundButton';
 interface Props {
   title: string;
   experience: any;
+  OnClick: () => void;
 }
 
 const Experiences = ({
@@ -12,6 +14,7 @@ const Experiences = ({
   experience,
   children,
   title,
+  OnClick,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
@@ -30,6 +33,7 @@ const Experiences = ({
             </div>
           );
         })}
+        <Button onClick={OnClick} className={classes.edit_button}>Modifier</Button>
     </div>
   );
 };
