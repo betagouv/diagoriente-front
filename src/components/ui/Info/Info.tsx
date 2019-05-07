@@ -28,7 +28,7 @@ const Triangle: any = styled(Grid)(({ triangleBackgroundColor, triangleBorderCol
 }));
 
 const Info = ({ children, className, backgroundColor, borderColor }: Props) => (
-  <Grid padding={{ xl: 0 }} container>
+  <Grid padding={{ xl: 0 }} spacing={{ xl: 0 }} container>
     <Container
       containerBackgroundColor={backgroundColor}
       containerBorderColor={borderColor}

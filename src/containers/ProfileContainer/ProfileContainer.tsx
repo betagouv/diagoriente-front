@@ -15,7 +15,8 @@ import Triangles from '../../components/shapes/triangles/triangles';
 import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import RoundButton from '../../components/buttons/RoundButton/RoundButton';
 import CardCompetence from '../../components/cards/CardCompetence/Competence';
-import Header from '../../components/Header/Header';
+import Header from '../../layout/Header/Header';
+
 // hooks
 import { useDidMount } from '../../hooks';
 

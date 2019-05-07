@@ -4,8 +4,7 @@ import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 
 const LazyHomeContainer = lazy(() => import('./HomeContainer'));
 
-// TODO add RouteComponentProps to props when we start add functionality
-export default (props: any) => (
+export default (props: RouteComponentProps) => (
   <Suspense fallback={<LazyLoader />}>
     <LazyHomeContainer {...props} />
   </Suspense>

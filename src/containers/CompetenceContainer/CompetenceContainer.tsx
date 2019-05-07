@@ -88,7 +88,7 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
     );
   });
   return (
-    <Grid container padding={{ xl: 0 }} spacing={{ xl: 40 }} className={classes.container}>
+    <Grid container padding={{ xl: 0 }} spacing={{ xl: 40, lg: 0 }} className={classes.container}>
       <Grid item xl={4} className={classes.experiences}>
         <Experiences title="Mes Experiences" experience={activities} OnClick={goBack} />
       </Grid>
