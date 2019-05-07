@@ -24,7 +24,7 @@ import registerUserActions from '../../reducers/authUser/register';
 import classes from './register.module.scss';
 
 // components
-import Button from '../../components/buttons/RoundButton/RoundButton';
+import Button from '../../components/form/Button/ButtonLogin';
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
 
@@ -82,26 +82,16 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <h3>Sign Up</h3>
+          <h3>Enregister</h3>
         </div>
         <div>
           <span>{error}</span>
         </div>
-        <Input
-          name="First name"
-          validation={firstNameValid}
-          onChange={firstNameChange}
-          className={classes.container_input}
-        />
-        <Input
-          name="Last name"
-          validation={lastNameValid}
-          onChange={lastNameChange}
-          className={classes.container_input}
-        />
+        <Input name="Nom" validation={firstNameValid} onChange={firstNameChange} className={classes.container_input} />
+        <Input name="Prénom" validation={lastNameValid} onChange={lastNameChange} className={classes.container_input} />
         <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
         <Input
-          name="Password"
+          name="Mot de pass"
           validation={passwordValid}
           onChange={passwordChange}
           className={classes.container_input}
@@ -131,10 +121,13 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         />
 
         <div className={classes.container_button}>
-          <Button onClick={onSubmit}> Sign in</Button>
+          <Button onClick={onSubmit} title='Enregister'> Enregister</Button>
         </div>
         <div className={classes.container_forget_Password}>
-            <h5>Have an account already ?</h5> <Link to="/login"><h6>Sign in now </h6> </Link>
+          <h5>Vous avez une compte ?</h5>{' '}
+          <Link to="/login">
+            <h6> Se connecter </h6>{' '}
+          </Link>
         </div>
       </div>
     </div>
