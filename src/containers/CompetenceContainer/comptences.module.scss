@@ -1,31 +1,8 @@
+.container {
+  padding-bottom: 75px;
+}
+
 .title {
-    font-family: Lato;
-    font-size: 22px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.36;
-    letter-spacing: normal;
-    color: #666666;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 60%;
-}
-.title_stars {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    &:hover {
-        .title {
-            color:#7533ff;
-            cursor: pointer;
-        }
-    }
-}
-.title_active {
   font-family: Lato;
   font-size: 22px;
   font-weight: bold;
@@ -33,52 +10,59 @@
   font-stretch: normal;
   line-height: 1.36;
   letter-spacing: normal;
+  color: #666666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 60%;
+}
+.title_stars {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.title_active {
   color: #7533ff;
-  cursor: pointer;
+}
+
+.continue_button {
+  margin: auto;
+  margin-top: 55px;
 }
 
 @media (max-width: 1024px) {
-    .title {
-        font-size: 18px;
-    }
-    .title_active {
-        font-size: 18px;
-    }
+  .title {
+    font-size: 16px;
+    width: 45%;
+  }
+  .list_stars {
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+  .experiences {
+    display: none;
+  }
 }
 
-
-@media (max-width: 960px) {
-    .experiences {
-        display: none;
-    }
-    .title {
-        font-size: 16px;
-        width: 45%;
-    }
-    .title_active {
-        font-size: 16px;
-        width: 45%;
-    }
-    .list_stars {
-        max-width: 100% !important;
-        flex-basis: 100% !important;
-    }
-}
 @media (max-width: 576px) {
-    .title {
-        font-size: 14px;
-        width: 40%;
-    }
-    .title_active {
-        font-size: 14px;
-        width: 40%;
-    }
+  .title {
+    font-size: 14px;
+    width: 40%;
+  }
+  .title_active {
+    font-size: 14px;
+    width: 40%;
+  }
+  .title {
+    font-size: 14px;
+    width: 40%;
+  }
 }
 @media (max-width: 375px) {
-    .title {
-        font-size: 12px;
-    }
-    .title_active {
-        font-size: 12px;
-    }
+  .title {
+    font-size: 12px;
+  }
 }

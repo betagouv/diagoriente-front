@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './stars.module.scss';
 import classNames from '../../utils/classNames';
 import ReactTooltip from 'react-tooltip';
@@ -6,14 +6,13 @@ import ReactTooltip from 'react-tooltip';
 interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   checked: boolean;
   onChange(): void;
-  title: string;
 }
 
-const stars = ({ className, children, title, checked, onChange, ...other }: Props) => {
+const stars = ({ className, children, checked, onChange, title, ...other }: Props) => {
   return (
-    <div className={classNames(classes.container, className)} {...other} data-tip={title}>
+    <div data-for={title} {...other} data-tip={title} className={classNames(classes.container, className)}>
       <div className={!checked ? classes.star : classes.star_checked} onClick={onChange} />
-      <ReactTooltip type="light" className={classes.tooltip_star}/>
+      <ReactTooltip id={title} type="light" className={`tooltip ${classes.tooltip_star}`} />
     </div>
   );
 };

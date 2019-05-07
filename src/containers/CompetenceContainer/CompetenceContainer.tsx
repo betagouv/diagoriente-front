@@ -26,6 +26,7 @@ import { currentCompetenceSelector, currentActivitiesSelector } from '../../sele
 import classes from './comptences.module.scss';
 import Experiences from '../../components/experiences/expreriences';
 import classNames from '../../utils/classNames';
+import Grid from '../../components/ui/Grid/Grid';
 
 interface IMapToProps {
   competences: { _id: string; value: number }[];
@@ -58,10 +59,13 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
     const current = competences.find(({ _id }) => competence._id === _id);
     const buttons: JSX.Element[] = [];
     for (let i = 1; i <= 4; i += 1) {
-      const current = competences.find(({ _id }) => competence._id === _id);
       const selected = current && current.value >= i;
       const onClick = () => {
-        competenceChange(competence._id, i);
+        if (current && current.value !== i) {
+          competenceChange(competence._id, i);
+        } else {
+          competenceChange(competence._id, 0);
+        }
       };
       buttons.push(
         <Stars
@@ -76,25 +80,37 @@ const CompetenceContainer = ({ list, activities, competences, competenceChange, 
     }
     return (
       <div key={competence._id} className={classes.title_stars}>
-        <h1 className={current && current._id === competence._id ? classes.title_active : classes.title}>
+        <h1 className={classNames(classes.title, current && current.value !== 0 && classes.title_active)}>
           {competence.title}
         </h1>
-
-        <div style={{ display: 'flex' }}> {buttons}</div>
+        <div style={{ display: 'flex' }}>{buttons}</div>
       </div>
     );
   });
   return (
-    <div style={{ display: 'flex' }} className="item-12">
-      <div className={classNames('item-4 item-xl-3 ', classes.experiences)}>
-        <Experiences title="Mes expériences" experience={activities} OnClick={goBack} />
-      </div>
-      <div className={classNames('item-8 item-xl-9 item-lg-10 item-md-12 item-smd-12 item-sm-12', classes.list_stars)}>
-        <Info>J’évalue mes compétences</Info>
-        {competenceComponents}
-        <ContinueButton disabled={competences.length === 0} onClick={goNext} />
-      </div>
-    </div>
+    <Grid container padding={{ xl: 0 }} spacing={{ xl: 40 }} className={classes.container}>
+      <Grid item xl={4} className={classes.experiences}>
+        <Experiences title="Mes Experiences" experience={activities} OnClick={goBack} />
+      </Grid>
+
+      <Grid item xl={8} lg={12} className={classes.list_stars}>
+        <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
+          <Grid item xl={12}>
+            <Info>J’évalue mes compétences</Info>
+          </Grid>
+          <Grid item xl={12}>
+            {competenceComponents}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xl={12} className={'flex_center'}>
+        <ContinueButton
+          className={classes.continue_button}
+          disabled={competences.filter(({ value }) => value !== 0).length === 0}
+          onClick={goNext}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
