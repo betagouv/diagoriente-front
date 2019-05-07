@@ -38,7 +38,6 @@ interface IMapToProps {
 interface IDispatchToProps {
   lastIndexChange: (index: number) => void;
 }
-
 type Props = RouteComponentProps<{ id: string }> &
   IMapToProps &
   IDispatchToProps &
@@ -85,6 +84,14 @@ const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props)
   if (currentTheme) {
     stepperOptions.push(currentTheme.title);
   }
+  const onNavigate = (index: number, p: string) => {
+    if (index === 0) {
+      history.push('/');
+    }
+    if (index === 1) {
+      history.push('/themes');
+    }
+  };
 
   return (
     <>
@@ -95,7 +102,7 @@ const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props)
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
-              <PathStepper options={stepperOptions} />
+              <PathStepper options={stepperOptions} onClick={onNavigate} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
               {currentTheme && <Title title={currentTheme.title} logo={currentTheme.resources.icon} />}

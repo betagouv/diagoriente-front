@@ -79,6 +79,14 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, current
       );
     });
   }
+  const onNavigate = (index: number, p: string) => {
+    if (index === 0) {
+      history.push('/');
+    }
+    if (index === 1) {
+      history.push('/themes');
+    }
+  };
 
   return (
     <>
@@ -89,7 +97,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, current
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
-              <PathStepper options={['Mes passions et mes hobbies']} />
+              <PathStepper options={['Mes passions et mes hobbies']} onClick={onNavigate} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
               <Title
