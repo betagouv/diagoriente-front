@@ -3,6 +3,7 @@
   display: flex;
   width: 100%;
   align-self: stretch;
+  
   .content_themes {
     padding-left: 0px;
     width: calc(100% - 250px);
@@ -21,4 +22,7 @@
   height: 50px;
   padding: 0 15px;
   text-align: left;
+}
+.bar_color{
+  background-image: linear-gradient(to left, #ff0060, #7533ff 51%, #00cfff);
 }

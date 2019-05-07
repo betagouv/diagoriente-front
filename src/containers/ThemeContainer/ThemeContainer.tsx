@@ -16,7 +16,7 @@ import PathStepper from '../../components/PathStepper/Path';
 import Grid from '../../components/ui/Grid/Grid';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 import Title from '../../components/Title/Title';
-
+import classNames from '../../utils/classNames';
 // not found
 import NotFound from '../../layout/NotFound';
 
@@ -89,6 +89,7 @@ const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props)
   return (
     <>
       <div className={classes.container_themes}>
+        <div className={classNames('colorful_bar', classes.bar_color)} />
         <SideBar options={map(themes, theme => ({ ...theme, isSelected: id === theme._id }))} />
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>

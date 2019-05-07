@@ -16,6 +16,7 @@ import Grid from '../../components/ui/Grid/Grid';
 
 import classes from './ActivitiesContainer.module.scss';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
+import classNames from '../../utils/classNames';
 interface IMapToProps {
   activities: IActivity[];
 }
@@ -62,6 +63,8 @@ const ActivitiesContainer = ({ theme, activities, add, remove, history, match }:
 
   return (
     <div className={classes.activityContainer}>
+      <div className={classNames('colorful_bar', classes.bar_color)} />
+
       <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
         <Grid item xl={12} sm={8} smd={9} xs={6}>
           <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">

@@ -21,6 +21,7 @@ import Grid from '../../components/ui/Grid/Grid';
 import CardTheme from '../../components/cards/Card/Card';
 import Title from '../../components/Title/Title';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
+import classNames from '../../utils/classNames';
 
 // hooks
 import { useDidMount } from '../../hooks';
@@ -82,6 +83,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, current
   return (
     <>
       <div className={classes.container_themes}>
+        <div className={classNames('colorful_bar', classes.bar_color)} />
         <SideBar options={themes} />
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>
