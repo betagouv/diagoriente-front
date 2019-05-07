@@ -12,9 +12,9 @@ import Footer from '../../layout/Footer/Footer';
 import NotFound from '../../layout/NotFound';
 
 // containers
-import HomeContainer from '../HomeContainer/HomeContainer';
-import ThemesContainer from '../ThemesContainer/ThemesContainer';
-import ThemeContainer from '../ThemeContainer/ThemeContainer';
+import HomeContainer from '../HomeContainer';
+import ThemesContainer from '../ThemesContainer';
+import ThemeContainer from '../ThemeContainer';
 import LoginUserContainer from '../LoginContainer';
 import ProfileContainer from '../ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer';

@@ -15,9 +15,9 @@ const CheckBox = ({
   tooltip,
   ...other
 }: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & Props) => {
-  const dataTip: string = selected ? 'Je l’ai déjà fait !' :  "J'ai pas fait !";
+  const dataTip: string = selected ? 'Je l’ai déjà fait !' : tooltip;
   return (
-    <div className={classes.squaredCheck} data-tip={dataTip} data-for={id} >
+    <div className={classes.squaredCheck} data-tip={dataTip} data-for={id}>
       <input
         type="checkbox"
         onChange={onCheckChange}

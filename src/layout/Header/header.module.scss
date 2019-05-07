@@ -1,26 +1,90 @@
+@import "../../styles/variables.scss";
+
 .logo {
-  width: 229px;
-  height: 60px;
-  object-fit: contain;
-  mix-blend-mode: multiply;
+  width: 150px;
+  height: auto;
 }
+
 .headerContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding-top: 40.1px;
 }
+
+.logout_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout {
+  height: 40px;
+  border-radius: 30px;
+  border: solid 1px #dddddd;
+  padding: 0;
+  margin: 0;
+  padding-right: 40px;
+  padding-left: 15px;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  transition: opacity 0.25s linear;
+  &:hover {
+    opacity: 0.5;
+  }
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    border: none;
+    padding: 0 10px;
+    border-radius: 0;
+  }
+}
+
+.logout_text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666666;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    display: none;
+  }
+}
+
+.logout_icon_container {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    right: 0;
+  }
+}
+
+.logout_icon {
+  height: 16px;
+  width: 16px;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    height: 30px;
+    width: 30px;
+  }
+}
+
 .headerContainer::before {
-  width: 100%;
   height: 5px;
   background-image: linear-gradient(to left, #ff0060, #7533ff 51%, #00cfff);
   content: "";
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
 }
 
 .logoWrapper {
-  padding-top: 40.1px;
-  padding-left: 50.3px;
 }
-
-

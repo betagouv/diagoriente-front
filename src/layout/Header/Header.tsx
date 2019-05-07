@@ -5,12 +5,17 @@ import { connect } from 'react-redux';
 import loginActions from '../../reducers/authUser/login';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, User } from 'reducers';
+
+// components
+import Grid from '../../components/ui/Grid/Grid';
+
+// assets
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import logoutSvg from '../../assets/icons/svg/logout.svg';
 
 import classes from './header.module.scss';
-import classNames from '../../utils/classNames';
 
 interface IMapToProps {
   user: User;
@@ -24,18 +29,21 @@ type Props = IMapToProps & IDispatchToProps;
 
 const Header = ({ logout, user }: Props) => {
   return (
-    <div className={classes.headerContainer}>
-      <div className={classes.logoWrapper}>
-        <img
-          src={logo}
-          srcSet={`${logo2x} 2x, ${logo3x} 3x`}
-          alt="Logo"
-          className={classNames(classes.logo, 'item-12 item-xl-10 item-md-8 item-sm-6  item-xs-4') }
-        />
-      </div>
-
-      {!isEmpty(user) && <button onClick={logout}>logout</button>}
-    </div>
+    <Grid className={classes.headerContainer} container>
+      <Grid item xl={6}>
+        <img className={classes.logo} src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} alt="Logo" />
+      </Grid>
+      <Grid className={classes.logout_container} item xl={6}>
+        {!isEmpty(user) && (
+          <button className={classes.logout} onClick={logout}>
+            <span className={classes.logout_text}>déconnexion</span>
+            <div className={classes.logout_icon_container}>
+              <img className={classes.logout_icon} src={logoutSvg} />
+            </div>
+          </button>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 
