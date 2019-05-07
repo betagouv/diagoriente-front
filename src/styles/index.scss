@@ -110,5 +110,5 @@ button {
   content: "";
   position: fixed;
   top: 0;
-  z-index: 99999;
+  z-index: $zindex-fixed;
 }
