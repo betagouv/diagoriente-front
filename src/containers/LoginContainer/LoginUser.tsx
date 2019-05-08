@@ -58,23 +58,31 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <h3>Sign In</h3>
+          <h3>Se Connecter</h3>
         </div>
-        <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
         <Input
-          name="Password"
+          name="Email"
+          validation={emailValid}
+          onChange={emailChange}
+          className={classes.container_input}
+          type="email"
+        />
+        <Input
+          name="Mot de passe"
           validation={passwordValid}
           onChange={passwordChange}
           className={classes.container_input}
+          type="password"
         />
 
         <div className={classes.container_button}>
           {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
-          <Button onClick={onSubmit}> login</Button>
+          <Button onClick={onSubmit}> Se Connecter</Button>
         </div>
         <div className={classes.container_forget_Password}>
-          <h5>
-            Not a member ? <Link to="/register"> Sign up now </Link>
+          <h5 className={classes.register_text}>
+          <span>Vous ne possédez pas un compte ?</span> 
+           <Link to="/register">Inscription </Link>
           </h5>
         </div>
       </div>
