@@ -20,7 +20,7 @@ import loginUserActions from '../../reducers/authUser/login';
 import classes from './login.module.scss';
 
 // components
-import Button from '../../components/buttons/RoundButton/RoundButton';
+import Button from '../../components/form/Button/ButtonLogin';
 import Input from '../../components/form/Input/Input';
 
 interface DispatchToProps {

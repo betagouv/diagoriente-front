@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 const REDUX_PERSIST: PersistConfig = {
   storage,
   key: 'root',
-  whitelist: ['parcours'],
+  whitelist: [],
   blacklist: [],
 };
 

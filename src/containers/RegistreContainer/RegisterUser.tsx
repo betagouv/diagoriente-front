@@ -24,7 +24,7 @@ import registerUserActions from '../../reducers/authUser/register';
 import classes from './register.module.scss';
 
 // components
-import Button from '../../components/buttons/RoundButton/RoundButton';
+import Button from '../../components/form/Button/ButtonLogin';
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
 
@@ -82,7 +82,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <h3>Sign Up</h3>
+          <h3>Enregister</h3>
         </div>
        
         <div className={classes.row}>

@@ -1,17 +1,21 @@
 import { createSelector } from 'reselect';
-import { ReduxState } from 'reducers';
+import { ReduxState, ISkillPopulated } from 'reducers';
 
-const competenceSelector = (state: ReduxState, themeId: string) => state.parcours.competences[themeId];
-const activitiesSelector = (state: ReduxState, themeId: string) => state.parcours.activities[themeId];
+const skillsSelector = (state: ReduxState) => state.parcours.data.skills;
 
-export const currentCompetenceSelector = createSelector(
-  competenceSelector,
-  competences => {
-    return competences || [];
-  },
-);
-
-export const currentActivitiesSelector = createSelector(
-  activitiesSelector,
-  activities => activities || [],
-);
+export const currentThemeSelector = (themeId: string) =>
+  createSelector(
+    skillsSelector,
+    skills => {
+      return (
+        skills.find(({ theme }) => theme._id === themeId) ||
+        ({
+          activities: [],
+          theme: { resources: {} } as any,
+          competences: [],
+          type: 'personal',
+          _id: '',
+        } as ISkillPopulated)
+      );
+    },
+  );

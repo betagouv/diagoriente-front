@@ -2,7 +2,7 @@ import { fork, all } from 'redux-saga/effects';
 
 import authSaga from './auth';
 import startup from './startup';
-import currentParcours from './currentParcours';
+import currentParcours from './parcours';
 
 const sagas = [startup, authSaga, currentParcours];
 

@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // types
-import { ReduxState, ApiReducer, ICurrentParcours } from 'reducers';
+import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 
 // components
 import Grid from '../../components/ui/Grid/Grid';
@@ -28,21 +28,28 @@ import { getParcours } from '../../requests';
 import classes from './profileContainer.module.scss';
 
 interface MapToProps {
-  currentParcours: ApiReducer<ICurrentParcours>;
+  parcours: ApiReducer<IParcoursResponse>;
 }
 
 type Props = RouteComponentProps & ApiComponentProps<{ getParcours: typeof getParcours }> & MapToProps;
 
-const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
+const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
 
   useDidMount(() => {
-    if (currentParcours.data._id) {
-      getParcours.call(currentParcours.data._id);
+    if (parcours.data._id) {
+      getParcours.call(parcours.data._id);
     }
   });
+
+  const isPersoCompleted = parcours.data.skills
+    .filter(skill => skill.theme.type === 'personal')
+    .find(skill => !(skill.activities.length && skill.competences.length));
+  const isProCompleted = parcours.data.skills
+    .filter(skill => skill.theme.type === 'professional')
+    .find(skill => !(skill.activities.length && skill.competences.length));
 
   const steps = [
     {
@@ -61,7 +68,7 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
       title: 'Mes passions et mes hobbies',
       description: 'Tu as des compétences sans le savoir, aide-nous à les identifier !',
-      footerComponent: true ? (
+      footerComponent: isPersoCompleted ? (
         <div className={classes.step_footer}>
           <RoundButton
             onClick={navigate('/themes')}
@@ -83,31 +90,34 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
       title: 'Compléter mes petits boulots',
       description: 'Ton expérience intéresse tes futurs employeurs !',
-      footerComponent: true ? (
+      footerComponent: isProCompleted ? (
         <div className={classes.step_footer}>
-          <RoundButton disabled={true} className={`${classes.round_button} ${classes.step3_round_button}`}>
-            Bientôt
+          <RoundButton
+            onClick={navigate('/themes?type=professional')}
+            className={`${classes.round_button} ${classes.step3_round_button}`}
+          >
+            {!isPersoCompleted ? 'Commencer' : 'Bientôt'}
           </RoundButton>
         </div>
       ) : (
         <div className={classes.step_footer}>
-          <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+          <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
             Mettre à jour
           </button>
         </div>
       ),
-      disabled: true,
+      disabled: !!isPersoCompleted,
     },
     {
       headerComponent: <div className={classes.info_step_header} />,
-      disabled: true,
+      disabled: !!(isPersoCompleted || isProCompleted),
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
       title: 'Compléter mes informations',
       description: 'On a encore quelques questions à te poser',
       footerComponent: true ? (
         <div className={classes.step_footer}>
-          <RoundButton disabled={true} className={`${classes.round_button} ${classes.step4_round_button}`}>
-            Bientôt
+          <RoundButton className={`${classes.round_button} ${classes.step4_round_button}`}>
+            {isPersoCompleted ? 'Bientôt' : 'Commencer'}
           </RoundButton>
         </div>
       ) : (
@@ -119,6 +129,7 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
       ),
     },
   ];
+
   return (
     <div className={classes.container}>
       <Header />
@@ -158,8 +169,8 @@ const ProfileContainer = ({ history, getParcours, currentParcours }: Props) => {
   );
 };
 
-const mapStateToProps = ({ currentParcours }: ReduxState) => ({
-  currentParcours,
+const mapStateToProps = ({ parcours }: ReduxState) => ({
+  parcours,
 });
 
 export default connect(mapStateToProps)(withApis({ getParcours })(ProfileContainer));

@@ -62,22 +62,24 @@ declare module 'reducers' {
     resources: { color: string; backgroundColor: string; icon: string };
   }
 
-  export type ICurrentParcours = {
+  export interface ISkillPopulated {
+    theme: ITheme;
+    activities: IActivity[];
+    competences: { _id: string; value: number }[];
+    type: 'professional' | 'personal';
+    _id: string;
+  }
+
+  export interface IParcoursResponse {
     completed: boolean;
     createdAt: string;
     families: [];
-    skills: [];
+    skills: ISkillPopulated[];
     updatedAt: string;
     userId: string;
     _id: string;
-  };
-
-  export interface IParcours {
-    readonly themes: ITheme[];
-    readonly activities: { readonly [key: string]: IActivity[] };
-    readonly competences: { readonly [key: string]: { readonly _id: string; readonly value: number }[] };
-    readonly lastIndex: number;
   }
+
   export interface IQuestion {
     readonly _id: string;
     readonly title: string;
@@ -91,8 +93,8 @@ declare module 'reducers' {
       readonly login: ApiReducer;
       readonly register: ApiReducer;
     };
-    readonly parcours: IParcours;
     readonly questions: IQuestion;
-    readonly currentParcours: ApiReducer<ICurrentParcours>;
+    readonly parcours: ApiReducer<IParcoursResponse>;
+    readonly themes: ITheme[];
   };
 }
