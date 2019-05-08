@@ -1,7 +1,7 @@
 import React, { useRef, useState, useLayoutEffect } from 'react';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ReduxState, ITheme } from 'reducers';
+import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
 import { isEmpty, map } from 'lodash';
 import ReactTooltip from 'react-tooltip';
 
@@ -24,35 +24,33 @@ import NotFound from '../../layout/NotFound';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getTheme } from '../../requests/themes';
 
-// actions
-import parcoursActions from '../../reducers/parcours';
-
 // styles
 import classes from './theme.module.scss';
-import { Dispatch, AnyAction } from 'redux';
 
 interface IMapToProps {
   themes: ITheme[];
+  skills: ISkillPopulated[];
 }
 
-interface IDispatchToProps {
-  lastIndexChange: (index: number) => void;
-}
-type Props = RouteComponentProps<{ id: string }> &
-  IMapToProps &
-  IDispatchToProps &
-  ApiComponentProps<{ get: typeof getTheme }>;
+type Props = RouteComponentProps<{ id: string }> & IMapToProps & ApiComponentProps<{ get: typeof getTheme }>;
 
-const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props) => {
+const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
   const { id } = match.params;
   const currentIndex = themes.findIndex(theme => theme._id === id);
   const goNext = () => {
-    if (currentIndex < themes.length - 1) {
-      lastIndexChange(currentIndex + 1);
-      history.push(`/theme/${themes[currentIndex + 1]._id}`);
-    } else {
-      history.push('/profile');
+    const currentTheme = themes.find(theme => theme._id === match.params.id);
+    const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
+    const { length } = currentSkillsType;
+    let i = 0;
+    let nextTheme = null;
+    while (i < length && !nextTheme) {
+      const currentTheme = currentSkillsType[i];
+      if (!(currentTheme.activities.length && currentTheme.competences.length)) {
+        nextTheme = currentTheme;
+      }
+      i += 1;
     }
+    history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : '/profile');
   };
 
   const mounted = useRef(false);
@@ -96,9 +94,16 @@ const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props)
   return (
     <>
       <div className={classes.container_themes}>
-        <div className={classNames('colorful_bar', classes.bar_color)} />
-        <SideBar options={map(themes, theme => ({ ...theme, isSelected: id === theme._id }))} />
-        <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
+        <SideBar
+          options={map(themes, theme => ({ ...theme, isSelected: id === theme._id })).filter(
+            theme => currentTheme && theme.type === currentTheme.type,
+          )}
+        />
+        <SideBarMobile
+          toggleOpen={toggleOpen}
+          open={open}
+          options={themes.filter(theme => currentTheme && theme.type === currentTheme.type)}
+        />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
@@ -128,15 +133,9 @@ const ThemeContainer = ({ match, themes, history, get, lastIndexChange }: Props)
   );
 };
 
-const mapStateToProps = ({ parcours }: ReduxState) => ({
-  themes: parcours.themes,
+const mapStateToProps = ({ themes, parcours }: ReduxState) => ({
+  themes,
+  skills: parcours.data.skills,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
-  lastIndexChange: index => dispatch(parcoursActions.lastIndexChange({ lastIndex: index })),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withApis({ get: getTheme })(ThemeContainer));
+export default connect(mapStateToProps)(withApis({ get: getTheme })(ThemeContainer));
