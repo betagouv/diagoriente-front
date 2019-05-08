@@ -51,10 +51,11 @@
     flex-direction: column;
     margin: 10px;
     button {
-      padding: 15px 40px;
+      padding: 10px 30px;
+      background-image: linear-gradient(254deg, #a422c9, #5065ff);
       
       &:hover {
-        background-color: white;
+        background-image: linear-gradient(254deg, #ffffff, #fcf0f0);
         color: #ff0060;
         box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.2);
         border:none;

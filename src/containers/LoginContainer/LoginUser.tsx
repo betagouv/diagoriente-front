@@ -20,7 +20,7 @@ import loginUserActions from '../../reducers/authUser/login';
 import classes from './login.module.scss';
 
 // components
-import Button from '../../components/form/Button/ButtonLogin';
+import Button from '../../components/buttons/RoundButton/RoundButton';
 import Input from '../../components/form/Input/Input';
 
 interface DispatchToProps {
@@ -77,12 +77,12 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
 
         <div className={classes.container_button}>
           {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
-          <Button onClick={onSubmit}> Se Connecter</Button>
+          <Button onClick={onSubmit}>Se Connecter</Button>
         </div>
         <div className={classes.container_forget_Password}>
           <h5 className={classes.register_text}>
-          <span>Vous ne possédez pas un compte ?</span> 
-           <Link to="/register">Inscription </Link>
+            <span>Vous ne possédez pas un compte ?</span>
+            <Link to="/register">Inscription </Link>
           </h5>
         </div>
       </div>
