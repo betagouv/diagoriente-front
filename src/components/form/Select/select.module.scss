@@ -48,6 +48,9 @@
 .select_item {
   padding: 5px;
   padding-left: 15px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
 }
 @media (max-width: map-get($breakpoints, "md")) {
   .login_container_input {
