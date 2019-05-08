@@ -25,11 +25,10 @@
   justify-content: center;
   padding-right: 10px;
   .arrow {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
-    background-color: $indigo;
-    transform: rotate(90deg);
+    
   }
 }
 .select_drop {

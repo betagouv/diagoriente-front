@@ -84,57 +84,60 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         <div className={classes.container_title}>
           <h3>Sign Up</h3>
         </div>
-        <div>
-          <span>{error}</span>
-        </div>
-        <Input
-          name="First name"
-          validation={firstNameValid}
-          onChange={firstNameChange}
-          className={classes.container_input}
-        />
-        <Input
-          name="Last name"
-          validation={lastNameValid}
-          onChange={lastNameChange}
-          className={classes.container_input}
-        />
-        <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
-        <Input
-          name="Password"
-          validation={passwordValid}
-          onChange={passwordChange}
-          className={classes.container_input}
-        />
-        <Input
-          name="Institution"
-          validation={institutionValid}
-          onChange={institutionChange}
-          className={classes.container_input}
-        />
+       
+        <div className={classes.row}>
+          <Input
+            name="Prénom"
+            validation={firstNameValid}
+            onChange={firstNameChange}
+            className={classes.container_input}
+          />
+          <Input name="Nom" validation={lastNameValid} onChange={lastNameChange} className={classes.container_input} />
+          <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
+          <Input
+            name="Mot de passe"
+            validation={passwordValid}
+            onChange={passwordChange}
+            className={classes.container_input}
+            type="password"
+          />
+          <Input
+            name="Institution"
+            validation={institutionValid}
+            onChange={institutionChange}
+            className={classes.container_input}
+          />
 
-        <Select
-          options={map(data, question => ({ value: question._id, label: question.title }))}
-          open={open}
-          onChange={onChange}
-          value={questionValue}
-          className={classes.container_input}
-          placeholder="Choisi un question de sécurité"
-          selectOpen={onOpen}
-          selectClose={onClose}
-        />
-        <Input
-          name="Votre réponse"
-          validation={responseValid}
-          onChange={responseChange}
-          className={classes.container_input}
-        />
+          <Select
+            options={map(data, question => ({ value: question._id, label: question.title }))}
+            open={open}
+            onChange={onChange}
+            value={questionValue}
+            className={classes.container_input_select}
+            placeholder="Questions de sécurité"
+            selectOpen={onOpen}
+            selectClose={onClose}
+          />
+          <Input
+            name="Votre réponse"
+            validation={responseValid}
+            onChange={responseChange}
+            className={classes.container_input}
+          />
+        </div>
 
         <div className={classes.container_button}>
-          <Button onClick={onSubmit}> Sign in</Button>
+          <Button onClick={onSubmit}> Inscription</Button>
+        </div>
+
+        <div>
+          <span className={classes.error}>{error}</span>
         </div>
         <div className={classes.container_forget_Password}>
-            <h5>Have an account already ?</h5> <Link to="/login"><h6>Sign in now </h6> </Link>
+          <h5>Vous avez un Compte ?</h5>{' '}
+          <Link to="/login">
+            <h6>Se Connecter</h6>{' '}
+          </Link>
         </div>
       </div>
     </div>
