@@ -20,7 +20,7 @@ import loginUserActions from '../../reducers/authUser/login';
 import classes from './login.module.scss';
 
 // components
-import Button from '../../components/buttons/RoundButton/RoundButton';
+import Button from '../../components/form/Button/ButtonLogin';
 import Input from '../../components/form/Input/Input';
 
 interface DispatchToProps {
@@ -58,11 +58,11 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <h3>Sign In</h3>
+          <h3>Se connecter</h3>
         </div>
         <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
         <Input
-          name="Password"
+          name="Mot de pass"
           validation={passwordValid}
           onChange={passwordChange}
           className={classes.container_input}
@@ -70,12 +70,13 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
 
         <div className={classes.container_button}>
           {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
-          <Button onClick={onSubmit}> login</Button>
+          <Button onClick={onSubmit} title="login" />
         </div>
         <div className={classes.container_forget_Password}>
-          <h5>
-            Not a member ? <Link to="/register"> Sign up now </Link>
-          </h5>
+          <h5>Vous n'avez pas une compte ? </h5>
+          <Link to="/register">
+            <h6>Enregister</h6>
+          </Link>
         </div>
       </div>
     </div>

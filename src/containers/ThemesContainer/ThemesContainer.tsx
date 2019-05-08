@@ -21,6 +21,7 @@ import Grid from '../../components/ui/Grid/Grid';
 import CardTheme from '../../components/cards/Card/Card';
 import Title from '../../components/Title/Title';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
+import classNames from '../../utils/classNames';
 
 // hooks
 import { useDidMount } from '../../hooks';
@@ -78,16 +79,25 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, current
       );
     });
   }
+  const onNavigate = (index: number, p: string) => {
+    if (index === 0) {
+      history.push('/');
+    }
+    if (index === 1) {
+      history.push('/themes');
+    }
+  };
 
   return (
     <>
       <div className={classes.container_themes}>
+        <div className={classNames('colorful_bar', classes.bar_color)} />
         <SideBar options={themes} />
         <SideBarMobile toggleOpen={toggleOpen} open={open} options={themes} />
         <div className={classes.content_themes}>
           <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
-              <PathStepper options={['Mes passions et mes hobbies']} />
+              <PathStepper options={['Mes passions et mes hobbies']} onClick={onNavigate} />
             </Grid>
             <Grid item xl={12} className={classes.grid_padding}>
               <Title
@@ -106,7 +116,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, current
               </Grid>
             </Grid>
             <Grid item xl={12} className={classes.continue_container}>
-              <ContinueButton disabled={themes.length === 0} onClick={onClick} />
+              <ContinueButton disabled={themes.length === 0} isFetching={true} onClick={onClick} />
             </Grid>
           </Grid>
         </div>
