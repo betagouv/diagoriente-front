@@ -116,7 +116,7 @@ const ThemesContainer = ({ list, themes, addTheme, removeTheme, history, current
               </Grid>
             </Grid>
             <Grid item xl={12} className={classes.continue_container}>
-              <ContinueButton disabled={themes.length === 0} onClick={onClick} />
+              <ContinueButton disabled={themes.length === 0} isFetching={true} onClick={onClick} />
             </Grid>
           </Grid>
         </div>
