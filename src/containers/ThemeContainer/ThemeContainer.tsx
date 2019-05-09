@@ -77,7 +77,7 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
   if (error) return <div>{error}</div>;
   if (isEmpty(data)) return <NotFound />;
 
-  const stepperOptions = ['Mes passions et mes hobbies'];
+  const stepperOptions = ['Ma carte de compétences'];
   const currentTheme = themes.find(theme => theme._id === match.params.id);
   if (currentTheme) {
     stepperOptions.push(currentTheme.title);

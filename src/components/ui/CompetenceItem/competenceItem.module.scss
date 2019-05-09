@@ -5,11 +5,9 @@
 }
 .item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 .label {
-  flex: 1 1 auto;
   font-size: 13px;
   line-height: 2.31;
   color: $darkblue;
@@ -17,6 +15,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 166px;
+  width: 100%
 }
 .value {
+  display: flex;
+  justify-content: flex-start
+}
+.tooltip {
+  color: $darkblue !important;
+  background-color: $white !important;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  &.place-top {
+    &:after {
+      border-top-color: $white !important;
+      border-top-style: solid !important;
+      border-top-width: 6px !important;
+    }
+  }
 }
