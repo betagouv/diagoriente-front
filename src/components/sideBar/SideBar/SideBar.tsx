@@ -39,11 +39,10 @@ const SideBar = ({ options, history, disabled }: IProps) => {
         {options.map((o, i) => {
           return (
             <SelectThemeCard
-              onClick={navigate(`/theme/${o._id}/activities`)}
+              onClick={disabled ? undefined : navigate(`/theme/${o._id}/activities`)}
               key={o._id}
               isSelected={o.isSelected}
               title={o.title}
-              disabled={disabled}
             />
           );
         })}
