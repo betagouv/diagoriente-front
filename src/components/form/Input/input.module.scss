@@ -27,7 +27,9 @@
     color: $red;
     font-size: 14px;
     line-height: 1.2;
-    text-align: left;
+    text-align: center;
+    text-transform: capitalize;
+
   }
 }
 @media (max-width: map-get($breakpoints, "md")) {
