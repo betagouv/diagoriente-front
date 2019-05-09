@@ -58,7 +58,7 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <h3>Se Connecter</h3>
+          <span>Se Connecter</span>
         </div>
         <Input
           name="Email"

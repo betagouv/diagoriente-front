@@ -160,7 +160,7 @@ const ThemesContainer = ({
       <div className={classes.content_themes}>
         <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
           <Grid item xl={12}>
-            <PathStepper options={['Mes passions et mes hobbies']} onClick={onNavigate} />
+            <PathStepper options={['Ma carte de compétences']} onClick={onNavigate} />
           </Grid>
           <Grid item xl={12} className={classes.grid_padding}>
             <Title logo={themes.length ? themes[themes.length - 1].resources.icon : undefined} title="Trouve ta voie" />
