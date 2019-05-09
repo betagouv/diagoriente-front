@@ -1,20 +1,21 @@
 @import "../../styles//variables.scss";
 .container_home {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 83px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("../../assets/images/bg-01.jpg");
+  background-color: $white;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   .container_title {
-    margin: 15px 20px;
-    h3 {
+    margin: 20px 20px;
+    span {
       display: block;
       font-size: 39px;
       color: $gray-700;
+      font-weight: bold;
       line-height: 1.2;
       text-align: center;
     }
@@ -27,8 +28,7 @@
   display: flex;
   flex-direction: column;
   width: 60vw;
-  height: 70vh;
-  min-height: 70vh;
+  height: auto;
   overflow: auto;
 
   align-items: center;
@@ -52,24 +52,20 @@
     margin: 10px;
     button {
       padding: 10px 30px;
-      background-image: linear-gradient(254deg, #a422c9, #5065ff);
-      
-      &:hover {
-        background-image: linear-gradient(254deg, #ffffff, #fcf0f0);
-        color: #ff0060;
-        box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.2);
-        border:none;
-      }
+       background-image: linear-gradient(254deg, #a422c9, #5065ff); 
     }
   }
   .container_forget_Password {
-    margin: 10px;
+    margin: 20px;
     h5 {
       color: $gray-700;
       font-size: $h6-font-size;
       line-height: 1;
       text-align: left;
       margin: 0px;
+      span {
+        margin-bottom: 8px;
+      }
     }
     h6 {
       font-size: $h6-font-size;
@@ -88,8 +84,8 @@
 @media (max-width: map-get($breakpoints, "md")) {
   .container_home {
     .container_title {
-      margin: 15px 20px;
-      h3 {
+      margin: 20px 20px;
+      span {
         display: block;
         font-size: 30px;
         color: $gray-700;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import NotFound from '../../layout/NotFound';
 import { ReduxState, IUser } from 'reducers';
-
+import Header from '../../layout/Header/Header';
 const LoginUser = lazy(() => import('./LoginUser'));
 
 type Props = RouteComponentProps & {
@@ -15,11 +15,14 @@ const LoginContainer = ({ user }: Props) => {
   if (!isEmpty(user)) return <Redirect to={'/'} />;
   console.log(location.pathname);
   return (
-    <Switch>
-      <Route exact path={'/login'} component={LoginUser} />
-      <Route exact path={'/login/user'} component={LoginUser} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Header />
+      <Switch>
+        <Route exact path={'/login'} component={LoginUser} />
+        <Route exact path={'/login/user'} component={LoginUser} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 };
 

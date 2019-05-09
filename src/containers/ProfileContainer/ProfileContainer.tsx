@@ -55,8 +55,8 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
     {
       headerComponent: <QuestionMarks />,
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-      title: 'Introduction',
-      description: 'Découvre un jeu d’introduction sur les compétences en entreprise',
+      title: 'Mini game',
+      description: 'Apprends une méthode simple pour identifier des compétences',
       footerComponent: (
         <div className={classes.step_footer}>
           <button className={classes.step_card_footer_text}>Rejouer</button>
@@ -66,8 +66,8 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
     {
       headerComponent: <Circles />,
       circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
-      title: 'Mes passions et mes hobbies',
-      description: 'Tu as des compétences sans le savoir, aide-nous à les identifier !',
+      title: 'Ma carte de compétences',
+      description: 'Liste toutes tes expériences et rèvèle tes compétences',
       footerComponent: isPersoCompleted ? (
         <div className={classes.step_footer}>
           <RoundButton
@@ -88,8 +88,8 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
     {
       headerComponent: <Triangles />,
       circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
-      title: 'Compléter mes petits boulots',
-      description: 'Ton expérience intéresse tes futurs employeurs !',
+      title: 'Mon Service National Universel',
+      description: 'Evalue ton séjour de cohésion',
       footerComponent: isProCompleted ? (
         <div className={classes.step_footer}>
           <RoundButton
@@ -112,8 +112,8 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       headerComponent: <div className={classes.info_step_header} />,
       disabled: !!(isPersoCompleted || isProCompleted),
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
-      title: 'Compléter mes informations',
-      description: 'On a encore quelques questions à te poser',
+      title: 'Mes thèmes favoris',
+      description: "Précise tes pistes d'orientation, engage toi dans une mission qui te ressemble (modifié)",
       footerComponent: true ? (
         <div className={classes.step_footer}>
           <RoundButton className={`${classes.round_button} ${classes.step4_round_button}`}>

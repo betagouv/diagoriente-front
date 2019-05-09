@@ -20,7 +20,7 @@ const steps = [
   {
     headerComponent: <QuestionMarks />,
     circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-    description: 'Réponds à quelques questions sur tes passions, et joue à des jeux',
+    description: 'Dècouvre comment identifier tes compÈtences en jouant',
   },
   {
     headerComponent: <Circles />,
@@ -30,7 +30,7 @@ const steps = [
   {
     headerComponent: <Triangles />,
     circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
-    description: 'Diagoriente te propose des emplois et formation personnalisés',
+    description: "Diagoriente te propose des pistes pour ton orientation et ta mission d'intèrêt gènèral",
   },
 ];
 
