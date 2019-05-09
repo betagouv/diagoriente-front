@@ -160,7 +160,7 @@ const ThemesContainer = ({
         when={!isEqual(parcours.skills.map(skill => skill.theme), themes)}
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
-      <SideBar options={listThemes} />
+      <SideBar disabled options={listThemes} />
       <SideBarMobile toggleOpen={toggleOpen} open={open} options={listThemes} />
       <div className={classes.content_themes}>
         <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
