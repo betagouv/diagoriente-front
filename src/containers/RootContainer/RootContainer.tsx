@@ -13,12 +13,12 @@ import Footer from '../../layout/Footer/Footer';
 import NotFound from '../../layout/NotFound';
 
 // containers
-import HomeContainer from '../HomeContainer';
-import ThemesContainer from '../ThemesContainer';
-import ThemeContainer from '../ThemeContainer';
-import LoginUserContainer from '../LoginContainer';
-import ProfileContainer from '../ProfileContainer';
-import RegisterUserContainer from '../RegistreContainer';
+import HomeContainer from '../HomeContainer/HomeContainer';
+import ThemesContainer from '../ThemesContainer/ThemesContainer';
+import ThemeContainer from '../ThemeContainer/ThemeContainer';
+import LoginUserContainer from '../LoginContainer/LoginContainer';
+import ProfileContainer from '../ProfileContainer/ProfileContainer';
+import RegisterUserContainer from '../RegistreContainer/RegisterContainer';
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
