@@ -1,10 +1,9 @@
-import { call, all, put } from 'redux-saga/effects';
+import { call, put, take, race } from 'redux-saga/effects';
 
-import userActions from '../../reducers/authUser/user';
 import registerActions from '../../reducers/authUser/register';
+import loginActions, { loginTypes } from '../../reducers/authUser/login';
 
-import { wrapApiCall, RegisterUserRequest, WrappedResponse, IUser, setAuthorizationBearer } from '../../requests';
-import { setItem } from '../../utils/localforage';
+import { wrapApiCall, RegisterUserRequest, WrappedResponse, IUser } from '../../requests';
 
 interface IRegisterRequestAction {
   type: 'REGISTER_REQUEST';
@@ -30,9 +29,13 @@ export default function* ({ email, password, firstName, lastName, institution, q
       question,
     });
     if (response.success) {
-      setAuthorizationBearer(response.data.token.accessToken);
-      yield call(setItem, 'user', response.data);
-      yield all([put(userActions.userChange({ user: response.data })), put(registerActions.registerUserSuccess())]);
+      yield put(loginActions.loginUserRequest({ email, password }));
+      const [success, failure] = yield race([take(loginTypes.loginUserSuccess), take(loginActions.loginUserFailure)]);
+      if (success) {
+        yield put(registerActions.registerUserSuccess());
+      } else {
+        yield put(registerActions.registerUserFailure({ error: failure.error }));
+      }
     } else {
       yield put(registerActions.registerUserFailure({ error: response.message }));
     }
