@@ -5,8 +5,7 @@ import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import NotFound from '../../layout/NotFound';
 import { ReduxState, IUser } from 'reducers';
 import Header from '../../layout/Header/Header';
-
-const RegisterUser = lazy(() => import('./RegisterUser'));
+import RegisterUser from './RegisterUser';
 
 type Props = RouteComponentProps & {
   user: IUser | {};
