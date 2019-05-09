@@ -117,7 +117,7 @@ const ThemesContainer = ({
         }
         i += 1;
       }
-      history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : `/theme/${themes[0]._id}`);
+      history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : `/theme/${skills[0].theme._id}`);
     }
   },           [fetching]);
 

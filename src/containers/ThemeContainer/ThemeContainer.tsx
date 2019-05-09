@@ -91,45 +91,41 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
     }
   };
 
+  const listThemes = themes.filter(theme => currentTheme && theme.type === currentTheme.type);
+
   return (
-    <>
-      <div className={classes.container_themes}>
-        <SideBar
-          options={map(themes, theme => ({ ...theme, isSelected: id === theme._id })).filter(
-            theme => currentTheme && theme.type === currentTheme.type,
-          )}
-        />
-        <SideBarMobile
-          toggleOpen={toggleOpen}
-          open={open}
-          options={themes.filter(theme => currentTheme && theme.type === currentTheme.type)}
-        />
-        <div className={classes.content_themes}>
-          <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
-            <Grid item xl={12}>
-              <PathStepper options={stepperOptions} onClick={onNavigate} />
-            </Grid>
-            <Grid item xl={12} className={classes.grid_padding}>
-              {currentTheme && <Title title={currentTheme.title} logo={currentTheme.resources.icon} />}
-            </Grid>
-            <Switch>
-              <Route
-                path={'/theme/:id/activities'}
-                render={props => <ActivitiesContainer {...props} theme={data} />}
-                exact
-              />
-              <Route
-                path={'/theme/:id/skills'}
-                exact
-                render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} />}
-              />
-              <Route component={NotFound} />
-            </Switch>
-            {fetching && fetchingComponent}
+    <div className={classes.container_themes}>
+      <SideBar options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))} />
+      <SideBarMobile
+        toggleOpen={toggleOpen}
+        open={open}
+        options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))}
+      />
+      <div className={classes.content_themes}>
+        <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
+          <Grid item xl={12}>
+            <PathStepper options={stepperOptions} onClick={onNavigate} />
           </Grid>
-        </div>
+          <Grid item xl={12} className={classes.grid_padding}>
+            {currentTheme && <Title title={currentTheme.title} logo={currentTheme.resources.icon} />}
+          </Grid>
+          <Switch>
+            <Route
+              path={'/theme/:id/activities'}
+              render={props => <ActivitiesContainer {...props} theme={data} />}
+              exact
+            />
+            <Route
+              path={'/theme/:id/skills'}
+              exact
+              render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} />}
+            />
+            <Route component={NotFound} />
+          </Switch>
+          {fetching && fetchingComponent}
+        </Grid>
       </div>
-    </>
+    </div>
   );
 };
 

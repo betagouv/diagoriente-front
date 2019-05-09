@@ -56,7 +56,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
     {
       headerComponent: <QuestionMarks />,
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-      title: 'Mini game',
+      title: 'Mini jeu',
       description: 'Apprends une méthode simple pour identifier des compétences',
       footerComponent: (
         <div className={classes.step_footer}>
