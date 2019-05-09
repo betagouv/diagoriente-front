@@ -1,7 +1,7 @@
 import { isEmpty, map, forEach, findKey, keys, isArray } from 'lodash';
 import { AnyAction } from 'redux';
 
-type Action<T extends object> = { [key in keyof T]: (...args: any[]) => { type: string; [key: string]: any } };
+type Action<T extends object> = { [key in keyof T]: (...args: object[]) => { type: string; [key: string]: any } };
 
 type Types<T extends object> = { [key in keyof T]: string };
 

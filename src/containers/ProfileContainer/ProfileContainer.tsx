@@ -44,12 +44,13 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
     }
   });
 
-  const isPersoCompleted = parcours.data.skills
-    .filter(skill => skill.theme.type === 'personal')
-    .find(skill => !(skill.activities.length && skill.competences.length));
-  const isProCompleted = parcours.data.skills
-    .filter(skill => skill.theme.type === 'professional')
-    .find(skill => !(skill.activities.length && skill.competences.length));
+  const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
+  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional');
+
+  const isPersoCompleted =
+    persoSkills.length > 0 && !persoSkills.find(skill => !(skill.activities.length && skill.competences.length));
+  const isProCompleted =
+    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length));
 
   const steps = [
     {
@@ -68,7 +69,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
       title: 'Mes passions et mes hobbies',
       description: 'Tu as des compétences sans le savoir, aide-nous à les identifier !',
-      footerComponent: isPersoCompleted ? (
+      footerComponent: !isPersoCompleted ? (
         <div className={classes.step_footer}>
           <RoundButton
             onClick={navigate('/themes')}
@@ -90,13 +91,13 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
       title: 'Compléter mes petits boulots',
       description: 'Ton expérience intéresse tes futurs employeurs !',
-      footerComponent: isProCompleted ? (
+      footerComponent: !isProCompleted ? (
         <div className={classes.step_footer}>
           <RoundButton
             onClick={navigate('/themes?type=professional')}
             className={`${classes.round_button} ${classes.step3_round_button}`}
           >
-            {!isPersoCompleted ? 'Commencer' : 'Bientôt'}
+            {isPersoCompleted ? 'Commencer' : 'Bientôt'}
           </RoundButton>
         </div>
       ) : (
@@ -106,11 +107,11 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           </button>
         </div>
       ),
-      disabled: !!isPersoCompleted,
+      disabled: !isPersoCompleted,
     },
     {
       headerComponent: <div className={classes.info_step_header} />,
-      disabled: !!(isPersoCompleted || isProCompleted),
+      disabled: !(isPersoCompleted && isProCompleted),
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
       title: 'Compléter mes informations',
       description: 'On a encore quelques questions à te poser',
