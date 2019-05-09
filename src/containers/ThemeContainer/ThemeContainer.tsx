@@ -84,7 +84,7 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
   }
   const onNavigate = (index: number, p: string) => {
     if (index === 0) {
-      history.push('/');
+      history.push('/profile');
     }
     if (index === 1) {
       history.push('/themes');
