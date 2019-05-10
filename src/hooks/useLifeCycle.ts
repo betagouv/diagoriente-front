@@ -20,3 +20,9 @@ export function useDidUpdate(fn: EffectCallback, deps?: any[]) {
   },        deps);
   return mounted.current;
 }
+
+export function useWillUnmount(fn: EffectCallback) {
+  useEffect(() => {
+    return fn();
+  },        []);
+}

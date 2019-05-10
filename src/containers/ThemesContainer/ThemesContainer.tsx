@@ -1,9 +1,10 @@
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { RouteComponentProps, Redirect, Prompt } from 'react-router-dom';
+import { isEqual } from 'lodash';
 
 // types
-import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { ReduxState, ITheme, IParcoursResponse } from 'reducers';
 import { AnyAction } from 'redux';
 import { IUpdateParcoursParams } from '../../requests';
@@ -27,7 +28,7 @@ import classNames from '../../utils/classNames';
 import { decodeUri } from '../../utils/url';
 
 // hooks
-import { useDidMount, useDidUpdate } from '../../hooks';
+import { useDidMount, useDidUpdate, useWillUnmount } from '../../hooks';
 import themesActions from '../../reducers/themes';
 import parcoursActions from '../../reducers/parcours';
 
@@ -45,6 +46,7 @@ interface IDispatchToProps {
   addTheme: (theme: ITheme) => void;
   removeTheme: (theme: ITheme) => void;
   parcoursRequest: (args: IUpdateParcoursParams) => void;
+  updateThemes: (themes: ITheme[]) => void;
 }
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
@@ -60,8 +62,10 @@ const ThemesContainer = ({
   fetching,
   error,
   location,
+  updateThemes,
 }: Props) => {
-  const { type } = decodeUri(location.search);
+  let { type } = decodeUri(location.search);
+  type = type === 'professional' ? type : 'personal'; /// change style if type is professional
   if (
     type === 'professional' &&
     parcours.skills
@@ -70,9 +74,13 @@ const ThemesContainer = ({
   ) {
     return <Redirect to={'/profile'} />;
   }
+
   useDidMount(() => {
-    const { type } = decodeUri(location.search);
-    list.call({ type: type === 'professional' ? type : 'personal' });
+    list.call({ type });
+  });
+
+  useWillUnmount(() => {
+    updateThemes(parcours.skills.map(skill => skill.theme));
   });
 
   const [open, setOpen] = useState(false);
@@ -98,17 +106,18 @@ const ThemesContainer = ({
 
   useDidUpdate(() => {
     if (!fetching && !error) {
-      const { length } = parcours.skills;
+      const skills = parcours.skills.filter(skill => skill.theme.type === type);
+      const { length } = skills;
       let i = 0;
       let nextTheme = null;
       while (i < length && !nextTheme) {
-        const currentTheme = parcours.skills[i];
+        const currentTheme = skills[i];
         if (!(currentTheme.activities.length && currentTheme.competences.length)) {
           nextTheme = currentTheme;
         }
         i += 1;
       }
-      history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : `/theme/${themes[0]._id}`);
+      history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : `/theme/${skills[0].theme._id}`);
     }
   },           [fetching]);
 
@@ -136,27 +145,23 @@ const ThemesContainer = ({
   }
   const onNavigate = (index: number, p: string) => {
     if (index === 0) {
-      history.push('/');
+      history.push('/profile');
     }
     if (index === 1) {
       history.push('/themes');
     }
   };
 
+  const listThemes = themes.filter(theme => theme.type === type);
+
   return (
     <div className={classes.container_themes}>
-      <SideBar
-        options={themes.filter(theme =>
-          type === 'professional' ? theme.type === 'professional' : theme.type === 'personal',
-        )}
+      <Prompt
+        when={!isEqual(parcours.skills.map(skill => skill.theme), themes)}
+        message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
-      <SideBarMobile
-        toggleOpen={toggleOpen}
-        open={open}
-        options={themes.filter(theme =>
-          type === 'professional' ? theme.type === 'professional' : theme.type === 'personal',
-        )}
-      />
+      <SideBar disabled options={listThemes} />
+      <SideBarMobile toggleOpen={toggleOpen} open={open} options={listThemes} />
       <div className={classes.content_themes}>
         <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
           <Grid item xl={12}>
@@ -176,15 +181,7 @@ const ThemesContainer = ({
             </Grid>
           </Grid>
           <Grid item xl={12} className={classes.continue_container}>
-            <ContinueButton
-              disabled={
-                themes.filter(theme =>
-                  type === 'professional' ? theme.type === 'professional' : theme.type === 'personal',
-                ).length === 0
-              }
-              onClick={onClick}
-              isFetching={fetching}
-            />
+            <ContinueButton disabled={listThemes.length === 0} onClick={onClick} isFetching={fetching} />
           </Grid>
         </Grid>
       </div>
@@ -203,6 +200,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   addTheme: theme => dispatch(themesActions.addTheme({ theme })),
   removeTheme: theme => dispatch(themesActions.removeTheme({ theme })),
   parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
+  updateThemes: themes => dispatch(themesActions.updateThemes({ themes })),
 });
 
 export default connect(

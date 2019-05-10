@@ -8,7 +8,8 @@
 .headerContainer {
   display: flex;
   align-items: center;
-  padding-top: 40.1px;
+  padding-top: 40.1px !important;
+  z-index: $zindex-fixed;
 }
 
 .logout_container {

@@ -1,6 +1,6 @@
-import React, { MouseEvent, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { isEmpty, map } from 'lodash';
+import React, { useState } from 'react';
+import { RouteComponentProps, Prompt } from 'react-router-dom';
+import { isEmpty, map, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 
 // types
@@ -37,7 +37,7 @@ interface IDispatchToProps {
 type Props = RouteComponentProps<{ id: string }> & { theme: ITheme } & IMapToProps & IDispatchToProps;
 
 const ActivitiesContainer = ({
-  theme,
+  theme, /// check theme.type and change style if it's professional
   currentThemeSkill,
   history,
   match,
@@ -108,6 +108,10 @@ const ActivitiesContainer = ({
 
   return (
     <div className={classes.activityContainer}>
+      <Prompt
+        when={!isEqual(currentThemeSkill.activities.map(({ _id }) => _id), activities.map(({ _id }) => _id))}
+        message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
+      />
       <div className={classNames('colorful_bar', classes.bar_color)} />
 
       <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>

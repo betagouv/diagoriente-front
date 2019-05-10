@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { connect } from 'react-redux';
+import { RouteComponentProps, Prompt } from 'react-router-dom';
 
 // types
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
-import { RouteComponentProps } from 'react-router-dom';
 
 // components
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
@@ -53,6 +53,7 @@ const CompetenceContainer = ({
   skills,
   parcoursFetching,
   error,
+  theme, /// check theme.type and change style if it's professional
 }: Props) => {
   const [competences, competenceChange] = useState(currentThemeSkill.competences);
   const mounted = useDidMount(() => {
@@ -136,6 +137,10 @@ const CompetenceContainer = ({
   });
   return (
     <Grid container padding={{ xl: 0 }} spacing={{ xl: 40, lg: 0 }} className={classes.container}>
+      <Prompt
+        when={!isEqual(currentThemeSkill.competences, competences)}
+        message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
+      />
       <div className={classNames('colorful_bar', classes.bar_color)} />
       <Grid item xl={4} className={classes.experiences}>
         <Experiences title="Mes Experiences" experience={currentThemeSkill.activities} OnClick={goBack} />
