@@ -6,6 +6,7 @@ import NotFound from '../../layout/NotFound';
 import { ReduxState, IUser } from 'reducers';
 import Header from '../../layout/Header/Header';
 const LoginUser = lazy(() => import('./LoginUser'));
+const RestPassword = lazy(() => import('./RestPassword'));
 
 type Props = RouteComponentProps & {
   user: IUser | {};
@@ -13,13 +14,13 @@ type Props = RouteComponentProps & {
 
 const LoginContainer = ({ user }: Props) => {
   if (!isEmpty(user)) return <Redirect to={'/'} />;
-  console.log(location.pathname);
   return (
     <>
       <Header />
       <Switch>
         <Route exact path={'/login'} component={LoginUser} />
         <Route exact path={'/login/user'} component={LoginUser} />
+        <Route exact path={'/login/renewPassword'} component={RestPassword} />
         <Route component={NotFound} />
       </Switch>
     </>

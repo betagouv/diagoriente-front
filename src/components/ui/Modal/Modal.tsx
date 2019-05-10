@@ -24,7 +24,6 @@ const Modal = ({ open, children, animationType = 'slide_bottom' }: Props) => {
       document.body.className = 'modal-close';
     };
   });
-
   return (
     <Transition in={open} mountOnEnter unmountOnExit timeout={225}>
       {state => {

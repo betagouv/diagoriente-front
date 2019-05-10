@@ -8,14 +8,13 @@
   position: relative;
 
   .input_login {
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    border-radius: 20px;
     border: 1px solid $gray-500;
     outline: 0;
     padding-left: 10px;
     line-height: 2.5;
     height: 38px;
-    font-size: 16px
+    font-size: 16px;
   }
   .label_input {
     color: $gray-700;
@@ -30,7 +29,6 @@
     line-height: 1.2;
     text-transform: capitalize;
     margin-top: 10px;
-
   }
 }
 @media (max-width: map-get($breakpoints, "md")) {
