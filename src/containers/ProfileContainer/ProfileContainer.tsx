@@ -16,7 +16,7 @@ import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import RoundButton from '../../components/buttons/RoundButton/RoundButton';
 import CardCompetence from '../../components/cards/CardCompetence/Competence';
 import Header from '../../layout/Header/Header';
-
+import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -141,7 +141,11 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       </Grid>
       <Grid container>
         <Grid item xl={12}>
-          <Info>Complète les différentes rubriques pour enrichir ton profil de compétences</Info>
+          <Info>
+            <span className={classes.step_4}>
+              Complète les différentes rubriques pour enrichir ton profil de compétences
+            </span>
+          </Info>
         </Grid>
       </Grid>
       <Grid className={classes.steps_container} container>
@@ -166,6 +170,21 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>
+      <Grid container className={'flex_center'}>
+        <Grid item xl={12} className={classes.title}>
+          Idées de métiers et de formations
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item xl={12}>
+          <Info>
+            <span className={classes.step_4}>
+              Grâce à tes réponses, voici des suggestions de métiers et de formations qui pourraient te convenir
+            </span>
+          </Info>
+        </Grid>
+      </Grid>
+      <CompleteProfile />
     </div>
   );
 };
