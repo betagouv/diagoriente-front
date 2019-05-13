@@ -1,23 +1,23 @@
 import React, { MouseEvent, useEffect } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import Grid from '../ui/Grid/Grid';
+import Grid from '../../ui/Grid/Grid';
 
 import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 
-import { useTextInput, useDidMount, useSelectInput, useDidUpdate } from '../../hooks';
-import { validateEmail, validateNom } from '../../utils/validation';
+import { useTextInput, useDidMount, useSelectInput, useDidUpdate } from '../../../hooks';
+import { validateEmail, validateNom } from '../../../utils/validation';
 import { ReduxState } from 'reducers';
-import withApi, { ApiComponentProps } from '../../hoc/withApi';
-import { listQuestions } from '../../requests/question';
+import withApi, { ApiComponentProps } from '../../../hoc/withApi';
+import { listQuestions } from '../../../requests/question';
 
-import resetActions from '../../reducers/authUser/resetPassword';
-import Spinner from '../ui/Spinner/Spinner';
-import Input from '../form/Input/Input';
-import Button from '../../components/buttons/RoundButton/RoundButton';
-import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
-import Select from '../../components/form/Select/select';
+import resetActions from '../../../reducers/authUser/resetPassword';
+import Spinner from '../../ui/Spinner/Spinner';
+import Input from '../Input/Input';
+import Button from '../../buttons/RoundButton/RoundButton';
+import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
+import Select from '../Select/select';
 import classes from './forget.module.scss';
 
 interface Props {
