@@ -9,13 +9,21 @@ interface Props {
   selected: boolean;
   onCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
+  type?: string;
 }
-const Activity = ({ title, subTitle, id, selected, onCheckChange }: React.HTMLAttributes<HTMLElement> & Props) => {
+const Activity = ({
+  title,
+  subTitle,
+  id,
+  selected,
+  type,
+  onCheckChange,
+}: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
     <div className={classes.activityContainer}>
-      <ActivitiesCheck id={id} selected={selected} onCheckChange={onCheckChange} tooltip={title} />
+      <ActivitiesCheck id={id} selected={selected} onCheckChange={onCheckChange} tooltip={title} type={type} />
       <div className={classes.activityContentContainer}>
-        <span className={classes.title}>{title}</span>
+        <span className={type === 'professional' ? classes.title_pro : classes.title}>{title}</span>
         <span className={classes.subtitle}>{subTitle}</span>
       </div>
     </div>

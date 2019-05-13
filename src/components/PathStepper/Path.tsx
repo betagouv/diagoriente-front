@@ -5,9 +5,10 @@ import classNames from '../../utils/classNames';
 interface IProps {
   options: string[];
   onClick: (index: number, p: string) => void;
+  type?: string;
 }
 
-const PathStepper = ({ options, onClick }: IProps) => (
+const PathStepper = ({ options, onClick, type }: IProps) => (
   <div className={classes.container}>
     {['Accueil', ...options].map((p, index, array) => {
       const isLast = index === array.length - 1;
@@ -16,7 +17,9 @@ const PathStepper = ({ options, onClick }: IProps) => (
         <div key={p} className={classes.item_container}>
           <div
             onClick={() => onClick(index, p)}
-            className={classNames(isLast ? classes.item_selected : classes.item)}
+            className={classNames(
+              isLast ? (type === 'professional' ? classes.item_selected_pro : classes.item_selected) : classes.item,
+            )}
           >
             {p}
           </div>

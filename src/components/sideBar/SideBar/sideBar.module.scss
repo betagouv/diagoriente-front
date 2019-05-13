@@ -42,6 +42,11 @@
     margin-bottom: 15px;
   }
 }
+/* 
+.selected_pro :first-child {
+  background-image: linear-gradient(247deg, #cf11b2, #dd0d68);
+} */
+
 @media (max-width: map-get($breakpoints, "md")) {
   .container_sideBar {
     display: none !important;

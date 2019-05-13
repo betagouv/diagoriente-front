@@ -4,18 +4,19 @@ import classes from './title.module.scss';
 interface IProps {
   title: string;
   logo?: string;
+  type?: string;
 }
 
-const Title = ({ title, logo }: IProps) => (
+const Title = ({ title, logo, type }: IProps) => (
   <div className={classes.title_container}>
     {logo && (
-      <div className={classes.logo_container}>
+      <div className={type === 'professional' ? classes.logo_pro : classes.logo_container}>
         <img className={classes.logo} alt="logo" src={logo} />
       </div>
     )}
 
     <div className={classes.title_content}>
-      <span className={classes.title}>{title}</span>
+      <span className={type === 'professional' ? classes.title_pro : classes.title}>{title}</span>
     </div>
   </div>
 );
