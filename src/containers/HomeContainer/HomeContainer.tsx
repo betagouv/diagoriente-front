@@ -20,7 +20,7 @@ const steps = [
   {
     headerComponent: <QuestionMarks />,
     circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-    description: 'Dècouvre comment identifier tes compÈtences en jouant',
+    description: 'Dècouvre comment identifier tes compétences en jouant',
   },
   {
     headerComponent: <Circles />,

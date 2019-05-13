@@ -1,3 +1,4 @@
+
 import React, { lazy } from 'react';
 import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
@@ -6,6 +7,7 @@ import NotFound from '../../layout/NotFound';
 import { ReduxState, IUser } from 'reducers';
 import Header from '../../layout/Header/Header';
 import LoginUser from './LoginUser';
+const RestPassword = lazy(() => import('./RestPassword'));
 
 type Props = RouteComponentProps & {
   user: IUser | {};
@@ -21,6 +23,8 @@ const LoginContainer = ({ user }: Props) => {
         <Route exact path={'/login'} component={LoginUser} />
         <Route exact path={'/login/user'} component={LoginUser} />
         <Route component={NotFound} />
+        <Route exact path={'/login/renewPassword'} component={RestPassword} />
+
       </Switch>
     </>
   );

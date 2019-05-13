@@ -7,6 +7,11 @@ declare module 'reducers' {
       readonly data: T;
     };
 
+  export interface IAPiUpdate {
+    readonly fetching: boolean;
+    readonly error: string;
+    readonly updated: boolean;
+  }
   export interface IModal {
     readonly open: boolean;
     readonly children: JSX.Element | null;
@@ -79,6 +84,10 @@ declare module 'reducers' {
     userId: string;
     _id: string;
   }
+  export interface IRestResponse {
+    readonly email: string;
+    readonly token: string;
+  }
 
   export interface IQuestion {
     readonly _id: string;
@@ -92,6 +101,8 @@ declare module 'reducers' {
       readonly user: User;
       readonly login: ApiReducer;
       readonly register: ApiReducer;
+      readonly resetPassword: ApiReducer<IRestResponse>;
+      readonly updatePassword: IAPiUpdate;
     };
     readonly questions: IQuestion;
     readonly parcours: ApiReducer<IParcoursResponse>;

@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect } from 'react';
+import React, { MouseEvent, ReactElement } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,8 @@ import { decodeUri } from '../../utils/url';
 
 // actions
 import loginUserActions from '../../reducers/authUser/login';
+import modalAction from '../../reducers/modal';
+import updateActions from '../../reducers/authUser/updatePassword';
 
 // style
 import classes from './login.module.scss';
@@ -22,19 +24,33 @@ import classes from './login.module.scss';
 // components
 import Button from '../../components/buttons/RoundButton/RoundButton';
 import Input from '../../components/form/Input/Input';
-
+import ForgetForm from '../../components/ForgetForm/ForgetForm';
 interface DispatchToProps {
   loginRequest: (email: string, password: string) => void;
+  openModal: (children: any) => void;
+  closeModal: () => void;
+  toggleUpdated: () => void;
 }
 
 interface MapToProps {
   fetching: boolean;
   error: string;
+  open: boolean;
 }
 
 type Props = RouteComponentProps & DispatchToProps & MapToProps;
 
-const LoginUserContainer = ({ loginRequest, fetching, error, history, location }: Props) => {
+const LoginUserContainer = ({
+  loginRequest,
+  toggleUpdated,
+  openModal,
+  closeModal,
+  fetching,
+  error,
+  history,
+  location,
+  open,
+}: Props) => {
   const [email, emailChange, emailTouched] = useTextInput('');
   const [password, passwordChange, passwordTouched] = useTextInput('');
 
@@ -53,6 +69,12 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
       history.push(path);
     }
   },           [fetching]);
+  const onOpenModal = () => {
+    openModal(<ForgetForm onCloseModal={modalClose} />);
+  };
+  const modalClose = () => {
+    closeModal();
+  };
 
   return (
     <div className={classes.container_home}>
@@ -76,7 +98,6 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
         />
 
         <div className={classes.container_button}>
-          {/*  <input disabled={!!(emailValid || passwordValid)} type="submit" onClick={onSubmit} /> */}
           <Button onClick={onSubmit}>Se Connecter</Button>
         </div>
         <div className={classes.container_forget_Password}>
@@ -84,19 +105,24 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location }
             <span>Vous ne possédez pas un compte ?</span>
             <Link to="/register">Inscription </Link>
           </h5>
+          <h6 onClick={onOpenModal}>mot de pass oublié</h6>
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ authUser }: ReduxState): MapToProps => ({
+const mapStateToProps = ({ authUser, modal }: ReduxState): MapToProps => ({
   fetching: authUser.login.fetching,
   error: authUser.login.error,
+  open: modal.open,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
   loginRequest: (email, password) => dispatch(loginUserActions.loginUserRequest({ email, password })),
+  openModal: (children: any) => dispatch(modalAction.openModal({ children })),
+  closeModal: () => dispatch(modalAction.closeModal()),
+  toggleUpdated: () => dispatch(updateActions.toggleUpdated()),
 });
 
 export default connect(
