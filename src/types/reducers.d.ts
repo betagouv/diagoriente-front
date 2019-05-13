@@ -16,6 +16,7 @@ declare module 'reducers' {
     readonly open: boolean;
     readonly children: JSX.Element | null;
     readonly animationType: string;
+    readonly backdropClassName: string | undefined;
   }
 
   export interface IUser {

@@ -1,5 +1,6 @@
 import React, { useRef, useState, useLayoutEffect } from 'react';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
+import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
 import { isEmpty, map } from 'lodash';
@@ -16,6 +17,7 @@ import PathStepper from '../../components/PathStepper/Path';
 import Grid from '../../components/ui/Grid/Grid';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 import Title from '../../components/Title/Title';
+import SuccessModal from '../../components/modals/SuccessModal/SuccessModal';
 import classNames from '../../utils/classNames';
 // not found
 import NotFound from '../../layout/NotFound';
@@ -24,22 +26,42 @@ import NotFound from '../../layout/NotFound';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getTheme } from '../../requests/themes';
 
+// actions
+import modalActions from '../../reducers/modal';
+
 // styles
 import classes from './theme.module.scss';
+import { useDidMount } from '../../hooks';
 
 interface IMapToProps {
   themes: ITheme[];
   skills: ISkillPopulated[];
 }
 
-type Props = RouteComponentProps<{ id: string }> & IMapToProps & ApiComponentProps<{ get: typeof getTheme }>;
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
 
-const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
+type Props = RouteComponentProps<{ id: string }> &
+  IDispatchToProps &
+  IMapToProps &
+  ApiComponentProps<{ get: typeof getTheme }>;
+
+const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeModal }: Props) => {
   const { id } = match.params;
-  const currentIndex = themes.findIndex(theme => theme._id === id);
+  const currentIndex = themes.findIndex(theme => theme._id === id); // index in all themes
+
+  const successContinueClick = () => {
+    history.push('/profile');
+    closeModal();
+  };
+
   const goNext = () => {
     const currentTheme = themes[currentIndex];
     const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
+    const currentThemes = themes.filter(theme => theme.type === currentTheme.type);
+    const indexInCurrent = themes.findIndex(theme => theme._id === id); // index after filter with type
     const { length } = currentSkillsType;
     let i = 0;
     let nextTheme = null;
@@ -51,17 +73,20 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
         i += 1;
       }
     }
-    let nextUrl = '/profile';
+    let nextUrl = null;
     if (nextTheme) {
       nextUrl =
         currentSkillsType[i].activities.length === 0
           ? `/theme/${nextTheme.theme._id}/activities`
           : `/theme/${nextTheme.theme._id}/skills`;
-    } else if (currentIndex < themes.length - 1) {
+    } else if (indexInCurrent < currentThemes.length - 1) {
       nextUrl = `/theme/${themes[currentIndex + 1]._id}/activities`;
     }
-
-    history.push(nextUrl);
+    if (nextUrl) {
+      history.push(nextUrl);
+    } else {
+      openModal(<SuccessModal onClick={successContinueClick} />, classes.backdrop);
+    }
   };
 
   const mounted = useRef(false);
@@ -146,9 +171,17 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
   );
 };
 
-const mapStateToProps = ({ themes, parcours }: ReduxState) => ({
+const mapStateToProps = ({ themes, parcours }: ReduxState): IMapToProps => ({
   themes,
   skills: parcours.data.skills,
 });
 
-export default connect(mapStateToProps)(withApis({ get: getTheme })(ThemeContainer));
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) => dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withApis({ get: getTheme })(ThemeContainer));
