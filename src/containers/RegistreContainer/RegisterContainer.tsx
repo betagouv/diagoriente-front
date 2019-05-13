@@ -16,7 +16,7 @@ const RegisterContainer = ({ user }: Props) => {
 
   return (
     <>
-      <Header />
+      <Header showLogout={false} />
       <Switch>
         <Route exact path={'/register'} component={RegisterUser} />
         <Route exact path={'/register/user'} component={RegisterUser} />

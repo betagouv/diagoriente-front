@@ -114,10 +114,20 @@ const ThemesContainer = ({
         const currentTheme = skills[i];
         if (!(currentTheme.activities.length && currentTheme.competences.length)) {
           nextTheme = currentTheme;
+        } else {
+          i += 1;
         }
-        i += 1;
       }
-      history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : `/theme/${skills[0].theme._id}`);
+
+      let nextUrl = `/theme/${skills[0].theme._id}`;
+      if (nextTheme) {
+        nextUrl =
+          nextTheme.activities.length === 0
+            ? `/theme/${nextTheme.theme._id}/activities`
+            : `/theme/${nextTheme.theme._id}/skills`;
+      }
+
+      history.push(nextUrl);
     }
   },           [fetching]);
 

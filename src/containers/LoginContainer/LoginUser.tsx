@@ -1,16 +1,16 @@
-import React, { MouseEvent, ReactElement } from 'react';
+import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
+import { isEmpty } from 'lodash';
+import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState } from 'reducers';
+import { ReduxState, IUser, User } from 'reducers';
 
 // hooks
-import { useTextInput, useDidUpdate, useDidMount } from '../../hooks';
+import { useDidUpdate } from '../../hooks';
 
 // utils
-import { validateEmail, validatePassword } from '../../utils/validation';
 import { decodeUri } from '../../utils/url';
 
 // actions
@@ -18,13 +18,10 @@ import loginUserActions from '../../reducers/authUser/login';
 import modalAction from '../../reducers/modal';
 import updateActions from '../../reducers/authUser/updatePassword';
 
-// style
-import classes from './login.module.scss';
-
 // components
-import Button from '../../components/buttons/RoundButton/RoundButton';
-import Input from '../../components/form/Input/Input';
 import ForgetForm from '../../components/ForgetForm/ForgetForm';
+import LoginForm from '../../components/form/LoginForm/LoginForm';
+
 interface DispatchToProps {
   loginRequest: (email: string, password: string) => void;
   openModal: (children: any) => void;
@@ -36,29 +33,22 @@ interface MapToProps {
   fetching: boolean;
   error: string;
   open: boolean;
+  user: User;
 }
 
 type Props = RouteComponentProps & DispatchToProps & MapToProps;
 
 const LoginUserContainer = ({
   loginRequest,
-  toggleUpdated,
   openModal,
   closeModal,
   fetching,
   error,
   history,
   location,
-  open,
+  user,
 }: Props) => {
-  const [email, emailChange, emailTouched] = useTextInput('');
-  const [password, passwordChange, passwordTouched] = useTextInput('');
-
-  const emailValid = emailTouched ? validateEmail(email) : '';
-  const passwordValid = passwordTouched ? validatePassword(password) : '';
-
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const onSubmit = (email: string, password: string) => {
     loginRequest(email, password);
   };
 
@@ -69,6 +59,7 @@ const LoginUserContainer = ({
       history.push(path);
     }
   },           [fetching]);
+
   const onOpenModal = () => {
     openModal(<ForgetForm onCloseModal={modalClose} />);
   };
@@ -76,46 +67,16 @@ const LoginUserContainer = ({
     closeModal();
   };
 
-  return (
-    <div className={classes.container_home}>
-      <div className={classes.container_form}>
-        <div className={classes.container_title}>
-          <span>Se Connecter</span>
-        </div>
-        <Input
-          name="Email"
-          validation={emailValid}
-          onChange={emailChange}
-          className={classes.container_input}
-          type="email"
-        />
-        <Input
-          name="Mot de passe"
-          validation={passwordValid}
-          onChange={passwordChange}
-          className={classes.container_input}
-          type="password"
-        />
+  if (!isEmpty(user)) return <Redirect to={'/'} />;
 
-        <div className={classes.container_button}>
-          <Button onClick={onSubmit}>Se Connecter</Button>
-        </div>
-        <div className={classes.container_forget_Password}>
-          <h5 className={classes.register_text}>
-            <span>Vous ne possédez pas un compte ?</span>
-            <Link to="/register">Inscription </Link>
-          </h5>
-          <h6 onClick={onOpenModal}>mot de pass oublié</h6>
-        </div>
-      </div>
-    </div>
-  );
+  return <LoginForm onSubmit={onSubmit} footerComponent={<h6 onClick={onOpenModal}>mot de passe oublié</h6>} />;
 };
 
 const mapStateToProps = ({ authUser, modal }: ReduxState): MapToProps => ({
   fetching: authUser.login.fetching,
   error: authUser.login.error,
   open: modal.open,
+  user: authUser.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
