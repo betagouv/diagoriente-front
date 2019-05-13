@@ -163,7 +163,7 @@ const CompetenceContainer = ({
             <Info
               borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
               backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
-              className={theme.type && classes.info_pro}
+              className={theme.type === 'professional' ? classes.info_pro : ''}
             >
               J’évalue mes compétences
             </Info>
