@@ -34,7 +34,7 @@ const Footer = () => {
     <div className={classes.footerWrapper}>
       <Grid container className={classes.footerContainer}>
         <Grid className={classes.textFooter} item xl={4} lg={12}>
-          Diagoriente est une StartUp díEtat pilotÈe par Id6 et la DINSIC - Services du 1er Ministre - Beta.gouv
+          Diagoriente est une StartUp d’Etat pilotée par Id6 et la DINSIC - Services du 1er Ministre - Beta.gouv
         </Grid>
 
         <Grid className={classes.images} item xl={8} lg={12}>

@@ -2,11 +2,10 @@
 
 .container_home {
   width: 100%;
-  height: calc(100% - 83px);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 15px 0px;
+  margin: 50px 0px;
   background-color: $white;
   background-position: center;
   background-size: cover;
@@ -22,8 +21,8 @@
     }
   }
 }
-.container_form::-webkit-scrollbar { 
-  display: none; 
+.container_form::-webkit-scrollbar {
+  display: none;
 }
 .container_form {
   display: flex;
@@ -34,47 +33,44 @@
   background-color: $white;
   border-radius: 10px;
   box-shadow: $box-shadow;
+  max-height: 80%;
   overflow: auto;
   .container_input {
-    width: 50%;
     display: flex;
     flex-direction: column;
     input {
-      border-radius: 20px;
       &:focus {
-        box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
       }
     }
   }
-.row{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 0 25px;
-}
-.error {
-  font-size: 18px;
+  .row {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0 25px;
+  }
+  .error {
+    font-size: 18px;
     font-family: inherit;
     text-shadow: 0px 0px 5px rgba(255, 0, 0, 0.3);
     color: red;
-}
+  }
 
-.container_input_select {
-  width: 50%;
+  .container_input_select {
     display: flex;
     flex-direction: column;
     margin-top: 25px;
     div {
       border-radius: 20px;
       &:focus {
-        box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
       }
       &:hover {
         cursor: pointer;
       }
     }
-}
-
+  }
 
   .container_button {
     display: flex;
@@ -119,36 +115,34 @@
     display: flex;
     flex-direction: column;
     width: 80vw;
-    height: 80%;
+    height: 90%;
     align-items: center;
     background-color: $white;
     border-radius: 10px;
     .container_input {
-      width: 90% !important;
       display: flex;
       flex-direction: column;
-      margin: 15px;
+      margin: 15px 0;
     }
     .container_input_select {
-      width: 90%;
-        display: flex;
-        flex-direction: column;
-        margin-top: 25px;
-        div {
-          border-radius: 20px;
-          &:focus {
-            box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
-          }
-          &:hover {
-            cursor: pointer;
-          }
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      div {
+        border-radius: 20px;
+        &:focus {
+          box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
         }
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
     .row {
       justify-content: center;
     }
   }
-  
 }
 
 // gradient animation

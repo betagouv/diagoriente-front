@@ -10,21 +10,21 @@ interface Props {
   open: boolean;
   children?: Element[] | Element;
   animationType?: string;
+  backdropClassName?: string;
 }
 
-const Modal = ({ open, children, animationType = 'slide_bottom' }: Props) => {
+const Modal = ({ open, children, animationType = 'slide_bottom', backdropClassName }: Props) => {
   useEffect(() => {
     if (open) {
-      document.body.className = 'modal-open';
+      (document.body as any).style = 'overflow:hidden;padding-right:15px';
     } else {
-      document.body.className = 'modal-close';
+      (document.body as any).style = undefined;
     }
 
     return () => {
-      document.body.className = 'modal-close';
+      (document.body as any).style = undefined;
     };
   });
-
   return (
     <Transition in={open} mountOnEnter unmountOnExit timeout={225}>
       {state => {
@@ -55,6 +55,7 @@ const Modal = ({ open, children, animationType = 'slide_bottom' }: Props) => {
                 classes.backdrop,
                 (state === 'entered' || animationType === 'scale') && classes.backdrop_show,
                 state === 'exiting' && classes.backdrop_hide,
+                backdropClassName,
               )}
             />
           </div>

@@ -7,10 +7,16 @@ declare module 'reducers' {
       readonly data: T;
     };
 
+  export interface IAPiUpdate {
+    readonly fetching: boolean;
+    readonly error: string;
+    readonly updated: boolean;
+  }
   export interface IModal {
     readonly open: boolean;
     readonly children: JSX.Element | null;
     readonly animationType: string;
+    readonly backdropClassName: string | undefined;
   }
 
   export interface IUser {
@@ -26,6 +32,17 @@ declare module 'reducers' {
     readonly createdAt: string;
   }
 
+  export interface IAdvisor {
+    createdAt: string;
+    email: string;
+    parcours: string[];
+    platform: string;
+    profile: { pseudo: string; firstName: string; lastName: string; institution: string };
+    question: [];
+    role: string;
+    _id: string;
+  }
+
   export interface IToken {
     readonly accessToken: string;
     readonly expiresIn: string;
@@ -34,6 +51,8 @@ declare module 'reducers' {
   }
 
   export type User = { user: IUser; token: IToken } | {};
+
+  export type Advisor = { readonly advisor?: IAdvisor; readonly token?: IToken };
 
   export interface IInterests {
     _id: string;
@@ -79,6 +98,10 @@ declare module 'reducers' {
     userId: string;
     _id: string;
   }
+  export interface IRestResponse {
+    readonly email: string;
+    readonly token: string;
+  }
 
   export interface IQuestion {
     readonly _id: string;
@@ -92,6 +115,12 @@ declare module 'reducers' {
       readonly user: User;
       readonly login: ApiReducer;
       readonly register: ApiReducer;
+      readonly resetPassword: ApiReducer<IRestResponse>;
+      readonly updatePassword: IAPiUpdate;
+    };
+    readonly authAdvisor: {
+      readonly advisor: Advisor;
+      readonly login: ApiReducer;
     };
     readonly questions: IQuestion;
     readonly parcours: ApiReducer<IParcoursResponse>;

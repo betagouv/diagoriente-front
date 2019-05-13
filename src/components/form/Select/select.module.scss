@@ -1,9 +1,9 @@
 @import "../../../styles/variables.scss";
 
 .login_container_input {
-  width: 90%;
+  width: 100%;
   display: flex;
-  margin: 15px;
+  margin: 15px 0;
   position: relative;
   border: 1px solid $gray-500;
   line-height: 2;
@@ -28,7 +28,6 @@
     width: 20px;
     height: 20px;
     object-fit: contain;
-    
   }
 }
 .select_drop {

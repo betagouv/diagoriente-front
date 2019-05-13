@@ -1,34 +1,42 @@
-import { call, all, put } from 'redux-saga/effects';
+import { call, all, put, select } from 'redux-saga/effects';
 
 import userActions from '../../reducers/authUser/user';
 import loginActions from '../../reducers/authUser/login';
 import parcoursActions from '../../reducers/parcours';
 
-import { IParcoursResponse } from 'reducers';
+import loginAdvisorActions from '../../reducers/authAdvisor/login';
+import advisorActions from '../../reducers/authAdvisor/advisor';
+
+import { IParcoursResponse, ReduxState } from 'reducers';
 import {
   wrapApiCall,
-  LoginUserRequest,
+  loginUserRequest,
   WrappedResponse,
   IUser,
   setAuthorizationBearer,
   createParcours,
   Response,
+  loginAdvisorRequest,
 } from '../../requests';
 import { setItem } from '../../utils/localforage';
 
 interface ILoginRequestAction {
-  type: 'LOGIN_REQUEST';
+  type: string;
   email: string;
   password: string;
 }
 
-export default function* ({ email, password }: ILoginRequestAction) {
+export function* loginUser({ email, password }: ILoginRequestAction) {
   try {
-    const response: WrappedResponse<IUser> = yield call(wrapApiCall, LoginUserRequest, { email, password });
+    const response: WrappedResponse<IUser> = yield call(wrapApiCall, loginUserRequest, { email, password });
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
+      const { authAdvisor }: ReduxState = yield select();
       const [parcours]: [Response<IParcoursResponse>] = yield all([
-        call(createParcours, { userId: response.data.user._id }),
+        call(createParcours, {
+          userId: response.data.user._id,
+          advisorId: authAdvisor.advisor.advisor ? authAdvisor.advisor.advisor._id : undefined,
+        }),
         call(setItem, 'user', response.data),
       ]);
 
@@ -48,5 +56,23 @@ export default function* ({ email, password }: ILoginRequestAction) {
   } catch (e) {
     // TODO improve erreur message
     yield put(loginActions.loginUserFailure({ error: 'erreur inconnus' }));
+  }
+}
+
+export function* loginAdvisor({ email, password }: ILoginRequestAction) {
+  try {
+    const response: WrappedResponse<any> = yield call(wrapApiCall, loginAdvisorRequest, { email, password });
+
+    if (response.success) {
+      yield all([
+        call(setItem, 'advisor', response.data),
+        put(advisorActions.advisorChange({ advisor: response.data })),
+        put(loginAdvisorActions.loginAdvisorSuccess()),
+      ]);
+    } else {
+      yield put(loginAdvisorActions.loginAdvisorFailure({ error: response.message }));
+    }
+  } catch (e) {
+    yield put(loginAdvisorActions.loginAdvisorFailure({ error: 'erreur inconnus' }));
   }
 }

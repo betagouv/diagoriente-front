@@ -1,4 +1,4 @@
-@import "../../styles//variables.scss";
+@import "../../../styles//variables.scss";
 .container_home {
   width: 100%;
   height: calc(100% - 83px);
@@ -21,27 +21,28 @@
     }
   }
 }
-.container_form::-webkit-scrollbar { 
-  display: none; 
+.container_form::-webkit-scrollbar {
+  display: none;
 }
 .container_form {
   display: flex;
   flex-direction: column;
-  width: 60vw;
   height: auto;
   overflow: auto;
+  padding: 0 40px;
   align-items: center;
   background-color: $white;
   border-radius: 10px;
   box-shadow: $box-shadow;
+  width: 750px;
   .container_input {
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    max-width: 500px;
     input {
-      border-radius: 20px;
       &:focus {
-        box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
       }
     }
   }
@@ -51,14 +52,14 @@
     margin: 10px;
     button {
       padding: 10px 30px;
-       background-image: linear-gradient(254deg, #a422c9, #5065ff); 
+      background-image: linear-gradient(254deg, #a422c9, #5065ff);
     }
   }
   .container_forget_Password {
     margin: 20px;
     h5 {
       color: $gray-700;
-      font-size: $h5-font-size;
+      font-size: $h6-font-size;
       line-height: 1;
       text-align: left;
       margin: 0px;
@@ -74,7 +75,7 @@
       margin: 10px;
       text-decoration-line: underline;
       cursor: pointer;
-      padding-top: 10px
+      padding-top: 10px;
     }
   }
 }
@@ -101,17 +102,28 @@
     display: flex;
     flex-direction: column;
     width: 80vw;
-    height: 80vh;
     align-items: center;
     background-color: $white;
     border-radius: 10px;
     .container_input {
-      width: 90%;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      margin: 10px;
     }
   }
+}
+
+.error {
+  color: $red;
+  margin: 8px 0;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 4px;
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  min-height: 20px;
 }
 
 // gradient animation

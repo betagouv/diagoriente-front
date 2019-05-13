@@ -1,8 +1,8 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import loginActions from '../../reducers/authUser/login';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, User } from 'reducers';
 
@@ -17,6 +17,8 @@ import logoutSvg from '../../assets/icons/svg/logout.svg';
 
 import classes from './header.module.scss';
 
+import loginActions from '../../reducers/authUser/login';
+
 interface IMapToProps {
   user: User;
 }
@@ -25,16 +27,21 @@ interface IDispatchToProps {
   logout: () => void;
 }
 
-type Props = IMapToProps & IDispatchToProps;
+type Props = IMapToProps &
+  IDispatchToProps & {
+    showLogout: boolean;
+  };
 
-const Header = ({ logout, user }: Props) => {
+const Header = ({ logout, user, showLogout }: Props) => {
   return (
     <Grid className={classes.headerContainer} container>
       <Grid item xl={6}>
-        <img className={classes.logo} src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} alt="Logo" />
+        <Link to={'/'}>
+          <img className={classes.logo} src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} alt="Logo" />
+        </Link>
       </Grid>
       <Grid className={classes.logout_container} item xl={6}>
-        {!isEmpty(user) && (
+        {showLogout && !isEmpty(user) && (
           <button className={classes.logout} onClick={logout}>
             <span className={classes.logout_text}>déconnexion</span>
             <div className={classes.logout_icon_container}>
@@ -45,6 +52,10 @@ const Header = ({ logout, user }: Props) => {
       </Grid>
     </Grid>
   );
+};
+
+Header.defaultProps = {
+  showLogout: true,
 };
 
 const mapStateToProps = ({ authUser }: ReduxState) => ({
