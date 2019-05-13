@@ -27,6 +27,7 @@ import classes from './register.module.scss';
 import Button from '../../components/buttons/RoundButton/RoundButton';
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
+import Grid from '../../components/ui/Grid/Grid';
 
 interface DispatchToProps {
   registerRequest: (
@@ -84,47 +85,67 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         <div className={classes.container_title}>
           <h3>Inscription</h3>
         </div>
-       
-        <div className={classes.row}>
-          <Input
-            name="Prénom"
-            validation={firstNameValid}
-            onChange={firstNameChange}
-            className={classes.container_input}
-          />
-          <Input name="Nom" validation={lastNameValid} onChange={lastNameChange} className={classes.container_input} />
-          <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
-          <Input
-            name="Mot de passe"
-            validation={passwordValid}
-            onChange={passwordChange}
-            className={classes.container_input}
-            type="password"
-          />
-          <Input
-            name="Institution"
-            validation={institutionValid}
-            onChange={institutionChange}
-            className={classes.container_input}
-          />
 
-          <Select
-            options={map(data, question => ({ value: question._id, label: question.title }))}
-            open={open}
-            onChange={onChange}
-            value={questionValue}
-            className={classes.container_input_select}
-            placeholder="Questions de sécurité"
-            selectOpen={onOpen}
-            selectClose={onClose}
-          />
-          <Input
-            name="Votre réponse"
-            validation={responseValid}
-            onChange={responseChange}
-            className={classes.container_input}
-          />
-        </div>
+        <Grid container spacing={{ xl: 20, md: 0 }} padding={{ xl: 40 }}>
+          <Grid item xl={6} md={12}>
+            <Input
+              name="Prénom"
+              validation={firstNameValid}
+              onChange={firstNameChange}
+              className={classes.container_input}
+            />
+          </Grid>
+          <Grid item xl={6} md={12}>
+            <Input
+              name="Nom"
+              validation={lastNameValid}
+              onChange={lastNameChange}
+              className={classes.container_input}
+            />
+          </Grid>
+
+          <Grid item xl={6} md={12}>
+            <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
+          </Grid>
+
+          <Grid item xl={6} md={12}>
+            <Input
+              name="Mot de passe"
+              validation={passwordValid}
+              onChange={passwordChange}
+              className={classes.container_input}
+              type="password"
+            />
+          </Grid>
+          <Grid item xl={6} md={12}>
+            <Input
+              name="Institution"
+              validation={institutionValid}
+              onChange={institutionChange}
+              className={classes.container_input}
+            />
+          </Grid>
+          <Grid item xl={6} md={12}>
+            <Select
+              options={map(data, question => ({ value: question._id, label: question.title }))}
+              open={open}
+              onChange={onChange}
+              value={questionValue}
+              className={classes.container_input_select}
+              placeholder="Questions de sécurité"
+              selectOpen={onOpen}
+              selectClose={onClose}
+            />
+          </Grid>
+          <Grid item xl={6} md={12}>
+            <Input
+              name="Votre réponse"
+              validation={responseValid}
+              onChange={responseChange}
+              className={classes.container_input}
+            />
+          </Grid>
+        </Grid>
 
         <div className={classes.container_button}>
           <Button onClick={onSubmit}> Inscription</Button>

@@ -31,6 +31,17 @@ declare module 'reducers' {
     readonly createdAt: string;
   }
 
+  export interface IAdvisor {
+    createdAt: string;
+    email: string;
+    parcours: string[];
+    platform: string;
+    profile: { pseudo: string; firstName: string; lastName: string; institution: string };
+    question: [];
+    role: string;
+    _id: string;
+  }
+
   export interface IToken {
     readonly accessToken: string;
     readonly expiresIn: string;
@@ -39,6 +50,8 @@ declare module 'reducers' {
   }
 
   export type User = { user: IUser; token: IToken } | {};
+
+  export type Advisor = { readonly advisor?: IAdvisor; readonly token?: IToken };
 
   export interface IInterests {
     _id: string;
@@ -103,6 +116,10 @@ declare module 'reducers' {
       readonly register: ApiReducer;
       readonly resetPassword: ApiReducer<IRestResponse>;
       readonly updatePassword: IAPiUpdate;
+    };
+    readonly authAdvisor: {
+      readonly advisor: Advisor;
+      readonly login: ApiReducer;
     };
     readonly questions: IQuestion;
     readonly parcours: ApiReducer<IParcoursResponse>;

@@ -38,7 +38,7 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
   const { id } = match.params;
   const currentIndex = themes.findIndex(theme => theme._id === id);
   const goNext = () => {
-    const currentTheme = themes.find(theme => theme._id === match.params.id);
+    const currentTheme = themes[currentIndex];
     const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
     const { length } = currentSkillsType;
     let i = 0;
@@ -47,10 +47,21 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
       const currentTheme = currentSkillsType[i];
       if (!(currentTheme.activities.length && currentTheme.competences.length)) {
         nextTheme = currentTheme;
+      } else {
+        i += 1;
       }
-      i += 1;
     }
-    history.push(nextTheme ? `/theme/${nextTheme.theme._id}/activities` : '/profile');
+    let nextUrl = '/profile';
+    if (nextTheme) {
+      nextUrl =
+        currentSkillsType[i].activities.length === 0
+          ? `/theme/${nextTheme.theme._id}/activities`
+          : `/theme/${nextTheme.theme._id}/skills`;
+    } else if (currentIndex < themes.length - 1) {
+      nextUrl = `/theme/${themes[currentIndex + 1]._id}/activities`;
+    }
+
+    history.push(nextUrl);
   };
 
   const mounted = useRef(false);

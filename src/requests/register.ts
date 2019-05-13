@@ -1,7 +1,6 @@
 import { axiosPost, Response } from './http';
 
-import { IUser as User, IQuestion } from 'reducers';
-
+import { IUser as User } from 'reducers';
 
 export interface QuestionQuery {
   _id: string;
@@ -15,8 +14,7 @@ export interface IRegisterParams {
   lastName: string;
   institution: string;
   question: QuestionQuery;
-
 }
 
-export const RegisterUserRequest = (data: IRegisterParams): Promise<Response<User>> =>
+export const registerUserRequest = (data: IRegisterParams): Promise<Response<User>> =>
   axiosPost('v1/users/addUser', { data, sendToken: false });
