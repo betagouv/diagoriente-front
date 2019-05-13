@@ -102,6 +102,7 @@ const ActivitiesContainer = ({
         selected={!!selected}
         onCheckChange={onClick}
         id={activity._id}
+        type={theme.type}
       />
     );
   });
@@ -116,7 +117,9 @@ const ActivitiesContainer = ({
 
       <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
         <Grid item xl={12} sm={8} smd={9} xs={6}>
-          <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
+          <Info borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
+              backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
+              className={theme.type && classes.info_pro}>
             Je précise mes expérience
           </Info>
         </Grid>
@@ -129,6 +132,7 @@ const ActivitiesContainer = ({
             disabled={theme.activities.length !== 0 && activities.length === 0}
             onClick={onContinueClick}
             isFetching={fetching}
+            className={theme.type === 'professional' ? classes.button_pro : ''}
           />
         </Grid>
       </Grid>

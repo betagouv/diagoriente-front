@@ -7,12 +7,14 @@ interface Props {
   onCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
   tooltip: string;
+  type?:string;
 }
 const CheckBox = ({
   selected,
   onCheckChange,
   id,
   tooltip,
+  type,
   ...other
 }: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & Props) => {
   const dataTip: string = selected ? 'Je l’ai déjà fait !' : tooltip;
@@ -26,7 +28,7 @@ const CheckBox = ({
         className={classes.checkInput}
         {...other}
       />
-      <label htmlFor={id} />
+      <label className={type === 'professional' ? classes.label_pro : classes.label} htmlFor={id} />
       <ReactTooltip id={id} className={'tooltip'} />
     </div>
   );
