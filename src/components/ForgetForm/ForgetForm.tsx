@@ -75,9 +75,13 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
       <div className={classes.title}>
         <span>Saisie votre email</span>
       </div>
-      <div className={classes.container_input}>
-        <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.input} type="email" />
-      </div>
+      <Input
+        name="Email"
+        validation={emailValid}
+        onChange={emailChange}
+        type="email"
+        className={classes.container_input}
+      />
       <Select
         options={map(data, question => ({ value: question._id, label: question.title }))}
         open={open}
@@ -88,9 +92,7 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
         selectOpen={onOpen}
         selectClose={onClose}
       />
-      <div className={classes.container_input}>
-        <Input name="Reponse" validation={reponseValid} onChange={reponseChange} className={classes.input} />
-      </div>
+      <Input name="Reponse" validation={reponseValid} onChange={reponseChange} className={classes.container_input} />
 
       <div className={classes.container_button}>
         <Button onClick={onSubmit}>Envoyer</Button>

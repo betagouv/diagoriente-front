@@ -31,16 +31,30 @@
 }
 .container_input {
   width: 100%;
-  margin: 5px;
-}
-input {
   display: flex;
   justify-content: center;
-  &:focus {
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  input {
+    border-radius: 20px;
+    &:focus {
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    }
   }
 }
-
+.container_input_select {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  div {
+    border-radius: 20px;
+    &:focus {
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
 .container_button {
   display: flex;
   justify-content: center;
