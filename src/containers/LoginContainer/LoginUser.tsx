@@ -19,7 +19,7 @@ import modalAction from '../../reducers/modal';
 import updateActions from '../../reducers/authUser/updatePassword';
 
 // components
-import ForgetForm from '../../components/ForgetForm/ForgetForm';
+import ForgetForm from '../../components/form/ForgetForm/ForgetForm';
 import LoginForm from '../../components/form/LoginForm/LoginForm';
 
 interface DispatchToProps {
