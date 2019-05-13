@@ -28,11 +28,25 @@
 .title_active {
   color: $purple;
 }
+.title_active_pro {
+  color: $purple-red;
+}
 
 .continue_button {
   margin: auto;
   margin-top: 55px;
 }
+
+.info_pro {
+  color: $purple-red;
+}
+.button_pro {
+  
+  background-image: linear-gradient(to left, #ff009a, #a521c8);
+    margin: auto;
+    margin-top: 55px;
+}
+
 
 @media (max-width: 1024px) {
   .title {

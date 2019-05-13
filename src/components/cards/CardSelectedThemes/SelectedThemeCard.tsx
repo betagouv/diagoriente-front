@@ -8,13 +8,24 @@ interface IProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTML
   logo?: string;
   open?: boolean;
   isSelected?: boolean;
+  themetype?: string;
 }
 
-const SelectedCard = ({ title, logo, isSelected, ...other }: IProps) => (
+const SelectedCard = ({ title, logo, themetype, isSelected, ...other }: IProps) => (
   <button data-tip data-for={title} className={classes.wrapper} {...other}>
-    <div className={isSelected ? classes.box_selected : classes.container}>
+    <div
+      className={
+        themetype === 'professional'
+          ? isSelected
+            ? classes.box_selected_pro
+            : classes.container
+          : !isSelected
+          ? classes.container
+          : classes.box_selected
+      }
+    >
       {logo && (
-        <div className={classes.logo_container}>
+        <div className={themetype === 'professional' ? classes.logo_container_pro : classes.logo_container}>
           <img alt="logo" src={logo} className={classes.logo} />
         </div>
       )}

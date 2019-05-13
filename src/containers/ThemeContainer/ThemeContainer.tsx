@@ -95,19 +95,25 @@ const ThemeContainer = ({ match, themes, history, get, skills }: Props) => {
 
   return (
     <div className={classes.container_themes}>
-      <SideBar options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))} />
+      <SideBar
+        options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))}
+        type={currentTheme && currentTheme.type}
+      />
       <SideBarMobile
         toggleOpen={toggleOpen}
         open={open}
         options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))}
+        type={currentTheme && currentTheme.type}
       />
       <div className={classes.content_themes}>
         <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
           <Grid item xl={12}>
-            <PathStepper options={stepperOptions} onClick={onNavigate} />
+            <PathStepper options={stepperOptions} onClick={onNavigate} type={currentTheme && currentTheme.type} />
           </Grid>
           <Grid item xl={12} className={classes.grid_padding}>
-            {currentTheme && <Title title={currentTheme.title} logo={currentTheme.resources.icon} />}
+            {currentTheme && (
+              <Title title={currentTheme.title} logo={currentTheme.resources.icon} type={currentTheme.type} />
+            )}
           </Grid>
           <Switch>
             <Route
