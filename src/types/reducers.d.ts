@@ -108,6 +108,18 @@ declare module 'reducers' {
     readonly title: string;
   }
 
+  export interface IFamille {
+    _id: string;
+    nom: string;
+    interests: { _id: string; nom: string; rank: string }[];
+    resources: {
+      base64: string;
+      mimetype: string;
+      name: string;
+      _id: string;
+    }[];
+  }
+
   export type ReduxState = {
     readonly startup: boolean;
     readonly modal: IModal;
@@ -125,5 +137,6 @@ declare module 'reducers' {
     readonly questions: IQuestion;
     readonly parcours: ApiReducer<IParcoursResponse>;
     readonly themes: ITheme[];
+    readonly listFamille: ApiReducer<IFamille[]>;
   };
 }

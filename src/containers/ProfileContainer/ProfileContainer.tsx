@@ -46,12 +46,12 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
   });
 
   const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
-  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional');
+  /* const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional'); */
 
   const isPersoCompleted =
     persoSkills.length > 0 && !persoSkills.find(skill => !(skill.activities.length && skill.competences.length));
-  const isProCompleted =
-    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length));
+  /*  const isProCompleted =
+    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length)); */
 
   const steps = [
     {
@@ -90,14 +90,17 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
 
     {
       headerComponent: <div className={classes.info_step_header} />,
-      disabled: !(isPersoCompleted && isProCompleted),
-      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
+      disabled: !isPersoCompleted,
+      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
       title: 'Mes thèmes favoris',
       description: "Précise tes pistes d'orientation, engage toi dans une mission qui te ressemble (modifié)",
       footerComponent: true ? (
         <div className={classes.step_footer}>
-          <RoundButton className={`${classes.round_button} ${classes.step4_round_button}`}>
-            {isPersoCompleted ? 'Bientôt' : 'Commencer'}
+          <RoundButton
+            onClick={navigate('/favoris')}
+            className={`${classes.round_button} ${classes.step4_round_button}`}
+          >
+            {isPersoCompleted ? 'Commencer' : 'Bientôt'}
           </RoundButton>
         </div>
       ) : (
@@ -110,16 +113,16 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
     },
     {
       headerComponent: <Triangles />,
-      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
+      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{4}</span>,
       title: 'Mon Service National Universel',
       description: 'Evalue ton séjour de cohésion',
-      footerComponent: !isProCompleted ? (
+      footerComponent: true ? (
         <div className={classes.step_footer}>
           <RoundButton
             onClick={navigate('/themes?type=professional')}
             className={`${classes.round_button} ${classes.step3_round_button}`}
           >
-            {isPersoCompleted ? 'Commencer' : 'Bientôt'}
+            {'Bientôt'}
           </RoundButton>
         </div>
       ) : (
@@ -129,7 +132,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           </button>
         </div>
       ),
-      disabled: !isPersoCompleted,
+      disabled: true,
     },
   ];
 
