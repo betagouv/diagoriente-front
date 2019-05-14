@@ -1,0 +1,36 @@
+.text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.item2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+}
+.cardContainer {
+  max-height: 200px;
+  padding: 15px 15px;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
