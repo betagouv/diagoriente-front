@@ -34,6 +34,7 @@ import parcoursActions from '../../reducers/parcours';
 
 // styles
 import classes from './themesContainer.module.scss';
+import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 
 interface IMapToProps {
   themes: ITheme[];
@@ -83,6 +84,32 @@ const ThemesContainer = ({
     updateThemes(parcours.skills.map(skill => skill.theme));
   });
 
+  useDidUpdate(() => {
+    if (type === 'professional' && !list.fetching && !list.error) {
+      const skills = parcours.skills.map(skill => {
+        return {
+          theme: skill.theme._id,
+          activities: skill.activities.map(({ _id }) => _id),
+          type: skill.theme.type,
+          competences: skill.competences,
+        };
+      });
+
+      if (!skills.find(skill => skill.type === 'professional')) {
+        skills.push({
+          theme: list.data.data[0]._id,
+          activities: [],
+          type: 'professional',
+          competences: [],
+        });
+      }
+
+      parcoursRequest({
+        skills,
+      });
+    }
+  },           [list.fetching]);
+
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(!open);
 
@@ -126,8 +153,8 @@ const ThemesContainer = ({
             ? `/theme/${nextTheme.theme._id}/activities`
             : `/theme/${nextTheme.theme._id}/skills`;
       }
-
-      history.push(nextUrl);
+      const action = type === 'professional' ? 'replace' : 'push';
+      history[action](nextUrl);
     }
   },           [fetching]);
 
@@ -135,6 +162,9 @@ const ThemesContainer = ({
   const { data } = list.data;
   let themesComponents: JSX.Element[] = [];
   if (data) {
+    if (type === 'professional') {
+      return <LazyLoader />;
+    }
     themesComponents = data.map(theme => {
       const selected = themes.find(row => row._id === theme._id);
       const onClick = () => {

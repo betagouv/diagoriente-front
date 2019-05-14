@@ -79,6 +79,10 @@
   top: -5px;
 }
 
+.circle_pro {
+  background-color: rgba(207, 17, 178, 0.15);
+}
+
 .title {
   padding-top: 19px;
   font-family: Nunito;
@@ -90,6 +94,10 @@
   @media (max-width: map-get($breakpoints, "smd" )) {
     font-size: 20px;
   }
+}
+
+.title_pro {
+  color: $purple-red;
 }
 
 .description {
@@ -113,4 +121,8 @@
 .continue_button {
   background-color: $medium-purple !important;
   background-image: none;
+}
+
+.continue_button_pro {
+  background-color: $purple-red !important;
 }
