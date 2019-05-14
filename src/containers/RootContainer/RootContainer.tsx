@@ -18,6 +18,7 @@ import ThemeContainer from '../ThemeContainer';
 import LoginUserContainer from '../LoginContainer';
 import ProfileContainer from '../ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer';
+import QuestionnaireContainer from '../QuestionnaireContainer';
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
@@ -64,6 +65,8 @@ const RootContainer = ({ modal, startup, startupEnd, location }: Props) => {
 
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
+          <ProtectedRoute path={'/questionnaire'} component={QuestionnaireContainer} />
+
           <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>
