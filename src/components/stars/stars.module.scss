@@ -16,9 +16,32 @@
     background-image: url("../../assets/icons/stars/ic_star_opacity.svg");
   }
 }
+.star_pro {
+  display: flex;
+  width: 32px;
+  height: 30px;
+  background-image: url("../../assets/icons/stars/ic_star_empty.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  &:hover {
+    background-image: url("../../assets/icons/stars/ic_star_full_color.svg");
+    opacity: 0.5;
+  }
+}
 
 .star_checked {
   background-image: url("../../assets/icons/stars/ic_star_full.svg");
+  display: flex;
+  width: 32px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.star_checked_pro {
+  background-image: url("../../assets/icons/stars/ic_star_full_color.svg");
   display: flex;
   width: 32px;
   height: 30px;

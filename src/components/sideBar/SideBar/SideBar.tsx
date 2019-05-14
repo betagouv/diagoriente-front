@@ -11,22 +11,19 @@ import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 
 // style
 import classes from './sideBar.module.scss';
-import { ITheme, ReduxState, IActivity } from 'reducers';
+import { ITheme } from 'reducers';
 
 interface Option extends ITheme {
   isSelected?: boolean;
 }
 
-interface MapToProps {
-  lastIndex: number;
-}
-
 type IProps = {
   options: Option[];
-} & RouteComponentProps<{ id: string }> &
-  MapToProps;
+  disabled?: boolean;
+  type?:string;
+} & RouteComponentProps<{ id: string }>;
 
-const SideBar = ({ options, history, lastIndex }: IProps) => {
+const SideBar = ({ options, history, type, disabled }: IProps) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
@@ -43,10 +40,12 @@ const SideBar = ({ options, history, lastIndex }: IProps) => {
         {options.map((o, i) => {
           return (
             <SelectThemeCard
-              /* onClick={navigate(`/theme/${o._id}/activities`)} */
+              onClick={disabled ? undefined : navigate(`/theme/${o._id}/activities`)}
               key={o._id}
               isSelected={o.isSelected}
               title={o.title}
+              themetype={type}
+              /* className={o.isSelected  ? classes.selected_pro : ''} */
             />
           );
         })}
@@ -55,8 +54,4 @@ const SideBar = ({ options, history, lastIndex }: IProps) => {
   );
 };
 
-const mapStateToProps = ({ parcours }: ReduxState): MapToProps => ({
-  lastIndex: parcours.lastIndex,
-});
-
-export default connect(mapStateToProps)(withRouter(SideBar));
+export default withRouter(SideBar);

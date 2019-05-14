@@ -3,6 +3,7 @@
   display: flex;
   width: 100%;
   align-self: stretch;
+
   .content_themes {
     padding-left: 0px;
     width: calc(100% - 250px);
@@ -22,3 +23,13 @@
   padding: 0 15px;
   text-align: left;
 }
+.bar_color {
+  background-image: linear-gradient(to left, $rose, $purple 51%, $cyan);
+}
+
+/* .backdrop {
+  background-image: url("../../assets/icons/svg/rectangle.svg");
+  object-fit: contain;
+  opacity: 1 !important;
+  background-color: #5726bf !important;
+} */

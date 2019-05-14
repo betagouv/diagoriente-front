@@ -2,7 +2,6 @@ import { map } from 'lodash';
 
 export function encodeUri(params: object): string {
   const searchParams = map(params, (param, key) => `${encodeURIComponent(key)}=${encodeURIComponent(param)}`).join('&');
-  console.log({ searchParams });
   return `?${searchParams}`;
 }
 

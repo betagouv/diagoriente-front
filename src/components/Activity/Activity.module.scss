@@ -1,3 +1,4 @@
+@import '../../styles/variables.scss';
 .activityContainer {
   display: flex;
   flex-direction: row;
@@ -23,7 +24,22 @@
   font-stretch: normal;
   line-height: 1.36;
   letter-spacing: normal;
-  color: #7533ff;
+  color: $purple;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.title_pro {
+  height: 30px;
+  font-family: Lato;
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  color: $purple-red;
   text-overflow: ellipsis;
   width: 100%;
   white-space: nowrap;
@@ -38,5 +54,5 @@
   font-stretch: normal;
   line-height: 1.33;
   letter-spacing: normal;
-  color: #999999;
+  color: $sub-title;
 }

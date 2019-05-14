@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import NotFound from '../../layout/NotFound';
 import { ReduxState, IUser } from 'reducers';
-
-const RegisterUser = lazy(() => import('./RegisterUser'));
+import Header from '../../layout/Header/Header';
+import RegisterUser from './RegisterUser';
 
 type Props = RouteComponentProps & {
   user: IUser | {};
@@ -15,11 +15,14 @@ const RegisterContainer = ({ user }: Props) => {
   if (!isEmpty(user)) return <Redirect to={'/'} />;
 
   return (
-    <Switch>
-      <Route exact path={'/register'} component={RegisterUser} />
-      <Route exact path={'/register/user'} component={RegisterUser} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Header showLogout={false} />
+      <Switch>
+        <Route exact path={'/register'} component={RegisterUser} />
+        <Route exact path={'/register/user'} component={RegisterUser} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 };
 

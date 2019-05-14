@@ -1,0 +1,45 @@
+@import "../../../styles/variables.scss";
+.button {
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+  background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
+  cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.7px;
+  padding: 10px 50px;
+  transition: 0.25s all;
+  text-transform: capitalize;
+  text-decoration: none;
+  text-align: center;
+  color: $white;
+  &:not(disabled) &:hover {
+    opacity: 0.6;
+  }
+
+  &:disabled {
+    background: $footer_color;
+  }
+}
+
+.btn_text {
+  color: inherit;
+}
+
+@media (max-width: 576px) {
+  .button {
+    font-size: 12px;
+    padding: 15px 30px;
+  }
+
+}
+@media (max-width: 375px) {
+  .button {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+
+}

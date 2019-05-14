@@ -1,0 +1,137 @@
+@import "../../../styles//variables.scss";
+.container_home {
+  width: 100%;
+  height: calc(100% - 83px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .container_title {
+    margin: 20px 20px;
+    span {
+      display: block;
+      font-size: 39px;
+      color: $gray-700;
+      font-weight: bold;
+      line-height: 1.2;
+      text-align: center;
+    }
+  }
+}
+.container_form::-webkit-scrollbar {
+  display: none;
+}
+.container_form {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  overflow: auto;
+  padding: 0 40px;
+  align-items: center;
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+  width: 750px;
+  .container_input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    input {
+      &:focus {
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+  .container_button {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    button {
+      padding: 10px 30px;
+      background-image: linear-gradient(254deg, #a422c9, #5065ff);
+    }
+  }
+  .container_forget_Password {
+    margin: 20px;
+    h5 {
+      color: $gray-700;
+      font-size: $h6-font-size;
+      line-height: 1;
+      text-align: left;
+      margin: 0px;
+      span {
+        margin-bottom: 8px;
+      }
+    }
+    h6 {
+      color: $gray-500;
+      font-size: $h6-font-size;
+      line-height: 1;
+      text-align: center;
+      margin: 10px;
+      text-decoration-line: underline;
+      cursor: pointer;
+      padding-top: 10px;
+    }
+  }
+}
+.register_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: map-get($breakpoints, "md")) {
+  .container_home {
+    .container_title {
+      margin: 20px 20px;
+      span {
+        display: block;
+        font-size: 30px;
+        color: $gray-700;
+        line-height: 1.2;
+        text-align: center;
+      }
+    }
+  }
+  .container_form {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    align-items: center;
+    background-color: $white;
+    border-radius: 10px;
+    .container_input {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.error {
+  color: $red;
+  margin: 8px 0;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 4px;
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  min-height: 20px;
+}
+
+// gradient animation
+@keyframes gradient {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}

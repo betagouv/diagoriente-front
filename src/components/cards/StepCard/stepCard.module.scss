@@ -6,7 +6,6 @@
   border: solid 1px map-get($borders, "gray");
   background-color: map-get($backgrounds, "gray");
   overflow: hidden;
-  min-height: 100%;
 }
 
 .header {

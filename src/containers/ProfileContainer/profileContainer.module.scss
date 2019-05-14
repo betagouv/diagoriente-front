@@ -27,7 +27,7 @@
 }
 
 .steps_container {
-  padding-top: 44px;
+  padding-top: 44px !important;
 }
 
 .step {
@@ -118,11 +118,11 @@
   color: $purple;
 }
 
-.step3_card_title {
+.step4_card_title {
   color: #cf11b2;
 }
 
-.step4_card_title {
+.step3_card_title {
   color: $darkblue;
 }
 

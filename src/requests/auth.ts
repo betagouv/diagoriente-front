@@ -1,6 +1,6 @@
 import { axiosPost, Response } from './http';
 
-import { IUser as User, IToken } from 'reducers';
+import { IUser as User, IToken, IAdvisor } from 'reducers';
 
 export interface ILoginParams {
   email: string;
@@ -12,7 +12,7 @@ export interface IUser {
   token: IToken;
 }
 
-export const LoginUserRequest = (params: ILoginParams): Promise<Response<IUser>> =>
+export const loginUserRequest = (params: ILoginParams): Promise<Response<IUser>> =>
   axiosPost('v1/auth/user', { data: params, sendToken: false });
 
 export interface RefreshTokenParams {
@@ -22,3 +22,6 @@ export interface RefreshTokenParams {
 
 export const refreshToken = (data: RefreshTokenParams): Promise<Response<IToken>> =>
   axiosPost('v1/auth/refresh-token', { data, sendToken: false });
+
+export const loginAdvisorRequest = (data: ILoginParams): Promise<Response<IAdvisor>> =>
+  axiosPost('v1/auth/advisor', { data, sendToken: false });

@@ -6,3 +6,6 @@ export * from './themes';
 export * from './register';
 export * from './question';
 export * from './parcours';
+export * from './reset';
+export * from './updatePassword';
+export * from './famille';

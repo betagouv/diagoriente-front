@@ -1,3 +1,4 @@
+@import '../../styles/variables.scss';
 .container {
   padding-bottom: 75px;
 }
@@ -10,7 +11,7 @@
   font-stretch: normal;
   line-height: 1.36;
   letter-spacing: normal;
-  color: #666666;
+  color: $footer_color;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -25,13 +26,27 @@
 }
 
 .title_active {
-  color: #7533ff;
+  color: $purple;
+}
+.title_active_pro {
+  color: $purple-red;
 }
 
 .continue_button {
   margin: auto;
   margin-top: 55px;
 }
+
+.info_pro {
+  color: $purple-red;
+}
+.button_pro {
+  
+  background-image: linear-gradient(to left, #ff009a, #a521c8);
+    margin: auto;
+    margin-top: 55px;
+}
+
 
 @media (max-width: 1024px) {
   .title {
@@ -65,4 +80,9 @@
   .title {
     font-size: 12px;
   }
+}
+.bar_color{
+  background-image: linear-gradient(to left, $darkOrchid, $neonBlue);
+  left: 0
+
 }

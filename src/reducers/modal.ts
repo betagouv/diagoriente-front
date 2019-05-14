@@ -8,11 +8,13 @@ const INITIAL_STATE: IModal = {
   open: false,
   children: null,
   animationType: 'slide_bottom',
+  backdropClassName: undefined,
 };
 
-const openModal = (state: IModal, { children, animationType }: AnyAction): IModal => ({
+const openModal = (state: IModal, { children, animationType, backdropClassName }: AnyAction): IModal => ({
   ...state,
   children,
+  backdropClassName,
   open: true,
   animationType: animationType || 'slide_bottom',
 });

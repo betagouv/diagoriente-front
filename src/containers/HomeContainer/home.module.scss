@@ -1,5 +1,71 @@
 @import "../../styles/variables.scss";
 
+.logout_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout {
+  height: 40px;
+  border-radius: 30px;
+  border: solid 1px #dddddd;
+  padding: 0;
+  margin: 0;
+  padding-right: 40px;
+  padding-left: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: opacity 0.25s linear;
+  max-width: 250px;
+  &:hover {
+    opacity: 0.5;
+  }
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    border: none;
+    padding: 0 10px;
+    border-radius: 0;
+  }
+}
+
+.logout_text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666666;
+  flex: 1 1 auto;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    display: none;
+  }
+}
+
+.logout_icon_container {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    right: 0;
+  }
+}
+
+.logout_icon {
+  height: 16px;
+  width: 16px;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    height: 30px;
+    width: 30px;
+  }
+}
+
 .home {
   background-color: #f7f7f7;
   display: flex;
@@ -7,16 +73,15 @@
   justify-content: flex-start;
   overflow: hidden;
 }
+
 .commencerBtn {
   border-radius: 30px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #efefef;
-  background-color: $white;
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 2.7px;
   text-align: center;
-  color: $footer_color;
   margin: 0 auto;
   width: auto;
   text-transform: uppercase;
@@ -35,6 +100,7 @@
   mix-blend-mode: multiply;
   padding-top: 20px;
   align-items: stretch;
+  justify-content: center;
 }
 
 .left_triangle_container {
@@ -123,22 +189,18 @@
 
 .headerContainer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  padding-top: 40px;
 }
 
 .headerContainer::before {
-  width: 100%;
   height: 5px;
   background-image: linear-gradient(to left, $rose, $purple 51%, $cyan);
   content: "";
   position: fixed;
   top: 0;
-}
-
-.logoWrapper {
-  padding-top: 40.1px;
-  padding-left: 40.1px;
+  left: 0;
+  right: 0;
 }
 
 .cardContainerBackground {
@@ -170,26 +232,20 @@
   color: $purple-red;
 }
 
-@media only screen and (max-width: 950px) {
-  .logoWrapper {
-    padding-top: 40.1px;
-    padding-left: 40.1px;
-  }
+.card_content {
+  height: 100%;
 }
+
 @media only screen and (max-width: 768px) {
-  .logoWrapper {
-    padding-top: 14.1px;
-    padding-left: 20.1px;
-  }
   .contentContainer {
     height: 568px;
   }
+  .logo {
+    width: 150px;
+    height: auto;
+  }
 }
 @media only screen and (max-width: 480px) {
-  .logoWrapper {
-    padding-top: 5.1px;
-    padding-left: 10.1px;
-  }
   .contentContainer {
     height: 568px;
   }

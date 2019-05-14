@@ -2,6 +2,7 @@
 .wrapper {
   display: flex;
   position: relative;
+  padding: 0;
 }
 .container {
   width: 170px;
@@ -20,6 +21,20 @@
   height: calc(#{$side_bar_width_close} - 10px);
   width: calc(#{$side_bar_width_close} - 10px);
   background: $purple;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  .logo {
+    max-width: calc(#{$side_bar_width_close} - 40px);
+    max-height: calc(#{$side_bar_width_close} - 40px);
+  }
+}
+.logo_container_pro {
+  height: calc(#{$side_bar_width_close} - 10px);
+  width: calc(#{$side_bar_width_close} - 10px);
+  background: $purple-red;
   position: relative;
   display: flex;
   align-items: center;
@@ -54,6 +69,13 @@
   border-radius: 5px;
   margin-bottom: 20px;
 }
+.box_selected_pro {
+  background-image: linear-gradient(to left, #ff009a, #a521c8);
+  width: 170px;
+  height: 65px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
 
 .triangle {
   width: 0px;
@@ -63,7 +85,17 @@
   border-bottom: 7px solid #992bcf;
   transform: rotate(90deg);
   top: 29px;
-  right: 1px;
+  right: -7px;
+}
+.triangle_pro {
+  width: 0px;
+  position: absolute;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 7px solid #ff029b;
+  transform: rotate(90deg);
+  top: 29px;
+  right: -7px;
 }
 
 @media (max-width: map-get($breakpoints, "md")) {

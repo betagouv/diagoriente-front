@@ -1,10 +1,11 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 import { Switch, Route, RouteComponentProps, matchPath } from 'react-router-dom';
 
 // types
 import { AnyAction } from 'redux';
-import { ReduxState, IModal } from 'reducers';
+import { ReduxState, IModal, User } from 'reducers';
 
 // layout
 import Header from '../../layout/Header/Header';
@@ -12,13 +13,14 @@ import Footer from '../../layout/Footer/Footer';
 import NotFound from '../../layout/NotFound';
 
 // containers
-import HomeContainer from '../HomeContainer';
-import ThemesContainer from '../ThemesContainer';
-import ThemeContainer from '../ThemeContainer';
-import LoginUserContainer from '../LoginContainer';
-import ProfileContainer from '../ProfileContainer';
-import RegisterUserContainer from '../RegistreContainer';
 import QuestionnaireContainer from '../QuestionnaireContainer';
+import HomeContainer from '../HomeContainer/HomeContainer';
+import ThemesContainer from '../ThemesContainer/ThemesContainer';
+import ThemeContainer from '../ThemeContainer/ThemeContainer';
+import LoginUserContainer from '../LoginContainer/LoginContainer';
+import ProfileContainer from '../ProfileContainer/ProfileContainer';
+import RegisterUserContainer from '../RegistreContainer/RegisterContainer';
+import FavorisContainer from '../FavorisContainer/FavorisContainer';
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
@@ -32,13 +34,14 @@ import classNames from '../../utils/classNames';
 import startupActions from '../../reducers/startup';
 
 // hooks
-import { useDidMount } from '../../hooks';
+import { useDidMount, useDidUpdate } from '../../hooks';
 
 const footerRoutes = ['/'];
 
 interface IMapToProps {
   modal: IModal;
   startupEnd: boolean;
+  user: User | {};
 }
 
 interface IDispatchToProps {
@@ -47,27 +50,30 @@ interface IDispatchToProps {
 
 type Props = IMapToProps & IDispatchToProps & RouteComponentProps;
 
-const RootContainer = ({ modal, startup, startupEnd, location }: Props) => {
+const RootContainer = ({ modal, startup, startupEnd, location, user, history }: Props) => {
   useDidMount(() => {
     startup();
   });
 
+  useDidUpdate(() => {
+    if (isEmpty(user)) {
+      history.push('/');
+    }
+  },           [user]);
+
   if (!startupEnd) return <div />;
   return (
     <div className={classNames(classes.container)}>
-      {/*   <Header />
-       */}
       <div className={classes.app_container}>
         <Switch>
           <Route path={'/'} exact component={HomeContainer} />
           <Route path={'/login'} component={LoginUserContainer} />
           <Route path={'/register'} component={RegisterUserContainer} />
-
+          <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
+          <ProtectedRoute path={'/favoris'} exact component={FavorisContainer} />
           <ProtectedRoute path={'/questionnaire'} component={QuestionnaireContainer} />
-
-          <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />
@@ -77,9 +83,10 @@ const RootContainer = ({ modal, startup, startupEnd, location }: Props) => {
   );
 };
 
-const mapStateToProps = ({ modal, startup }: ReduxState): IMapToProps => ({
+const mapStateToProps = ({ modal, startup, authUser }: ReduxState): IMapToProps => ({
   modal,
   startupEnd: startup,
+  user: authUser.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({

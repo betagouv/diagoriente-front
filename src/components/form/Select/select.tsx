@@ -6,7 +6,7 @@ import { IQuestion } from 'reducers';
 // style
 import style from './select.module.scss';
 // image
-import Arrow from '../../../assets/icons/arrow.png';
+import Arrow from '../../../assets/icons/arrow2.png';
 
 type IProps = {
   open: boolean;
