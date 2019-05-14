@@ -87,6 +87,16 @@
   top: 29px;
   right: -7px;
 }
+.triangle_pro {
+  width: 0px;
+  position: absolute;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 7px solid #ff029b;
+  transform: rotate(90deg);
+  top: 29px;
+  right: -7px;
+}
 
 @media (max-width: map-get($breakpoints, "md")) {
   .container {

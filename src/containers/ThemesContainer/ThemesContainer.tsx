@@ -195,7 +195,7 @@ const ThemesContainer = ({
             <Info
               borderColor={type === 'professional' ? '#dec8dd' : '#ede7ff'}
               backgroundColor={type === 'professional' ? '#fbeef9' : '#f7f7ff'}
-              className={type && classes.info_pro}
+              className={type === 'professional' ? classes.info_pro : ''}
             >
               Complète les différentes rubriques pour enrichir ton profil de compétences
             </Info>
