@@ -1,0 +1,26 @@
+
+
+ul {
+  list-style: none !important; 
+  margin:0;
+  padding:0;
+  border: 5px solid #e1e1e1;
+
+
+}
+li {
+  padding: 10px 15px;
+  background:#eee;
+  list-style: none !important;
+  &:hover {
+    background: darken(#eee, 5%);
+  }
+}
+
+.placeholder {
+  background: red;
+  &:before {
+    content: "Drop here";
+    color: blue;
+  }
+}

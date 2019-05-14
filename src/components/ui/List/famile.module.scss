@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  width: 245px;
+  height: 110px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+.deletHover {
+  background-color: rgba(255, 0, 96, 0.15);
+}
+.container:hover {
+  background: #fff !important;
+}
+/* .container:active {
+  opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1, 1.2) !important;
+    background: #fff !important;
+    border: 5px solid #ff0060 !important;
+} */
+
+.logo_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  position: relative;
+
+  .logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: red;
+  }
+}
+.description_container {
+  flex: 1 1 auto;
+  margin-left: 10px;
+}
+.badge_container {
+  background-color: #003189;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  left: -8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .badge {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff0060;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.delete_container {
+  position: relative;
+  .delete {
+    position: absolute;
+    top: -48px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 40px;
+    border: solid 1px #dddddd;
+    background-color: #ffffff;
+    color: #ff0060;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.25s, height 4s;
+    overflow: hidden;
+  }
+  .delete:hover {
+    width: 120px;
+  }
+}
+.scale {
+  transform: scale(1, 1.3) !important;
+  background: #fff !important;
+  border: 2px solid #ff0060 !important;
+}
+.deletHover {
+  background-color: rgba(255, 0, 96, 0.15);
+}

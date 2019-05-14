@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -17,6 +17,7 @@ import RoundButton from '../../components/buttons/RoundButton/RoundButton';
 import CardCompetence from '../../components/cards/CardCompetence/Competence';
 import Header from '../../layout/Header/Header';
 import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile';
+import List from '../../components/ui/List/List';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -38,6 +39,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
+  const [items, setItems] = useState([{ nom: 'Item 1', _id: 0 }, { nom: 'Item 2', _id: 1 }, { nom: 'Item 3', _id: 2 }]);
 
   useDidMount(() => {
     if (parcours.data._id) {
@@ -191,6 +193,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           </Info>
       </Grid>
       <CompleteProfile />
+      <List famileSelected={items} />
     </div>
   );
 };
