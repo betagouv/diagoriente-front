@@ -74,7 +74,7 @@ declare module 'reducers' {
     title: string;
     parentId: string;
     description: string;
-    type: string;
+    type: 'personal' | 'professional';
     verified: boolean;
     createdAt: string;
     activities: IActivity[];

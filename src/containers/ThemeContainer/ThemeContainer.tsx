@@ -85,7 +85,7 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
     if (nextUrl) {
       history.push(nextUrl);
     } else {
-      openModal(<SuccessModal onClick={successContinueClick} />, classes.backdrop);
+      openModal(<SuccessModal type={themes[currentIndex].type} onClick={successContinueClick} />, classes.backdrop);
     }
   };
 
