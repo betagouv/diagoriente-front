@@ -31,7 +31,7 @@ const SelectedCard = ({ title, logo, themetype, isSelected, ...other }: IProps) 
       )}
       <span className={classes.theme_title}>{title}</span>
     </div>
-    {isSelected && <div className={classes.triangle} />}
+    {isSelected && <div className={themetype === 'professional' ? classes.triangle_pro : classes.triangle} />}
     <ReactTooltip id={title} place="right" type="light" className={classes.tooltip}>
       {title}
     </ReactTooltip>
