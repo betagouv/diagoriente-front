@@ -1,0 +1,46 @@
+.button {
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  z-index: 999;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: 0.25s all;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 40%;
+  &:hover {
+    background-color: #ff0060;
+  }
+}
+.buttonChecked {
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  z-index: 999;
+
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.75);
+  transition: 0.25s all;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 40%;
+}
