@@ -13,7 +13,6 @@ import Footer from '../../layout/Footer/Footer';
 import NotFound from '../../layout/NotFound';
 
 // containers
-import QuestionnaireContainer from '../QuestionnaireContainer';
 import HomeContainer from '../HomeContainer/HomeContainer';
 import ThemesContainer from '../ThemesContainer/ThemesContainer';
 import ThemeContainer from '../ThemeContainer/ThemeContainer';
@@ -73,7 +72,6 @@ const RootContainer = ({ modal, startup, startupEnd, location, user, history }: 
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
           <ProtectedRoute path={'/favoris'} exact component={FavorisContainer} />
-          <ProtectedRoute path={'/questionnaire'} component={QuestionnaireContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />
