@@ -2,9 +2,11 @@ import React from 'react';
 
 import Grid from '../Grid/Grid';
 
-import classes from './complete.module.scss';
+import classes from './completeProfile.module.scss';
 import Button from '../../buttons/RoundButton/RoundButton';
-
+import logo from '../../../assets/icons/profile/im-completer-profil.jpg';
+import logo2x from '../../../assets/icons/profile/im-completer-profil@2x.jpg';
+import logo3x from '../../../assets/icons/profile/im-completer-profil@3x.jpg';
 const CompleteProfile = () => {
   return (
     <div className={classes.container}>
@@ -33,7 +35,7 @@ const CompleteProfile = () => {
         <div className={classes.content}>
           <div className={classes.circle} />
           <div className={classes.img_container}>
-            <img alt="logo" />
+            <img alt="logo" src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} />
           </div>
           <div className={classes.text_container}>
             <span className={classes.text}>Nous n’avons pas encore assez d’informations. </span>

@@ -20,9 +20,10 @@ interface Option extends ITheme {
 type IProps = {
   options: Option[];
   disabled?: boolean;
+  type?:string;
 } & RouteComponentProps<{ id: string }>;
 
-const SideBar = ({ options, history, disabled }: IProps) => {
+const SideBar = ({ options, history, type, disabled }: IProps) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
@@ -43,6 +44,8 @@ const SideBar = ({ options, history, disabled }: IProps) => {
               key={o._id}
               isSelected={o.isSelected}
               title={o.title}
+              themetype={type}
+              /* className={o.isSelected  ? classes.selected_pro : ''} */
             />
           );
         })}

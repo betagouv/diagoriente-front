@@ -34,6 +34,7 @@ import parcoursActions from '../../reducers/parcours';
 
 // styles
 import classes from './themesContainer.module.scss';
+import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 
 interface IMapToProps {
   themes: ITheme[];
@@ -83,6 +84,32 @@ const ThemesContainer = ({
     updateThemes(parcours.skills.map(skill => skill.theme));
   });
 
+  useDidUpdate(() => {
+    if (type === 'professional' && !list.fetching && !list.error) {
+      const skills = parcours.skills.map(skill => {
+        return {
+          theme: skill.theme._id,
+          activities: skill.activities.map(({ _id }) => _id),
+          type: skill.theme.type,
+          competences: skill.competences,
+        };
+      });
+
+      if (!skills.find(skill => skill.type === 'professional')) {
+        skills.push({
+          theme: list.data.data[0]._id,
+          activities: [],
+          type: 'professional',
+          competences: [],
+        });
+      }
+
+      parcoursRequest({
+        skills,
+      });
+    }
+  },           [list.fetching]);
+
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(!open);
 
@@ -126,8 +153,8 @@ const ThemesContainer = ({
             ? `/theme/${nextTheme.theme._id}/activities`
             : `/theme/${nextTheme.theme._id}/skills`;
       }
-
-      history.push(nextUrl);
+      const action = type === 'professional' ? 'replace' : 'push';
+      history[action](nextUrl);
     }
   },           [fetching]);
 
@@ -135,6 +162,9 @@ const ThemesContainer = ({
   const { data } = list.data;
   let themesComponents: JSX.Element[] = [];
   if (data) {
+    if (type === 'professional') {
+      return <LazyLoader />;
+    }
     themesComponents = data.map(theme => {
       const selected = themes.find(row => row._id === theme._id);
       const onClick = () => {
@@ -143,7 +173,14 @@ const ThemesContainer = ({
       };
       return (
         <Grid key={theme._id} item xl={3} md={6} sm={12} className={classes.grid_padding}>
-          <CardTheme data-tip data-for={theme._id} key={theme._id} onClick={onClick} checked={!!selected}>
+          <CardTheme
+            data-tip
+            data-for={theme._id}
+            key={theme._id}
+            onClick={onClick}
+            checked={!!selected}
+            type={theme.type}
+          >
             {theme.title}
             <ReactTooltip id={theme._id} type="light" className={'tooltip'}>
               {theme.title}
@@ -170,18 +207,26 @@ const ThemesContainer = ({
         when={!isEqual(parcours.skills.map(skill => skill.theme), themes)}
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
-      <SideBar disabled options={listThemes} />
-      <SideBarMobile toggleOpen={toggleOpen} open={open} options={listThemes} />
+      <SideBar disabled options={listThemes} type={type} />
+      <SideBarMobile toggleOpen={toggleOpen} open={open} options={listThemes} type={type} />
       <div className={classes.content_themes}>
         <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
           <Grid item xl={12}>
-            <PathStepper options={['Ma carte de compétences']} onClick={onNavigate} />
+            <PathStepper options={['Ma carte de compétences']} onClick={onNavigate} type={type} />
           </Grid>
           <Grid item xl={12} className={classes.grid_padding}>
-            <Title logo={themes.length ? themes[themes.length - 1].resources.icon : undefined} title="Trouve ta voie" />
+            <Title
+              logo={themes.length ? themes[themes.length - 1].resources.icon : undefined}
+              title="Trouve ta voie"
+              type={type}
+            />
           </Grid>
           <Grid item xl={12}>
-            <Info borderColor="#ede7ff" backgroundColor="#f7f7ff">
+            <Info
+              borderColor={type === 'professional' ? '#dec8dd' : '#ede7ff'}
+              backgroundColor={type === 'professional' ? '#fbeef9' : '#f7f7ff'}
+              className={type === 'professional' ? classes.info_pro : ''}
+            >
               Complète les différentes rubriques pour enrichir ton profil de compétences
             </Info>
           </Grid>
@@ -191,7 +236,12 @@ const ThemesContainer = ({
             </Grid>
           </Grid>
           <Grid item xl={12} className={classes.continue_container}>
-            <ContinueButton disabled={listThemes.length === 0} onClick={onClick} isFetching={fetching} />
+            <ContinueButton
+              disabled={listThemes.length === 0}
+              onClick={onClick}
+              isFetching={fetching}
+              className={type === 'professional' ? classes.button_pro : ''}
+            />
           </Grid>
         </Grid>
       </div>

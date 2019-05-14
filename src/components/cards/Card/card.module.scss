@@ -3,7 +3,6 @@
 .container {
   width: 100%;
   border-radius: 8px;
-  overflow: hidden;
   border: 1px solid #dddddd;
   &:hover {
     border: none;
@@ -28,6 +27,36 @@
     opacity: 0;
   }
 }
+
+.card:hover {
+  background-image: linear-gradient(247deg, $wisteria, $perano);
+
+  .title {
+    color: $white;
+  }
+}
+
+.card_pro {
+  background-color: $card_background;
+  transition: 0.25s all;
+  width: 100%;
+  height: 90px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  .check {
+    opacity: 0;
+  }
+  &:hover {
+    background-image: linear-gradient(to left, #ff009a, #a521c8);
+    opacity: 0.5;
+    .title{
+      color: $white;
+    }
+  }
+  
+}
+
 .title {
   font-family: Lato;
   font-size: 18px;
@@ -52,13 +81,6 @@
   color: $white;
 }
 
-.card:hover {
-  background-image: linear-gradient(247deg, $wisteria, $perano);
-
-  .title {
-    color: $white;
-  }
-}
 .card_focus {
   background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
   outline: none;
@@ -70,6 +92,19 @@
     opacity: 1;
   }
 }
+
+.card_pro_focus {
+  background-image: linear-gradient(to left, #ff009a, #a521c8);
+  outline: none;
+  border: none;
+  .title {
+    color: $white;
+  }
+  .check {
+    opacity: 1;
+  }
+}
+
 
 .check {
   position: absolute;

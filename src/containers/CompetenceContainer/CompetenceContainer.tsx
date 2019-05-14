@@ -123,18 +123,29 @@ const CompetenceContainer = ({
           style={{ margin: '0 5px' }}
           onClick={onClick}
           key={i}
+          type={theme.type}
         />,
       );
     }
     return (
       <div key={competence._id} className={classes.title_stars}>
-        <h1 className={classNames(classes.title, current && current.value !== 0 && classes.title_active)}>
+        <h1
+          className={classNames(
+            classes.title,
+            current && current.value !== 0 && theme.type === 'professional'
+              ? classes.title_active_pro
+              : current && current.value !== 0
+              ? classes.title_active
+              : '',
+          )}
+        >
           {competence.title}
         </h1>
         <div style={{ display: 'flex' }}>{buttons}</div>
       </div>
     );
   });
+
   return (
     <Grid container padding={{ xl: 0 }} spacing={{ xl: 40, lg: 0 }} className={classes.container}>
       <Prompt
@@ -149,7 +160,13 @@ const CompetenceContainer = ({
       <Grid item xl={8} lg={12} className={classes.list_stars}>
         <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
           <Grid item xl={12}>
-            <Info>J’évalue mes compétences</Info>
+            <Info
+              borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
+              backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
+              className={theme.type === 'professional' ? classes.info_pro : ''}
+            >
+              J’évalue mes compétences
+            </Info>
           </Grid>
           <Grid item xl={12}>
             {competenceComponents}
@@ -158,10 +175,10 @@ const CompetenceContainer = ({
       </Grid>
       <Grid item xl={12} className={'flex_center'}>
         <ContinueButton
-          className={classes.continue_button}
           disabled={competences.filter(({ value }) => value !== 0).length === 0}
           onClick={onContinueClick}
           isFetching={parcoursFetching}
+          className={theme.type === 'professional' ? classes.button_pro : classes.continue_button}
         />
       </Grid>
     </Grid>

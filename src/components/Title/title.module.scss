@@ -17,6 +17,20 @@
       max-width: 30px;
     }
   }
+  .logo_pro {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $purple-red;
+    margin-right: 20px;
+    .logo {
+      max-height: 30px;
+      max-width: 30px;
+    }
+  }
   .title_content {
     .title {
       font-family: Nunito;
@@ -27,6 +41,19 @@
       line-height: normal;
       letter-spacing: normal;
       color: $purple;
+      @media (max-width: map-get($breakpoints, "md")) {
+        font-size: 25px;
+      }
+    }
+    .title_pro {
+      font-family: Nunito;
+      font-size: 48px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $purple-red;
       @media (max-width: map-get($breakpoints, "md")) {
         font-size: 25px;
       }

@@ -26,6 +26,7 @@ import { getParcours } from '../../requests';
 
 // css
 import classes from './profileContainer.module.scss';
+import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile';
 
 interface MapToProps {
   parcours: ApiReducer<IParcoursResponse>;
@@ -45,12 +46,12 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
   });
 
   const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
-  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional');
+  /* const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional'); */
 
   const isPersoCompleted =
     persoSkills.length > 0 && !persoSkills.find(skill => !(skill.activities.length && skill.competences.length));
-  const isProCompleted =
-    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length));
+  /*  const isProCompleted =
+    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length)); */
 
   const steps = [
     {
@@ -86,39 +87,20 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
         </div>
       ),
     },
-    {
-      headerComponent: <Triangles />,
-      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
-      title: 'Mon Service National Universel',
-      description: 'Evalue ton séjour de cohésion',
-      footerComponent: !isProCompleted ? (
-        <div className={classes.step_footer}>
-          <RoundButton
-            onClick={navigate('/themes?type=professional')}
-            className={`${classes.round_button} ${classes.step3_round_button}`}
-          >
-            {isPersoCompleted ? 'Commencer' : 'Bientôt'}
-          </RoundButton>
-        </div>
-      ) : (
-        <div className={classes.step_footer}>
-          <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
-            Mettre à jour
-          </button>
-        </div>
-      ),
-      disabled: !isPersoCompleted,
-    },
+
     {
       headerComponent: <div className={classes.info_step_header} />,
-      disabled: !(isPersoCompleted && isProCompleted),
-      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
+      disabled: !isPersoCompleted,
+      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
       title: 'Mes thèmes favoris',
       description: "Précise tes pistes d'orientation, engage toi dans une mission qui te ressemble (modifié)",
       footerComponent: true ? (
         <div className={classes.step_footer}>
-          <RoundButton className={`${classes.round_button} ${classes.step4_round_button}`}>
-            {isPersoCompleted ? 'Bientôt' : 'Commencer'}
+          <RoundButton
+            onClick={navigate('/favoris')}
+            className={`${classes.round_button} ${classes.step4_round_button}`}
+          >
+            {isPersoCompleted ? 'Commencer' : 'Bientôt'}
           </RoundButton>
         </div>
       ) : (
@@ -128,6 +110,29 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           </button>
         </div>
       ),
+    },
+    {
+      headerComponent: <Triangles />,
+      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{4}</span>,
+      title: 'Mon Service National Universel',
+      description: 'Evalue ton séjour de cohésion',
+      footerComponent: true ? (
+        <div className={classes.step_footer}>
+          <RoundButton
+            onClick={navigate('/themes?type=professional')}
+            className={`${classes.round_button} ${classes.step3_round_button}`}
+          >
+            {'Bientôt'}
+          </RoundButton>
+        </div>
+      ) : (
+        <div className={classes.step_footer}>
+          <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
+            Mettre à jour
+          </button>
+        </div>
+      ),
+      disabled: true,
     },
   ];
 
@@ -170,6 +175,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>
+      <CompleteProfile />
       <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
           Idées de métiers et de formations
@@ -181,8 +187,8 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
             <span className={classes.step_4}>
               Grâce à tes réponses, voici des suggestions de métiers et de formations qui pourraient te convenir
             </span>
-          </Info>
         </Grid>
+          </Info>
       </Grid>
       <CompleteProfile />
     </div>

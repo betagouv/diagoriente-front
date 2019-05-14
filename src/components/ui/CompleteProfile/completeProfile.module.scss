@@ -1,0 +1,96 @@
+@import "../../../styles/variables.scss";
+.container {
+  margin-top: 20px;
+  position: relative;
+}
+.box_1 {
+  height: 220px;
+  border-radius: 4px;
+  background-color: $progress-competence_2;
+}
+.margin {
+  margin-bottom: 20px;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  background-image: linear-gradient(to top, $white, rgba(255, 255, 255, 0.8) 51%, rgba(255, 255, 255, 0));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1040;
+}
+.content {
+  background-color: $white;
+  border-radius: 10px;
+  width: 400px;
+  height: auto;
+  position: relative;
+}
+.circle {
+  width: 150px;
+  height: 100px;
+  background: $white;
+  border-radius: 75px / 50px;
+  position: absolute;
+  z-index: -1;
+  top: -35px;
+  right: 135px;
+  overflow: hidden;
+}
+.img_container {
+  display: flex;
+  justify-content: center;
+  img {
+    width: 174px;
+    height: 116px;
+    margin-top: 20px;
+  }
+}
+.text_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  .text {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: $footer_color;
+  }
+}
+.container_button {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  margin-bottom: 52px;
+  button {
+    padding: 10px 30px;
+    opacity: 0.75;
+    border-radius: 20px;
+    background-color: $darkblue;
+  }
+}
+@media (max-width: map-get($breakpoints, "sm")) {
+  .content {
+    width: 315px;
+  }
+  .circle {
+    right: 82px;
+  }
+}
+@media (max-width: map-get($breakpoints, "smd")) {
+  .content {
+    width: 315px;
+  }
+  .circle {
+    right: 82px;
+  }
+}

@@ -19,6 +19,7 @@ import ThemeContainer from '../ThemeContainer/ThemeContainer';
 import LoginUserContainer from '../LoginContainer/LoginContainer';
 import ProfileContainer from '../ProfileContainer/ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer/RegisterContainer';
+import FavorisContainer from '../FavorisContainer/FavorisContainer';
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
@@ -62,17 +63,15 @@ const RootContainer = ({ modal, startup, startupEnd, location, user, history }: 
   if (!startupEnd) return <div />;
   return (
     <div className={classNames(classes.container)}>
-      {/*   <Header />
-       */}
       <div className={classes.app_container}>
         <Switch>
           <Route path={'/'} exact component={HomeContainer} />
           <Route path={'/login'} component={LoginUserContainer} />
           <Route path={'/register'} component={RegisterUserContainer} />
-
+          <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
-          <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
+          <ProtectedRoute path={'/favoris'} exact component={FavorisContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />

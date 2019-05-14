@@ -16,6 +16,7 @@ declare module 'reducers' {
     readonly open: boolean;
     readonly children: JSX.Element | null;
     readonly animationType: string;
+    readonly backdropClassName: string | undefined;
   }
 
   export interface IUser {
@@ -73,7 +74,7 @@ declare module 'reducers' {
     title: string;
     parentId: string;
     description: string;
-    type: string;
+    type: 'personal' | 'professional';
     verified: boolean;
     createdAt: string;
     activities: IActivity[];
@@ -107,6 +108,18 @@ declare module 'reducers' {
     readonly title: string;
   }
 
+  export interface IFamille {
+    _id: string;
+    nom: string;
+    interests: { _id: string; nom: string; rank: string }[];
+    resources: {
+      base64: string;
+      mimetype: string;
+      name: string;
+      _id: string;
+    }[];
+  }
+
   export type ReduxState = {
     readonly startup: boolean;
     readonly modal: IModal;
@@ -124,5 +137,6 @@ declare module 'reducers' {
     readonly questions: IQuestion;
     readonly parcours: ApiReducer<IParcoursResponse>;
     readonly themes: ITheme[];
+    readonly listFamille: ApiReducer<IFamille[]>;
   };
 }
