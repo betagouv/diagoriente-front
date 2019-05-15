@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+
+.title {
+  font-family: Nunito;
+  font-size: 48px;
+  font-weight: bold;
+  color: #003189;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 25px;
+}
+
+.info {
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.5;
+  text-align: center;
+  color: #003189;
+}
+
+.loading_container {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: $zindex-fixed;
+}
+
+.competence_container {
+  margin-top: 20px;
+  @media (max-width: map-get($breakpoints, "lg" )) {
+    display: none;
+  }
+}

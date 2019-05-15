@@ -40,7 +40,7 @@ function useApiState<Fn extends (...args: any[]) => Promise<Response<any>>, T = 
     try {
       const apiParams = params.map((param: any) => {
         if (typeof param === 'object') {
-          return pickBy(param, val => val !== null || val !== undefined);
+          return pickBy(param, val => val !== undefined);
         }
         return param;
       });
