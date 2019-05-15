@@ -35,6 +35,7 @@ import startupActions from '../../reducers/startup';
 
 // hooks
 import { useDidMount, useDidUpdate } from '../../hooks';
+import JobsContainer from '../JobsContainer/JobsConainer';
 
 const footerRoutes = ['/'];
 
@@ -74,6 +75,7 @@ const RootContainer = ({ modal, startup, startupEnd, location, user, history }: 
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
           <ProtectedRoute path={'/favoris'} exact component={FavorisContainer} />
           <ProtectedRoute path={'/game'} exact component={GameContainer} />
+          <ProtectedRoute path={'/jobs'} exact component={JobsContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />

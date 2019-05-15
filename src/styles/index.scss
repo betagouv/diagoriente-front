@@ -112,3 +112,7 @@ button {
   top: 0;
   z-index: $zindex-fixed;
 }
+ul{
+  list-style: none;
+  padding-inline-start: 0px !important;
+}
