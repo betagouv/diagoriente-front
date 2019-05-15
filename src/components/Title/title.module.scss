@@ -58,5 +58,18 @@
         font-size: 25px;
       }
     }
+    .favorie {
+      font-family: Nunito;
+      font-size: 48px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #003189;
+      @media (max-width: map-get($breakpoints, "md")) {
+        font-size: 25px;
+      }
+    }
   }
 }

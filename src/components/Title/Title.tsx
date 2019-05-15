@@ -7,7 +7,7 @@ interface IProps {
   type?: string;
 }
 
-const Title = ({ title, logo, type }: IProps) => (
+const Title = ({ title, logo, type, className }: IProps & React.HTMLAttributes<HTMLElement>) => (
   <div className={classes.title_container}>
     {logo && (
       <div className={type === 'professional' ? classes.logo_pro : classes.logo_container}>
@@ -16,7 +16,13 @@ const Title = ({ title, logo, type }: IProps) => (
     )}
 
     <div className={classes.title_content}>
-      <span className={type === 'professional' ? classes.title_pro : classes.title}>{title}</span>
+      <span
+        className={
+          type === 'professional' ? classes.title_pro : type === 'professional' ? classes.title : classes.favorie
+        }
+      >
+        {title}
+      </span>
     </div>
   </div>
 );
