@@ -9,3 +9,4 @@ export * from './parcours';
 export * from './reset';
 export * from './updatePassword';
 export * from './famille';
+export * from './jobs';
