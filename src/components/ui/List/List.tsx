@@ -44,10 +44,15 @@ class App extends Component<any, any> {
     }
     return array;
   }
-  onClick = () => {};
+  onClick = () => {
+    const { items } = this.state;
+    const ids: any = [];
+    items.forEach((element: any) => {
+      ids.push(element._id);
+    });
+    console.log(ids);
+  }
   render() {
-    console.log(this.state.items);
-
     return (
       <div>
         {this.state.items && (
