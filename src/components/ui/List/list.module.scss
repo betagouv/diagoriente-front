@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .drag {
   height: 110px;
@@ -21,4 +21,14 @@
   margin: 5px;
   cursor: pointer;
   border: 5px solid $hover-badge;
+}
+.btn_container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+.btn {
+  background-image: none;
+  background-color: $rose !important;
 }

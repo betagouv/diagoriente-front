@@ -69,7 +69,9 @@ const LoginUserContainer = ({
 
   if (!isEmpty(user)) return <Redirect to={'/'} />;
 
-  return <LoginForm error={error} onSubmit={onSubmit} footerComponent={<h6 onClick={onOpenModal}>mot de passe oublié</h6>} />;
+  return (
+    <LoginForm error={error} onSubmit={onSubmit} footerComponent={<h6 onClick={onOpenModal}>mot de passe oublié</h6>} />
+  );
 };
 
 const mapStateToProps = ({ authUser, modal }: ReduxState): MapToProps => ({

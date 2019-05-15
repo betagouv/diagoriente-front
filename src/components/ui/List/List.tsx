@@ -5,15 +5,8 @@ import PlaceHolderFamile from './PlaceHolderFamile';
 import FamileSelected from './FamileSelected';
 import classNames from '../../../utils/classNames';
 import classes from './list.module.scss';
+import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
 
-// fake data generator
-const getItems = (count: number) =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k}`,
-    content: `item ${k}`,
-  }));
-
-// a little function to help us with reordering the result
 const reorder = (list: any, startIndex: any, endIndex: any) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -51,6 +44,7 @@ class App extends Component<any, any> {
     }
     return array;
   }
+  onClick = () => {};
   render() {
     console.log(this.state.items);
 
@@ -82,6 +76,9 @@ class App extends Component<any, any> {
           </DragDropContext>
         )}
         {this.renderPlaceholder()}
+        <div className={classes.btn_container}>
+          <ContinueButton onClick={this.onClick} className={classes.btn} />
+        </div>
       </div>
     );
   }
