@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .drag {
   height: 110px;
   border-radius: 10px;
@@ -6,17 +8,17 @@
     outline: none;
   }
   &:hover {
-    background: #fff;
+    background: $white;
   }
 }
 .drag_on_drag {
   transform: scale(1.1);
-  background: #fff;
+  background: $white;
   transition: transform 0.25s linear;
   width: 245px;
   height: 110px;
   border-radius: 10px;
   margin: 5px;
   cursor: pointer;
-  border: 5px solid #ff006026;
+  border: 5px solid $hover-badge;
 }
