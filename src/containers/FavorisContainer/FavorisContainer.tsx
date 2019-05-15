@@ -79,17 +79,17 @@ const FavorisContainer = ({ famillesRequest, familles, history }: Props & RouteC
                   </div>
                 </Grid>
                 <Grid item xl={8}>
-                  <PathStepper options={stepperOptions} onClick={onNavigate} />
+                  <PathStepper options={stepperOptions} onClick={onNavigate} type="type"/>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xl={12} sm={12} smd={12} xs={12}>
               <div className={classes.text}>
-                <Title title={'Lorem ipsum dolores'} />
+                <Title type="type" title={'Lorem ipsum dolores'} />
               </div>
 
               <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
-                Je précise mes expérience
+                <span className={classes.text_info}> Je précise mes expérience</span>
               </Info>
             </Grid>
           </Grid>

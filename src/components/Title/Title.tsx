@@ -16,7 +16,11 @@ const Title = ({ title, logo, type }: IProps) => (
     )}
 
     <div className={classes.title_content}>
-      <span className={type === 'professional' ? classes.title_pro : classes.title}>{title}</span>
+      <span
+        className={type === 'professional' ? classes.title_pro : type === 'type' ? classes.title_type : classes.title}
+      >
+        {title}
+      </span>
     </div>
   </div>
 );

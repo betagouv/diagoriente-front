@@ -1,6 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
 
 import classes from './famile.module.scss';
+import { useHover } from '../../../hooks';
 import classNames from '../../../utils/classNames';
 interface IProps {
   famile: {
@@ -13,21 +14,9 @@ interface IProps {
 }
 
 const FamileSelected = ({ famile, onDraging, index }: any) => {
-  const [hover, setHover] = useState(false);
-  const [hoverBtn, setHoverBtn] = useState(false);
-  const onMouseOver = (e: MouseEvent<HTMLElement>) => {
-    setHover(true);
-  };
-  const onMouseOut = (e: MouseEvent<HTMLElement>) => {
-    setHover(false);
-  };
-  const onMouseBtnOver = (e: MouseEvent<HTMLElement>) => {
-    setHoverBtn(true);
-    console.log(hoverBtn, hover);
-  };
-  const onMouseBtnOut = (e: MouseEvent<HTMLElement>) => {
-    setHoverBtn(false);
-  };
+  const [hover, onMouseOver, onMouseOut] = useHover(false);
+  const [hoverBtn, onMouseOverBtn, onMouseOutBtn] = useHover(false);
+
   const deleteFamile = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     console.log('delete');
@@ -51,7 +40,7 @@ const FamileSelected = ({ famile, onDraging, index }: any) => {
         <span>{famile.nom}</span>
       </div>
       {hover && (
-        <div className={classes.delete_container} onMouseEnter={onMouseBtnOver} onMouseLeave={onMouseBtnOut}>
+        <div className={classes.delete_container} onMouseEnter={onMouseOverBtn} onMouseLeave={onMouseOutBtn}>
           {hoverBtn ? (
             <button className={classes.delete} onClick={deleteFamile}>
               Je n’aime plus X

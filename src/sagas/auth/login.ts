@@ -55,7 +55,7 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
     }
   } catch (e) {
     // TODO improve erreur message
-    yield put(loginActions.loginUserFailure({ error: 'erreur inconnus' }));
+    yield put(loginActions.loginUserFailure({ error: 'Veuillez verifier votre connection internet' }));
   }
 }
 
