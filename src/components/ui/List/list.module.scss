@@ -1,26 +1,22 @@
-
-
-ul {
-  list-style: none !important; 
-  margin:0;
-  padding:0;
-  border: 5px solid #e1e1e1;
-
-
-}
-li {
-  padding: 10px 15px;
-  background:#eee;
-  list-style: none !important;
+.drag {
+  height: 110px;
+  border-radius: 10px;
+  margin: 5px;
+  &:focus {
+    outline: none;
+  }
   &:hover {
-    background: darken(#eee, 5%);
+    background: #fff;
   }
 }
-
-.placeholder {
-  background: red;
-  &:before {
-    content: "Drop here";
-    color: blue;
-  }
+.drag_on_drag {
+  transform: scale(1.1);
+  background: #fff;
+  transition: transform 0.25s linear;
+  width: 245px;
+  height: 110px;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border: 5px solid #ff006026;
 }

@@ -17,7 +17,6 @@ import RoundButton from '../../components/buttons/RoundButton/RoundButton';
 import CardCompetence from '../../components/cards/CardCompetence/Competence';
 import Header from '../../layout/Header/Header';
 import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile';
-import List from '../../components/ui/List/List';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -27,7 +26,6 @@ import { getParcours } from '../../requests';
 
 // css
 import classes from './profileContainer.module.scss';
-import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile';
 
 interface MapToProps {
   parcours: ApiReducer<IParcoursResponse>;
@@ -39,7 +37,6 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
-  const [items, setItems] = useState([{ nom: 'Item 1', _id: 0 }, { nom: 'Item 2', _id: 1 }, { nom: 'Item 3', _id: 2 }]);
 
   useDidMount(() => {
     if (parcours.data._id) {
@@ -177,7 +174,6 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>
-      <CompleteProfile />
       <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
           Idées de métiers et de formations
@@ -189,11 +185,10 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
             <span className={classes.step_4}>
               Grâce à tes réponses, voici des suggestions de métiers et de formations qui pourraient te convenir
             </span>
-        </Grid>
           </Info>
+        </Grid>
       </Grid>
       <CompleteProfile />
-      <List famileSelected={items} />
     </div>
   );
 };

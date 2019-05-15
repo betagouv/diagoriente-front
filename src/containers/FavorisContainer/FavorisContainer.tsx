@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, ApiReducer, IFamille } from 'reducers';
@@ -11,6 +11,7 @@ import classNames from '../../utils/classNames';
 import Info from '../../components/ui/Info/Info';
 import Title from '../../components/Title/Title';
 import PathStepper from '../../components/PathStepper/Path';
+import List from '../../components/ui/List/List';
 
 import CardImage from '../../components/cards/CardImage/CardImage';
 
@@ -30,6 +31,12 @@ const FavorisContainer = ({ famillesRequest, familles }: Props) => {
   useDidMount(() => {
     famillesRequest();
   });
+  const [items, setItems] = useState([
+    { nom: 'Item 1', _id: 0, id: 0 },
+    { nom: 'Item 2', _id: 1, id: 1 },
+    { nom: 'Item 3', _id: 2, id: 2 },
+  ]);
+
   /*   return (
     <div>
       {familles.map(famille => (
@@ -80,22 +87,12 @@ const FavorisContainer = ({ famillesRequest, familles }: Props) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          item
-          xl={3}
-          lg={3}
-          md={3}
-          smd={3}
-          sm={3}
-          xs={3}
-          className={classes.item2}
-          style={{ backgroundColor: 'red' }}
-        >
-          <div>element 1</div>
-          <div>element 2</div>
-          <div>element 3</div>
-
-          <div>element 4</div>
+        <Grid item xl={3} lg={3} md={3} smd={3} sm={3} xs={3} className={classes.item2}>
+          <Grid container padding={{ xl: 0, md: 0 }}>
+            <Grid item xl={12}>
+              <List famileSelected={items} />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>

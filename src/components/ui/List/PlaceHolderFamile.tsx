@@ -8,7 +8,9 @@ const PlaceHolderFamile = ({ index }: IProps) => {
   return (
     <div className={classes.container}>
       <div className={classes.logo_container}>
-        <img className={classes.logo} />
+        <div className={classes.logo_content}>
+          <img className={classes.logo} />
+        </div>
         <div className={classes.badge_container}>
           <div className={classes.badge}>{index}</div>
         </div>

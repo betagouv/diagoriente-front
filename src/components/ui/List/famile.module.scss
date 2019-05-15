@@ -1,26 +1,16 @@
 .container {
   display: flex;
-  width: 245px;
+  
   height: 110px;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  margin: 5px;
   cursor: pointer;
 }
-.deletHover {
-  background-color: rgba(255, 0, 96, 0.15);
+.deleteHover {
+  background-color: rgba(255, 0, 96, 0.15) !important;
+  padding-left: -5px !important;;
 }
-.container:hover {
-  background: #fff !important;
-}
-/* .container:active {
-  opacity: 1 !important;
-    visibility: visible !important;
-    transform: scale(1, 1.2) !important;
-    background: #fff !important;
-    border: 5px solid #ff0060 !important;
-} */
 
 .logo_container {
   display: flex;
@@ -28,20 +18,31 @@
   align-items: center;
   margin-left: 20px;
   position: relative;
-
-  .logo {
+  .logo_content {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     background-color: red;
   }
+  .logo {
+  }
 }
 .description_container {
   flex: 1 1 auto;
   margin-left: 10px;
+  span {
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #666;
+  }
 }
 .badge_container {
-  background-color: #003189;
+  background-color: #f3f5f9;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -59,6 +60,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Lato;
+    font-size: 11px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
   }
 }
 .delete_container {
@@ -79,16 +89,11 @@
     align-items: center;
     transition: width 0.25s, height 4s;
     overflow: hidden;
+    &:hover {
+      width: 120px;
+      .container {
+        background-color: rgba(255, 0, 96, 0.15);
+      }
+    }
   }
-  .delete:hover {
-    width: 120px;
-  }
-}
-.scale {
-  transform: scale(1, 1.3) !important;
-  background: #fff !important;
-  border: 2px solid #ff0060 !important;
-}
-.deletHover {
-  background-color: rgba(255, 0, 96, 0.15);
 }
