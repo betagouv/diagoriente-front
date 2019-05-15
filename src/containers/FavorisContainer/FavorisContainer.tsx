@@ -79,7 +79,7 @@ const FavorisContainer = ({ famillesRequest, familles, history }: Props & RouteC
                   </div>
                 </Grid>
                 <Grid item xl={8}>
-                  <PathStepper options={stepperOptions} onClick={onNavigate} type="type"/>
+                  <PathStepper options={stepperOptions} onClick={onNavigate} type="type" />
                 </Grid>
               </Grid>
             </Grid>
@@ -98,7 +98,7 @@ const FavorisContainer = ({ famillesRequest, familles, history }: Props & RouteC
               <Grid item xl={12}>
                 <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
                   {familles.map(famille => (
-                    <Grid key={famille._id} item xl={4} className={classes.cardContainer}>
+                    <Grid key={famille._id} item xl={4} md={6} smd={6} sm={12} className={classes.cardContainer}>
                       <CardImage resources={famille.resources} />
                     </Grid>
                   ))}
