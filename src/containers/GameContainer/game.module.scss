@@ -1,0 +1,34 @@
+
+.gameContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+#frame {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+.button {
+    height: 40px;
+    width: 80px;
+    border-radius: 30px;
+    border: solid 1px #dddddd;
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition:  0.25s linear;
+    transition:  0.25s linear;
+    
+    &:hover {
+        color: #ffffff;
+        background-color: #cf11b2
+    }
+}
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}

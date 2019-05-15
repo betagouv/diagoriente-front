@@ -20,6 +20,7 @@ import LoginUserContainer from '../LoginContainer/LoginContainer';
 import ProfileContainer from '../ProfileContainer/ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer/RegisterContainer';
 import FavorisContainer from '../FavorisContainer/FavorisContainer';
+import GameContainer from '../../containers/GameContainer/GameContainer';
 
 // components
 import Modal from '../../components/ui/Modal/Modal';
@@ -72,6 +73,7 @@ const RootContainer = ({ modal, startup, startupEnd, location, user, history }: 
           <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
           <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
           <ProtectedRoute path={'/favoris'} exact component={FavorisContainer} />
+          <ProtectedRoute path={'/game'} exact component={GameContainer} />
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />

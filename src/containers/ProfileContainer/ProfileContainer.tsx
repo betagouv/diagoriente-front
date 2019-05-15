@@ -61,7 +61,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       description: 'Apprends une méthode simple pour identifier des compétences',
       footerComponent: (
         <div className={classes.step_footer}>
-          <button className={classes.step_card_footer_text}>Rejouer</button>
+          <button className={classes.step_card_footer_text}  onClick={navigate('/game')} >Rejouer</button>
         </div>
       ),
     },
