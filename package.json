@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-beautiful-dnd": "^11.0.2",
     "@types/react-tooltip": "^3.9.2",
     "@typescript-eslint/eslint-plugin-tslint": "^1.7.0",
     "axios": "^0.18.0",
@@ -10,6 +11,7 @@
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.3",
     "react-dom": "^16.8.6",
     "react-onclickoutside": "^6.7.3",
     "react-redux": "^7.0.2",

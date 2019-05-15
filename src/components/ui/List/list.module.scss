@@ -1,0 +1,34 @@
+@import "../../../styles/variables.scss";
+
+.drag {
+  height: 110px;
+  border-radius: 10px;
+  margin: 5px;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background: $white;
+  }
+}
+.drag_on_drag {
+  transform: scale(1.1);
+  background: $white;
+  transition: transform 0.25s linear;
+  width: 245px;
+  height: 110px;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border: 5px solid $hover-badge;
+}
+.btn_container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+.btn {
+  background-image: none;
+  background-color: $rose !important;
+}
