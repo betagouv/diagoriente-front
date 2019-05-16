@@ -121,6 +121,7 @@ const FavorisContainer = ({
       ids.push(element._id);
     });
     updateParcoursRequest({ families: ids });
+    history.push('/jobs');
   };
   return (
     <div className={classes.container}>
@@ -190,6 +191,7 @@ const FavorisContainer = ({
                 famileSelected={selectedFamily}
                 onDragEnd={onDragEnd}
                 renderPlaceholder={renderPlaceholder}
+                handleDeleteClick={handleClick}
               />
             </Grid>
           </Grid>
