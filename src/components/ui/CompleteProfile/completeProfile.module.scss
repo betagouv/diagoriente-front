@@ -26,19 +26,19 @@
 .content {
   background-color: $white;
   border-radius: 10px;
-  width: 400px;
+  width: 600px;
   height: auto;
   position: relative;
 }
 .circle {
-  width: 150px;
+  width: 166px;
   height: 100px;
   background: $white;
   border-radius: 75px / 50px;
   position: absolute;
   z-index: -1;
   top: -35px;
-  right: 135px;
+  right: 222px;
   overflow: hidden;
 }
 .img_container {

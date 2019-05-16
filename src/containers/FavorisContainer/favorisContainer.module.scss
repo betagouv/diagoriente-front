@@ -1,8 +1,10 @@
+@import "../../styles/variables.scss";
 .text {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin: 25px 0px;
 }
 .textContainer {
   display: flex;
@@ -18,8 +20,8 @@
 .item2 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  background-color: $card_background;
 }
 .gridContainer {
   display: flex;
@@ -35,5 +37,35 @@
   align-items: center;
 }
 .info {
+  color: #003189;
+}
+.text_container_selection {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  margin-bottom: 20;
+}
+.text_selection {
+  font-family: Lato;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.36;
+  letter-spacing: 2.2px;
+  color: $footer_color;
+}
+.logo_container {
+  width: 152.6px;
+  height: 50px;
+  margin-top: 40px;
+}
+.logo {
+  width: 100%;
+  height: 100%;
+}
+.header {
+  display: flex;
+  align-items: center;
+}
+.text_info {
   color: #003189;
 }

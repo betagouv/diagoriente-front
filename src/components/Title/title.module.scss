@@ -58,6 +58,19 @@
         font-size: 25px;
       }
     }
+    .title_type {
+      font-family: Nunito;
+      font-size: 48px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $darkblue;
+      @media (max-width: map-get($breakpoints, "md")) {
+        font-size: 25px;
+      }
+    }
     .favorie {
       font-family: Nunito;
       font-size: 48px;

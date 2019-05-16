@@ -17,9 +17,7 @@ const Title = ({ title, logo, type, className }: IProps & React.HTMLAttributes<H
 
     <div className={classes.title_content}>
       <span
-        className={
-          type === 'professional' ? classes.title_pro : type === 'professional' ? classes.title : classes.favorie
-        }
+        className={type === 'professional' ? classes.title_pro : type === 'type' ? classes.title_type : classes.title}
       >
         {title}
       </span>

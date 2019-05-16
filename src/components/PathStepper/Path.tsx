@@ -18,7 +18,13 @@ const PathStepper = ({ options, onClick, type }: IProps) => (
           <div
             onClick={() => onClick(index, p)}
             className={classNames(
-              isLast ? (type === 'professional' ? classes.item_selected_pro : classes.item_selected) : classes.item,
+              isLast
+                ? type === 'professional'
+                  ? classes.item_selected_pro
+                  : type === 'type'
+                  ? classes.item_selectes_standard
+                  : classes.item_selected
+                : classes.item,
             )}
           >
             {p}
