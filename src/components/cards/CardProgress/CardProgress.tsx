@@ -18,9 +18,7 @@ const CardProgress = ({ progress }: IProps) => {
           <div className={classes.triangle} />
           <img src={Logo} alt="bird" className={classes.Bitmap} />
         </div>
-        <span className={classNames(classes.text, style.MARGIN)}>
-          Tu passes au niveau {progress < 4 ? progress + 1 : progress} !
-        </span>
+        <span className={classNames(classes.text, style.MARGIN)}>Tu passes au niveau {progress} !</span>
       </div>
     </div>
   );

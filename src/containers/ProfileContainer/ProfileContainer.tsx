@@ -66,12 +66,18 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
   };
 
   const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
-  /* const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional'); */
+  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional');
 
   const isPersoCompleted =
     persoSkills.length > 0 && !persoSkills.find(skill => !(skill.activities.length && skill.competences.length));
-  /*  const isProCompleted =
-    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length)); */
+  const isProCompleted =
+    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length));
+
+  let niveau = 0;
+  if (parcours.data.played) niveau = 1;
+  if (niveau >= 1 && isPersoCompleted) niveau = 2;
+  if (niveau >= 2 && parcours.data.families.length) niveau = 3;
+  if (niveau >= 3 && isProCompleted) niveau = 4;
 
   const steps = [
     {
@@ -79,88 +85,93 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
       title: 'Mini jeu',
       description: 'Apprends une méthode simple pour identifier des compétences',
-      footerComponent: !parcours.data.played ? (
-        <div className={classes.step_footer}>
-          <RoundButton onClick={gameHandler} className={`${classes.round_button} ${classes.step1_round_button}`}>
-            Jouer
-          </RoundButton>
-        </div>
-      ) : (
-        <div className={classes.step_footer}>
-          <button className={classes.step_card_footer_text} onClick={navigate('/game')}>
-            Rejouer
-          </button>
-        </div>
-      ),
+      footerComponent:
+        niveau < 1 ? (
+          <div className={classes.step_footer}>
+            <RoundButton onClick={gameHandler} className={`${classes.round_button} ${classes.step1_round_button}`}>
+              Jouer
+            </RoundButton>
+          </div>
+        ) : (
+          <div className={classes.step_footer}>
+            <button className={classes.step_card_footer_text} onClick={navigate('/game')}>
+              Rejouer
+            </button>
+          </div>
+        ),
     },
     {
+      disabled: niveau === 0,
       headerComponent: <Circles />,
       circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
       title: 'Ma carte de compétences',
       description: 'Liste toutes tes expériences et rèvèle tes compétences',
-      footerComponent: !isPersoCompleted ? (
-        <div className={classes.step_footer}>
-          <RoundButton
-            onClick={navigate('/themes')}
-            className={`${classes.round_button} ${classes.step2_round_button}`}
-          >
-            Commencer
-          </RoundButton>
-        </div>
-      ) : (
-        <div className={classes.step_footer}>
-          <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
-            Mettre à jour
-          </button>
-        </div>
-      ),
+      footerComponent:
+        niveau <= 1 ? (
+          <div className={classes.step_footer}>
+            <RoundButton
+              onClick={navigate('/themes')}
+              className={`${classes.round_button} ${classes.step2_round_button}`}
+            >
+              Commencer
+            </RoundButton>
+          </div>
+        ) : (
+          <div className={classes.step_footer}>
+            <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+              Mettre à jour
+            </button>
+          </div>
+        ),
     },
 
     {
       headerComponent: <div className={classes.info_step_header} />,
-      disabled: !isPersoCompleted,
+      disabled: niveau <= 1,
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
       title: 'Mes thèmes favoris',
       description: "Précise tes pistes d'orientation, engage toi dans une mission qui te ressemble (modifié)",
-      footerComponent: true ? (
-        <div className={classes.step_footer}>
-          <RoundButton
-            onClick={navigate('/favoris')}
-            className={`${classes.round_button} ${classes.step4_round_button}`}
-          >
-            {isPersoCompleted ? 'Commencer' : 'Bientôt'}
-          </RoundButton>
-        </div>
-      ) : (
-        <div className={classes.step_footer}>
-          <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
-            Mettre à jour
-          </button>
-        </div>
-      ),
+      footerComponent:
+        niveau <= 2 ? (
+          <div className={classes.step_footer}>
+            <RoundButton
+              onClick={navigate('/favoris')}
+              className={`${classes.round_button} ${classes.step4_round_button}`}
+            >
+              {isPersoCompleted ? 'Commencer' : 'Bientôt'}
+            </RoundButton>
+          </div>
+        ) : (
+          <div className={classes.step_footer}>
+            <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+              Mettre à jour
+            </button>
+          </div>
+        ),
     },
     {
       headerComponent: <Triangles />,
       circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{4}</span>,
       title: 'Mon Service National Universel',
       description: 'Evalue ton séjour de cohésion',
-      footerComponent: true ? (
-        <div className={classes.step_footer}>
-          <RoundButton
-            onClick={navigate('/themes?type=professional')}
-            className={`${classes.round_button} ${classes.step3_round_button}`}
-          >
-            {'Bientôt'}
-          </RoundButton>
-        </div>
-      ) : (
-        <div className={classes.step_footer}>
-          <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
-            Mettre à jour
-          </button>
-        </div>
-      ),
-      disabled: true,
+      footerComponent:
+        niveau <= 3 ? (
+          <div className={classes.step_footer}>
+            <RoundButton
+              onClick={navigate('/themes?type=professional')}
+              className={`${classes.round_button} ${classes.step3_round_button}`}
+            >
+              {'Bientôt'}
+            </RoundButton>
+          </div>
+        ) : (
+          <div className={classes.step_footer}>
+            <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
+              Mettre à jour
+            </button>
+          </div>
+        ),
+      disabled: niveau <= 3,
     },
   ];
 
@@ -199,7 +210,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
           </Grid>
         </Grid>
         <Grid item xl={4} lg={6} md={12}>
-          <CardProgress progress={4} />
+          <CardProgress progress={niveau} />
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>
