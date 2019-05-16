@@ -12,6 +12,7 @@ export const INITIAL_DATA: IParcoursResponse = {
   updatedAt: '',
   userId: '',
   _id: '',
+  played: false,
 };
 
 const INITIAL_STATE: ApiReducer<IParcoursResponse> = {

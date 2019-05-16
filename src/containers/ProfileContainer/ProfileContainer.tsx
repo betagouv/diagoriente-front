@@ -58,9 +58,20 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
       title: 'Mini jeu',
       description: 'Apprends une méthode simple pour identifier des compétences',
-      footerComponent: (
+      footerComponent: !parcours.data.played ? (
         <div className={classes.step_footer}>
-          <button className={classes.step_card_footer_text}>Rejouer</button>
+          <RoundButton
+            onClick={navigate('/themes')}
+            className={`${classes.round_button} ${classes.step1_round_button}`}
+          >
+            Jouer
+          </RoundButton>
+        </div>
+      ) : (
+        <div className={classes.step_footer}>
+          <button className={classes.step_card_footer_text} onClick={navigate('/game')}>
+            Rejouer
+          </button>
         </div>
       ),
     },

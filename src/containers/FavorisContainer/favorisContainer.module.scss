@@ -29,12 +29,15 @@
 }
 .cardContainer {
   max-height: 200px;
-  padding: 15px 15px;
+  padding: 5% 5%;
 }
 .title {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.info {
+  color: #003189;
 }
 .text_container_selection {
   display: flex;

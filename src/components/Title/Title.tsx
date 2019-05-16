@@ -7,7 +7,7 @@ interface IProps {
   type?: string;
 }
 
-const Title = ({ title, logo, type }: IProps) => (
+const Title = ({ title, logo, type, className }: IProps & React.HTMLAttributes<HTMLElement>) => (
   <div className={classes.title_container}>
     {logo && (
       <div className={type === 'professional' ? classes.logo_pro : classes.logo_container}>
