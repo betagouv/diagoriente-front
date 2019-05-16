@@ -6,12 +6,10 @@ import themesActions from '../reducers/themes';
 
 import { updateParcours, Response } from '../requests';
 
-function* currentParcoursRequest({ skills }: any) {
+function* currentParcoursRequest({ type, ...data}: any) {
   try {
     const { parcours }: ReduxState = yield select();
-    const response: Response<IParcoursResponse> = yield call(updateParcours, parcours.data._id, {
-      skills,
-    });
+    const response: Response<IParcoursResponse> = yield call(updateParcours, parcours.data._id, data);
 
     if (response.code === 200 && response.data) {
       yield all([
