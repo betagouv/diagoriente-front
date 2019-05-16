@@ -37,7 +37,7 @@ const LoginUserContainer = ({ onSubmit, error, footerComponent, showInscription 
     <div className={classes.container_home}>
       <div className={classes.container_form}>
         <div className={classes.container_title}>
-          <span>Se Connecter</span>
+          <span>Se connecter</span>
         </div>
         <span className={classes.error}>{error}</span>
         <Input
@@ -61,8 +61,8 @@ const LoginUserContainer = ({ onSubmit, error, footerComponent, showInscription 
         <div className={classes.container_forget_Password}>
           {showInscription && (
             <h5 className={classes.register_text}>
-              <span>Vous ne possédez pas un compte ?</span>
-              <Link to="/register">Inscription </Link>
+              <span>Vous ne possédez pas de compte ?</span>
+              <Link to="/register">S’inscrire</Link>
             </h5>
           )}
           {footerComponent}
