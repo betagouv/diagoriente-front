@@ -16,23 +16,18 @@ const LogoutModal = ({ onLogout, onClose }: IProps) => {
   return (
     <div className={classes.wrapperModal}>
       <div className={classes.container}>
-        <Grid container xl={12}>
-          <Grid item xl={12}>
-            <div className={classes.title_container}>
-              <h3>Attention, vous êtes sur le point d’être déconnecté !</h3>
-            </div>
-          </Grid>
-          <Grid item xl={12}>
-            <div className={classes.btn_container}>
-              <Button onClick={logout} className={classes.btnOut}>
-                Déconnecter{' '}
-              </Button>
-              <Button onClick={onClose} className={classes.btn}>
-                Annuler{' '}
-              </Button>
-            </div>
-          </Grid>
-        </Grid>
+        <div className={classes.title_container}>
+          <span>Attention, vous êtes sur le point d’être déconnecté !</span>
+        </div>
+
+        <div className={classes.btn_container}>
+          <Button onClick={logout} className={classes.btnOut}>
+            Déconnecter{' '}
+          </Button>
+          <Button onClick={onClose} className={classes.btn}>
+            Annuler{' '}
+          </Button>
+        </div>
       </div>
     </div>
   );
