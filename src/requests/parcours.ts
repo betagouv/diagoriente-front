@@ -18,7 +18,8 @@ export interface ISkill {
 }
 
 export interface IUpdateParcoursParams {
-  skills: ISkill[];
+  skills?: ISkill[];
+  played?: boolean;
 }
 
 export const updateParcours = (id: string, data: IUpdateParcoursParams): Promise<Response<IParcoursResponse>> =>
