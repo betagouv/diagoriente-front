@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Dispatch, AnyAction } from 'redux';
 
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
@@ -24,16 +25,31 @@ import { useDidMount } from '../../hooks';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getParcours } from '../../requests';
 
+// actions
+import ParcoursActions from '../../reducers/parcours';
+
 // css
 import classes from './profileContainer.module.scss';
 
+interface ParcourParmas {
+  completed?: boolean;
+  createdAt?: string;
+  families?: [];
+  skills?: any[];
+  updatedAt?: string;
+  userId?: string;
+  _id?: string;
+  played: boolean;
+}
+
 interface MapToProps {
   parcours: ApiReducer<IParcoursResponse>;
+  parcoursRequest: (payload: ParcourParmas) => void;
 }
 
 type Props = RouteComponentProps & ApiComponentProps<{ getParcours: typeof getParcours }> & MapToProps;
 
-const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
+const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
@@ -43,6 +59,11 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       getParcours.call(parcours.data._id);
     }
   });
+
+  const gameHandler = () => {
+    parcoursRequest({ played: true });
+    navigate('/game')();
+  };
 
   const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
   /* const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional'); */
@@ -60,10 +81,7 @@ const ProfileContainer = ({ history, getParcours, parcours }: Props) => {
       description: 'Apprends une méthode simple pour identifier des compétences',
       footerComponent: !parcours.data.played ? (
         <div className={classes.step_footer}>
-          <RoundButton
-            onClick={navigate('/themes')}
-            className={`${classes.round_button} ${classes.step1_round_button}`}
-          >
+          <RoundButton onClick={gameHandler} className={`${classes.round_button} ${classes.step1_round_button}`}>
             Jouer
           </RoundButton>
         </div>
@@ -208,4 +226,11 @@ const mapStateToProps = ({ parcours }: ReduxState) => ({
   parcours,
 });
 
-export default connect(mapStateToProps)(withApis({ getParcours })(ProfileContainer));
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
+  parcoursRequest: (payload: ParcourParmas) => dispatch(ParcoursActions.parcoursRequest(payload)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withApis({ getParcours })(ProfileContainer));
