@@ -38,3 +38,5 @@ export interface FavoritesData {
 }
 
 export const createFavorites = (data: FavoritesData): Promise<Response<any>> => axiosPost('v1/favorites', { data });
+
+export const getFavorites = (): Promise<Response<any>> => axiosGet('v1/favorites');

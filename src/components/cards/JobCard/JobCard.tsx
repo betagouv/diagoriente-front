@@ -12,9 +12,13 @@ interface Props {
   interested: boolean | null;
   onLikeClick: () => void;
   onDislikeClick: () => void;
+  showButtons: boolean;
 }
 
-const JobCard = ({ title, interested, onDislikeClick, onLikeClick }: Props) => {
+const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons }: Props) => {
+  const showLike = showButtons || interested === true;
+  const showDislike = showButtons || interested === false;
+
   return (
     <div className={classNames(classes.container, 'flex_center', interested !== null && classes.container_interested)}>
       {interested !== null && (
@@ -30,13 +34,19 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick }: Props) => {
               classes.footer_button,
               'flex_center',
               interested === true && classes.footer_like_active,
+              !showLike && classes.footer_hidden_button,
             )}
             item
             xl={8}
           >
-            <img className={classes.img} src={iconLike} />
-            <span className={classes.like}>J'aime</span>
+            {showLike && (
+              <>
+                <img className={classes.img} src={iconLike} />
+                <span className={classes.like}>J'aime</span>
+              </>
+            )}
           </Grid>
+
           <Grid
             onClick={onDislikeClick}
             className={classNames(
@@ -44,11 +54,12 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick }: Props) => {
               'flex_center',
               classes.footer_dislike,
               interested === false && classes.footer_dislike_active,
+              !showDislike && classes.footer_hidden_button,
             )}
             item
             xl={4}
           >
-            <img className={classes.img} src={iconDislike} />
+            {showDislike && <img className={classes.img} src={iconDislike} />}
           </Grid>
         </Grid>
       </div>
@@ -59,6 +70,7 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick }: Props) => {
 JobCard.defaultProps = {
   onLikeClick: () => {},
   onDislikeClick: () => {},
+  showButtons: true,
 };
 
 export default JobCard;

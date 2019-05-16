@@ -7,7 +7,11 @@ import Button from '../../buttons/RoundButton/RoundButton';
 import logo from '../../../assets/icons/profile/im-completer-profil.jpg';
 import logo2x from '../../../assets/icons/profile/im-completer-profil@2x.jpg';
 import logo3x from '../../../assets/icons/profile/im-completer-profil@3x.jpg';
-const CompleteProfile = () => {
+const CompleteProfile = ({
+  onClick,
+}: {
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}) => {
   return (
     <div className={classes.container}>
       <Grid container xl={12} spacing={{ xl: 10 }} padding={{ xl: 80, md: 30, sm: 15 }}>
@@ -42,7 +46,7 @@ const CompleteProfile = () => {
             <span className={classes.text}>Complète ton profil ci-dessus et reviens voir !</span>
           </div>
           <div className={classes.container_button}>
-            <Button>Compléter mon profil</Button>
+            <Button onClick={onClick}>Compléter mon profil</Button>
           </div>
         </div>
       </div>

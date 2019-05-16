@@ -16,6 +16,12 @@ import { IFamille } from 'reducers';
 function* listFamilleRequest({ payload }: { type: string; payload: ListFamilleParams }) {
   const list: WrappedResponse<ListResponse<FamilleList>> = yield call(wrapApiCall, getListFamille, payload);
   if (list.success) {
+    yield put(
+      listFamilleActions.listFamilleSuccess({
+        data: list.data.data,
+      }),
+    );
+
     const promise = list.data.data.map(item => {
       return call(getFamilleDetails, item._id);
     });
