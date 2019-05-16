@@ -6,6 +6,7 @@ import Button from '../../buttons/LikeButton/LikeButton';
 import like from '../../../assets/icons/svg/like.svg';
 import redLike from '../../../assets/icons/svg/redLike.svg';
 import cancel from '../../../assets/icons/cancel.png';
+import { IFamille } from 'reducers';
 
 interface Props {
   checked?: boolean;
@@ -15,9 +16,11 @@ interface Props {
     name: string;
     _id: string;
   }[];
-  handleClick: (id: string) => void;
+  handleClick: (famille: IFamille) => void;
   id: string;
+  nom: string;
   index: number;
+  famille: IFamille;
 }
 
 const CardImage = ({
@@ -27,6 +30,7 @@ const CardImage = ({
   id,
   resources,
   index,
+  famille,
   checked,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
@@ -35,8 +39,12 @@ const CardImage = ({
     <div className={checked ? classes.containerSelected : classes.container}>
       {/*       <img src={staticCat} alt="cat" className={classes.static} />
        */}
-      <img src={`data:${resources[0].mimetype};base64, ${resources[0].base64}`} alt="cat" className={classes.active} />
-      <Button disabled={checked} checkedButon={checked} onClick={() => handleClick(id)}>
+      <img
+        src={`data:${resources[0].mimetype};base64, ${famille.resources[0].base64}`}
+        alt="cat"
+        className={classes.active}
+      />
+      <Button disabled={checked} checkedButon={checked} onClick={() => handleClick(famille)}>
         <img src={checked ? redLike : like} alt="heart" className={classes.heartImage} />
         <span className={classes.likeText}>j'aime</span>
       </Button>
@@ -56,7 +64,7 @@ const CardImage = ({
                 style={{ width: '12px', height: 12, lineHeight: '1.5' }}
                 onClick={() => {
                   setMouseEnter(false);
-                  handleClick(id);
+                  handleClick(famille);
                 }}
               />
             </div>

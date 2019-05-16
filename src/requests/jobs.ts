@@ -1,6 +1,19 @@
 import { Response, axiosGet, axiosPost } from './http';
 
-interface IJob {
+export interface ISecteur {
+  activities: null;
+  parentId: null;
+  resources: {
+    backgroundColor: string;
+    icon: string;
+  };
+  search: string;
+  title: string;
+  type: string;
+  _id: string;
+}
+
+export interface IJob {
   title: string;
   description: string;
   interests: { _id: string; weight: number; rank: string; nom: string }[];
@@ -8,14 +21,14 @@ interface IJob {
   formations: any;
   _id: string;
   jobRank: number;
-  secteur: any[];
+  secteur: ISecteur[];
   accessibility: string;
   interested: boolean | null;
 }
 
 export const getMyJob = (
   parcourId: string,
-  algoType: 'interest_family' | 'family' | 'interest' = 'interest_family',
+  algoType: 'interest_family' | 'family' | 'interest' = 'family',
 ): Promise<Response<IJob[]>> => axiosGet('v1/jobs/myJobs', { params: { parcourId, algoType } });
 
 export interface FavoritesData {

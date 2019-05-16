@@ -1,11 +1,23 @@
 @import "../../styles/variables.scss";
 
+.container {
+  display: flex;
+  width: 100%;
+  align-self: stretch;
+}
+
+.jobs_container {
+  width: calc(100% - 250px);
+  @media (max-width: map-get($breakpoints, "md" )) {
+    width: 100%;
+  }
+}
+
 .title {
   font-family: Nunito;
   font-size: 48px;
   font-weight: bold;
-  color: #003189;
-  text-align: center;
+  color: $darkblue;
   padding-top: 50px;
   padding-bottom: 25px;
 }
@@ -16,12 +28,23 @@
   font-weight: bold;
   line-height: 1.5;
   text-align: center;
-  color: #003189;
+  color: $darkblue;
 }
 
 .loading_container {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: $zindex-fixed;
+}
+
+.secteur {
+  color: $darkblue;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.job_portion {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .competence_container {
