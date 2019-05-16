@@ -143,6 +143,11 @@
       justify-content: center;
     }
   }
+  .container_select {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+  }
 }
 
 // gradient animation
@@ -153,4 +158,13 @@
   100% {
     background-position: 100% 0;
   }
+}
+.container_select {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 10px 5px;
+}
+.select_content {
+  width: 200px;
 }

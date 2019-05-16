@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useRef, useEffect } from 'react';
 import { map } from 'lodash';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -27,6 +27,8 @@ import classes from './register.module.scss';
 import Button from '../../components/buttons/RoundButton/RoundButton';
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
+import SelectLocation from '../../components/form/Select/SelectLocation';
+
 import Grid from '../../components/ui/Grid/Grid';
 
 interface DispatchToProps {
@@ -50,9 +52,15 @@ interface MapToProps {
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listQuestions }> & DispatchToProps & MapToProps;
 
-const RegisterUserContainer = ({ list, registerRequest, fetching, error, history, location }: Props) => {
+const RegisterUserContainer = ({ list, registerRequest, fetching, error, history }: Props) => {
   useDidMount(() => {
     list.call();
+  });
+  const ref = useRef('location');
+
+  useEffect(() => {
+    const { current } = ref;
+    console.log(current)
   });
   const { data } = list;
   const [email, emailChange, emailTouched] = useTextInput('');
@@ -62,6 +70,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
   const [response, responseChange, responseTouched] = useTextInput('');
   const [lastName, lastNameChange, lastNameTouched] = useTextInput('');
   const [questionValue, open, onChange, onOpen, onClose] = useSelectInput('');
+  const [location, openLocation, onChangeLocation, onOpenLocation, onCloseLocation] = useSelectInput('');
 
   const emailValid = emailTouched ? validateEmail(email) : '';
   const passwordValid = passwordTouched ? validatePassword(password) : '';
@@ -70,14 +79,30 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
   const lastNameValid = lastNameTouched ? validateNom(lastName) : '';
   const responseValid = responseTouched ? validateNom(response) : '';
 
+  const arrays = [
+    { value: 'Ardennes', label: 'Ardennes' },
+    { value: 'Cher', label: 'Cher' },
+    { value: 'Creuse', label: 'Creuse' },
+    { value: 'Eure', label: 'Eure' },
+    { value: 'Guyane', label: 'Guyane' },
+    { value: 'Hautes-Pyrénées', label: 'Hautes-Pyrénées' },
+    { value: 'Haute-Saône', label: 'Haute-Saône' },
+    { value: 'Loire-Atlantique', label: 'Loire-Atlantique' },
+    { value: 'Morbihan', label: 'Morbihan' },
+    { value: 'Nord', label: 'Nord' },
+    { value: 'Puy-de-Dôme', label: 'Puy-de-Dôme' },
+    { value: ' Val d’Oise', label: ' Val d’Oise' },
+    { value: ' Vaucluse', label: ' Vaucluse' },
+  ];
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const question: any = {
       response,
       _id: questionValue,
     };
-    registerRequest(email, password, firstName, lastName, institution, question);
+    registerRequest(email, password, firstName, lastName, location, question);
   };
+  console.log('open', open);
 
   return (
     <div className={classes.container_home}>
@@ -85,9 +110,8 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         <div className={classes.container_title}>
           <h3>Inscription</h3>
         </div>
-
-        <Grid container spacing={{ xl: 20, md: 0 }} padding={{ xl: 40 }}>
-          <Grid item xl={6} md={12}>
+        <div className={classes.container_select}>
+          <Grid item xl={5} md={12}>
             <Input
               name="Prénom"
               validation={firstNameValid}
@@ -95,7 +119,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               className={classes.container_input}
             />
           </Grid>
-          <Grid item xl={6} md={12}>
+          <Grid item xl={5} md={12}>
             <Input
               name="Nom"
               validation={lastNameValid}
@@ -103,12 +127,13 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               className={classes.container_input}
             />
           </Grid>
-
-          <Grid item xl={6} md={12}>
+        </div>
+        <div className={classes.container_select}>
+          <Grid item xl={5} md={12}>
             <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
           </Grid>
 
-          <Grid item xl={6} md={12}>
+          <Grid item xl={5} md={12}>
             <Input
               name="Mot de passe"
               validation={passwordValid}
@@ -117,15 +142,21 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               type="password"
             />
           </Grid>
-          <Grid item xl={6} md={12}>
-            <Input
-              name="Localisation"
-              validation={institutionValid}
-              onChange={institutionChange}
-              className={classes.container_input}
+        </div>
+        <div className={classes.container_select}>
+          <Grid item xl={5} md={12}>
+            <SelectLocation
+              options={map(arrays, local => ({ value: local.value, label: local.label }))}
+              open={openLocation}
+              onChange={onChangeLocation}
+              value={location}
+              className={classes.container_input_select}
+              placeholder="Choisi votre localisation"
+              selectOpen={onOpenLocation}
+              selectClose={onCloseLocation}
             />
           </Grid>
-          <Grid item xl={6} md={12}>
+          <Grid item xl={5} md={12}>
             <Select
               options={map(data, question => ({ value: question._id, label: question.title }))}
               open={open}
@@ -137,7 +168,9 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               selectClose={onClose}
             />
           </Grid>
-          <Grid item xl={6} md={12}>
+        </div>
+        <div className={classes.container_select}>
+          <Grid item xl={5} md={12}>
             <Input
               name="Votre réponse"
               validation={responseValid}
@@ -145,7 +178,8 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               className={classes.container_input}
             />
           </Grid>
-        </Grid>
+          <Grid item xl={5} md={12} />
+        </div>
 
         <div className={classes.container_button}>
           <Button onClick={onSubmit}> Inscription</Button>

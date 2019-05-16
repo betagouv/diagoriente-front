@@ -102,7 +102,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     {
       headerComponent: <QuestionMarks />,
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-      title: 'Mini jeu',
+      title: 'Mini-jeu',
       description: 'Apprends une méthode simple pour identifier des compétences',
       footerComponent:
         niveau < 1 ? (
@@ -149,7 +149,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
       disabled: niveau <= 1,
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
       title: 'Mes thèmes favoris',
-      description: "Précise tes pistes d'orientation, engage toi dans une mission qui te ressemble (modifié)",
+      description: "Trouve des pistes d’orientation",
       footerComponent:
         niveau <= 2 ? (
           <div className={classes.step_footer}>
@@ -229,7 +229,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
           </Grid>
         </Grid>
         <Grid item xl={4} lg={6} md={12}>
-          <CardProgress progress={niveau} />
+          <CardProgress progress={1} />
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>

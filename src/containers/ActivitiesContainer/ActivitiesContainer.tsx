@@ -120,7 +120,7 @@ const ActivitiesContainer = ({
           <Info borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
               backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
               className={theme.type === 'professional' ? classes.info_pro : ''}>
-            Je précise mes expérience
+            Je sélectionne des activités
           </Info>
         </Grid>
 

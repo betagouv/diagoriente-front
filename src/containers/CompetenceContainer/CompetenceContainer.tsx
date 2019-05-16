@@ -178,6 +178,7 @@ const CompetenceContainer = ({
           disabled={competences.filter(({ value }) => value !== 0).length === 0}
           onClick={onContinueClick}
           isFetching={parcoursFetching}
+          label ={'EXPERIENCE SUIVANTE'}
           className={theme.type === 'professional' ? classes.button_pro : classes.continue_button}
         />
       </Grid>
