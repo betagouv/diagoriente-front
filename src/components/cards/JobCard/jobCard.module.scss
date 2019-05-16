@@ -68,10 +68,13 @@
 .footer_like_active {
   background-color: #ff0060;
   background-image: none;
+  cursor: default;
 }
+
 .footer_dislike_active {
   background-color: #00cfff;
   background-image: none;
+  cursor: default;
 }
 
 .interested {
@@ -80,4 +83,13 @@
 
 .not_interested {
   background-color: rgba(0, 207, 255, 0.5);
+}
+
+.footer_hidden_button {
+  background-color: transparent;
+  background-image: none;
+  &:hover {
+    background-color: transparent !important;
+  }
+  cursor: default;
 }

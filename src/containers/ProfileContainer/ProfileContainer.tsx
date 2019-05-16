@@ -23,13 +23,14 @@ import { useDidMount } from '../../hooks';
 
 // api
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
-import { getParcours } from '../../requests';
+import { getParcours, getFavorites } from '../../requests';
 
 // actions
 import ParcoursActions from '../../reducers/parcours';
 
 // css
 import classes from './profileContainer.module.scss';
+import JobCard from '../../components/cards/JobCard/JobCard';
 
 interface ParcourParmas {
   completed?: boolean;
@@ -47,9 +48,11 @@ interface MapToProps {
   parcoursRequest: (payload: ParcourParmas) => void;
 }
 
-type Props = RouteComponentProps & ApiComponentProps<{ getParcours: typeof getParcours }> & MapToProps;
+type Props = RouteComponentProps &
+  ApiComponentProps<{ getParcours: typeof getParcours; getFavorites: typeof getFavorites }> &
+  MapToProps;
 
-const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: Props) => {
+const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, getFavorites }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
@@ -58,8 +61,9 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
     if (parcours.data._id) {
       getParcours.call(parcours.data._id);
     }
+    getFavorites.call();
   });
-
+  console.log(getFavorites.data);
   const gameHandler = () => {
     parcoursRequest({ played: true });
     navigate('/game')();
@@ -78,6 +82,21 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
   if (niveau >= 1 && isPersoCompleted) niveau = 2;
   if (niveau >= 2 && parcours.data.families.length) niveau = 3;
   if (niveau >= 3 && isProCompleted) niveau = 4;
+
+  const onCompleteProfile = () => {
+    let action = navigate('/jobs');
+    switch (niveau) {
+      case 0:
+        action = gameHandler;
+      case 1:
+        action = navigate('/themes');
+      case 2:
+        action = navigate('/favoris');
+      case 3:
+        action = navigate('/themes?type=professional');
+    }
+    action();
+  };
 
   const steps = [
     {
@@ -143,7 +162,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
           </div>
         ) : (
           <div className={classes.step_footer}>
-            <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
+            <button onClick={navigate('/favoris')} className={classes.step_card_footer_text}>
               Mettre à jour
             </button>
           </div>
@@ -228,7 +247,17 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest }: P
           </Info>
         </Grid>
       </Grid>
-      <CompleteProfile />
+      {!(getFavorites.data.data && getFavorites.data.data.length) ? (
+        <CompleteProfile onClick={onCompleteProfile} />
+      ) : (
+        <Grid className={classes.favoris_container} container>
+          {getFavorites.data.data.map((favoris: any) => (
+            <Grid key={favoris._id} item xl={3} lg={4} md={6} smd={12}>
+              <JobCard showButtons={false} interested={favoris.interested} title={favoris.job.title} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </div>
   );
 };
@@ -244,4 +273,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withApis({ getParcours })(ProfileContainer));
+)(withApis({ getParcours, getFavorites })(ProfileContainer));
