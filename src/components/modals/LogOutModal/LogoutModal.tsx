@@ -24,7 +24,7 @@ const LogoutModal = ({ onLogout, onClose }: IProps) => {
           </Grid>
           <Grid item xl={12}>
             <div className={classes.btn_container}>
-              <Button onClick={logout} className={classes.btn}>
+              <Button onClick={logout} className={classes.btnOut}>
                 Déconnecter{' '}
               </Button>
               <Button onClick={onClose} className={classes.btn}>
