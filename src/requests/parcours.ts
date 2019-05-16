@@ -19,6 +19,7 @@ export interface ISkill {
 
 export interface IUpdateParcoursParams {
   skills?: ISkill[];
+  families?: string[];
   played?: boolean;
 }
 

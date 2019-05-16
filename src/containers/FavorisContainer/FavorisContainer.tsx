@@ -6,6 +6,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ReduxState, ApiReducer, IFamille } from 'reducers';
 
 import listFamilleActions from '../../reducers/listFamille';
+import parcoursActions from '../../reducers/parcours';
 import { useDidMount } from '../../hooks';
 import classes from './favorisContainer.module.scss';
 import Grid from '../../components/ui/Grid/Grid';
@@ -22,6 +23,7 @@ import FamillePlaceholder from './FamillePlaceholder';
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import { IUpdateParcoursParams } from '../../requests';
 
 interface IMapToProps {
   familles: IFamille[];
@@ -31,13 +33,14 @@ interface IMapToProps {
 
 interface IMapDispatchToProps {
   famillesRequest: () => void;
+  updateParcoursRequest: (payload: IUpdateParcoursParams) => void;
 }
 
 /* interface Props extends IMapToProps, IMapDispatchToProps, RouteComponentProps<{ id: string }> {}
  */
 
 type Props = RouteComponentProps<{ id: string }> & IMapDispatchToProps & IMapToProps;
-const FavorisContainer = ({ famillesRequest, history, familles, fetching }: Props) => {
+const FavorisContainer = ({ famillesRequest, history, familles, fetching, updateParcoursRequest }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
   useDidMount(() => {
     famillesRequest();
@@ -97,13 +100,13 @@ const FavorisContainer = ({ famillesRequest, history, familles, fetching }: Prop
     return result;
   };
   const onSubmit = () => {
-    const ids: any = [];
+    const ids: string[] = [];
     selectedFamily.forEach((element: any) => {
       ids.push(element._id);
     });
+    updateParcoursRequest({ families: ids });
     console.log(ids);
   };
-  console.log('render', fetching);
   return (
     <div className={classes.container}>
       <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
@@ -189,6 +192,7 @@ const mapStateToProps = ({ listFamille }: ReduxState): IMapToProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IMapDispatchToProps => ({
   famillesRequest: () => dispatch(listFamilleActions.listFamilleRequest()),
+  updateParcoursRequest: payload => dispatch(parcoursActions.parcoursRequest(payload)),
 });
 
 export default connect(

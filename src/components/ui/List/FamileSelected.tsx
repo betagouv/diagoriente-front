@@ -21,7 +21,6 @@ const FamileSelected = ({ famile, index }: any) => {
     e.preventDefault();
     console.log('delete');
   };
-  console.log(famile);
   return (
     <div
       className={classNames(classes.container, hoverBtn && classes.deleteHover)}
