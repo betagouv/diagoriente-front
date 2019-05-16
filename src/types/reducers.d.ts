@@ -97,6 +97,7 @@ declare module 'reducers' {
     updatedAt: string;
     userId: string;
     _id: string;
+    played: boolean;
   }
   export interface IRestResponse {
     readonly email: string;

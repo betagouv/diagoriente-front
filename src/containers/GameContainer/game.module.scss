@@ -1,34 +1,64 @@
+@import "../../styles/variables.scss";
 
-.gameContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+.frame_container {
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
 }
-#frame {
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
+
+.frame_overlay_container {
+  width: 1290px;
+  height: 800px;
+  border-radius: 10px;
+  position: relative;
 }
+
+.frame {
+  width: 100%;
+  height: 100%;
+}
+
+.quit {
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel {
+  height: 40px;
+  width: 40px;
+}
+
 .button {
-    height: 40px;
-    width: 80px;
-    border-radius: 30px;
-    border: solid 1px #dddddd;
-    padding: 0;
-    margin: 0;
-    text-transform: uppercase;
-    position: relative;
-    cursor: pointer;
-    -webkit-transition:  0.25s linear;
-    transition:  0.25s linear;
-    
-    &:hover {
-        color: #ffffff;
-        background-color: #cf11b2
-    }
+  height: 40px;
+  width: 80px;
+  border-radius: 30px;
+  border: solid 1px #dddddd;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  -webkit-transition: 0.25s linear;
+  transition: 0.25s linear;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #cf11b2;
+  }
 }
 .buttonContainer {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }

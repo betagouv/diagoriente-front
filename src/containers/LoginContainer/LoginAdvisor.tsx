@@ -9,9 +9,6 @@ import { ReduxState, IUser } from 'reducers';
 // hooks
 import { useDidUpdate } from '../../hooks';
 
-// utils
-import { decodeUri } from '../../utils/url';
-
 // actions
 import loginAdvisorActions from '../../reducers/authAdvisor/login';
 

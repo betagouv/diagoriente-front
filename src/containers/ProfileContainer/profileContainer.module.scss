@@ -89,6 +89,13 @@
   }
 }
 
+.step1_round_button {
+  background-color: $cyan;
+  &:disabled {
+    color: $cyan;
+  }
+}
+
 .step2_round_button {
   background-color: $purple;
   &:disabled {
