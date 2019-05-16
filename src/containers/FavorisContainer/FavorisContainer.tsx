@@ -36,7 +36,7 @@ interface IMapDispatchToProps {
 
 type Props = RouteComponentProps<{ id: string }> & IMapDispatchToProps & IMapToProps;
 const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
-  const [selectedFamily, changeSelectedFamily] = useState([] as string[]);
+  const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
   useDidMount(() => {
     famillesRequest();
   });
@@ -46,13 +46,6 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
     { nom: 'Item 3', _id: 2, id: 2 },
   ]);
 
-  /*   return (
-    <div>
-      {familles.map(famille => (
-        <img key={famille._id} src={`data:${famille.resources[0].mimetype};base64, ${famille.resources[0].base64}`} />
-      ))}
-    </div>
-  ); */
   const stepperOptions = ['Commpléter mes informations'];
   console.log('famille', familles);
   const onNavigate = (index: number, p: string) => {
@@ -66,15 +59,15 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
   const onNavigateToHome = () => {
     history.push('/profile');
   };
-  const isChecked = (id: string): boolean => !!selectedFamily.find(elem => elem === id);
+  const isChecked = (id: string): boolean => !!selectedFamily.find(elem => elem._id === id);
 
-  const handleClick = (id: string) => {
-    let copySelected: string[] = [...selectedFamily];
-    if (isChecked(id)) {
-      copySelected = selectedFamily.filter(ele => ele !== id);
+  const handleClick = (famille: IFamille) => {
+    let copySelected: IFamille[] = [...selectedFamily];
+    if (isChecked(famille._id)) {
+      copySelected = selectedFamily.filter(ele => ele._id !== famille._id);
     } else {
       if (selectedFamily.length < 5) {
-        copySelected.push(id);
+        copySelected.push(famille);
       }
     }
 
@@ -83,7 +76,6 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
   console.log('render');
   return (
     <div className={classes.container}>
-      {/*  <Header /> */}
       <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
         <Grid item xl={9}>
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
@@ -122,7 +114,9 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
                         handleClick={handleClick}
                         id={famille._id}
                         checked={isChecked(famille._id)}
-                        index={selectedFamily.findIndex(elem => elem === famille._id)}
+                        index={selectedFamily.findIndex(elem => elem._id === famille._id)}
+                        nom={famille.nom}
+                        famille={famille}
                       />
                     </Grid>
                   ))}
