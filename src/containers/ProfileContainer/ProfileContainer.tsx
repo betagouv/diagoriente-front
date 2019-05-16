@@ -251,11 +251,13 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
         <CompleteProfile onClick={onCompleteProfile} />
       ) : (
         <Grid className={classes.favoris_container} container>
-          {getFavorites.data.data.map((favoris: any) => (
-            <Grid key={favoris._id} item xl={3} lg={4} md={6} smd={12}>
-              <JobCard showButtons={false} interested={favoris.interested} title={favoris.job.title} />
-            </Grid>
-          ))}
+          {getFavorites.data.data
+            .filter((favoris: any) => favoris.interested)
+            .map((favoris: any) => (
+              <Grid key={favoris._id} item xl={3} lg={4} md={6} smd={12}>
+                <JobCard showButtons={false} interested={favoris.interested} title={favoris.job.title} />
+              </Grid>
+            ))}
         </Grid>
       )}
     </div>

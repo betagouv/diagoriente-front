@@ -113,7 +113,7 @@ declare module 'reducers' {
     _id: string;
     nom: string;
     interests: { _id: string; nom: string; rank: string }[];
-    resources: {
+    resources?: {
       base64: string;
       mimetype: string;
       name: string;

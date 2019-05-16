@@ -10,7 +10,7 @@ import { IFamille } from 'reducers';
 
 interface Props {
   checked?: boolean;
-  resources: {
+  resources?: {
     base64: string;
     mimetype: string;
     name: string;
@@ -39,11 +39,13 @@ const CardImage = ({
     <div className={checked ? classes.containerSelected : classes.container}>
       {/*       <img src={staticCat} alt="cat" className={classes.static} />
        */}
-      <img
-        src={`data:${resources[0].mimetype};base64, ${famille.resources[0].base64}`}
-        alt="cat"
-        className={classes.active}
-      />
+      {resources && famille.resources && (
+        <img
+          src={`data:${resources[0].mimetype};base64, ${famille.resources[0].base64}`}
+          alt="cat"
+          className={classes.active}
+        />
+      )}
       <Button disabled={checked} checkedButon={checked} onClick={() => handleClick(famille)}>
         <img src={checked ? redLike : like} alt="heart" className={classes.heartImage} />
         <span className={classes.likeText}>j'aime</span>
