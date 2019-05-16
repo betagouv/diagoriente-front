@@ -8,6 +8,12 @@ interface IProps {
     nom: string;
     _id: number;
     index: number;
+    resources?: {
+      base64: string;
+      mimetype: string;
+      name: string;
+      _id: string;
+    }[];
   };
   index: number;
   onDraging?: boolean;
@@ -19,8 +25,8 @@ const FamileSelected = ({ famile, index }: any) => {
 
   const deleteFamile = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log('delete');
   };
+
   return (
     <div
       className={classNames(classes.container, hoverBtn && classes.deleteHover)}
@@ -29,10 +35,12 @@ const FamileSelected = ({ famile, index }: any) => {
     >
       <div className={classes.logo_container}>
         <div className={classes.logo_content}>
-          <img
-            className={classes.logo}
-            src={`data:image/${famile.resources[0].mimetype};base64,${famile.resources[0].base64}`}
-          />
+          {famile.resources && (
+            <img
+              className={classes.logo}
+              src={`data:image/${famile.resources[0].mimetype};base64,${famile.resources[0].base64}`}
+            />
+          )}
         </div>
         <div className={classes.badge_container}>
           <div className={classes.badge}>{index + 1}</div>

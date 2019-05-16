@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { ReduxState, ApiReducer, IFamille } from 'reducers';
+import { ReduxState, ApiReducer, IFamille, Famille } from 'reducers';
 
 import listFamilleActions from '../../reducers/listFamille';
 import parcoursActions from '../../reducers/parcours';
@@ -24,11 +25,12 @@ import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
 import { IUpdateParcoursParams } from '../../requests';
-
+import addPrevFamily from '../../utils/addPrevFamille';
 interface IMapToProps {
   familles: IFamille[];
   fetching: boolean;
   error: string;
+  prevFamily: string[];
 }
 
 interface IMapDispatchToProps {
@@ -40,11 +42,25 @@ interface IMapDispatchToProps {
  */
 
 type Props = RouteComponentProps<{ id: string }> & IMapDispatchToProps & IMapToProps;
-const FavorisContainer = ({ famillesRequest, history, familles, fetching, updateParcoursRequest }: Props) => {
+const FavorisContainer = ({
+  famillesRequest,
+  history,
+  familles,
+  fetching,
+  updateParcoursRequest,
+  prevFamily,
+}: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
+  let prev: IFamille;
   useDidMount(() => {
     famillesRequest();
   });
+
+  useEffect(() => {
+    if (familles.length !== 0 && prevFamily) {
+      changeSelectedFamily(addPrevFamily(familles, prevFamily));
+    }
+  },        [familles]);
 
   const stepperOptions = ['Commpléter mes informations'];
   const onNavigate = (index: number, p: string) => {
@@ -103,7 +119,6 @@ const FavorisContainer = ({ famillesRequest, history, familles, fetching, update
       ids.push(element._id);
     });
     updateParcoursRequest({ families: ids });
-    console.log(ids);
   };
   return (
     <div className={classes.container}>
@@ -183,10 +198,11 @@ const FavorisContainer = ({ famillesRequest, history, familles, fetching, update
   );
 };
 
-const mapStateToProps = ({ listFamille }: ReduxState): IMapToProps => ({
-  familles: listFamille.data,
-  fetching: listFamille.fetching,
-  error: listFamille.error,
+const mapStateToProps = (State: ReduxState): IMapToProps => ({
+  familles: State.listFamille.data,
+  fetching: State.listFamille.fetching,
+  error: State.listFamille.error,
+  prevFamily: State.parcours.data.families,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IMapDispatchToProps => ({
