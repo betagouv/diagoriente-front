@@ -120,6 +120,17 @@ declare module 'reducers' {
       _id: string;
     }[];
   }
+  export interface Famille {
+    _id: string;
+    nom: string;
+    interests: { _id: string; nom: string; rank: string }[];
+    resources?: {
+      base64: string;
+      mimetype: string;
+      name: string;
+      _id: string;
+    };
+  }
 
   export type ReduxState = {
     readonly startup: boolean;
