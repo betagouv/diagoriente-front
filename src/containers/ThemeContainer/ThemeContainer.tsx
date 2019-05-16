@@ -3,8 +3,7 @@ import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
-import { isEmpty, map } from 'lodash';
-import ReactTooltip from 'react-tooltip';
+import { isEmpty } from 'lodash';
 
 // containers
 import ActivitiesContainer from '../ActivitiesContainer';
@@ -31,7 +30,6 @@ import modalActions from '../../reducers/modal';
 
 // styles
 import classes from './theme.module.scss';
-import { useDidMount } from '../../hooks';
 
 interface IMapToProps {
   themes: ITheme[];
@@ -51,17 +49,16 @@ type Props = RouteComponentProps<{ id: string }> &
 const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeModal }: Props) => {
   const { id } = match.params;
   const currentIndex = themes.findIndex(theme => theme._id === id); // index in all themes
-
+  const currentTheme = themes[currentIndex];
   const successContinueClick = () => {
     history.push('/profile');
     closeModal();
   };
 
   const goNext = () => {
-    const currentTheme = themes[currentIndex];
     const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
     const currentThemes = themes.filter(theme => theme.type === currentTheme.type);
-    const indexInCurrent = themes.findIndex(theme => theme._id === id); // index after filter with type
+    const indexInCurrent = currentThemes.findIndex(theme => theme._id === id); // index after filter with type
     const { length } = currentSkillsType;
     let i = 0;
     let nextTheme = null;
@@ -73,6 +70,7 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
         i += 1;
       }
     }
+
     let nextUrl = null;
     if (nextTheme) {
       nextUrl =
@@ -80,12 +78,12 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
           ? `/theme/${nextTheme.theme._id}/activities`
           : `/theme/${nextTheme.theme._id}/skills`;
     } else if (indexInCurrent < currentThemes.length - 1) {
-      nextUrl = `/theme/${themes[currentIndex + 1]._id}/activities`;
+      nextUrl = `/theme/${currentThemes[indexInCurrent + 1]._id}/activities`;
     }
     if (nextUrl) {
       history.push(nextUrl);
     } else {
-      openModal(<SuccessModal type={themes[currentIndex].type} onClick={successContinueClick} />, classes.backdrop);
+      openModal(<SuccessModal type={currentTheme.type} onClick={successContinueClick} />, classes.backdrop);
     }
   };
 
@@ -114,7 +112,6 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
   if (isEmpty(data)) return <NotFound />;
 
   const stepperOptions = ['Ma carte de compétences'];
-  const currentTheme = themes.find(theme => theme._id === match.params.id);
   if (currentTheme) {
     stepperOptions.push(currentTheme.title);
   }
