@@ -5,15 +5,17 @@ import FamileSelected from './FamileSelected';
 import classNames from '../../../utils/classNames';
 import classes from './list.module.scss';
 import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
+import className from '../../../utils/classNames';
 import { IFamille } from 'reducers';
 interface IProps {
   renderPlaceholder: () => void;
   onSubmit?: () => void;
   onDragEnd: (result: any) => void;
   famileSelected: IFamille[];
+  disable: number;
 }
 
-const List = ({ renderPlaceholder, onSubmit, onDragEnd, famileSelected }: IProps) => (
+const List = ({ renderPlaceholder, onSubmit, onDragEnd, famileSelected, disable }: IProps) => (
   <div>
     {famileSelected && (
       <DragDropContext onDragEnd={onDragEnd}>
@@ -44,7 +46,11 @@ const List = ({ renderPlaceholder, onSubmit, onDragEnd, famileSelected }: IProps
     )}
     {renderPlaceholder()}
     <div className={classes.btn_container}>
-      <ContinueButton onClick={onSubmit} className={classes.btn} />
+      <ContinueButton
+        onClick={onSubmit}
+        className={className(classes.btn, disable === 0 && classes.disabled)}
+        disabled={disable === 0}
+      />
     </div>
   </div>
 );

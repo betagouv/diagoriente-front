@@ -10,12 +10,11 @@
   background-image: linear-gradient(222deg, #4e66ff, #00cfff);
   border-radius: 30px;
   position: relative;
-  left: 12.5%;
   top: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 40px !important;
 }
 
 .Bitmap {
@@ -52,8 +51,31 @@
   .wrapper {
     justify-content: center;
   }
-  .text{
-   margin-left:0px !important
+  .text {
+    margin-left: 0px !important;
+  }
+}
+@media (max-width: map-get($breakpoints, "sm" )) {
+  .Oval {
+    display: none;
+  }
+  .wrapper {
+    justify-content: center;
+  }
+  .text {
+    margin-left: 0px !important;
   }
 }
 
+@media (max-width: map-get($breakpoints, "md" )) {
+  .Oval {
+    left:0% !important;
+    margin-left:0% !important;
+  }
+  .wrapper {
+    justify-content: center;
+  }
+  .text {
+    margin-left: 20px !important;
+  }
+}

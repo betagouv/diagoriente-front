@@ -88,9 +88,7 @@ const FavorisContainer = ({ famillesRequest, history, familles, fetching, update
     return array;
   };
   const renderFamilePlaceholder = () => {
-    for (let i = 0; i <= 15; i += 1) {
-      return <FamillePlaceholder />;
-    }
+    for (let i = 0; i <= 15; i += 1) {}
   };
   const reorder = (list: any, startIndex: any, endIndex: any) => {
     const result = Array.from(list);
@@ -141,7 +139,7 @@ const FavorisContainer = ({ famillesRequest, history, familles, fetching, update
               <Grid item xl={12}>
                 {fetching ? (
                   <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
-                    {renderFamilePlaceholder()}
+                    <PlaceHolderFamile />
                   </Grid>
                 ) : (
                   <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
@@ -175,6 +173,7 @@ const FavorisContainer = ({ famillesRequest, history, familles, fetching, update
                 famileSelected={selectedFamily}
                 onDragEnd={onDragEnd}
                 renderPlaceholder={renderPlaceholder}
+                disable={selectedFamily.length}
               />
             </Grid>
           </Grid>

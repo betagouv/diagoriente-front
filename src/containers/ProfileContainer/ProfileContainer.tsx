@@ -229,7 +229,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
           </Grid>
         </Grid>
         <Grid item xl={4} lg={6} md={12}>
-          <CardProgress progress={niveau} />
+          <CardProgress progress={1} />
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>
