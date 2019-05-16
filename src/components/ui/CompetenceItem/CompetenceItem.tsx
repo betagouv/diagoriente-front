@@ -21,7 +21,7 @@ const CompetenceItem = ({ parcours }: IProps) => {
               {item.title}
             </div>
             <ReactTooltip id={item._id} place="top" type="light" className={classes.tooltip}>
-              {item.title}
+              {item.title} niveau  {item.value}
             </ReactTooltip>
             <div className={classes.value}>
               <Progress width={item.value} />
