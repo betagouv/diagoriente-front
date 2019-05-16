@@ -18,9 +18,10 @@ interface Props {
   onSubmit: (email: string, password: string) => void;
   error?: string;
   footerComponent?: JSX.Element;
+  showInscription?: boolean;
 }
 
-const LoginUserContainer = ({ onSubmit, error, footerComponent }: Props) => {
+const LoginUserContainer = ({ onSubmit, error, footerComponent, showInscription }: Props) => {
   const [email, emailChange, emailTouched] = useTextInput('');
   const [password, passwordChange, passwordTouched] = useTextInput('');
 
@@ -58,10 +59,12 @@ const LoginUserContainer = ({ onSubmit, error, footerComponent }: Props) => {
           <Button onClick={submit}>Se Connecter</Button>
         </div>
         <div className={classes.container_forget_Password}>
-          <h5 className={classes.register_text}>
-            <span>Vous ne possédez pas un compte ?</span>
-            <Link to="/register">Inscription </Link>
-          </h5>
+          {showInscription && (
+            <h5 className={classes.register_text}>
+              <span>Vous ne possédez pas un compte ?</span>
+              <Link to="/register">Inscription </Link>
+            </h5>
+          )}
           {footerComponent}
         </div>
       </div>
