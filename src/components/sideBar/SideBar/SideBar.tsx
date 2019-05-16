@@ -44,7 +44,7 @@ const SideBar = <T extends Option>({ options, history, type, disabled, title, on
             if (onItemClick) {
               onItemClick(o);
             } else {
-              navigate(`/theme/${o._id}/activities`);
+              navigate(`/theme/${o._id}/activities`)();
             }
           };
           return (
