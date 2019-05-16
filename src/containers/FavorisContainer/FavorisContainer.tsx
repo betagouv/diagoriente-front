@@ -4,7 +4,6 @@ import { Dispatch, AnyAction } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { ReduxState, ApiReducer, IFamille } from 'reducers';
-import { RouteComponentProps } from 'react-router-dom';
 
 import listFamilleActions from '../../reducers/listFamille';
 import { useDidMount } from '../../hooks';
