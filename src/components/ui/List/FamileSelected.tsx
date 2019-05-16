@@ -13,7 +13,7 @@ interface IProps {
   onDraging?: boolean;
 }
 
-const FamileSelected = ({ famile, onDraging, index }: any) => {
+const FamileSelected = ({ famile, index }: any) => {
   const [hover, onMouseOver, onMouseOut] = useHover(false);
   const [hoverBtn, onMouseOverBtn, onMouseOutBtn] = useHover(false);
 
@@ -21,7 +21,6 @@ const FamileSelected = ({ famile, onDraging, index }: any) => {
     e.preventDefault();
     console.log('delete');
   };
-
   return (
     <div
       className={classNames(classes.container, hoverBtn && classes.deleteHover)}
@@ -30,7 +29,10 @@ const FamileSelected = ({ famile, onDraging, index }: any) => {
     >
       <div className={classes.logo_container}>
         <div className={classes.logo_content}>
-          <img className={classes.logo} />
+          <img
+            className={classes.logo}
+            src={`data:image/${famile.resources[0].mimetype};base64,${famile.resources[0].base64}`}
+          />
         </div>
         <div className={classes.badge_container}>
           <div className={classes.badge}>{index + 1}</div>

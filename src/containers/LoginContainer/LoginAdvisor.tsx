@@ -7,7 +7,7 @@ import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, IUser } from 'reducers';
 
 // hooks
-import { useDidUpdate } from '../../hooks';
+import { useDidUpdate, useDidMount } from '../../hooks';
 
 // actions
 import loginAdvisorActions from '../../reducers/authAdvisor/login';
@@ -38,7 +38,7 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location, 
     }
   },           [fetching]);
 
-  return <LoginForm error={error} onSubmit={onSubmit} />;
+  return <LoginForm showInscription={false} error={error} onSubmit={onSubmit} />;
 };
 
 const mapStateToProps = ({ authAdvisor }: ReduxState): MapToProps => ({

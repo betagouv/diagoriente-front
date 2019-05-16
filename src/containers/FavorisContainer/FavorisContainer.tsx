@@ -6,6 +6,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ReduxState, ApiReducer, IFamille } from 'reducers';
 
 import listFamilleActions from '../../reducers/listFamille';
+import parcoursActions from '../../reducers/parcours';
 import { useDidMount } from '../../hooks';
 import classes from './favorisContainer.module.scss';
 import Grid from '../../components/ui/Grid/Grid';
@@ -16,10 +17,13 @@ import Title from '../../components/Title/Title';
 import PathStepper from '../../components/PathStepper/Path';
 import List from '../../components/ui/List/List';
 import CardImage from '../../components/cards/CardImage/CardImage';
+import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
+import FamillePlaceholder from './FamillePlaceholder';
 // assets
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import { IUpdateParcoursParams } from '../../requests';
 
 interface IMapToProps {
   familles: IFamille[];
@@ -29,25 +33,20 @@ interface IMapToProps {
 
 interface IMapDispatchToProps {
   famillesRequest: () => void;
+  updateParcoursRequest: (payload: IUpdateParcoursParams) => void;
 }
 
 /* interface Props extends IMapToProps, IMapDispatchToProps, RouteComponentProps<{ id: string }> {}
  */
 
 type Props = RouteComponentProps<{ id: string }> & IMapDispatchToProps & IMapToProps;
-const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
+const FavorisContainer = ({ famillesRequest, history, familles, fetching, updateParcoursRequest }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
   useDidMount(() => {
     famillesRequest();
   });
-  const [items, setItems] = useState([
-    { nom: 'Item 1', _id: 0, id: 0 },
-    { nom: 'Item 2', _id: 1, id: 1 },
-    { nom: 'Item 3', _id: 2, id: 2 },
-  ]);
 
   const stepperOptions = ['Commpléter mes informations'];
-  console.log('famille', familles);
   const onNavigate = (index: number, p: string) => {
     if (index === 0) {
       history.push('/profile');
@@ -73,7 +72,41 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
 
     changeSelectedFamily(copySelected);
   };
-  console.log('render');
+
+  const onDragEnd = (result: any) => {
+    if (!result.destination) {
+      return;
+    }
+    const items: any = reorder(selectedFamily, result.source.index, result.destination.index);
+    changeSelectedFamily(items);
+  };
+  const renderPlaceholder = () => {
+    const array: JSX.Element[] = [];
+    for (let i = selectedFamily.length + 1; i <= 5; i += 1) {
+      array.push(<PlaceHolderFamile index={i} key={i} />);
+    }
+    return array;
+  };
+  const renderFamilePlaceholder = () => {
+    for (let i = 0; i <= 15; i += 1) {
+      return <FamillePlaceholder />;
+    }
+  };
+  const reorder = (list: any, startIndex: any, endIndex: any) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+  const onSubmit = () => {
+    const ids: string[] = [];
+    selectedFamily.forEach((element: any) => {
+      ids.push(element._id);
+    });
+    updateParcoursRequest({ families: ids });
+    console.log(ids);
+  };
   return (
     <div className={classes.container}>
       <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
@@ -106,21 +139,27 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
           <Grid container padding={{ xl: 15, lg: 15 }} spacing={{ xl: 9, lg: 9 }} style={{ margin: '50px 0px' }}>
             <Grid item xl={12} lg={12} md={12} smd={12} sm={12} xs={12} className={'flex_center'}>
               <Grid item xl={12}>
-                <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
-                  {familles.map(famille => (
-                    <Grid key={famille._id} item xl={4} md={6} smd={6} sm={12} className={classes.cardContainer}>
-                      <CardImage
-                        resources={famille.resources}
-                        handleClick={handleClick}
-                        id={famille._id}
-                        checked={isChecked(famille._id)}
-                        index={selectedFamily.findIndex(elem => elem._id === famille._id)}
-                        nom={famille.nom}
-                        famille={famille}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
+                {fetching ? (
+                  <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
+                    {renderFamilePlaceholder()}
+                  </Grid>
+                ) : (
+                  <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
+                    {familles.map(famille => (
+                      <Grid key={famille._id} item xl={4} md={6} smd={6} sm={12} className={classes.cardContainer}>
+                        <CardImage
+                          resources={famille.resources}
+                          handleClick={handleClick}
+                          id={famille._id}
+                          checked={isChecked(famille._id)}
+                          index={selectedFamily.findIndex(elem => elem._id === famille._id)}
+                          nom={famille.nom}
+                          famille={famille}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -131,7 +170,12 @@ const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
               <div className={classes.text_container_selection}>
                 <span className={classes.text_selection}>Ma séléction</span>
               </div>
-              <List famileSelected={items} />
+              <List
+                onSubmit={onSubmit}
+                famileSelected={selectedFamily}
+                onDragEnd={onDragEnd}
+                renderPlaceholder={renderPlaceholder}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -148,6 +192,7 @@ const mapStateToProps = ({ listFamille }: ReduxState): IMapToProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IMapDispatchToProps => ({
   famillesRequest: () => dispatch(listFamilleActions.listFamilleRequest()),
+  updateParcoursRequest: payload => dispatch(parcoursActions.parcoursRequest(payload)),
 });
 
 export default connect(

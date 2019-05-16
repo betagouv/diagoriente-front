@@ -68,53 +68,57 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
     }
   });
   return (
-    <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }} className={classes.container}>
-      <Grid item xl={12} className={classes.header}>
-        <img className={classes.logo} src={logo} alt="Logo" />
-        <button onClick={onCloseModal}>Fermer</button>
-      </Grid>
-      <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }}>
-        <Grid item xl={12}>
-          <div className={classes.title}>
-            <span>Saisie votre email</span>
-          </div>
-        </Grid>
-        <Grid item xl={12}>
-          <Input
-            name="Email"
-            validation={emailValid}
-            onChange={emailChange}
-            type="email"
-            className={classes.container_input}
-          />
-        </Grid>
+    <div className={classes.wrapperModal}>
+      <div className={classes.container}>
+        <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
+          <Grid item xl={12} className={classes.header}>
+            <img className={classes.logo} src={logo} alt="Logo" />
+            <button onClick={onCloseModal}>Fermer</button>
+          </Grid>
+          <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }}>
+            <Grid item xl={12}>
+              <div className={classes.title}>
+                <span>Saisie votre email</span>
+              </div>
+            </Grid>
+            <Grid item xl={12}>
+              <Input
+                name="Email"
+                validation={emailValid}
+                onChange={emailChange}
+                type="email"
+                className={classes.container_input}
+              />
+            </Grid>
 
-        <Grid item xl={12}>
-          <Select
-            options={map(data, question => ({ value: question._id, label: question.title }))}
-            open={open}
-            onChange={onChange}
-            value={questionValue}
-            className={classes.container_input_select}
-            placeholder="Questions de sécurité"
-            selectOpen={onOpen}
-            selectClose={onClose}
-          />
-        </Grid>
-        <Grid item xl={12}>
-          <Input
-            name="Reponse"
-            validation={reponseValid}
-            onChange={reponseChange}
-            className={classes.container_input}
-          />
-        </Grid>
+            <Grid item xl={12}>
+              <Select
+                options={map(data, question => ({ value: question._id, label: question.title }))}
+                open={open}
+                onChange={onChange}
+                value={questionValue}
+                className={classes.container_input_select}
+                placeholder="Questions de sécurité"
+                selectOpen={onOpen}
+                selectClose={onClose}
+              />
+            </Grid>
+            <Grid item xl={12}>
+              <Input
+                name="Reponse"
+                validation={reponseValid}
+                onChange={reponseChange}
+                className={classes.container_input}
+              />
+            </Grid>
 
-        <Grid item xl={12} className={classes.container_button}>
-          <Button onClick={onSubmit}>Envoyer</Button>
+            <Grid item xl={12} className={classes.container_button}>
+              <Button onClick={onSubmit}>Envoyer</Button>
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };
 const mapStateToProps = ({ authUser }: ReduxState): IMapToProps => ({

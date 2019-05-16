@@ -119,7 +119,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
           </Grid>
           <Grid item xl={6} md={12}>
             <Input
-              name="Institution"
+              name="Localisation"
               validation={institutionValid}
               onChange={institutionChange}
               className={classes.container_input}

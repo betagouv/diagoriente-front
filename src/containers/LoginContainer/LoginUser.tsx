@@ -8,7 +8,7 @@ import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, IUser, User } from 'reducers';
 
 // hooks
-import { useDidUpdate } from '../../hooks';
+import { useDidUpdate, useDidMount } from '../../hooks';
 
 // utils
 import { decodeUri } from '../../utils/url';
@@ -59,6 +59,9 @@ const LoginUserContainer = ({
       history.push(path);
     }
   },           [fetching]);
+  useDidMount(() => {
+    console.log(location.state);
+  });
 
   const onOpenModal = () => {
     openModal(<ForgetForm onCloseModal={modalClose} />);
@@ -70,7 +73,12 @@ const LoginUserContainer = ({
   if (!isEmpty(user)) return <Redirect to={'/'} />;
 
   return (
-    <LoginForm error={error} onSubmit={onSubmit} footerComponent={<h6 onClick={onOpenModal}>mot de passe oublié</h6>} />
+    <LoginForm
+      showInscription
+      error={error}
+      onSubmit={onSubmit}
+      footerComponent={<h6 onClick={onOpenModal}>mot de passe oublié</h6>}
+    />
   );
 };
 
