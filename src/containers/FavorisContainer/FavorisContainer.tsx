@@ -4,6 +4,7 @@ import { Dispatch, AnyAction } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { ReduxState, ApiReducer, IFamille } from 'reducers';
+
 import listFamilleActions from '../../reducers/listFamille';
 import { useDidMount } from '../../hooks';
 import classes from './favorisContainer.module.scss';
@@ -30,9 +31,12 @@ interface IMapDispatchToProps {
   famillesRequest: () => void;
 }
 
-interface Props extends IMapToProps, IMapDispatchToProps {}
+/* interface Props extends IMapToProps, IMapDispatchToProps, RouteComponentProps<{ id: string }> {}
+ */
 
-const FavorisContainer = ({ famillesRequest, familles, history }: Props & RouteComponentProps) => {
+type Props = RouteComponentProps<{ id: string }> & IMapDispatchToProps & IMapToProps;
+const FavorisContainer = ({ famillesRequest, history, familles }: Props) => {
+  const [selectedFamily, changeSelectedFamily] = useState([] as string[]);
   useDidMount(() => {
     famillesRequest();
   });
@@ -56,13 +60,27 @@ const FavorisContainer = ({ famillesRequest, familles, history }: Props & RouteC
       history.push('/profile');
     }
     if (index === 1) {
-      /*       history.push('/themes');
-       */
+      history.push('/themes');
     }
   };
   const onNavigateToHome = () => {
     history.push('/profile');
   };
+  const isChecked = (id: string): boolean => !!selectedFamily.find(elem => elem === id);
+
+  const handleClick = (id: string) => {
+    let copySelected: string[] = [...selectedFamily];
+    if (isChecked(id)) {
+      copySelected = selectedFamily.filter(ele => ele !== id);
+    } else {
+      if (selectedFamily.length < 5) {
+        copySelected.push(id);
+      }
+    }
+
+    changeSelectedFamily(copySelected);
+  };
+  console.log('render');
   return (
     <div className={classes.container}>
       {/*  <Header /> */}
@@ -99,7 +117,13 @@ const FavorisContainer = ({ famillesRequest, familles, history }: Props & RouteC
                 <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
                   {familles.map(famille => (
                     <Grid key={famille._id} item xl={4} md={6} smd={6} sm={12} className={classes.cardContainer}>
-                      <CardImage resources={famille.resources} />
+                      <CardImage
+                        resources={famille.resources}
+                        handleClick={handleClick}
+                        id={famille._id}
+                        checked={isChecked(famille._id)}
+                        index={selectedFamily.findIndex(elem => elem === famille._id)}
+                      />
                     </Grid>
                   ))}
                 </Grid>
