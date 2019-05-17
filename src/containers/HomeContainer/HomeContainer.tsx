@@ -37,7 +37,7 @@ const steps = [
   {
     headerComponent: <Triangles />,
     circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
-    description: "Diagoriente te propose des pistes pour ton orientation et ta mission d'intèrêt gènèral",
+    description: "Diagoriente te propose des pistes pour ton orientation",
   },
 ];
 
