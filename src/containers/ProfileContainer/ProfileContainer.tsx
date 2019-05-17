@@ -31,6 +31,7 @@ import ParcoursActions from '../../reducers/parcours';
 // css
 import classes from './profileContainer.module.scss';
 import JobCard from '../../components/cards/JobCard/JobCard';
+import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
 interface ParcourParmas {
   completed?: boolean;
@@ -67,6 +68,9 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
   const gameHandler = () => {
     parcoursRequest({ played: true });
     navigate('/game')();
+  };
+  const onNavigateToJobs = () => {
+    navigate('/jobs')();
   };
 
   const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
@@ -149,7 +153,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
       disabled: niveau <= 1,
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
       title: 'Mes thèmes favoris',
-      description: "Trouve des pistes d’orientation",
+      description: 'Trouve des pistes d’orientation',
       footerComponent:
         niveau <= 2 ? (
           <div className={classes.step_footer}>
@@ -258,6 +262,10 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
                 <JobCard showButtons={false} interested={favoris.interested} title={favoris.job.title} />
               </Grid>
             ))}
+
+          <div className={classes.btn_container_jobs}>
+            <ContinueButton className={classes.btn_jobs} onClick={onNavigateToJobs} label='Modifier' />
+          </div>
         </Grid>
       )}
     </div>
