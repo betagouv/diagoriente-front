@@ -148,11 +148,14 @@ const FavorisContainer = ({
             </Grid>
             <Grid item xl={12} sm={12} smd={12} xs={12}>
               <div className={classes.text}>
-                <Title type="type" title={'Lorem ipsum dolores'} />
+                <Title type="type" title={'Mes intérêts professionnels'} />
               </div>
 
               <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
-                <span className={classes.text_info}> Je précise mes expérience</span>
+                <span className={classes.text_info}>
+                  Sélectionne par ordre de préférence jusqu’à 5 thèmes que tu te verrais exercer dans ton activité
+                  professionnelle
+                </span>
               </Info>
             </Grid>
           </Grid>

@@ -239,14 +239,14 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
       </Grid>
       <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
-          Idées de métiers et de formations
+        Mes pistes d’orientation
         </Grid>
       </Grid>
       <Grid container>
         <Grid item xl={12}>
           <Info>
             <span className={classes.step_4}>
-              Grâce à tes réponses, voici des suggestions de métiers et de formations qui pourraient te convenir
+            Grâce à tes réponses, voici des suggestions de métiers qui pourraient te convenir
             </span>
           </Info>
         </Grid>
