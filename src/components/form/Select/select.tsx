@@ -10,8 +10,8 @@ import Arrow from '../../../assets/icons/arrow2.png';
 
 type IProps = {
   open: boolean;
-  selectOpen: (e:MouseEvent<HTMLElement>) => void;
-  selectClose: (e:MouseEvent<HTMLElement>) => void;
+  selectOpen: (e: MouseEvent<HTMLElement>) => void;
+  selectClose: (e: MouseEvent<HTMLElement>) => void;
   onChange: (value: string) => void;
   value: string;
   options: { value: string; label: string }[];
@@ -20,14 +20,9 @@ type IProps = {
 };
 
 const Select = ({ className, selectOpen, selectClose, value, options, onChange, open, placeholder }: IProps) => {
-  console.log('open select', open);
-
   (Select as any).handleClickOutside = (e: any) => {
-    console.log('open select', open);
-
     if (!open) {
       selectClose(e);
-
     }
   };
 

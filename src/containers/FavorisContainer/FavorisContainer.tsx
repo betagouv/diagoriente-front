@@ -8,7 +8,7 @@ import { ReduxState, ApiReducer, IFamille, Famille } from 'reducers';
 
 import listFamilleActions from '../../reducers/listFamille';
 import parcoursActions from '../../reducers/parcours';
-import { useDidMount } from '../../hooks';
+import { useDidMount, useDidUpdate } from '../../hooks';
 import classes from './favorisContainer.module.scss';
 import Grid from '../../components/ui/Grid/Grid';
 import Header from '../../layout/Header/Header';
@@ -31,6 +31,8 @@ interface IMapToProps {
   fetching: boolean;
   error: string;
   prevFamily: string[];
+  parcoursFetching: boolean;
+  parcoursError: string;
 }
 
 interface IMapDispatchToProps {
@@ -49,6 +51,8 @@ const FavorisContainer = ({
   fetching,
   updateParcoursRequest,
   prevFamily,
+  parcoursFetching,
+  parcoursError,
 }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
   let prev: IFamille;
@@ -61,6 +65,12 @@ const FavorisContainer = ({
       changeSelectedFamily(addPrevFamily(familles, prevFamily));
     }
   },        [familles]);
+
+  useDidUpdate(() => {
+    if (!parcoursFetching && !parcoursError) {
+      history.push('/jobs');
+    }
+  },           [parcoursFetching]);
 
   const stepperOptions = ['Commpléter mes informations'];
   const onNavigate = (index: number, p: string) => {
@@ -114,12 +124,8 @@ const FavorisContainer = ({
     return result;
   };
   const onSubmit = () => {
-    const ids: string[] = [];
-    selectedFamily.forEach((element: any) => {
-      ids.push(element._id);
-    });
+    const ids: string[] = selectedFamily.map(el => el._id);
     updateParcoursRequest({ families: ids });
-    history.push('/jobs');
   };
   return (
     <div className={classes.container}>
@@ -151,7 +157,7 @@ const FavorisContainer = ({
             </Grid>
           </Grid>
           <Grid container padding={{ xl: 15, lg: 15 }} spacing={{ xl: 9, lg: 9 }} style={{ margin: '50px 0px' }}>
-            <Grid item xl={12} lg={12} md={12} smd={12} sm={12} xs={12} className={'flex_center'}>
+            <Grid item xl={12} className={'flex_center'}>
               <Grid item xl={12}>
                 {fetching ? (
                   <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
@@ -160,7 +166,7 @@ const FavorisContainer = ({
                 ) : (
                   <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
                     {familles.map(famille => (
-                      <Grid key={famille._id} item xl={4} md={6} smd={6} sm={12} className={classes.cardContainer}>
+                      <Grid key={famille._id} item xl={4} lg={6} smd={12} className={classes.cardContainer}>
                         <CardImage
                           resources={famille.resources}
                           handleClick={handleClick}
@@ -178,7 +184,7 @@ const FavorisContainer = ({
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xl={3} lg={3} md={3} smd={3} sm={3} xs={3} className={classes.item2}>
+        <Grid item xl={3} className={classes.item2}>
           <Grid container padding={{ xl: 0, md: 0 }}>
             <Grid item xl={12}>
               <div className={classes.text_container_selection}>
@@ -191,6 +197,7 @@ const FavorisContainer = ({
                 renderPlaceholder={renderPlaceholder}
                 disable={selectedFamily.length}
                 handleDeleteClick={handleClick}
+                fetching={parcoursFetching}
               />
             </Grid>
           </Grid>
@@ -205,6 +212,8 @@ const mapStateToProps = (State: ReduxState): IMapToProps => ({
   fetching: State.listFamille.fetching,
   error: State.listFamille.error,
   prevFamily: State.parcours.data.families,
+  parcoursFetching: State.parcours.fetching,
+  parcoursError: State.parcours.error,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IMapDispatchToProps => ({

@@ -64,7 +64,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     }
     getFavorites.call();
   });
-  console.log(getFavorites.data);
+
   const gameHandler = () => {
     parcoursRequest({ played: true });
     navigate('/game')();
@@ -233,7 +233,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
           </Grid>
         </Grid>
         <Grid item xl={4} lg={6} md={12}>
-          <CardProgress progress={1} />
+          <CardProgress progress={niveau} />
           <CardCompetence parcours={getParcours.data.globalCopmetences} />
         </Grid>
       </Grid>

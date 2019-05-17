@@ -169,16 +169,15 @@ const JobsContainer = ({
               <span className={classes.info}>Lorem ipsum dolores nec mergitur curiculum vitae post scriptum</span>
             </Info>
           </Grid>
-
           <Grid item xl={12} lg={12}>
             {selectedJobs.map(renderJobPortion)}
             {autres.jobs.length && (!selectedSecteurs.length || selectedSecteurs.find(id => id === 'Autre'))
               ? renderJobPortion(autres)
               : null}
           </Grid>
-          <div className={classes.btn_container_jobs}>
+          <Grid item xl={12} className={classes.btn_container_jobs}>
             <ContinueButton className={classes.btn_jobs} onClick={onNavigate} label="Terminer" />
-          </div>
+          </Grid>
         </Grid>
       </div>
     </div>

@@ -16,7 +16,7 @@ const CardProgress = ({ progress }: IProps) => {
       <div className={classes.wrapper}>
         <div className={classNames(classes.Oval, style.STYLE)}>
           <div className={classes.triangle} />
-          <img src={Logo} alt="bird" className={classes.Bitmap} />
+          <img draggable={false} src={Logo} alt="bird" className={classes.Bitmap} />
         </div>
         <span className={classNames(classes.text, style.MARGIN)}>Tu passes au niveau {progress} !</span>
       </div>

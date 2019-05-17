@@ -23,7 +23,7 @@ type style = {
   padding?: string;
   left?: string;
   marginLeft?: string;
-  right?:string
+  right?: string;
 };
 type IStyle = {
   marginLeft: string;
@@ -31,7 +31,6 @@ type IStyle = {
 export function getProgress(progress: number) {
   let STYLE: style = { padding: '', left: '' };
   let MARGIN: IStyle = { marginLeft: '' };
-  console.log(progress);
   switch (progress) {
     case 0:
       STYLE = {
