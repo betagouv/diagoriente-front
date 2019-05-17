@@ -1,4 +1,3 @@
-
 export function getWidth(width: number) {
   let WIDTH: string = '';
   switch (width) {
@@ -21,8 +20,10 @@ export function getWidth(width: number) {
   return WIDTH;
 }
 type style = {
-  padding: string;
-  left: string;
+  padding?: string;
+  left?: string;
+  marginLeft?: string;
+  right?:string
 };
 type IStyle = {
   marginLeft: string;
@@ -30,26 +31,30 @@ type IStyle = {
 export function getProgress(progress: number) {
   let STYLE: style = { padding: '', left: '' };
   let MARGIN: IStyle = { marginLeft: '' };
+  console.log(progress);
   switch (progress) {
-    case 1:
+    case 0:
       STYLE = {
         padding: '10px',
-        left: '12.5%',
+        left: 'get_left_0',
+        marginLeft: '40px',
       };
       MARGIN = {
         marginLeft: 'position_text_1',
       };
       break;
-    case 2:
+
+    case 1:
       STYLE = {
-        padding: '15px',
+        padding: '0px',
         left: 'get_left_25',
       };
       MARGIN = {
         marginLeft: 'position_text_2',
       };
       break;
-    case 3:
+
+    case 2:
       STYLE = {
         padding: '15px',
         left: 'get_left_50',
@@ -58,13 +63,23 @@ export function getProgress(progress: number) {
         marginLeft: 'position_text_3',
       };
       break;
-    case 4:
+
+    case 3:
       STYLE = {
-        padding: '20px',
+        padding: '15px',
         left: 'get_left_75',
       };
       MARGIN = {
         marginLeft: 'position_text_4',
+      };
+      break;
+    case 4:
+      STYLE = {
+        padding: '20px',
+        right: 'get_left_100',
+      };
+      MARGIN = {
+        marginLeft: 'position_text_5',
       };
       break;
   }
@@ -74,7 +89,6 @@ export function getProgress(progress: number) {
   };
 }
 export function progress(width: number) {
-
   let WIDTH: string = '';
   switch (width) {
     case 1:

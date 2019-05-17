@@ -77,7 +77,7 @@ const LoginUserContainer = ({
       showInscription
       error={error}
       onSubmit={onSubmit}
-      footerComponent={<h6 onClick={onOpenModal}>mot de passe oublié</h6>}
+      footerComponent={<h6 onClick={onOpenModal}>Mot de passe oublié</h6>}
     />
   );
 };

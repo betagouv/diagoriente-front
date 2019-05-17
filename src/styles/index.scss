@@ -78,31 +78,37 @@ button {
 .get_width_100_px {
   width: 100px;
 }
-
+.get_left_0 {
+  left: 15px;
+}
 .get_left_25 {
-  left: 25% !important;
+  left: 20% ;
 }
 .get_left_50 {
-  left: 50% !important;
+  left: 40% ;
 }
 .get_left_75 {
-  left: 75% !important;
+  left: 60% ;
 }
 .get_left_100 {
-  left: 100% !important;
+  right: 15px ;
 }
 
 .position_text_1 {
-  margin-left: 50px;
+  margin-left: 30%;
 }
 .position_text_2 {
-  margin-left: 90px;
+  margin-left: 45%;
 }
-.position_text_3 {
-  margin-left: -55px;
+.position_text_3{
+  margin-left: 30%;
+  margin-top: 95px;
 }
 .position_text_4 {
-  margin-left: 0px;
+  margin-left: 20px;
+}
+.position_text_5 {
+  margin-left: 40px;
 }
 .colorful_bar {
   width: 100%;
@@ -115,4 +121,19 @@ button {
 ul{
   list-style: none;
   padding-inline-start: 0px !important;
+}
+@media (max-width: map-get($breakpoints, "md" )) {
+  .get_left_25 {
+    left: 20% !important;
+  }
+  .position_text_1 {
+    margin-left: 20% !important;
+  }
+  .position_text_3{
+    margin-left:54% !important; 
+    margin-top: 0;
+  }
+  .position_text_4 {
+    margin-left: 20%;
+  }
 }

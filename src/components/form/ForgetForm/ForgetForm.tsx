@@ -78,7 +78,6 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
           <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
               <div className={classes.title}>
-                <span>Saisie votre email</span>
               </div>
             </Grid>
             <Grid item xl={12}>
@@ -105,7 +104,7 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
             </Grid>
             <Grid item xl={12}>
               <Input
-                name="Reponse"
+                name="Réponse"
                 validation={reponseValid}
                 onChange={reponseChange}
                 className={classes.container_input}
