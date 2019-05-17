@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classes from './footer.module.scss';
 import { national1x, national2x, national3x } from '../../assets/icons/logoNational';
 import { gpi1x, gpi2x, gpi3x } from '../../assets/icons/logoGpi';
-import { orange1x, orange2x, orange3x } from '../../assets/icons/logoOrange';
+import { orange1x, orange2x, orange3x,orange4x } from '../../assets/icons/logoOrange';
 import { beta1x, beta2x, beta3x } from '../../assets/icons/logobeta';
 import Grid from '../../components/ui/Grid/Grid';
 import { useListener } from '../../hooks/useListner';
@@ -23,7 +23,7 @@ const Footer = () => {
   const secondRowImages = (
     <>
       <img className={classes.beta} src={beta1x} srcSet={`${beta2x} 2x, ${beta3x} 3x`} alt="beta" />
-      <img className={classes.orange} src={orange1x} srcSet={`${orange2x} 2x, ${orange3x} 3x`} alt="orange" />
+      <img className={classes.orange} src={orange4x}  alt="orange" />
     </>
   );
 
