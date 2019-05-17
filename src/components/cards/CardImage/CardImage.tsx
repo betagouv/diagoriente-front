@@ -37,12 +37,22 @@ const CardImage = ({
   const [isMouseEnter, setMouseEnter] = useState(false as boolean);
   let animated;
   let Static;
+  const getClassNames = (): string => {
+    if (checked && resources) {
+      return classes.containerSelected;
+    }
+    if (resources && !checked) {
+      return classes.container;
+    }
+    return classes.withoutImage;
+  };
   if (resources) {
     animated = resources.filter(ele => ele.mimetype !== 'image/gif')[0];
     Static = resources.filter(ele => ele.mimetype === 'image/gif')[0];
   }
+
   return (
-    <div className={checked ? classes.containerSelected : classes.container}>
+    <div className={getClassNames()}>
       {resources && famille.resources && resources.length > 1 && animated && (
         <img src={`data:${animated.mimetype};base64, ${animated.base64}`} alt="cat" className={classes.static} />
       )}
@@ -64,7 +74,7 @@ const CardImage = ({
           <span className={classes.likeText}>j'aime</span>
         </Button>
       )}
-      {checked && (
+      {checked && resources && (
         <div
           className={classes.number}
           onMouseEnter={() => setMouseEnter(true)}
@@ -77,7 +87,7 @@ const CardImage = ({
               <img
                 src={cancel}
                 alt={'x'}
-                style={{ width: '12px', height: 12, lineHeight: '1.5' }}
+                style={{ width: '12px', height: 12, lineHeight: '1.5', cursor: 'pointer' }}
                 onClick={() => {
                   setMouseEnter(false);
                   handleClick(famille);
