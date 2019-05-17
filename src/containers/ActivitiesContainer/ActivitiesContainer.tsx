@@ -95,6 +95,7 @@ const ActivitiesContainer = ({
       const newActivities = action(activities, activity);
       activitiesChange(newActivities);
     };
+    console.log(activity)
 
     return (
       <Activity
@@ -124,7 +125,7 @@ const ActivitiesContainer = ({
             backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
             className={theme.type === 'professional' ? classes.info_pro : ''}
           >
-            Je sélectionne des activités
+            Sélectionne les activités que tu as déjà faites
           </Info>
         </Grid>
 

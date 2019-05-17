@@ -3,14 +3,14 @@ export function validateEmail(email: string): string {
   if (re.test(String(email).toLowerCase())) {
     return '';
   }
-  return 'format email incorrect';
+  return 'Le format de l’email est invalide';
 }
 
 export function validatePassword(password: string): string {
   const message = 'Votre mot de passe doit contenir';
   /* if (password.length < 6) return `${message} un minimum de 6 caractères`; */
   if (!/(?=.*[a-z])(?=.*[A-Z])/.test(password) || password.length < 6 || !/(?=.*\d)/.test(password)) {
-    return `${message} un minimum de 6 caractères et doit comporter au moins une lettre minuscule et une lettre majuscule`;
+    return `${message} un minimum de 6 caractères et doit comporter au moins une lettre majuscule et une lettre minuscule`;
   }
   // if (!/(?=.*\d)/.test(password)) return `${message} au moins un chiffre!`;
 
@@ -21,11 +21,11 @@ export function validateNom(firstName: string): string {
   if (firstName !== '') {
     return '';
   }
-  return 'format du nom est invalide';
+  return 'Format invalide';
 }
 export function validatePrenom(firstName: string): string {
   if (firstName !== '') {
     return '';
   }
-  return 'format du prénom est invalide';
+  return 'Format invalide';
 }

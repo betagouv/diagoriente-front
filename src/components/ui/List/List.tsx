@@ -61,6 +61,7 @@ const List = ({
         className={className(classes.btn, disable === 0 && classes.disabled)}
         disabled={disable === 0}
         isFetching={fetching}
+        label="VOIR LES METIERS"
       />
     </div>
   </div>

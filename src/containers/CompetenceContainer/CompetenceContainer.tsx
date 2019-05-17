@@ -170,7 +170,9 @@ const CompetenceContainer = ({
               backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
               className={theme.type === 'professional' ? classes.info_pro : ''}
             >
-              J’évalue mes compétences
+              <span>Choisis 3 ou 4 compétences qui t'ont été utiles dans cette situation</span>
+              <br/>
+              <span className={classes.italic_text}>passe la souris sur les étoiles pour choisir le niveau qui te correspond</span>
             </Info>
           </Grid>
           <Grid item xl={12}>

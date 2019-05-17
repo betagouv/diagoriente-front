@@ -27,12 +27,11 @@
     color: $red;
     font-size: 14px;
     line-height: 1.2;
-    text-transform: capitalize;
     margin-top: 10px;
   }
 }
 @media (max-width: map-get($breakpoints, "md")) {
   .login_container_input {
-    margin: 5px;
+    padding: 5px;
   }
 }

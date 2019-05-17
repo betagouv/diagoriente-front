@@ -95,6 +95,13 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
     };
     registerRequest(email, password, firstName, lastName, location, question);
   };
+  useDidUpdate(() => {
+    if (!(fetching || error)) {
+      const path = '/profile';
+
+      history.push(path);
+    }
+  },           [fetching]);
 
   return (
     <div className={classes.container_home}>
@@ -137,18 +144,6 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         </div>
         <div className={classes.container_select}>
           <Grid item xl={5} md={12}>
-            <SelectLocation
-              options={map(arrays, local => ({ value: local.value, label: local.label }))}
-              open={openLocation}
-              onChange={onChangeLocation}
-              value={location}
-              className={classes.container_input_select}
-              placeholder="Choisi votre localisation"
-              selectOpen={onOpenLocation}
-              selectClose={onCloseLocation}
-            />
-          </Grid>
-          <Grid item xl={5} md={12}>
             <Select
               options={map(data, question => ({ value: question._id, label: question.title }))}
               open={open}
@@ -158,6 +153,18 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               placeholder="Questions de sécurité"
               selectOpen={onOpen}
               selectClose={onClose}
+            />
+          </Grid>
+          <Grid item xl={5} md={12}>
+            <SelectLocation
+              options={map(arrays, local => ({ value: local.value, label: local.label }))}
+              open={openLocation}
+              onChange={onChangeLocation}
+              value={location}
+              className={classes.container_input_select}
+              placeholder="Département de ton SNU"
+              selectOpen={onOpenLocation}
+              selectClose={onCloseLocation}
             />
           </Grid>
         </div>

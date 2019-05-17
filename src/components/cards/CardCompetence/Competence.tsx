@@ -13,7 +13,7 @@ interface IProps {
 const Competence = ({ parcours }: IProps) => {
   return (
     <div className={classes.container}>
-      <div className={classes.title_container}>Carte de competence</div>
+      <div className={classes.title_container}>Carte de compétences</div>
       <CompetenceItem parcours={parcours} />
       <div className={classes.footer}>Voir en diagramme</div>
     </div>

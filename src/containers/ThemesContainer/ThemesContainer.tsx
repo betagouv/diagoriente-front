@@ -166,6 +166,7 @@ const ThemesContainer = ({
       return <LazyLoader />;
     }
     themesComponents = data.map(theme => {
+      console.log('theme',theme)
       const selected = themes.find(row => row._id === theme._id);
       const onClick = () => {
         const action = selected ? removeTheme : addTheme;
@@ -227,7 +228,9 @@ const ThemesContainer = ({
               backgroundColor={type === 'professional' ? '#fbeef9' : '#f7f7ff'}
               className={type === 'professional' ? classes.info_pro : ''}
             >
-              Choisis des thèmes qui correspondent à des activités que tu as l’habitude de faire
+              <span>Choisis des thèmes qui correspondent à des activités que tu as l’habitude de faire</span>
+              <br/>
+              <span className={classes.italic_text}>passe la souris sur les thèmes pour avoir un aperçu des activités</span>
             </Info>
           </Grid>
           <Grid item xl={12}>

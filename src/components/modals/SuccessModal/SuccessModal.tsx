@@ -3,7 +3,7 @@ import React from 'react';
 import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
 
 import iconCheck from '../../../assets/icons/svg/icon-check-02.svg';
-import iconCheckPro from '../../../assets/icons/svg/icon-check-pro-02.svg'
+import iconCheckPro from '../../../assets/icons/svg/icon-check-pro-02.svg';
 
 import classNames from '../../../utils/classNames';
 import classes from './successModal.module.scss';
@@ -30,11 +30,12 @@ const SuccessModal = ({ onClick, type }: Props) => {
             Parfait ! <br /> Tu as terminé cette section
           </div>
           <div className={`${classes.description} ${classes.item}`}>
-            Continue à compléter tes compétences pour voir des métiers adaptés et des offres d’emploi
+            Continue à ajouter des expériences pour enrichir ta carte de compétences
           </div>
           <div className={`flex_center ${classes.footer} ${classes.item}`}>
             <ContinueButton
               onClick={onClick}
+              label="VOIR MA CARTE DE COMPETENCES"
               className={classNames(classes.continue_button, type === 'professional' && classes.continue_button_pro)}
             />
           </div>
