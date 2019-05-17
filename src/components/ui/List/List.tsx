@@ -12,10 +12,11 @@ interface IProps {
   onSubmit?: () => void;
   onDragEnd: (result: any) => void;
   famileSelected: IFamille[];
+  handleDeleteClick: (famille: IFamille) => void;
   disable: number;
 }
 
-const List = ({ renderPlaceholder, onSubmit, onDragEnd, famileSelected, disable }: IProps) => (
+const List = ({ renderPlaceholder, onSubmit, onDragEnd, famileSelected, handleDeleteClick, disable  }: IProps) => (
   <div>
     {famileSelected && (
       <DragDropContext onDragEnd={onDragEnd}>
@@ -32,7 +33,7 @@ const List = ({ renderPlaceholder, onSubmit, onDragEnd, famileSelected, disable 
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <FamileSelected famile={item} index={index} />
+                        <FamileSelected famile={item} index={index} handleDeleteClick={handleDeleteClick} />
                       </div>
                     )}
                   </Draggable>
