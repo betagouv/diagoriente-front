@@ -157,3 +157,17 @@
 .favoris_container {
   margin-top: 20px;
 }
+.content_jobs {
+  display: flex;
+  width: 100%;
+}
+.btn_container_jobs {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+}
+.btn_jobs {
+  background-color: $rose !important;
+  background-image: none !important;
+}

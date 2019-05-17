@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { map, forEach, filter } from 'lodash';
-import { Redirect } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getMyJob, createFavorites, getParcours, IJob, ISecteur } from '../../requests';
@@ -13,6 +13,7 @@ import Spinner from '../../components/ui/Spinner/Spinner';
 import Info from '../../components/ui/Info/Info';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
+import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
 interface IMapToProps {
   parcoursId: string;
@@ -27,7 +28,14 @@ interface Props
   }>,
     IMapToProps {}
 
-const JobsContainer = ({ listJobs, parcoursId, addFavorites, getParcours, families }: Props) => {
+const JobsContainer = ({
+  listJobs,
+  parcoursId,
+  addFavorites,
+  getParcours,
+  families,
+  history,
+}: Props & RouteComponentProps) => {
   const [fetching, fetchingChange] = useState(false);
   const [selectedSecteurs, selectedSecteursChange] = useState([] as string[]);
 
@@ -62,6 +70,10 @@ const JobsContainer = ({ listJobs, parcoursId, addFavorites, getParcours, famili
       }
     }
   });
+
+  const onNavigate = () => {
+    history.push('/profile');
+  };
 
   const autres = {
     secteur: {
@@ -164,6 +176,9 @@ const JobsContainer = ({ listJobs, parcoursId, addFavorites, getParcours, famili
               ? renderJobPortion(autres)
               : null}
           </Grid>
+          <div className={classes.btn_container_jobs}>
+            <ContinueButton className={classes.btn_jobs} onClick={onNavigate} label="Terminer" />
+          </div>
         </Grid>
       </div>
     </div>
