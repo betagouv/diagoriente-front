@@ -5,13 +5,14 @@ import Spinner from '../../ui/Spinner/Spinner';
 import classNames from '../../../utils/classNames';
 interface IProps {
   isFetching?: boolean;
+  label?:string;
 }
 const ContinueButton = (
   { isFetching, ...props }: IProps & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
 ) => {
   return (
     <button {...props} className={classNames(classes.button, props.className)}>
-      <span className={classes.btn_text}>Continuer</span>
+      <span className={classes.btn_text}>{props.label?props.label:'Continuer'}</span>
       {isFetching ? <Spinner /> : <img src={start_arrow} alt="start" />}
     </button>
   );

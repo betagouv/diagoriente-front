@@ -17,7 +17,7 @@ const LogoutModal = ({ onLogout, onClose }: IProps) => {
     <div className={classes.wrapperModal}>
       <div className={classes.container}>
         <div className={classes.title_container}>
-          <span>Attention, vous êtes sur le point d’être déconnecté !</span>
+          <span>Attention, vous allez être déconnecté !</span>
         </div>
 
         <div className={classes.btn_container}>

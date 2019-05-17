@@ -217,7 +217,7 @@ const ThemesContainer = ({
           <Grid item xl={12} className={classes.grid_padding}>
             <Title
               logo={themes.length ? themes[themes.length - 1].resources.icon : undefined}
-              title="Trouve ta voie"
+              title={type === 'professional'?"Mes expériences professionnelles":"Mes expériences personnelles"}
               type={type}
             />
           </Grid>
@@ -227,7 +227,7 @@ const ThemesContainer = ({
               backgroundColor={type === 'professional' ? '#fbeef9' : '#f7f7ff'}
               className={type === 'professional' ? classes.info_pro : ''}
             >
-              Complète les différentes rubriques pour enrichir ton profil de compétences
+              Choisis des thèmes qui correspondent à des activités que tu as l’habitude de faire
             </Info>
           </Grid>
           <Grid item xl={12}>
