@@ -1,4 +1,4 @@
-import { takeLatest, call, select, put, all } from 'redux-saga/effects';
+import { call, select, put, all, takeEvery } from 'redux-saga/effects';
 import { ReduxState, IParcoursResponse } from 'reducers';
 
 import currentParcoursActions, { currentParcoursTypes } from '../reducers/parcours';
@@ -6,7 +6,7 @@ import themesActions from '../reducers/themes';
 
 import { updateParcours, Response } from '../requests';
 
-function* currentParcoursRequest({ type, ...data}: any) {
+function* currentParcoursRequest({ type, ...data }: any) {
   try {
     const { parcours }: ReduxState = yield select();
     const response: Response<IParcoursResponse> = yield call(updateParcours, parcours.data._id, data);
@@ -25,5 +25,5 @@ function* currentParcoursRequest({ type, ...data}: any) {
 }
 
 export default function* () {
-  yield takeLatest(currentParcoursTypes.parcoursRequest, currentParcoursRequest);
+  yield takeEvery(currentParcoursTypes.parcoursRequest, currentParcoursRequest);
 }
