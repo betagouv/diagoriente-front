@@ -95,6 +95,13 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
     };
     registerRequest(email, password, firstName, lastName, location, question);
   };
+  useDidUpdate(() => {
+    if (!(fetching || error)) {
+      const path = '/profile';
+
+      history.push(path);
+    }
+  },           [fetching]);
 
   return (
     <div className={classes.container_home}>
