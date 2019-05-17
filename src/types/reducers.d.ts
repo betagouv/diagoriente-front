@@ -50,7 +50,18 @@ declare module 'reducers' {
     readonly tokenType: string;
   }
 
-  export type User = { user: IUser; token: IToken } | {};
+  export type User = {
+    readonly _id?: string;
+    readonly uniqId?: string;
+    readonly role?: string;
+    readonly platform?: string;
+    readonly parcours?: [];
+    readonly profile?: {
+      readonly firstName: string;
+      readonly lastName: string;
+    };
+    readonly createdAt?: string;
+  };
 
   export type Advisor = { readonly advisor?: IAdvisor; readonly token?: IToken };
 

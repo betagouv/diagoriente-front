@@ -6,8 +6,8 @@ import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
 import { isEmpty } from 'lodash';
 
 // containers
-import ActivitiesContainer from '../ActivitiesContainer';
-import CompetenceContainer from '../CompetenceContainer';
+import ActivitiesContainer from '../ActivitiesContainer/ActivitiesContainer';
+import CompetenceContainer from '../CompetenceContainer/CompetenceContainer';
 
 // components
 import SideBar from '../../components/sideBar/SideBar/SideBar';
@@ -55,31 +55,34 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
     closeModal();
   };
 
-  const goNext = () => {
-    const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
-    const currentThemes = themes.filter(theme => theme.type === currentTheme.type);
-    const indexInCurrent = currentThemes.findIndex(theme => theme._id === id); // index after filter with type
-    const { length } = currentSkillsType;
-    let i = 0;
-    let nextTheme = null;
-    while (i < length && !nextTheme) {
-      const currentTheme = currentSkillsType[i];
-      if (!(currentTheme.activities.length && currentTheme.competences.length)) {
-        nextTheme = currentTheme;
-      } else {
-        i += 1;
-      }
+  /*--- get Next phase ---*/
+  let nextUrl: string | null = null;
+  const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
+  const currentThemes = themes.filter(theme => theme.type === currentTheme.type);
+  const indexInCurrent = currentThemes.findIndex(theme => theme._id === id); // index after filter with type
+  const { length } = currentSkillsType;
+  let i = 0;
+  let nextTheme = null;
+  while (i < length && !nextTheme) {
+    const currentTheme = currentSkillsType[i];
+    if (!(currentTheme.activities.length && currentTheme.competences.length)) {
+      nextTheme = currentTheme;
+    } else {
+      i += 1;
     }
+  }
 
-    let nextUrl = null;
-    if (nextTheme) {
-      nextUrl =
-        currentSkillsType[i].activities.length === 0
-          ? `/theme/${nextTheme.theme._id}/activities`
-          : `/theme/${nextTheme.theme._id}/skills`;
-    } else if (indexInCurrent < currentThemes.length - 1) {
-      nextUrl = `/theme/${currentThemes[indexInCurrent + 1]._id}/activities`;
-    }
+  if (nextTheme) {
+    nextUrl =
+      currentSkillsType[i].activities.length === 0
+        ? `/theme/${nextTheme.theme._id}/activities`
+        : `/theme/${nextTheme.theme._id}/skills`;
+  } else if (indexInCurrent < currentThemes.length - 1) {
+    nextUrl = `/theme/${currentThemes[indexInCurrent + 1]._id}/activities`;
+  }
+  /*--- get Next phase ---*/
+
+  const goNext = () => {
     if (nextUrl) {
       history.push(nextUrl);
     } else {
@@ -120,7 +123,7 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
       history.push('/profile');
     }
     if (index === 1) {
-      history.push('/themes');
+      history.push(`/themes?type=${currentTheme.type}`);
     }
   };
 
@@ -157,7 +160,7 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
             <Route
               path={'/theme/:id/skills'}
               exact
-              render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} />}
+              render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} nextUrl={nextUrl} />}
             />
             <Route component={NotFound} />
           </Switch>

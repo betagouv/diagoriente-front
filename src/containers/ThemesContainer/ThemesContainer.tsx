@@ -172,7 +172,7 @@ const ThemesContainer = ({
         action(theme);
       };
       return (
-        <Grid key={theme._id} item xl={3} md={6} sm={12} className={classes.grid_padding}>
+        <Grid key={theme._id} item xl={3} lg={4} md={6} sm={12} className={classes.grid_padding}>
           <CardTheme
             data-tip
             data-for={theme._id}
@@ -217,7 +217,7 @@ const ThemesContainer = ({
           <Grid item xl={12} className={classes.grid_padding}>
             <Title
               logo={themes.length ? themes[themes.length - 1].resources.icon : undefined}
-              title={type === 'professional'?"Mes expériences professionnelles":"Mes expériences personnelles"}
+              title={type === 'professional' ? 'Mes expériences professionnelles' : 'Mes expériences personnelles'}
               type={type}
             />
           </Grid>

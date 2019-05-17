@@ -7,6 +7,7 @@ import like from '../../../assets/icons/svg/like.svg';
 import redLike from '../../../assets/icons/svg/redLike.svg';
 import cancel from '../../../assets/icons/cancel.png';
 import { IFamille } from 'reducers';
+import { useHover } from '../../../hooks';
 
 interface Props {
   checked?: boolean;
@@ -23,20 +24,15 @@ interface Props {
   famille: IFamille;
 }
 
-const CardImage = ({
-  className,
-  children,
-  handleClick,
-  id,
-  resources,
-  index,
-  famille,
-  checked,
-  ...other
-}: React.HTMLAttributes<HTMLElement> & Props) => {
-  const [isMouseEnter, setMouseEnter] = useState(false as boolean);
+const CardImage = ({ handleClick, resources, index, famille, checked, nom }: Props) => {
+  const [isMouseEnter, onMouseEnter, onMouseLeave] = useHover(false);
   let animated;
   let Static;
+
+  const onClick = () => {
+    handleClick(famille);
+  };
+
   const getClassNames = (): string => {
     if (checked && resources) {
       return classes.containerSelected;
@@ -53,33 +49,32 @@ const CardImage = ({
 
   return (
     <div className={getClassNames()}>
-      {resources && famille.resources && resources.length > 1 && animated && (
+      {resources && resources.length > 1 && animated && (
         <img src={`data:${animated.mimetype};base64, ${animated.base64}`} alt="cat" className={classes.static} />
       )}
 
-      {resources && famille.resources && resources.length === 1 ? (
-        <img
-          src={`data:${resources[0].mimetype};base64, ${famille.resources[0].base64}`}
-          alt="cat"
-          className={classes.active}
-        />
-      ) : resources && famille.resources && resources.length > 1 && Static ? (
-        <img src={`data:${Static.mimetype};base64, ${Static.base64}`} alt="cat" className={classes.active} />
+      {resources ? (
+        resources.length > 1 && Static ? (
+          <img src={`data:${Static.mimetype};base64, ${Static.base64}`} alt="cat" className={classes.active} />
+        ) : (
+          <img
+            src={`data:${resources[0].mimetype};base64, ${resources[0].base64}`}
+            alt="cat"
+            className={classes.active}
+          />
+        )
       ) : (
         <div className={classes.animated_background} />
       )}
+
       {resources && famille.resources && (
-        <Button disabled={checked} checkedButon={checked} onClick={() => handleClick(famille)}>
+        <Button disabled={checked} checkedButon={checked} onClick={onClick}>
           <img src={checked ? redLike : like} alt="heart" className={classes.heartImage} />
           <span className={classes.likeText}>j'aime</span>
         </Button>
       )}
       {checked && resources && (
-        <div
-          className={classes.number}
-          onMouseEnter={() => setMouseEnter(true)}
-          onMouseLeave={() => setMouseEnter(false)}
-        >
+        <div className={classes.number} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
           {isMouseEnter ? (
             <div className={classes.dislikeContainer}>
               <span>je n'aime plus</span>
@@ -89,7 +84,7 @@ const CardImage = ({
                 alt={'x'}
                 style={{ width: '12px', height: 12, lineHeight: '1.5', cursor: 'pointer' }}
                 onClick={() => {
-                  setMouseEnter(false);
+                  onMouseLeave();
                   handleClick(famille);
                 }}
               />

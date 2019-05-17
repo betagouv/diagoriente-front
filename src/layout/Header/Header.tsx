@@ -49,9 +49,11 @@ const Header = ({ logout, user, showLogout, openModal, closeModal }: Props) => {
         </Link>
       </Grid>
       <Grid className={classes.logout_container} item xl={6}>
-        {showLogout && !isEmpty(user) && (
+        {showLogout && user.profile && (
           <button className={classes.logout} onClick={onLogout}>
-            <span className={classes.logout_text}>déconnexion</span>
+            <span className={classes.logout_text}>
+              {user.profile.firstName} {user.profile.lastName}
+            </span>
             <div className={classes.logout_icon_container}>
               <img className={classes.logout_icon} src={logoutSvg} />
             </div>

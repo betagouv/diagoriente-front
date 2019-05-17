@@ -34,7 +34,9 @@ interface IDispatchToProps {
   parcoursRequest: (args: IUpdateParcoursParams) => void;
 }
 
-type Props = RouteComponentProps<{ id: string }> & { theme: ITheme } & IMapToProps & IDispatchToProps;
+interface Props extends RouteComponentProps<{ id: string }>, IMapToProps, IDispatchToProps {
+  theme: ITheme;
+}
 
 const ActivitiesContainer = ({
   theme, /// check theme.type and change style if it's professional
@@ -117,9 +119,11 @@ const ActivitiesContainer = ({
 
       <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
         <Grid item xl={12} sm={8} smd={9} xs={6}>
-          <Info borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
-              backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
-              className={theme.type === 'professional' ? classes.info_pro : ''}>
+          <Info
+            borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
+            backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
+            className={theme.type === 'professional' ? classes.info_pro : ''}
+          >
             Je sélectionne des activités
           </Info>
         </Grid>
@@ -140,7 +144,7 @@ const ActivitiesContainer = ({
   );
 };
 
-const mapStateToProps = (state: ReduxState, { match }: Props): IMapToProps => ({
+const mapStateToProps = (state: ReduxState, { match }: RouteComponentProps<{ id: string }>): IMapToProps => ({
   currentThemeSkill: currentThemeSelector(match.params.id)(state),
   skills: state.parcours.data.skills,
   fetching: state.parcours.fetching,

@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import Header from '../../layout/Header/Header';
 import classes from './game.module.scss';
-import Grid from '../../components/ui/Grid/Grid';
 
 import cancel from '../../assets/icons/svg/cancel.svg';
 

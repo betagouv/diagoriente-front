@@ -56,16 +56,10 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
   useDidMount(() => {
     list.call();
   });
-  const ref = useRef('location');
 
-  useEffect(() => {
-    const { current } = ref;
-    console.log(current)
-  });
   const { data } = list;
   const [email, emailChange, emailTouched] = useTextInput('');
   const [password, passwordChange, passwordTouched] = useTextInput('');
-  const [institution, institutionChange, institutionTouched] = useTextInput('');
   const [firstName, firstNameChange, firstNameTouched] = useTextInput('');
   const [response, responseChange, responseTouched] = useTextInput('');
   const [lastName, lastNameChange, lastNameTouched] = useTextInput('');
@@ -74,7 +68,6 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
 
   const emailValid = emailTouched ? validateEmail(email) : '';
   const passwordValid = passwordTouched ? validatePassword(password) : '';
-  const institutionValid = institutionTouched ? validateNom(institution) : '';
   const firstNameValid = firstNameTouched ? validateNom(firstName) : '';
   const lastNameValid = lastNameTouched ? validateNom(lastName) : '';
   const responseValid = responseTouched ? validateNom(response) : '';
@@ -102,7 +95,6 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
     };
     registerRequest(email, password, firstName, lastName, location, question);
   };
-  console.log('open', open);
 
   return (
     <div className={classes.container_home}>

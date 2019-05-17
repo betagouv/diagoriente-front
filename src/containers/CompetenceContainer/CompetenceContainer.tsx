@@ -40,7 +40,11 @@ interface IDispatchToProps {
 }
 
 type Props = RouteComponentProps<{ id: string }> &
-  ApiComponentProps<{ list: typeof listCompetences }> & { theme: ITheme; goNext: () => void } & IMapToProps &
+  ApiComponentProps<{ list: typeof listCompetences }> & {
+    theme: ITheme;
+    goNext: () => void;
+    nextUrl: string | null;
+  } & IMapToProps &
   IDispatchToProps;
 
 const CompetenceContainer = ({
@@ -49,6 +53,7 @@ const CompetenceContainer = ({
   parcoursRequest,
   goNext,
   history,
+  nextUrl,
   match,
   skills,
   parcoursFetching,
@@ -178,7 +183,7 @@ const CompetenceContainer = ({
           disabled={competences.filter(({ value }) => value !== 0).length === 0}
           onClick={onContinueClick}
           isFetching={parcoursFetching}
-          label ={'EXPERIENCE SUIVANTE'}
+          label={nextUrl ? 'EXPERIENCE SUIVANTE' : 'Terminer cette partie'}
           className={theme.type === 'professional' ? classes.button_pro : classes.continue_button}
         />
       </Grid>

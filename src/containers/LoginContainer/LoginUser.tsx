@@ -59,9 +59,6 @@ const LoginUserContainer = ({
       history.push(path);
     }
   },           [fetching]);
-  useDidMount(() => {
-    console.log(location.state);
-  });
 
   const onOpenModal = () => {
     openModal(<ForgetForm onCloseModal={modalClose} />);

@@ -27,11 +27,7 @@ const SelectLocation = ({
   open,
   placeholder,
 }: IProps) => {
-  console.log('open select', open);
-
   (SelectLocation as any).handleClickOutside = (e: any) => {
-    console.log('open select', open);
-
     if (!open) {
       selectClose(e);
     }
