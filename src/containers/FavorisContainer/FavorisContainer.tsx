@@ -55,7 +55,7 @@ const FavorisContainer = ({
   parcoursError,
 }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
-  let prev: IFamille;
+
   useDidMount(() => {
     famillesRequest();
   });
