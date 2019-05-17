@@ -10,3 +10,4 @@ export * from './reset';
 export * from './updatePassword';
 export * from './famille';
 export * from './jobs';
+export * from './activity';

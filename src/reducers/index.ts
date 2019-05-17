@@ -7,7 +7,7 @@ import { reducer as authAdvisor } from './authAdvisor';
 import { reducer as parcours } from './parcours';
 import { reducer as themes } from './themes';
 import { reducer as listFamille } from './listFamille';
-
+import { reducer as activity } from './activity';
 export default combineReducers({
   parcours,
   modal,
@@ -15,5 +15,6 @@ export default combineReducers({
   authAdvisor,
   themes,
   listFamille,
+  activity,
   startup: startup as Reducer<boolean>,
 });

@@ -161,5 +161,6 @@ declare module 'reducers' {
     readonly parcours: ApiReducer<IParcoursResponse>;
     readonly themes: ITheme[];
     readonly listFamille: ApiReducer<IFamille[]>;
+    readonly activity : IActivity
   };
 }
