@@ -72,7 +72,7 @@ const FavorisContainer = ({
     }
   },           [parcoursFetching]);
 
-  const stepperOptions = ['Commpléter mes informations'];
+  const stepperOptions = ['Compléter mes informations'];
   const onNavigate = (index: number, p: string) => {
     if (index === 0) {
       history.push('/profile');
