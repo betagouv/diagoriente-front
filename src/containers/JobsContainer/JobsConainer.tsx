@@ -123,12 +123,13 @@ const JobsContainer = ({
     };
 
     return (
-      <Grid key={job._id} item xl={4} lg={6} smd={12}>
+      <Grid key={job._id} item xl={6} lg={6} smd={12}>
         <JobCard
           onLikeClick={onLikeClick}
           onDislikeClick={onDislikeClick}
           interested={job.interested}
           title={job.title}
+          job={job}
         />
       </Grid>
     );

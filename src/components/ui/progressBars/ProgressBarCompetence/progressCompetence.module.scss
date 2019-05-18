@@ -21,9 +21,12 @@
   /*   min-width: 25px;
   max-width: 100px; */
 }
+.wrapper {
+  position: relative;
+}
 .background_bar_competence {
   position: absolute;
-  top: 0;
+  top: 9;
   bottom: 0;
   height: auto;
   border-radius: 5px;
@@ -31,7 +34,7 @@
 .indicator_container {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 1px;
   bottom: 0;
   right: 0;
   background-color: transparent;
@@ -39,19 +42,19 @@
 }
 .indicator_1 {
   margin-left: 23px;
-  background-color: $darkblue;
-  height: 12px;
+  background-color: #a6b2ca;
+  height: 8px;
   width: 2px;
 }
 .indicator_2 {
   margin-left: 23px;
-  background-color: $darkblue;
-  height: 12px;
+  background-color: #a6b2ca;
+  height: 8px;
   width: 2px;
 }
 .indicator_3 {
   margin-left: 23px;
-  background-color: $darkblue;
-  height: 12px;
+  background-color: #a6b2ca;
+  height: 8px;
   width: 2px;
 }

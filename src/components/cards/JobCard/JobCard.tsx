@@ -1,30 +1,45 @@
 import React from 'react';
-
+import { map } from 'lodash';
 import classes from './jobCard.module.scss';
 import classNames from '../../../utils/classNames';
 import Grid from '../../ui/Grid/Grid';
 
 import iconLike from '../../../assets/icons/svg/ic-like-01.svg';
 import iconDislike from '../../../assets/icons/svg/ic-dislike-01.svg';
-
 interface Props {
   title: string;
   interested: boolean | null;
   onLikeClick: () => void;
   onDislikeClick: () => void;
   showButtons: boolean;
+  job?: any;
 }
 
-const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons }: Props) => {
+const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, job }: Props) => {
   const showLike = showButtons || interested === true;
   const showDislike = showButtons || interested === false;
+  let length: number = 300;
+  console.log(job);
+  if (job) {
+    length = job.description.length;
+  }
 
   return (
-    <div className={classNames(classes.container, 'flex_center', interested !== null && classes.container_interested)}>
+    <div
+      className={classNames(classes.container_1, 'flex_center', interested !== null && classes.container_interested)}
+    >
       {interested !== null && (
         <div className={classNames('absolute_fill', interested ? classes.interested : classes.not_interested)} />
       )}
       <div className={classes.title}>{title}</div>
+
+      <div className={classes.header}>
+        <div className={classes.title}>{map(job.secteur, secteur => secteur.title)}</div>
+        <div className={classNames(length > 200 ? classes.text_container : classes.text_short)}>
+          <span>{job.description}</span>
+        </div>
+      </div>
+      <div className={classes.title}>Niveau d’entrée en formation : {job.accessibility}</div>
 
       <div className={classes.footer}>
         <Grid padding={{ xl: 0 }} spacing={{ xl: 9 }} container>
