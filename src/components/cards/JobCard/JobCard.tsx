@@ -1,5 +1,7 @@
 import React from 'react';
 import { map } from 'lodash';
+import ReactTooltip from 'react-tooltip';
+
 import classes from './jobCard.module.scss';
 import classNames from '../../../utils/classNames';
 import Grid from '../../ui/Grid/Grid';
@@ -27,6 +29,7 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
   return (
     <div
       className={classNames(classes.container_1, 'flex_center', interested !== null && classes.container_interested)}
+      data-tip data-for={job._id}
     >
       {interested !== null && (
         <div className={classNames('absolute_fill', interested ? classes.interested : classes.not_interested)} />
@@ -37,6 +40,9 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
         <div className={classes.title}>{map(job.secteur, secteur => secteur.title)}</div>
         <div className={classNames(length > 200 ? classes.text_container : classes.text_short)}>
           <span>{job.description}</span>
+          <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
+            {job.description}
+          </ReactTooltip>
         </div>
       </div>
       <div className={classes.title}>Niveau d’entrée en formation : {job.accessibility}</div>
