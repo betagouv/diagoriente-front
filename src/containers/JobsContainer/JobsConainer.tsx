@@ -123,12 +123,13 @@ const JobsContainer = ({
     };
 
     return (
-      <Grid key={job._id} item xl={4} lg={6} smd={12}>
+      <Grid key={job._id} item xl={6} lg={6} smd={12}>
         <JobCard
           onLikeClick={onLikeClick}
           onDislikeClick={onDislikeClick}
           interested={job.interested}
           title={job.title}
+          job={job}
         />
       </Grid>
     );
@@ -162,11 +163,15 @@ const JobsContainer = ({
       <div className={classes.jobs_container}>
         <Grid container>
           <Grid item xl={12} className={classes.title}>
-            Lorem ipsum dolores
+            Mes pistes métiers
           </Grid>
           <Grid item xl={12}>
             <Info>
-              <span className={classes.info}>Lorem ipsum dolores nec mergitur curiculum vitae post scriptum</span>
+              <span className={classes.info}>Sélectionne des métiers que tu aimerais découvrir</span>
+              <br />
+              <span className={classes.italic_text}>
+                Tu peux filtrer les différents secteurs en les sélectionnant dans la colonne de gauche
+              </span>
             </Info>
           </Grid>
           <Grid item xl={12} lg={12}>

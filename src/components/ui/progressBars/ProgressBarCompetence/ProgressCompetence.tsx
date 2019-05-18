@@ -10,11 +10,21 @@ interface IProps {
 
 const ProgressBarCompetence = ({ width, color }: IProps) => {
   const classe = getWidth(width);
+  const renderIndicator = () => (
+    <div className={classes.indicator_container}>
+      <div className={classes.indicator_1} />
+      <div className={classes.indicator_2} />
+      <div className={classes.indicator_3} />
+    </div>
+  );
 
   return (
-    <div className={classes.progress_competence}>
-      <div className={classNames(classes.progress_bar_competence,classe)}  />
-      <div className={classes.background_bar_competence} />
+    <div className={classes.wrapper}>
+      <div className={classes.progress_competence}>
+        <div className={classNames(classes.progress_bar_competence, classe)} />
+        <div className={classes.background_bar_competence} />
+      </div>
+      {renderIndicator()}
     </div>
   );
 };

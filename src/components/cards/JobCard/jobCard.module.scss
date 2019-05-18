@@ -11,6 +11,19 @@
   padding-bottom: 55px;
   overflow: hidden;
 }
+.container_1 {
+  width: 100%;
+  background-color: $card_background;
+  height: 270px;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  color: $title_card;
+  position: relative;
+  padding-bottom: 55px;
+  overflow: hidden;
+  flex-direction: column;
+}
 
 .container_interested {
   background-color: rgba(0, 0, 0, 0.5);
@@ -92,4 +105,42 @@
     background-color: transparent !important;
   }
   cursor: default;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+}
+.text_container {
+  height: 57px;
+  overflow: hidden;
+  position: relative;
+  line-height: 1.2em;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  margin: 25px 0px;
+}
+.text_container:before {
+  content: "...";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.text_container::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}
+.text_short {
+  height: 57px;
+  position: relative;
+  line-height: 1.2em;
+  text-align: justify;
+  margin: 13px 0px;
 }

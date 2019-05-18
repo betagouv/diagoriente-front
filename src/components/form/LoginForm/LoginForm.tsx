@@ -56,7 +56,7 @@ const LoginUserContainer = ({ onSubmit, error, footerComponent, showInscription 
         />
 
         <div className={classes.container_button}>
-          <Button onClick={submit}>Se Connecter</Button>
+          <Button onClick={submit}>Se connecter</Button>
         </div>
         <div className={classes.container_forget_Password}>
           {showInscription && (
