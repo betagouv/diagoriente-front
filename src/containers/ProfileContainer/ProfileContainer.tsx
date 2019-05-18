@@ -258,7 +258,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
           {getFavorites.data.data
             .filter((favoris: any) => favoris.interested)
             .map((favoris: any) => (
-              <Grid key={favoris._id} item xl={4} lg={5} md={6} smd={12}>
+              <Grid key={favoris._id} item xl={4} lg={6} md={12} smd={12}>
                 <JobCard showButtons={false} interested={favoris.interested} title={favoris.job.title} job={favoris.job}/>
               </Grid>
             ))}
