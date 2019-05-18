@@ -83,21 +83,25 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
 
   let niveau = 0;
   if (parcours.data.played) niveau = 1;
-  if (niveau >= 1 && isPersoCompleted) niveau = 2;
-  if (niveau >= 2 && parcours.data.families.length) niveau = 3;
-  if (niveau >= 3 && isProCompleted) niveau = 4;
+  if (niveau === 1 && isPersoCompleted) niveau = 2;
+  if (niveau === 2 && parcours.data.families.length) niveau = 3;
+  if (niveau === 3 && isProCompleted) niveau = 4;
 
   const onCompleteProfile = () => {
     let action = navigate('/jobs');
     switch (niveau) {
       case 0:
         action = gameHandler;
+        break;
       case 1:
         action = navigate('/themes');
+        break;
       case 2:
         action = navigate('/favoris');
+        break;
       case 3:
         action = navigate('/themes?type=professional');
+        break;
     }
     action();
   };
@@ -136,7 +140,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
               onClick={navigate('/themes')}
               className={`${classes.round_button} ${classes.step2_round_button}`}
             >
-              Commencer
+              {niveau < 1 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
@@ -161,7 +165,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
               onClick={navigate('/favoris')}
               className={`${classes.round_button} ${classes.step4_round_button}`}
             >
-              {isPersoCompleted ? 'Commencer' : 'Bientôt'}
+              {niveau < 2 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
@@ -184,7 +188,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
               onClick={navigate('/themes?type=professional')}
               className={`${classes.round_button} ${classes.step3_round_button}`}
             >
-              {'Bientôt'}
+              {niveau < 3 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
@@ -194,7 +198,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
             </button>
           </div>
         ),
-      disabled: niveau <= 3,
+      disabled: niveau <= 2,
     },
   ];
 
@@ -239,14 +243,14 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
       </Grid>
       <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
-        Mes pistes d’orientation
+          Mes pistes d’orientation
         </Grid>
       </Grid>
       <Grid container>
         <Grid item xl={12}>
           <Info>
             <span className={classes.step_4}>
-            Grâce à tes réponses, voici des suggestions de métiers qui pourraient te convenir
+              Grâce à tes réponses, voici des suggestions de métiers qui pourraient te convenir
             </span>
           </Info>
         </Grid>
@@ -259,12 +263,17 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
             .filter((favoris: any) => favoris.interested)
             .map((favoris: any) => (
               <Grid key={favoris._id} item xl={4} lg={6} md={12} smd={12}>
-                <JobCard showButtons={false} interested={favoris.interested} title={favoris.job.title} job={favoris.job}/>
+                <JobCard
+                  showButtons={false}
+                  interested={favoris.interested}
+                  title={favoris.job.title}
+                  job={favoris.job}
+                />
               </Grid>
             ))}
 
           <div className={classes.btn_container_jobs}>
-            <ContinueButton className={classes.btn_jobs} onClick={onNavigateToJobs} label='Modifier' />
+            <ContinueButton className={classes.btn_jobs} onClick={onNavigateToJobs} label="Modifier" />
           </div>
         </Grid>
       )}

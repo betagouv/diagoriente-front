@@ -10,7 +10,6 @@ function* currentParcoursRequest({ type, ...data }: any) {
   try {
     const { parcours }: ReduxState = yield select();
     const response: Response<IParcoursResponse> = yield call(updateParcours, parcours.data._id, data);
-
     if (response.code === 200 && response.data) {
       yield all([
         put(themesActions.updateThemes({ themes: response.data.skills.map(({ theme }) => theme) })),
