@@ -2,10 +2,10 @@ import React, { Dispatch, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { RouteComponentProps, Redirect, Prompt } from 'react-router-dom';
-import { isEqual } from 'lodash';
+import { isEqual, map } from 'lodash';
 
 // types
-import { ReduxState, ITheme, IParcoursResponse } from 'reducers';
+import { ReduxState, ITheme, IParcoursResponse, IActivity } from 'reducers';
 import { AnyAction } from 'redux';
 import { IUpdateParcoursParams } from '../../requests';
 
@@ -31,7 +31,7 @@ import { decodeUri } from '../../utils/url';
 import { useDidMount, useDidUpdate, useWillUnmount } from '../../hooks';
 import themesActions from '../../reducers/themes';
 import parcoursActions from '../../reducers/parcours';
-
+import activityActions from '../../reducers/activity';
 // styles
 import classes from './themesContainer.module.scss';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
@@ -41,6 +41,7 @@ interface IMapToProps {
   fetching: boolean;
   error: string;
   parcours: IParcoursResponse;
+  activity: any;
 }
 
 interface IDispatchToProps {
@@ -48,6 +49,7 @@ interface IDispatchToProps {
   removeTheme: (theme: ITheme) => void;
   parcoursRequest: (args: IUpdateParcoursParams) => void;
   updateThemes: (themes: ITheme[]) => void;
+  getActivity: (id: any) => void;
 }
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
@@ -64,6 +66,8 @@ const ThemesContainer = ({
   error,
   location,
   updateThemes,
+  getActivity,
+  activity,
 }: Props) => {
   let { type } = decodeUri(location.search);
   type = type === 'professional' ? type : 'personal'; /// change style if type is professional
@@ -130,6 +134,9 @@ const ThemesContainer = ({
       }),
     });
   };
+  const onMouseEnter = (id: string) => {
+    getActivity({ id });
+  };
 
   useDidUpdate(() => {
     if (!fetching && !error) {
@@ -166,7 +173,6 @@ const ThemesContainer = ({
       return <LazyLoader />;
     }
     themesComponents = data.map(theme => {
-      console.log('theme',theme)
       const selected = themes.find(row => row._id === theme._id);
       const onClick = () => {
         const action = selected ? removeTheme : addTheme;
@@ -181,10 +187,15 @@ const ThemesContainer = ({
             onClick={onClick}
             checked={!!selected}
             type={theme.type}
+            onMouseEnter={() => onMouseEnter(theme._id)}
           >
             {theme.title}
             <ReactTooltip id={theme._id} type="light" className={'tooltip'}>
-              {theme.title}
+              <div className={classes.activity_container}>
+                {map(activity.data.activities, (e: any) => (
+                  <span key={e._id}>{e.title}</span>
+                ))}
+              </div>
             </ReactTooltip>
           </CardTheme>
         </Grid>
@@ -201,7 +212,6 @@ const ThemesContainer = ({
   };
 
   const listThemes = themes.filter(theme => theme.type === type);
-
   return (
     <div className={classes.container_themes}>
       <Prompt
@@ -229,8 +239,10 @@ const ThemesContainer = ({
               className={type === 'professional' ? classes.info_pro : ''}
             >
               <span>Choisis des thèmes qui correspondent à des activités que tu as l’habitude de faire</span>
-              <br/>
-              <span className={classes.italic_text}>passe la souris sur les thèmes pour avoir un aperçu des activités</span>
+              <br />
+              <span className={classes.italic_text}>
+                passe la souris sur les thèmes pour avoir un aperçu des activités
+              </span>
             </Info>
           </Grid>
           <Grid item xl={12}>
@@ -252,11 +264,12 @@ const ThemesContainer = ({
   );
 };
 
-const mapStateToProps = ({ parcours, themes }: ReduxState): IMapToProps => ({
+const mapStateToProps = ({ parcours, themes, activity }: ReduxState): IMapToProps => ({
   themes,
   fetching: parcours.fetching,
   error: parcours.error,
   parcours: parcours.data,
+  activity,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
@@ -264,6 +277,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   removeTheme: theme => dispatch(themesActions.removeTheme({ theme })),
   parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
   updateThemes: themes => dispatch(themesActions.updateThemes({ themes })),
+  getActivity: (id: any) => dispatch(activityActions.getActivityRequest(id)),
 });
 
 export default connect(

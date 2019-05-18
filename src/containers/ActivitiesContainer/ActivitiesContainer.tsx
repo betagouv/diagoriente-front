@@ -95,7 +95,6 @@ const ActivitiesContainer = ({
       const newActivities = action(activities, activity);
       activitiesChange(newActivities);
     };
-    console.log(activity)
 
     return (
       <Activity
