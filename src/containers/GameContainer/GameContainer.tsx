@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import Header from '../../layout/Header/Header';
 import classes from './game.module.scss';
+import Button from '../../components/buttons/ContinueButtom/ContinueButton';
 
 import cancel from '../../assets/icons/svg/cancel.svg';
 
@@ -21,6 +22,9 @@ const GameContainer = ({ history }: RouteComponentProps) => {
             <img src={cancel} className={classes.cancel} />
           </button>
         </div>
+      </div>
+      <div className={classes.btn_container}>
+        <Button label="passer à la suite"></Button>
       </div>
     </>
   );
