@@ -106,6 +106,7 @@ const FavorisContainer = ({
     const items: any = reorder(selectedFamily, result.source.index, result.destination.index);
     changeSelectedFamily(items);
   };
+
   const renderPlaceholder = () => {
     const array: JSX.Element[] = [];
     for (let i = selectedFamily.length + 1; i <= 5; i += 1) {
@@ -113,9 +114,7 @@ const FavorisContainer = ({
     }
     return array;
   };
-  const renderFamilePlaceholder = () => {
-    for (let i = 0; i <= 15; i += 1) {}
-  };
+
   const reorder = (list: any, startIndex: any, endIndex: any) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -123,10 +122,12 @@ const FavorisContainer = ({
 
     return result;
   };
+
   const onSubmit = () => {
     const ids: string[] = selectedFamily.map(el => el._id);
     updateParcoursRequest({ families: ids });
   };
+
   return (
     <div className={classes.container}>
       <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>

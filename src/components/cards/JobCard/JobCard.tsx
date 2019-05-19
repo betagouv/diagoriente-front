@@ -21,7 +21,6 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
   const showLike = showButtons || interested === true;
   const showDislike = showButtons || interested === false;
   let length: number = 300;
-  console.log(job);
   if (job) {
     length = job.description.length;
   }
@@ -29,7 +28,8 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
   return (
     <div
       className={classNames(classes.container_1, 'flex_center', interested !== null && classes.container_interested)}
-      data-tip data-for={job._id}
+      data-tip
+      data-for={job._id}
     >
       {interested !== null && (
         <div className={classNames('absolute_fill', interested ? classes.interested : classes.not_interested)} />

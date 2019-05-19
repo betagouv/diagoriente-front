@@ -1,10 +1,9 @@
 import React from 'react';
-import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState, User } from 'reducers';
+import { ReduxState, IUser } from 'reducers';
 
 // components
 import Grid from '../../components/ui/Grid/Grid';
@@ -22,7 +21,7 @@ import loginActions from '../../reducers/authUser/login';
 import modalAction from '../../reducers/modal';
 
 interface IMapToProps {
-  user: User;
+  user: IUser | undefined;
 }
 
 interface IDispatchToProps {
@@ -49,7 +48,7 @@ const Header = ({ logout, user, showLogout, openModal, closeModal }: Props) => {
         </Link>
       </Grid>
       <Grid className={classes.logout_container} item xl={6}>
-        {showLogout && user.profile && (
+        {showLogout && user && (
           <button className={classes.logout} onClick={onLogout}>
             <span className={classes.logout_text}>
               {user.profile.firstName} {user.profile.lastName}
@@ -69,7 +68,7 @@ Header.defaultProps = {
 };
 
 const mapStateToProps = ({ authUser }: ReduxState) => ({
-  user: authUser.user,
+  user: authUser.user.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
