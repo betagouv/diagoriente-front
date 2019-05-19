@@ -42,19 +42,21 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
 
       if (parcours.code < 400 && parcours.data) {
         yield all([
+          put(parcoursActions.parcoursSuccess({ data: parcours.data })),
           put(loginActions.loginUserSuccess()),
           put(userActions.userChange({ user: response.data })),
-          put(parcoursActions.parcoursSuccess({ data: parcours.data })),
         ]);
       } else {
-        // TODO improve erreur message
-        yield put(loginActions.loginUserFailure({ error: 'erreur inconnus' }));
+        yield put(
+          loginActions.loginUserFailure({
+            error: "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
+          }),
+        );
       }
     } else {
       yield put(loginActions.loginUserFailure({ error: response.message }));
     }
   } catch (e) {
-    // TODO improve erreur message
     yield put(
       loginActions.loginUserFailure({
         error: "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",

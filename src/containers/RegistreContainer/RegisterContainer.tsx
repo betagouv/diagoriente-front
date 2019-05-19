@@ -3,12 +3,12 @@ import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import NotFound from '../../layout/NotFound';
-import { ReduxState, IUser } from 'reducers';
+import { ReduxState, User } from 'reducers';
 import Header from '../../layout/Header/Header';
 import RegisterUser from './RegisterUser';
 
 type Props = RouteComponentProps & {
-  user: IUser | {};
+  user: User;
 };
 
 const RegisterContainer = ({ user }: Props) => {

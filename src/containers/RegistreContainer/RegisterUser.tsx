@@ -109,6 +109,9 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         <div className={classes.container_title}>
           <h3>Inscription</h3>
         </div>
+
+        <span className={classes.error}>{error}</span>
+
         <div className={classes.container_select}>
           <Grid item xl={5} md={12}>
             <Input
@@ -184,13 +187,10 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
           <Button onClick={onSubmit}> Inscription</Button>
         </div>
 
-        <div>
-          <span className={classes.error}>{error}</span>
-        </div>
         <div className={classes.container_forget_Password}>
-          <h5>Vous avez un Compte ?</h5>{' '}
+          <h5>Vous avez un Compte ?</h5>
           <Link to="/login">
-            <h6>Se Connecter</h6>{' '}
+            <h6>Se Connecter</h6>
           </Link>
         </div>
       </div>

@@ -27,7 +27,7 @@ function* startup() {
         });
         const fns = [
           call(setItem, 'user', newUser),
-          put(userActions.userChange(newUser)),
+          put(userActions.userChange({ user: newUser })),
           put(advisorActions.advisorChange({ advisor: advisor || {} })),
         ];
         if (parcours.code === 200 && parcours.data) {

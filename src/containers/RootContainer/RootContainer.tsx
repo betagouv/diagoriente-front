@@ -42,7 +42,7 @@ const footerRoutes = ['/'];
 interface IMapToProps {
   modal: IModal;
   startupEnd: boolean;
-  user: User | {};
+  user: User;
 }
 
 interface IDispatchToProps {
