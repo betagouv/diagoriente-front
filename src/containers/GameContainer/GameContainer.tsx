@@ -11,6 +11,9 @@ const GameContainer = ({ history }: RouteComponentProps) => {
   const onClick = () => {
     history.goBack();
   };
+  const onNavigate = () => {
+    history.push('/profile');
+  };
 
   return (
     <>
@@ -24,7 +27,7 @@ const GameContainer = ({ history }: RouteComponentProps) => {
         </div>
       </div>
       <div className={classes.btn_container}>
-        <Button label="passer à la suite"></Button>
+        <Button onClick={onNavigate} label="passer à la suite" />
       </div>
     </>
   );
