@@ -8,14 +8,15 @@ interface IProps {
     value: number;
     _id: string
   }[];
+  pdfDownload?: () => void;
 }
 
-const Competence = ({ parcours }: IProps) => {
+const Competence = ({ parcours, pdfDownload }: IProps) => {
   return (
     <div className={classes.container}>
       <div className={classes.title_container}>Carte de compétences</div>
       <CompetenceItem parcours={parcours} />
-      <div className={classes.footer}>Voir en diagramme</div>
+      <div className={classes.footer} onClick={pdfDownload}>Télécharger en PDF</div>
     </div>
   );
 };
