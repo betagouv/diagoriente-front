@@ -2,18 +2,21 @@
 
 .frame_container {
   background-color: #ffffff;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 20px;
+  width: 100%;
 }
 
 .frame_overlay_container {
-  width: 1290px;
-  height: 800px;
+  width: 1033px;
+  height: 630px;
   border-radius: 10px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .frame {
@@ -35,29 +38,7 @@
   justify-content: center;
 }
 
-.cancel {
-  height: 40px;
-  width: 40px;
-}
 
-.button {
-  height: 40px;
-  width: 80px;
-  border-radius: 30px;
-  border: solid 1px #dddddd;
-  padding: 0;
-  margin: 0;
-  text-transform: uppercase;
-  position: relative;
-  cursor: pointer;
-  -webkit-transition: 0.25s linear;
-  transition: 0.25s linear;
-
-  &:hover {
-    color: #ffffff;
-    background-color: #cf11b2;
-  }
-}
 .buttonContainer {
   display: flex;
   justify-content: center;

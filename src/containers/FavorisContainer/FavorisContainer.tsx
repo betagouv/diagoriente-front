@@ -154,8 +154,12 @@ const FavorisContainer = ({
 
               <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
                 <span className={classes.text_info}>
-                  Sélectionne par ordre de préférence jusqu’à 5 thèmes que tu te verrais exercer dans ton activité
-                  professionnelle
+                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le. Tu pourras les classer par
+                  ordre de préférence dans la colonne de droite
+                </span>
+                <br />
+                <span className={classes.italic_text}>
+                  Conseils : ne te censure pas, ne te pose pas trop de questions, laisse-toi guider par ton intuition !
                 </span>
               </Info>
             </Grid>

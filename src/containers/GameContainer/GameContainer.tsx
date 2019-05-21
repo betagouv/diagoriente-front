@@ -21,9 +21,6 @@ const GameContainer = ({ history }: RouteComponentProps) => {
       <div className={classes.frame_container}>
         <div className={classes.frame_overlay_container}>
           <iframe className={classes.frame} frameBorder="0" src="https://monbilansnu.beta.gouv.fr/game-diagoriente/" />
-          <button onClick={onClick} className={classes.quit}>
-            <img src={cancel} className={classes.cancel} />
-          </button>
         </div>
       </div>
       <div className={classes.btn_container}>
