@@ -24,4 +24,10 @@
   letter-spacing: 2px;
   text-align: center;
   color: $footer_color;
+  cursor: pointer;
+  &:hover {
+    
+    letter-spacing: 4px;
+    color: purple;
+  }
 }

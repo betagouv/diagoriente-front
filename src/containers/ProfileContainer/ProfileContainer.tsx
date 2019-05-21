@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
+import jsPDF from 'jspdf';
+// assets
+import body from '../../assets/pdf/body.png';
+import logoRF from '../../assets/pdf/rf.png';
+import logoSNU from '../../assets/pdf/snu.png';
+import starEmpty from '../../assets/pdf/star-empty.png';
+import starFull from '../../assets/pdf/star-full.png';
+import check from '../../assets/pdf/check.png';
 
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
@@ -47,13 +55,14 @@ interface ParcourParmas {
 interface MapToProps {
   parcours: ApiReducer<IParcoursResponse>;
   parcoursRequest: (payload: ParcourParmas) => void;
+  authUser: any;
 }
 
 type Props = RouteComponentProps &
   ApiComponentProps<{ getParcours: typeof getParcours; getFavorites: typeof getFavorites }> &
   MapToProps;
 
-const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, getFavorites }: Props) => {
+const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, getFavorites, authUser }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
@@ -202,6 +211,95 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     },
   ];
 
+  const pdf = async () => {
+    const doc = new jsPDF("l", "pt", "a4", true as any);
+    /* doc.addFileToVFS('../../assets/pdf/fonts/Lato-Bold.ttf', 'Lato');
+    doc.addFont('Lato-Bold.ttf', 'latoBold', 'normal');
+    doc.setFont('latoBold'); */
+    const skills = parcours.data.skills;
+    const themesPerso: any = [];
+    let skillPro: any = {};
+    skills.forEach(skill => {
+      if (skill.theme.type === "personal") themesPerso.push(skill.theme.title);
+      else skillPro = skill;
+    });
+    const competences = getParcours.data.globalCopmetences;
+    const themePro = skillPro.theme.title;
+    const actiPro = skillPro.activities.map((acti: any) => acti.title);
+    console.log("themesPerso", themesPerso);
+    console.log("themePro", themePro);
+    console.log("competences", competences);
+    console.log("activité pro", actiPro);
+    console.log(getParcours);
+    const width = doc.internal.pageSize.getWidth();
+    const height = doc.internal.pageSize.getHeight();
+    const background = document.createElement("img");
+    background.setAttribute("src", body);
+    doc.addImage(background, "PNG", 25, 25, width - 50, height - 50);
+    const firstName: string = authUser.user.user.profile.firstName.toUpperCase();
+    const lastName = authUser.user.user.profile.lastName.toUpperCase();
+
+    doc.setFontSize(12);
+    doc.setTextColor(0, 49, 137);
+    doc.setFont("Helvetica", "bold");
+    doc.text(`DE ${firstName} ${lastName}`, 350, height / 3.4, { charSpace: 2 });
+    const SNU = document.createElement("img");
+    SNU.setAttribute("src", logoSNU);
+    doc.addImage(SNU, "PNG", 80, 100, 90, 80);
+    const RF = document.createElement("img");
+    RF.setAttribute("src", logoRF);
+    doc.addImage(RF, "PNG", width - 180, 100, 90, 80);
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 49, 137);
+    doc.text("Mes expériences", 85, 235, { charSpace: 0 });
+    const checked = document.createElement("img");
+    checked.setAttribute("src", check);
+    const fullStar = document.createElement("img");
+    fullStar.setAttribute("src", starFull);
+    const emptyStar = document.createElement("img");
+    emptyStar.setAttribute("src", starEmpty);
+    doc.setFont("Helvetica", "normal");
+    doc.setFontSize(8);
+    for (let i = 0; i < themesPerso.length; i++) {
+      doc.addImage(checked, "PNG", 85, 250 + i * 15, 5, 5);
+      doc.text(themesPerso[i], 95, 255 + i * 15);
+    }
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 49, 137);
+    doc.text("Mon SNU : ce que j'apprécie le plus", 85, 355, { maxWidth: 90 });
+    doc.setFont("Helvetica", "normal");
+    doc.setFontSize(8);
+    for (let i = 0; i < actiPro.length; i++) {
+      doc.addImage(checked, "PNG", 85, 385 + i * 20, 5, 5);
+      doc.text(actiPro[i], 95, 390 + i * 20, { maxWidth: 100 });
+    }
+
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(12);
+
+    for (let i = 0; i < 10; i++) {
+      const row = i >= 5 ? i - 5 : i;
+      const col = i >= 5 ? 260 : 0;
+      const x = 185 + col;
+      const y = 230 + row * 40;
+      for (let j = 1; j <= 4; j++) {
+        doc.addImage(j <= competences[i].value ? starFull : starEmpty, "PNG", x + j * 15, y - 10, 11, 11);
+      }
+      doc.text(competences[i].title, x + 82, y);
+    }
+
+
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.text('Fait à ………………………………………………………', 480, 470);
+    doc.text('Le …………………………………………………………', 480, 490);
+    doc.text('Signature', 480, 510);
+
+    doc.save('test.pdf');
+  };
+
   return (
     <div className={classes.container}>
       <Header />
@@ -238,7 +336,8 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
         </Grid>
         <Grid item xl={4} lg={6} md={12}>
           <CardProgress progress={niveau} />
-          <CardCompetence parcours={getParcours.data.globalCopmetences} />
+          <CardCompetence parcours={getParcours.data.globalCopmetences} pdfDownload={pdf} />
+          
         </Grid>
       </Grid>
       <Grid container className={'flex_center'}>
@@ -281,8 +380,9 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
   );
 };
 
-const mapStateToProps = ({ parcours }: ReduxState) => ({
+const mapStateToProps = ({ parcours, authUser }: ReduxState) => ({
   parcours,
+  authUser,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
