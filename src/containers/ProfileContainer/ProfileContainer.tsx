@@ -247,7 +247,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(0, 49, 137);
-    doc.text("Mes expériences", 85, 235, { charSpace: 0 });
+    doc.text("Mes expériences", 80, 235, { charSpace: 0 });
     const checked = document.createElement("img");
     checked.setAttribute("src", check);
     const fullStar = document.createElement("img");
@@ -257,20 +257,20 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
     for (let i = 0; i < themesPerso.length; i++) {
-      doc.addImage(checked, "PNG", 85, 250 + i * 15, 5, 5, '', 'FAST');
-      doc.text(themesPerso[i], 95, 255 + i * 15);
+      doc.addImage(checked, "PNG", 80, 250 + i * 15, 5, 5, '', 'FAST');
+      doc.text(themesPerso[i], 90, 255 + i * 15);
     }
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(0, 49, 137);
-    doc.text("Mon SNU : ce que j'apprécie le plus", 85, 355, { maxWidth: 90 });
+    doc.text("Mon SNU : ce que j'apprécie le plus", 80, 355, { maxWidth: 90 });
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
     let lines = 0;
     for (let i = 0; i < actiPro.length; i++) {
       const splitText = doc.splitTextToSize(actiPro[i], 100);
-      doc.addImage(checked, "PNG", 85, 385 + lines * 10, 5, 5, '', 'FAST');
-      doc.text(splitText, 95, 390 + lines * 10, { maxWidth: 100 });
+      doc.addImage(checked, "PNG", 80, 385 + lines * 10, 5, 5, '', 'FAST');
+      doc.text(splitText, 90, 390 + lines * 10, { maxWidth: 100 });
       lines += splitText.length;
     }
 
