@@ -295,7 +295,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.text('Le …………………………………………………………', 480, 490);
     doc.text('Signature', 480, 510);
 
-    doc.save('test.pdf');
+    doc.save('Carte de compétences.pdf');
   };
 
   return (
