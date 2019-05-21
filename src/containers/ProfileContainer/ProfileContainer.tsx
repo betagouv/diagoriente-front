@@ -226,16 +226,11 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     const competences = getParcours.data.globalCopmetences;
     const themePro = skillPro.theme.title;
     const actiPro = skillPro.activities.map((acti: any) => acti.title);
-    console.log("themesPerso", themesPerso);
-    console.log("themePro", themePro);
-    console.log("competences", competences);
-    console.log("activité pro", actiPro);
-    console.log(getParcours);
     const width = doc.internal.pageSize.getWidth();
     const height = doc.internal.pageSize.getHeight();
     const background = document.createElement("img");
     background.setAttribute("src", body);
-    doc.addImage(background, "PNG", 25, 25, width - 50, height - 50);
+    doc.addImage(background, "PNG", 25, 25, width - 50, height - 50, '', 'FAST');
     const firstName: string = authUser.user.user.profile.firstName.toUpperCase();
     const lastName = authUser.user.user.profile.lastName.toUpperCase();
 
@@ -245,10 +240,10 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.text(`DE ${firstName} ${lastName}`, 350, height / 3.4, { charSpace: 2 });
     const SNU = document.createElement("img");
     SNU.setAttribute("src", logoSNU);
-    doc.addImage(SNU, "PNG", 80, 100, 90, 80);
+    doc.addImage(SNU, "PNG", 80, 100, 90, 80, '', 'FAST');
     const RF = document.createElement("img");
     RF.setAttribute("src", logoRF);
-    doc.addImage(RF, "PNG", width - 180, 100, 90, 80);
+    doc.addImage(RF, "PNG", width - 180, 100, 90, 80, '', 'FAST');
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(0, 49, 137);
@@ -262,7 +257,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
     for (let i = 0; i < themesPerso.length; i++) {
-      doc.addImage(checked, "PNG", 85, 250 + i * 15, 5, 5);
+      doc.addImage(checked, "PNG", 85, 250 + i * 15, 5, 5, '', 'FAST');
       doc.text(themesPerso[i], 95, 255 + i * 15);
     }
     doc.setFont("Helvetica", "bold");
@@ -271,9 +266,12 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.text("Mon SNU : ce que j'apprécie le plus", 85, 355, { maxWidth: 90 });
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
+    let lines = 0;
     for (let i = 0; i < actiPro.length; i++) {
-      doc.addImage(checked, "PNG", 85, 385 + i * 20, 5, 5);
-      doc.text(actiPro[i], 95, 390 + i * 20, { maxWidth: 100 });
+      const splitText = doc.splitTextToSize(actiPro[i], 100);
+      doc.addImage(checked, "PNG", 85, 385 + lines * 10, 5, 5, '', 'FAST');
+      doc.text(splitText, 95, 390 + lines * 10, { maxWidth: 100 });
+      lines += splitText.length;
     }
 
     doc.setFont("Helvetica", "bold");
@@ -285,7 +283,7 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
       const x = 185 + col;
       const y = 230 + row * 40;
       for (let j = 1; j <= 4; j++) {
-        doc.addImage(j <= competences[i].value ? starFull : starEmpty, "PNG", x + j * 15, y - 10, 11, 11);
+        doc.addImage(j <= competences[i].value ? starFull : starEmpty, "PNG", x + j * 15, y - 10, 11, 11, '', 'FAST');
       }
       doc.text(competences[i].title, x + 82, y);
     }
