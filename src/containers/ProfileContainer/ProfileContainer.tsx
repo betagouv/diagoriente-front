@@ -256,37 +256,39 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     emptyStar.setAttribute("src", starEmpty);
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
-    let n = themesPerso.length < 5 ? themesPerso.length : 5;
-    for (let i = 0; i < n; i++) {
+    const n1 = themesPerso.length < 5 ? themesPerso.length : 5;
+    for (let i = 0; i < n1; i++) {
       doc.addImage(checked, "PNG", 80, 230 + i * 15, 5, 5, "", "FAST");
       doc.text(themesPerso[i], 90, 235 + i * 15);
     }
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(10);
-    doc.text("Mes intérêts", 80, 320);
+    const y2 = 235 + n1 * 15 + 10;
+    doc.text("Mes intérêts", 80, y2);
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
     const interests = getParcours.data.globalInterest.map((el: any) => el.title);
-    n = interests.length < 5 ? interests.length : 5;
+    const n2 = interests.length < 5 ? interests.length : 5;
     let lines = 0;
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n2; i++) {
       const splitText = doc.splitTextToSize(interests[i], 100);
-      doc.addImage(checked, "PNG", 80, 335 + lines * 10, 5, 5, "", "FAST");
-      doc.text(splitText, 90, 340 + lines * 10, { maxWidth: 100 });
+      doc.addImage(checked, "PNG", 80, y2 + 15 + lines * 10, 5, 5, "", "FAST");
+      doc.text(splitText, 90, y2 + 20 + lines * 10, { maxWidth: 100 });
       lines += splitText.length;
     }
 
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(10);
-    doc.text("Mon SNU : ce que j'apprécie le plus", 80, 450, { maxWidth: 90 });
+    const y3 = y2 + 20 + lines * 10 + 10;
+    doc.text("Mon SNU : ce que j'apprécie le plus", 80, y3, { maxWidth: 90 });
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
     lines = 0;
-    n = actiPro.length < 3 ? actiPro.length : 3;
-    for (let i = 0; i < n; i++) {
+    const n3 = actiPro.length < 3 ? actiPro.length : 3;
+    for (let i = 0; i < n3; i++) {
       const splitText = doc.splitTextToSize(actiPro[i], 100);
-      doc.addImage(checked, "PNG", 80, 480 + lines * 10, 5, 5, "", "FAST");
-      doc.text(splitText, 90, 485 + lines * 10, { maxWidth: 100 });
+      doc.addImage(checked, "PNG", 80, y3 + 30 + lines * 10, 5, 5, "", "FAST");
+      doc.text(splitText, 90, y3 + 35 + lines * 10, { maxWidth: 100 });
       lines += splitText.length;
     }
 
