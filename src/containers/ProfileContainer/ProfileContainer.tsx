@@ -282,7 +282,8 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(8);
     lines = 0;
-    for (let i = 0; i < actiPro.length; i++) {
+    n = actiPro.length < 3 ? actiPro.length : 3;
+    for (let i = 0; i < n; i++) {
       const splitText = doc.splitTextToSize(actiPro[i], 100);
       doc.addImage(checked, "PNG", 80, 480 + lines * 10, 5, 5, "", "FAST");
       doc.text(splitText, 90, 485 + lines * 10, { maxWidth: 100 });
