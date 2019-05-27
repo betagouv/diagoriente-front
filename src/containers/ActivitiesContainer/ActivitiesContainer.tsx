@@ -99,7 +99,7 @@ const ActivitiesContainer = ({
     return (
       <Activity
         title={activity.title}
-        subTitle="Fusce vehicula dolor arcu, sit amet blandit dol."
+        subTitle={activity.description && activity.description}
         key={activity._id}
         selected={!!selected}
         onCheckChange={onClick}
