@@ -28,6 +28,7 @@ interface IDispatchToProps {
   logout: () => void;
   openModal: (children: any) => void;
   closeModal: () => void;
+  pathTo: string;
 }
 
 type Props = IMapToProps &
@@ -35,7 +36,7 @@ type Props = IMapToProps &
     showLogout: boolean;
   };
 
-const Header = ({ logout, user, showLogout, openModal, closeModal }: Props) => {
+const Header = ({ logout, user, showLogout, openModal, closeModal, pathTo }: Props) => {
   const onLogout = () => {
     openModal(<LogoutModal onLogout={logout} onClose={closeModal} />);
   };
@@ -43,7 +44,7 @@ const Header = ({ logout, user, showLogout, openModal, closeModal }: Props) => {
   return (
     <Grid className={classes.headerContainer} container>
       <Grid item xl={6}>
-        <Link to={'/'}>
+        <Link to={pathTo}>
           <img className={classes.logo} src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} alt="Logo" />
         </Link>
       </Grid>
