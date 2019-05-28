@@ -100,10 +100,11 @@ const CompetenceContainer = ({
   if (isEmpty(data)) return <div>Aucun competence a afficher</div>;
 
   const competenceComponents = data.map(competence => {
+    console.log('competence', competence);
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
     const buttons: JSX.Element[] = [];
-    for (let i = 1; i <= 4; i += 1) {
+    for (let i = 0; i < 4; i += 1) {
       const selected = current && current.value >= i;
       const onClick = () => {
         let currentCompetences = [...competences];
@@ -122,7 +123,8 @@ const CompetenceContainer = ({
       };
       buttons.push(
         <Stars
-          title={`${competence.title} niveau ${i} `}
+          title={competence.niveau[i].title}
+          sub_title={competence.niveau[i].sub_title}
           onChange={onClick}
           checked={!!selected}
           style={{ margin: '0 5px' }}
@@ -171,8 +173,10 @@ const CompetenceContainer = ({
               className={theme.type === 'professional' ? classes.info_pro : ''}
             >
               <span>Choisis 3 ou 4 compétences qui t'ont été utiles dans cette situation</span>
-              <br/>
-              <span className={classes.italic_text}>passe la souris sur les étoiles pour choisir le niveau qui te correspond</span>
+              <br />
+              <span className={classes.italic_text}>
+                passe la souris sur les étoiles pour choisir le niveau qui te correspond
+              </span>
             </Info>
           </Grid>
           <Grid item xl={12}>

@@ -326,8 +326,8 @@ const ProfileContainer = ({ history, getParcours, parcours, parcoursRequest, get
 
   return (
     <div className={classes.container}>
-      <Header />
-      <Grid container className={"flex_center"}>
+      <Header pathTo={'/'} />
+      <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
           Bienvenue sur Diagoriente
         </Grid>

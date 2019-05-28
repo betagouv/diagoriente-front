@@ -8,7 +8,6 @@ import { AnyAction } from 'redux';
 import { ReduxState, IModal, User } from 'reducers';
 
 // layout
-import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 import NotFound from '../../layout/NotFound';
 
