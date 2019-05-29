@@ -1,40 +1,29 @@
 .container {
   height: 100%;
   width: 100%;
-  /*   border: 1px solid red;
- */
+
   position: relative;
   border-radius: 10px;
 
-  &:hover {
-    -webkit-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-    border-radius: 10px;
+  &:hover ~ .static {
+    opacity: 0;
   }
 }
 .withoutImage {
   height: 100%;
   width: 100%;
-  /*   border: 1px solid red;
- */
+
   position: relative;
   border-radius: 10px;
 }
 .containerSelected {
   height: 100%;
   width: 100%;
-  /*   border: 1px solid red;
- */
+
   position: relative;
 
-  &:hover {
-    -webkit-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-    border-radius: 10px;
+  &:hover ~ .static {
+    opacity: 0;
   }
   &::before {
     width: 100%;
@@ -47,31 +36,34 @@
     z-index: 1;
   }
 }
+.hideStatic {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  opacity: 0;
+}
 .static {
   position: absolute;
-  /*   background: white;
- */
+
   width: 100%;
   height: 100%;
   border-radius: 10px;
 }
-
 .static:hover {
   opacity: 0;
 }
+
 .active {
   width: 100%;
   height: 100%;
   border-radius: 10px;
 }
 
-/* .active {
-  height: 100%;
-  width: 100%;
-} */
 .heartImage {
   height: 18px;
-  width: 20px;
+  width: 20px !important;
   margin: 6px 0;
 }
 .likeText {
@@ -122,6 +114,7 @@
   justify-content: space-evenly;
   align-items: center;
   transition: 0.2s all ease-in-out;
+  cursor: pointer;
 }
 @keyframes placeHolderShimmer {
   0% {

@@ -29,7 +29,7 @@ function* listFamilleRequest({ payload }: { type: string; payload: ListFamillePa
     const error = results.find(response => response && response.code !== 200);
     if (!error) {
       yield put(
-        listFamilleActions.listFamilleSuccess({
+        listFamilleActions.listResourcesSuccess({
           data: results.map(response => ({ resources: [{}], ...response.data })),
         }),
       );
