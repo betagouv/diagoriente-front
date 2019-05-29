@@ -17,7 +17,7 @@ const GameContainer = ({ history }: RouteComponentProps) => {
 
   return (
     <>
-      <Header showLogout={false} />
+      <Header showLogout={false} pathTo="/profile" />
       <div className={classes.frame_container}>
         <div className={classes.frame_overlay_container}>
           <iframe className={classes.frame} frameBorder="0" src="https://monbilansnu.beta.gouv.fr/game-diagoriente/" />

@@ -64,6 +64,7 @@ declare module 'reducers' {
   export interface IActivity {
     _id: string;
     title: string;
+    description: string;
     type: string;
     verified: boolean;
     interests: IInterests[];

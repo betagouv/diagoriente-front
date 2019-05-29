@@ -32,7 +32,7 @@ const SideBar = <T extends Option>({ options, history, type, disabled, title, on
   };
   return (
     <div className={classes.container_sideBar}>
-      <button className={classes.logo_container} onClick={navigate('/')}>
+      <button className={classes.logo_container} onClick={navigate('/profile')}>
         <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />
       </button>
       <div className={classes.selection_title_container}>

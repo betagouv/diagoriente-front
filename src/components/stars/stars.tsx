@@ -7,9 +7,10 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElem
   checked: boolean;
   onChange(): void;
   type?: string;
+  sub_title?: string;
 }
 
-const stars = ({ className, children, checked, onChange, title, type, ...other }: Props) => {
+const stars = ({ className, children, checked, onChange, title, type, sub_title, ...other }: Props) => {
   return (
     <div data-for={title} {...other} data-tip={title} className={classNames(classes.container, className)}>
       <div
@@ -26,7 +27,12 @@ const stars = ({ className, children, checked, onChange, title, type, ...other }
         }
         onClick={onChange}
       />
-      <ReactTooltip id={title} type="light" className={`tooltip ${classes.tooltip_star}`} />
+      <ReactTooltip id={title} type="light" className={classes.tooltip_star}>
+        <div>
+          <span className={classes.bold_tooltip}>{title}</span>
+          <span>{sub_title}</span>
+        </div>
+      </ReactTooltip>
     </div>
   );
 };

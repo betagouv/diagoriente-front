@@ -11,7 +11,7 @@ import RestPassword from './RestPassword';
 const LoginContainer = () => {
   return (
     <>
-      <Header showLogout={false} />
+      <Header showLogout={false} pathTo={'/'} />
       <Switch>
         <Route exact path={'/login'} component={LoginUser} />
         <Route exact path={'/login/user'} component={LoginUser} />

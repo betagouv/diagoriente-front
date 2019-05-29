@@ -24,8 +24,8 @@ const Activity = ({
       <ActivitiesCheck id={id} selected={selected} onCheckChange={onCheckChange} tooltip={title} type={type} />
       <div className={classes.activityContentContainer}>
         <span className={type === 'professional' ? classes.title_pro : classes.title}>{title}</span>
-{/*         <span className={classes.subtitle}>{subTitle}</span>
- */}      </div>
+       {subTitle && <span className={classes.subtitle}>{subTitle}</span>}
+    </div>
     </div>
   );
 };
