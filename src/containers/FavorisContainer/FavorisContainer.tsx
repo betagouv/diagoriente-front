@@ -26,6 +26,10 @@ import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
 import { IUpdateParcoursParams } from '../../requests';
 import addPrevFamily from '../../utils/addPrevFamille';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+import { Carousel } from 'react-responsive-carousel';
+
 interface IMapToProps {
   familles: IFamille[];
   fetching: boolean;
@@ -55,6 +59,7 @@ const FavorisContainer = ({
   parcoursError,
 }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
+  const [DisplayedFamily, changeDisplayedFamily] = useState(0);
 
   useDidMount(() => {
     famillesRequest();
@@ -127,6 +132,13 @@ const FavorisContainer = ({
     const ids: string[] = selectedFamily.map(el => el._id);
     updateParcoursRequest({ families: ids });
   };
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 6,
+  };
 
   return (
     <div className={classes.container}>
@@ -166,27 +178,33 @@ const FavorisContainer = ({
           </Grid>
           <Grid container padding={{ xl: 15, lg: 15 }} spacing={{ xl: 9, lg: 9 }} style={{ margin: '50px 0px' }}>
             <Grid item xl={12} className={'flex_center'}>
-              <Grid item xl={12}>
+              <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
                 {fetching ? (
                   <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
                     <PlaceHolderFamile />
                   </Grid>
                 ) : (
-                  <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
+                  <Carousel
+                    showThumbs={false}
+                    showIndicators={false}
+                    showStatus={false}
+                    selectedItem={DisplayedFamily}
+                    onChange={index => changeDisplayedFamily(index)}
+                    className={classes.carou}
+                    width={'97%'}
+                  >
                     {familles.map(famille => (
-                      <Grid key={famille._id} item xl={4} lg={6} smd={12} className={classes.cardContainer}>
-                        <CardImage
-                          resources={famille.resources}
-                          handleClick={handleClick}
-                          id={famille._id}
-                          checked={isChecked(famille._id)}
-                          index={selectedFamily.findIndex(elem => elem._id === famille._id)}
-                          nom={famille.nom}
-                          famille={famille}
-                        />
-                      </Grid>
+                      <CardImage
+                        resources={famille.resources}
+                        handleClick={handleClick}
+                        id={famille._id}
+                        checked={isChecked(famille._id)}
+                        index={selectedFamily.findIndex(elem => elem._id === famille._id)}
+                        nom={famille.nom}
+                        famille={famille}
+                      />
                     ))}
-                  </Grid>
+                  </Carousel>
                 )}
               </Grid>
             </Grid>

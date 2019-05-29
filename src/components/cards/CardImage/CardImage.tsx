@@ -76,17 +76,23 @@ const CardImage = ({ handleClick, resources, index, famille, checked, nom }: Pro
       {checked && resources && (
         <div className={classes.number} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
           {isMouseEnter ? (
-            <div className={classes.dislikeContainer}>
+            <div
+              className={classes.dislikeContainer}
+              onClick={() => {
+                onMouseLeave();
+                handleClick(famille);
+              }}
+            >
               <span>je n'aime plus</span>
 
               <img
                 src={cancel}
                 alt={'x'}
                 style={{ width: '12px', height: 12, lineHeight: '1.5', cursor: 'pointer' }}
-                onClick={() => {
+                /*   onClick={() => {
                   onMouseLeave();
                   handleClick(famille);
-                }}
+                }} */
               />
             </div>
           ) : (
