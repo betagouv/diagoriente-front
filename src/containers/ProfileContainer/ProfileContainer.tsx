@@ -353,7 +353,7 @@ const ProfileContainer = ({
 
   return (
     <div className={classes.container}>
-      <Header />
+      <Header pathTo={'/'} />
       {addFavorites.fetching && (
         <div className={`fixed_fill flex_center ${classes.loading_container}`}>
           <Spinner />

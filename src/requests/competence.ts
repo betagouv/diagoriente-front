@@ -4,6 +4,7 @@ export interface ICompetence {
   _id: string;
   title: string;
   rank: string;
+  niveau: [{ title: string; sub_title?: string }];
 }
 
 export interface ListCompetencesParams {
