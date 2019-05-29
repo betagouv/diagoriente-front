@@ -8,6 +8,10 @@
     padding-bottom: 40px;
   }
 }
+.loading_container {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: $zindex-fixed;
+}
 
 .title {
   font-family: Nunito;
