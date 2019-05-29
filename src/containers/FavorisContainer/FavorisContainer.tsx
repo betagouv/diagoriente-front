@@ -25,6 +25,7 @@ import FamillePlaceholder from './FamillePlaceholder';
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import preloadImage from '../../assets/images/preloadImage.png';
 import { IUpdateParcoursParams } from '../../requests';
 import addPrevFamily from '../../utils/addPrevFamille';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -134,13 +135,6 @@ const FavorisContainer = ({
     const ids: string[] = selectedFamily.map(el => el._id);
     updateParcoursRequest({ families: ids });
   };
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 6,
-  };
 
   return (
     <div className={classes.container}>
@@ -182,9 +176,18 @@ const FavorisContainer = ({
             <Grid item xl={12} className={'flex_center'}>
               <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
                 {fetching ? (
-                  <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
-                    <PlaceHolderFamile />
-                  </Grid>
+                  <Carousel
+                    showThumbs={false}
+                    showIndicators={false}
+                    showStatus={false}
+                    selectedItem={DisplayedFamily}
+                    onChange={index => changeDisplayedFamily(index)}
+                    className={classes.carou}
+                    width={'97%'}
+                    stopOnHover={false}
+                  >
+                    <img src={preloadImage} alt="loader" className={classes.loaderImage} />
+                  </Carousel>
                 ) : (
                   <Carousel
                     showThumbs={false}
