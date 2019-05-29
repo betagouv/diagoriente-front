@@ -50,7 +50,12 @@ const CardImage = ({ handleClick, resources, index, famille, checked, nom }: Pro
   return (
     <div className={getClassNames()}>
       {resources && resources.length > 1 && animated && (
-        <img src={`data:${animated.mimetype};base64, ${animated.base64}`} alt="cat" className={classes.static} />
+        <img
+          src={`data:${animated.mimetype};base64, ${animated.base64}`}
+          alt="cat"
+          id={'static'}
+          className={animated ? classes.hideStatic : classes.static}
+        />
       )}
 
       {resources ? (

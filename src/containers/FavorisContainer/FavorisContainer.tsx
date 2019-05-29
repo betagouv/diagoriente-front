@@ -5,6 +5,7 @@ import { Dispatch, AnyAction } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { ReduxState, ApiReducer, IFamille, Famille } from 'reducers';
+import { useHover } from '../../hooks';
 
 import listFamilleActions from '../../reducers/listFamille';
 import parcoursActions from '../../reducers/parcours';
@@ -60,7 +61,8 @@ const FavorisContainer = ({
 }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
   const [DisplayedFamily, changeDisplayedFamily] = useState(0);
-
+  /*   const [isMouseEnter, onMouseEnter, onMouseLeave] = useHover(false);
+   */
   useDidMount(() => {
     famillesRequest();
   });
@@ -192,6 +194,7 @@ const FavorisContainer = ({
                     onChange={index => changeDisplayedFamily(index)}
                     className={classes.carou}
                     width={'97%'}
+                    stopOnHover={false}
                   >
                     {familles.map(famille => (
                       <CardImage
