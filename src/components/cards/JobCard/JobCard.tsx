@@ -49,7 +49,16 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
           </ReactTooltip>
         </div>
       </div>
-      <div className={classes.title}>Niveau d’entrée en formation : {job.accessibility}</div>
+      <div className={classes.title}>
+        Niveau d’entrée en formation :{' '}
+        <span className={interested === null ? classes.niveauNull : classes.niveau}>{job.accessibility}</span>
+      </div>
+      <ReactTooltip id={`${job._id}1`} place="top" type="light" className={classes.tooltipExtended}>
+        <span className={classes.buttonsTooltip}>Sélectionner</span>
+      </ReactTooltip>
+      <ReactTooltip id={`${job._id}2`} place="top" type="light" className={classes.tooltipExtended}>
+        <span className={classes.buttonsTooltip}>Désélectionner</span>
+      </ReactTooltip>
 
       <div className={classes.footer}>
         <Grid padding={{ xl: 0 }} spacing={{ xl: 9 }} container>
@@ -79,6 +88,8 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
                 }
               }
             }}
+            data-tip
+            data-for={`${job._id}1`}
           >
             {showLike && (
               <>
@@ -126,6 +137,8 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
                 }
               }
             }}
+            data-tip
+            data-for={`${job._id}2`}
           >
             {showDislike && (
               <img

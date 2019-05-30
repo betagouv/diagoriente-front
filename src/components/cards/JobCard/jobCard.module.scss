@@ -163,3 +163,43 @@
     }
   }
 }
+.buttonsTooltip  {
+  font-family: Lato;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #333333;
+}
+.tooltipExtended {
+  background-color: $white !important;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  
+  &.place-right {
+    &:after {
+      border-right-color: $white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
+    }
+  }
+}
+.niveauNull {
+  border-radius: 5px;
+  border: solid 1px #333333;
+  padding: 5px;
+  color: #333333;
+  font-size: 11px;
+  margin-left: 4px;
+}
+.niveau {
+  border-radius: 5px;
+  border: solid 1px #ffffff;
+  padding: 5px;
+  color: #ffffff;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
