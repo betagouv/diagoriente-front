@@ -13,7 +13,7 @@
 }
 .container_1 {
   width: 100%;
-  background-color: $card_background;
+  background-color: #f2f4f9;
   height: 270px;
   padding: 20px;
   margin: 20px 0;
@@ -23,6 +23,9 @@
   padding-bottom: 55px;
   overflow: hidden;
   flex-direction: column;
+  &:hover {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  }
 }
 
 .container_interested {
@@ -42,6 +45,10 @@
 .like {
   margin-left: 10px;
 }
+.likeGrey {
+  margin-left: 10px;
+  color:#80b9c7;
+}
 
 .footer {
   position: absolute;
@@ -53,7 +60,7 @@
 .footer_button {
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
+  // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
   color: #fff;
   height: 100%;
   width: 100%;
@@ -79,23 +86,23 @@
 }
 
 .footer_like_active {
-  background-color: #ff0060;
+  background-color: rgba(0, 0, 0, 0.75);
   background-image: none;
   cursor: default;
 }
 
 .footer_dislike_active {
-  background-color: #00cfff;
+  background-color: rgba(0, 0, 0, 0.75);
   background-image: none;
   cursor: default;
 }
 
 .interested {
-  background-color: rgba(255, 0, 96, 0.5);
+  background-color: #bf0047;
 }
 
 .not_interested {
-  background-color: rgba(0, 207, 255, 0.5);
+  background-color: #009bbf;
 }
 
 .footer_hidden_button {
