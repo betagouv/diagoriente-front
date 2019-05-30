@@ -43,7 +43,8 @@
 .text_container_selection {
   display: flex;
   justify-content: center;
-  margin-top: 150px;
+  /*   margin-top: 150px;
+ */
   margin-bottom: 20;
 }
 .text_selection {
@@ -92,5 +93,18 @@ li {
 }
 .loaderImage {
   width: 100%;
+  height: 100%;
+}
+.carou > div:first-child > button:first-child::before {
+  border-right: 8px solid #000000 !important;
+}
+.carou > div:first-child > button:last-child::before {
+  border-left: 8px solid #000000 !important;
+}
+.sideBarWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   height: 100%;
 }

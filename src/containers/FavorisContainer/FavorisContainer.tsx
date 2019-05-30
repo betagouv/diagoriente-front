@@ -218,7 +218,7 @@ const FavorisContainer = ({
         </Grid>
         <Grid item xl={3} className={classes.item2}>
           <Grid container padding={{ xl: 0, md: 0 }}>
-            <Grid item xl={12}>
+            <Grid item xl={12} className={classes.sideBarWrapper}>
               <div className={classes.text_container_selection}>
                 <span className={classes.text_selection}>Ma séléction</span>
               </div>
