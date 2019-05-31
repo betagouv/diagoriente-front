@@ -21,6 +21,7 @@ import List from '../../components/ui/List/List';
 import CardImage from '../../components/cards/CardImage/CardImage';
 import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
 import FamillePlaceholder from './FamillePlaceholder';
+
 // assets
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
@@ -176,6 +177,7 @@ const FavorisContainer = ({
             <Grid item xl={12} className={'flex_center'}>
               <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
                 {fetching ? (
+                  /*    <FamillePlaceholder /> */
                   <Carousel
                     showThumbs={false}
                     showIndicators={false}
@@ -186,7 +188,7 @@ const FavorisContainer = ({
                     width={'97%'}
                     stopOnHover={false}
                   >
-                    <img src={preloadImage} alt="loader" className={classes.loaderImage} />
+                    <div /* src={preloadImage} alt="loader" */ className={classes.loaderImage} />
                   </Carousel>
                 ) : (
                   <Carousel
@@ -217,21 +219,19 @@ const FavorisContainer = ({
           </Grid>
         </Grid>
         <Grid item xl={3} className={classes.item2}>
-          <Grid container padding={{ xl: 0, md: 0 }}>
-            <Grid item xl={12}>
-              <div className={classes.text_container_selection}>
-                <span className={classes.text_selection}>Ma séléction</span>
-              </div>
-              <List
-                onSubmit={onSubmit}
-                famileSelected={selectedFamily}
-                onDragEnd={onDragEnd}
-                renderPlaceholder={renderPlaceholder}
-                disable={selectedFamily.length}
-                handleDeleteClick={handleClick}
-                fetching={parcoursFetching}
-              />
-            </Grid>
+          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
+            <div className={classes.text_container_selection}>
+              <span className={classes.text_selection}>Ma séléction</span>
+            </div>
+            <List
+              onSubmit={onSubmit}
+              famileSelected={selectedFamily}
+              onDragEnd={onDragEnd}
+              renderPlaceholder={renderPlaceholder}
+              disable={selectedFamily.length}
+              handleDeleteClick={handleClick}
+              fetching={parcoursFetching}
+            />
           </Grid>
         </Grid>
       </Grid>
