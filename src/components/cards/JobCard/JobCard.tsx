@@ -49,7 +49,7 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
           </ReactTooltip>
         </div>
       </div>
-      <div className={classes.title}>
+      <div className={classes.title} style={{ paddingBottom: 20 }}>
         Niveau d’entrée en formation :{' '}
         <span className={interested === null ? classes.niveauNull : classes.niveau}>{job.accessibility}</span>
       </div>
