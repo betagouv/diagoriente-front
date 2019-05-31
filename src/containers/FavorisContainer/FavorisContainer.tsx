@@ -176,7 +176,7 @@ const FavorisContainer = ({
           <Grid container padding={{ xl: 15, lg: 15 }} spacing={{ xl: 9, lg: 9 }} style={{ margin: '50px 0px' }}>
             <Grid item xl={12} className={'flex_center'}>
               <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
-                {!fetching ? (
+                {fetching ? (
                   /*    <FamillePlaceholder /> */
                   <Carousel
                     showThumbs={false}
