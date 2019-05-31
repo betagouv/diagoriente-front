@@ -7,7 +7,11 @@ import classNames from '../../../utils/classNames';
 import Grid from '../../ui/Grid/Grid';
 
 import iconLike from '../../../assets/icons/svg/ic-like-01.svg';
+import iconLikeRed from '../../../assets/icons/svg/ic-like-red.svg';
+import iconLikeGrey from '../../../assets/icons/svg/ic-like-grey.svg';
 import iconDislike from '../../../assets/icons/svg/ic-dislike-01.svg';
+import iconDislikeBlue from '../../../assets/icons/svg/ic-dislike-blue.svg';
+import iconDislikeGrey from '../../../assets/icons/svg/ic-dislike-grey.svg';
 interface Props {
   title: string;
   interested: boolean | null;
@@ -18,8 +22,8 @@ interface Props {
 }
 
 const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, job }: Props) => {
-  const showLike = showButtons || interested === true;
-  const showDislike = showButtons || interested === false;
+  const showLike = showButtons || interested === null;
+  const showDislike = showButtons || interested === null;
   let length: number = 300;
   if (job) {
     length = job.description.length;
@@ -28,8 +32,6 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
   return (
     <div
       className={classNames(classes.container_1, 'flex_center', interested !== null && classes.container_interested)}
-      data-tip
-      data-for={job._id}
     >
       {interested !== null && (
         <div className={classNames('absolute_fill', interested ? classes.interested : classes.not_interested)} />
@@ -39,13 +41,24 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
       <div className={classes.header}>
         <div className={classes.title}>{map(job.secteur, secteur => secteur.title)}</div>
         <div className={classNames(length > 200 ? classes.text_container : classes.text_short)}>
-          <span>{job.description}</span>
+          <span data-tip data-for={job._id}>
+            {job.description}
+          </span>
           <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
             {job.description}
           </ReactTooltip>
         </div>
       </div>
-      <div className={classes.title}>Niveau d’entrée en formation : {job.accessibility}</div>
+      <div className={classes.title}>
+        Niveau d’entrée en formation :{' '}
+        <span className={interested === null ? classes.niveauNull : classes.niveau}>{job.accessibility}</span>
+      </div>
+      <ReactTooltip id={`${job._id}1`} place="top" type="light" className={classes.tooltipExtended}>
+        <span className={classes.buttonsTooltip}>Sélectionner</span>
+      </ReactTooltip>
+      <ReactTooltip id={`${job._id}2`} place="top" type="light" className={classes.tooltipExtended}>
+        <span className={classes.buttonsTooltip}>Désélectionner</span>
+      </ReactTooltip>
 
       <div className={classes.footer}>
         <Grid padding={{ xl: 0 }} spacing={{ xl: 9 }} container>
@@ -59,11 +72,40 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
             )}
             item
             xl={8}
+            onMouseOver={(e: any) => {
+              const hover = e.currentTarget.querySelector('img');
+              if (hover) {
+                hover.src = iconLike;
+              }
+            }}
+            onMouseLeave={(e: any) => {
+              const hover = e.currentTarget.querySelector('img');
+              if (hover) {
+                if (interested === false) {
+                  hover.src = iconLikeGrey;
+                } else if (interested === true) {
+                  hover.src = iconLikeRed;
+                }
+              }
+            }}
+            data-tip
+            data-for={`${job._id}1`}
           >
             {showLike && (
               <>
-                <img className={classes.img} src={iconLike} />
-                <span className={classes.like}>J'aime</span>
+                <img
+                  className={classes.img}
+                  src={
+                    interested === true
+                      ? iconLikeRed
+                      : interested === false
+                      ? iconLikeGrey
+                      : interested === null
+                      ? iconLike
+                      : iconLike
+                  }
+                />
+                <span className={interested === false ? classes.likeGrey : classes.like}>J'aime</span>
               </>
             )}
           </Grid>
@@ -79,8 +121,39 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
             )}
             item
             xl={4}
+            onMouseOver={(e: any) => {
+              const hover = e.currentTarget.querySelector('img');
+              if (hover) {
+                hover.src = iconDislike;
+              }
+            }}
+            onMouseLeave={(e: any) => {
+              const hover = e.currentTarget.querySelector('img');
+              if (hover) {
+                if (interested === false) {
+                  hover.src = iconDislikeBlue;
+                } else if (interested === true) {
+                  hover.src = iconDislikeGrey;
+                }
+              }
+            }}
+            data-tip
+            data-for={`${job._id}2`}
           >
-            {showDislike && <img className={classes.img} src={iconDislike} />}
+            {showDislike && (
+              <img
+                className={classes.img}
+                src={
+                  interested === false
+                    ? iconDislikeBlue
+                    : interested === true
+                    ? iconDislikeGrey
+                    : interested === null
+                    ? iconDislike
+                    : iconDislike
+                }
+              />
+            )}
           </Grid>
         </Grid>
       </div>
