@@ -12,16 +12,13 @@ import parcoursActions from '../../reducers/parcours';
 import { useDidMount, useDidUpdate } from '../../hooks';
 import classes from './favorisContainer.module.scss';
 import Grid from '../../components/ui/Grid/Grid';
-import Header from '../../layout/Header/Header';
-import classNames from '../../utils/classNames';
 import Info from '../../components/ui/Info/Info';
 import Title from '../../components/Title/Title';
 import PathStepper from '../../components/PathStepper/Path';
 import List from '../../components/ui/List/List';
 import CardImage from '../../components/cards/CardImage/CardImage';
 import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
-import FamillePlaceholder from './FamillePlaceholder';
-
+import Spinner from '../../components/Spinner/Spinner';
 // assets
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
@@ -177,19 +174,21 @@ const FavorisContainer = ({
             <Grid item xl={12} className={'flex_center'}>
               <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
                 {fetching ? (
-                  /*    <FamillePlaceholder /> */
-                  <Carousel
-                    showThumbs={false}
-                    showIndicators={false}
-                    showStatus={false}
-                    selectedItem={DisplayedFamily}
-                    onChange={index => changeDisplayedFamily(index)}
-                    className={classes.carou}
-                    width={'97%'}
-                    stopOnHover={false}
-                  >
-                    <div /* src={preloadImage} alt="loader" */ className={classes.loaderImage} />
-                  </Carousel>
+                  <div className={classes.container_loading}>
+                      <Spinner />
+                    <Carousel
+                      showThumbs={false}
+                      showIndicators={false}
+                      showStatus={false}
+                      selectedItem={DisplayedFamily}
+                      onChange={index => changeDisplayedFamily(index)}
+                      className={classes.carou}
+                      width={'97%'}
+                      stopOnHover={false}
+                    >
+                      <div className={classes.loaderImage} />
+                    </Carousel>
+                  </div>
                 ) : (
                   <Carousel
                     showThumbs={false}
