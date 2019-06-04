@@ -1,4 +1,12 @@
 @import "../../styles/variables.scss";
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 650px 0;
+  }
+}
 .text {
   display: flex;
   justify-content: center;
@@ -42,7 +50,8 @@
 .text_container_selection {
   display: flex;
   justify-content: center;
-  margin-top: 150px;
+  /*   margin-top: 150px;
+ */
   margin-bottom: 20;
 }
 .text_selection {
@@ -74,4 +83,45 @@
   font-size: 12px;
   font-style: italic;
   color: $darkblue;
+}
+li {
+  width: 100% !important;
+}
+
+.carou > div:first-child {
+  width: 97% !important;
+  border-radius: 2% !important;
+
+  /*  &:hover {
+    -webkit-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
+  } */
+}
+.loaderImage {
+  width: 100%;
+  height: 100%;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 400px;
+  position: relative;
+}
+.carou > div:first-child > button:first-child::before {
+  border-right: 8px solid #000000 !important;
+}
+.carou > div:first-child > button:last-child::before {
+  border-left: 8px solid #000000 !important;
+}
+.sideBarWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
 }
