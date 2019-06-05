@@ -8,10 +8,12 @@ import classes from './confirm.module.scss';
 interface Props {
   onCloseModal: () => void;
   confirme: () => void;
+  text?: string;
+  isConfirm?: boolean;
 }
 type IProps = Props;
 
-const ConfirmModal = ({ onCloseModal, confirme }: IProps) => {
+const ConfirmModal = ({ onCloseModal, confirme, text, isConfirm }: IProps) => {
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     confirme();
     onCloseModal();
@@ -19,6 +21,8 @@ const ConfirmModal = ({ onCloseModal, confirme }: IProps) => {
   const onAnnule = (e: MouseEvent<HTMLButtonElement>) => {
     onCloseModal();
   };
+
+  const ConfirmModal = isConfirm  != undefined ? isConfirm : true ;
   return (
     <div className={classes.wrapperModal}>
       <div className={classes.container}>
@@ -28,13 +32,25 @@ const ConfirmModal = ({ onCloseModal, confirme }: IProps) => {
               <div className={classes.title} />
             </Grid>
             <Grid item xl={12}>
-              <span className={classes.title}>Niveau max de la compétence, confirme ou réévalue </span>
+              <span className={classes.title}>{text ? text : 'Niveau max de la compétence, confirme ou réévalue'}</span>
             </Grid>
 
-            <Grid item xl={12} className={classes.container_button}>
-              <Button onClick={onSubmit} className={classes.blue_btn}>Confirmer</Button>
-              <Button onClick={onAnnule} className={classes.rose_btn}>Annuler</Button>
-            </Grid>
+            {ConfirmModal ? (
+              <Grid item xl={12} className={classes.container_button}>
+                <Button onClick={onSubmit} className={classes.blue_btn}>
+                  Confirmer
+                </Button>
+                <Button onClick={onAnnule} className={classes.rose_btn}>
+                  Annuler
+                </Button>
+              </Grid>
+            ) : (
+              <Grid item xl={12} className={classes.container_button}>
+                <Button onClick={onAnnule} className={classes.rose_btn}>
+                  OK
+                </Button>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </div>
