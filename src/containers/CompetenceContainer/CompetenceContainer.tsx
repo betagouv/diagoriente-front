@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { isEmpty, isEqual } from 'lodash';
+import { isEmpty, isEqual,forEach } from 'lodash';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Prompt } from 'react-router-dom';
 
@@ -29,6 +29,7 @@ import Experiences from '../../components/experiences/expreriences';
 import classNames from '../../utils/classNames';
 import Grid from '../../components/ui/Grid/Grid';
 import modalAction from '../../reducers/modal';
+  
 
 interface IMapToProps {
   currentThemeSkill: ISkillPopulated;
@@ -130,6 +131,25 @@ const CompetenceContainer = ({
   if (fetching || !mounted) return <LazyLoader />;
   if (isEmpty(data)) return <div>Aucun competence a afficher</div>;
 
+  const checkSlectedNumberCompetence = (  competences:any ) =>{
+
+    let number = 0; 
+
+    forEach( competences,e => {
+
+       if( e.value > 0 ){
+          number++
+       }
+       
+    });
+
+     if ( number >= 4 ) {return true;}
+
+    return false 
+
+
+
+  } 
   const competenceComponents = data.map(competence => {
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
@@ -137,6 +157,8 @@ const CompetenceContainer = ({
     for (let i = 1; i <= 4; i += 1) {
       const selected = current && current.value >= i;
       const onClick = () => {
+        
+         if( !checkSlectedNumberCompetence(competences ) ||  (competences[currentIndex] != undefined && competences[currentIndex].value >0 )   ){
         if (i === 4 && !selected) {
           // save last id
           lastCompetence.current = { currentIndex, _id: competence._id, value: i };
@@ -158,6 +180,11 @@ const CompetenceContainer = ({
           currentCompetences[currentIndex] = { ...current, value: current.value !== i ? i : 0 };
         }
         competenceChange(currentCompetences);
+      }else{
+
+        openModal(<ConfirmModal confirme={onConfirm} text={'Tu as déjà sélectionné 4 compétences pour cette expérience'} onCloseModal={closeModal} isConfirm={false}/>);
+        return;
+      }
       };
       buttons.push(
         <Stars
@@ -198,7 +225,7 @@ const CompetenceContainer = ({
       />
       <div className={classNames('colorful_bar', classes.bar_color)} />
       <Grid item xl={4} className={classes.experiences}>
-        <Experiences title="Mes Experiences" experience={currentThemeSkill.activities} OnClick={goBack} />
+        <Experiences title="Mes activités" experience={currentThemeSkill.activities} OnClick={goBack} />
       </Grid>
 
       <Grid item xl={8} lg={12} className={classes.list_stars}>
