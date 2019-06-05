@@ -35,7 +35,7 @@ const SuccessModal = ({ onClick, type }: Props) => {
           <div className={`flex_center ${classes.footer} ${classes.item}`}>
             <ContinueButton
               onClick={onClick}
-              label="Tu peux checker ta carte ou passer à l’étape 3"
+              label="Tu peux voir ta carte ou passer à l’étape 3"
               className={classNames(classes.continue_button, type === 'professional' && classes.continue_button_pro)}
             />
           </div>
