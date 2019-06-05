@@ -1,18 +1,28 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-
+import { AnyAction, Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import Header from '../../layout/Header/Header';
 import classes from './game.module.scss';
 import Button from '../../components/buttons/ContinueButtom/ContinueButton';
+import modalActions from '../../reducers/modal';
+import JeuxModal from '../../components/modals/JeuxModal/JeuxModal';
 
 import cancel from '../../assets/icons/svg/cancel.svg';
-
-const GameContainer = ({ history }: RouteComponentProps) => {
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
+const GameContainer = ({ history, openModal, closeModal }: RouteComponentProps & IDispatchToProps) => {
   const onClick = () => {
     history.goBack();
   };
-  const onNavigate = () => {
+  const onClickModal = () => {
+    closeModal();
     history.push('/profile');
+  };
+  const onNavigate = () => {
+    openModal(<JeuxModal onClick={onClickModal} />, classes.backdrop);
   };
 
   return (
@@ -29,4 +39,11 @@ const GameContainer = ({ history }: RouteComponentProps) => {
     </>
   );
 };
-export default GameContainer;
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) => dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
+export default connect(
+  null,
+  mapDispatchToProps,
+)(GameContainer);
