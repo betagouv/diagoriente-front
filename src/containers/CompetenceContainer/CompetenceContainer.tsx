@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { isEmpty, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Prompt } from 'react-router-dom';
@@ -13,6 +13,7 @@ import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import Stars from '../../components/stars/stars';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 import Info from '../../components/ui/Info/Info';
+import ConfirmModal from '../../components/modals/ConfirmStar/ComfirmModal';
 
 // hooks
 import { useDidMount, useDidUpdate } from '../../hooks';
@@ -27,6 +28,7 @@ import classes from './comptences.module.scss';
 import Experiences from '../../components/experiences/expreriences';
 import classNames from '../../utils/classNames';
 import Grid from '../../components/ui/Grid/Grid';
+import modalAction from '../../reducers/modal';
 
 interface IMapToProps {
   currentThemeSkill: ISkillPopulated;
@@ -37,6 +39,8 @@ interface IMapToProps {
 
 interface IDispatchToProps {
   parcoursRequest: (args: IUpdateParcoursParams) => void;
+  openModal: (children: any) => void;
+  closeModal: () => void;
 }
 
 type Props = RouteComponentProps<{ id: string }> &
@@ -58,12 +62,18 @@ const CompetenceContainer = ({
   skills,
   parcoursFetching,
   error,
+  openModal,
+  closeModal,
   theme, /// check theme.type and change style if it's professional
 }: Props) => {
   const [competences, competenceChange] = useState(currentThemeSkill.competences);
   const mounted = useDidMount(() => {
     list.call();
   });
+
+  const lastCompetence: React.MutableRefObject<null | { _id: string; currentIndex: number; value: number }> = useRef(
+    null,
+  );
 
   const onContinueClick = () => {
     parcoursRequest({
@@ -95,18 +105,46 @@ const CompetenceContainer = ({
     });
   };
 
+  const onConfirm = () => {
+    const currentLastCompetence = lastCompetence.current;
+    if (currentLastCompetence) {
+      const { currentIndex, value, _id } = currentLastCompetence;
+      const current = currentIndex === -1 ? undefined : competences[currentIndex];
+      let currentCompetences = [...competences];
+      if (currentIndex === -1) {
+        currentCompetences = [
+          ...currentCompetences,
+          {
+            _id,
+            value,
+          },
+        ];
+      } else if (current) {
+        currentCompetences[currentIndex] = { ...current, value };
+      }
+      competenceChange(currentCompetences);
+    }
+  };
+
   const { data, fetching } = list;
   if (fetching || !mounted) return <LazyLoader />;
   if (isEmpty(data)) return <div>Aucun competence a afficher</div>;
 
   const competenceComponents = data.map(competence => {
-    console.log('competence', competence);
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
     const buttons: JSX.Element[] = [];
-    for (let i = 0; i < 4; i += 1) {
+    for (let i = 1; i <= 4; i += 1) {
       const selected = current && current.value >= i;
       const onClick = () => {
+        if (i === 4 && !selected) {
+          // save last id
+          lastCompetence.current = { currentIndex, _id: competence._id, value: i };
+          // open modal
+          openModal(<ConfirmModal confirme={onConfirm} onCloseModal={closeModal} />);
+          return;
+        }
+
         let currentCompetences = [...competences];
         if (currentIndex === -1) {
           currentCompetences = [
@@ -123,8 +161,7 @@ const CompetenceContainer = ({
       };
       buttons.push(
         <Stars
-          title={!isEmpty(competence.niveau) ? competence.niveau[i].title : ''}
-          sub_title={!isEmpty(competence.niveau) ? competence.niveau[i].sub_title : ''}
+          title={`${competence.title} niveau ${i} `}
           onChange={onClick}
           checked={!!selected}
           style={{ margin: '0 5px' }}
@@ -172,7 +209,7 @@ const CompetenceContainer = ({
               backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
               className={theme.type === 'professional' ? classes.info_pro : ''}
             >
-              <span>Choisis 3 ou 4 compétences qui t'ont été utiles dans cette expérience</span>
+              <span>Choisis 3 ou 4 compétences qui t'ont été utiles dans cette situation</span>
               <br />
               <span className={classes.italic_text}>
                 passe la souris sur les étoiles pour choisir le niveau qui te correspond
@@ -206,6 +243,8 @@ const mapStateToProps = (state: ReduxState, { match }: RouteComponentProps<{ id:
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
+  openModal: (children: any) => dispatch(modalAction.openModal({ children })),
+  closeModal: () => dispatch(modalAction.closeModal()),
 });
 
 export default connect(

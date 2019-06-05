@@ -30,12 +30,12 @@ const SuccessModal = ({ onClick, type }: Props) => {
             Parfait ! <br /> Tu as terminé cette section
           </div>
           <div className={`${classes.description} ${classes.item}`}>
-            Continue à ajouter des expériences pour enrichir ta carte de compétences
+            Tu pourras revenir pour ajouter et/ou modifier des expériences
           </div>
           <div className={`flex_center ${classes.footer} ${classes.item}`}>
             <ContinueButton
               onClick={onClick}
-              label="VOIR MA CARTE DE COMPETENCES"
+              label="Tu peux checker ta carte ou passer à l’étape 3"
               className={classNames(classes.continue_button, type === 'professional' && classes.continue_button_pro)}
             />
           </div>

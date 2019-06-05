@@ -1,0 +1,52 @@
+@import "../../../styles/variables.scss";
+.container {
+  width: 400px;
+  height: auto;
+  background-color: $white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  position: relative;
+  padding-bottom: 45px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+  cursor: pointer;
+  background-color: aliceblue;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: gray;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  color: $purple;
+  text-align: center;
+}
+
+.container_button {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-top: 40px;
+  .blue_btn {
+    padding: 10px 30px;
+    background-color: $darkblue;
+  }
+  .rose_btn {
+    padding: 10px 30px;
+    background-color: $rose;
+  }
+}
+.spinner_container {
+  margin-left: 5px;
+}
+.wrapperModal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
