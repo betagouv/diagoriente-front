@@ -1,35 +1,35 @@
-import React, { useRef, useState, useLayoutEffect } from 'react';
-import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
-import { AnyAction, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
-import { isEmpty } from 'lodash';
+import React, { useRef, useState, useLayoutEffect } from "react";
+import { Route, Switch, Redirect, RouteComponentProps } from "react-router-dom";
+import { AnyAction, Dispatch } from "redux";
+import { connect } from "react-redux";
+import { ReduxState, ITheme, ISkillPopulated } from "reducers";
+import { isEmpty } from "lodash";
 
 // containers
-import ActivitiesContainer from '../ActivitiesContainer/ActivitiesContainer';
-import CompetenceContainer from '../CompetenceContainer/CompetenceContainer';
+import ActivitiesContainer from "../ActivitiesContainer/ActivitiesContainer";
+import CompetenceContainer from "../CompetenceContainer/CompetenceContainer";
 
 // components
-import SideBar from '../../components/sideBar/SideBar/SideBar';
-import SideBarMobile from '../../components/sideBar/SidebarMobile/SideBarMobile';
-import PathStepper from '../../components/PathStepper/Path';
-import Grid from '../../components/ui/Grid/Grid';
-import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
-import Title from '../../components/Title/Title';
-import SuccessModal from '../../components/modals/SuccessModal/SuccessModal';
-import classNames from '../../utils/classNames';
+import SideBar from "../../components/sideBar/SideBar/SideBar";
+import SideBarMobile from "../../components/sideBar/SidebarMobile/SideBarMobile";
+import PathStepper from "../../components/PathStepper/Path";
+import Grid from "../../components/ui/Grid/Grid";
+import LazyLoader from "../../components/ui/LazyLoader/LazyLoader";
+import Title from "../../components/Title/Title";
+import SuccessModal from "../../components/modals/SuccessModal/SuccessModal";
+import classNames from "../../utils/classNames";
 // not found
-import NotFound from '../../layout/NotFound';
+import NotFound from "../../layout/NotFound";
 
 // api
-import withApis, { ApiComponentProps } from '../../hoc/withApi';
-import { getTheme } from '../../requests/themes';
+import withApis, { ApiComponentProps } from "../../hoc/withApi";
+import { getTheme } from "../../requests/themes";
 
 // actions
-import modalActions from '../../reducers/modal';
+import modalActions from "../../reducers/modal";
 
 // styles
-import classes from './theme.module.scss';
+import classes from "./theme.module.scss";
 
 interface IMapToProps {
   themes: ITheme[];
@@ -51,7 +51,11 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
   const currentIndex = themes.findIndex(theme => theme._id === id); // index in all themes
   const currentTheme = themes[currentIndex];
   const successContinueClick = () => {
-    history.push('/profile');
+    history.push("/carte");
+    closeModal();
+  };
+  const oldSuccessContinueClick = () => {
+    history.push("/profile");
     closeModal();
   };
 
@@ -97,14 +101,14 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
   useLayoutEffect(() => {
     if (!mounted.current) mounted.current = true;
     get.call(id);
-  },              [match.params.id]);
+  }, [match.params.id]);
 
   if (currentIndex === -1) return <NotFound />;
   if (match.isExact) return <Redirect to={`/theme/${id}/activities`} />;
   const { data, fetching, error } = get;
 
   const fetchingComponent = (
-    <div style={{ background: '#fff' }} className={'absolute_fill flex_center'}>
+    <div style={{ background: "#fff" }} className={"absolute_fill flex_center"}>
       <LazyLoader />
     </div>
   );
@@ -114,13 +118,13 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
   if (error) return <div>{error}</div>;
   if (isEmpty(data)) return <NotFound />;
 
-  const stepperOptions = ['Ma carte de compétences'];
+  const stepperOptions = ["Ma carte de compétences"];
   if (currentTheme) {
     stepperOptions.push(currentTheme.title);
   }
   const onNavigate = (index: number, p: string) => {
     if (index === 0) {
-      history.push('/profile');
+      history.push("/profile");
     }
     if (index === 1) {
       history.push(`/themes?type=${currentTheme.type}`);
@@ -153,12 +157,12 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
           </Grid>
           <Switch>
             <Route
-              path={'/theme/:id/activities'}
+              path={"/theme/:id/activities"}
               render={props => <ActivitiesContainer {...props} theme={data} />}
               exact
             />
             <Route
-              path={'/theme/:id/skills'}
+              path={"/theme/:id/skills"}
               exact
               render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} nextUrl={nextUrl} />}
             />
@@ -173,15 +177,15 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
 
 const mapStateToProps = ({ themes, parcours }: ReduxState): IMapToProps => ({
   themes,
-  skills: parcours.data.skills,
+  skills: parcours.data.skills
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   openModal: (children, backdropClassName) => dispatch(modalActions.openModal({ children, backdropClassName })),
-  closeModal: () => dispatch(modalActions.closeModal()),
+  closeModal: () => dispatch(modalActions.closeModal())
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withApis({ get: getTheme })(ThemeContainer));
