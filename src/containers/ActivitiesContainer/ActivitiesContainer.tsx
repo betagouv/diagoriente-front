@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { RouteComponentProps, Prompt } from 'react-router-dom';
 import { isEmpty, map, isEqual } from 'lodash';
 import { connect } from 'react-redux';
@@ -49,9 +49,10 @@ const ActivitiesContainer = ({
   error,
 }: Props) => {
   const [activities, activitiesChange] = useState(currentThemeSkill.activities);
+  const initialLength = useRef(skills.length);
 
   const navigate = () => {
-    history.push(`/theme/${match.params.id}/skills`);
+    history.replace(`/theme/${match.params.id}/skills`);
   };
 
   const onContinueClick = () => {
@@ -75,7 +76,10 @@ const ActivitiesContainer = ({
 
   useDidUpdate(() => {
     if (!(fetching || error)) {
-      navigate();
+      if (initialLength.current === skills.length) {
+        navigate();
+      }
+      initialLength.current = skills.length;
     }
   },           [fetching]);
 

@@ -67,6 +67,8 @@ const CompetenceContainer = ({
   theme, /// check theme.type and change style if it's professional
 }: Props) => {
   const [competences, competenceChange] = useState(currentThemeSkill.competences);
+  const initialLength = useRef(skills.length);
+
   const mounted = useDidMount(() => {
     list.call();
   });
@@ -91,7 +93,10 @@ const CompetenceContainer = ({
 
   useDidUpdate(() => {
     if (!(parcoursFetching || error)) {
-      goNext();
+      if (initialLength.current === skills.length) {
+        goNext();
+      }
+      initialLength.current = skills.length;
     }
   },           [parcoursFetching]);
 

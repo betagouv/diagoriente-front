@@ -1,9 +1,9 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
-import { Route, Switch, Redirect, RouteComponentProps } from "react-router-dom";
-import { AnyAction, Dispatch } from "redux";
-import { connect } from "react-redux";
-import { ReduxState, ITheme, ISkillPopulated } from "reducers";
-import { isEmpty } from "lodash";
+import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
+import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
+import { AnyAction, Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
+import { isEmpty } from 'lodash';
 
 // containers
 import ActivitiesContainer from "../ActivitiesContainer/ActivitiesContainer";
@@ -22,23 +22,27 @@ import classNames from "../../utils/classNames";
 import NotFound from "../../layout/NotFound";
 
 // api
-import withApis, { ApiComponentProps } from "../../hoc/withApi";
-import { getTheme } from "../../requests/themes";
+import withApis, { ApiComponentProps } from '../../hoc/withApi';
+import { getTheme, IUpdateParcoursParams } from '../../requests';
 
 // actions
-import modalActions from "../../reducers/modal";
+import modalActions from '../../reducers/modal';
+import parcoursActions from '../../reducers/parcours';
 
 // styles
-import classes from "./theme.module.scss";
+import classes from './theme.module.scss';
+import Spinner from '../../components/ui/Spinner/Spinner';
 
 interface IMapToProps {
   themes: ITheme[];
   skills: ISkillPopulated[];
+  parcoursFetching: boolean;
 }
 
 interface IDispatchToProps {
   openModal: (children: JSX.Element, backdropClassName?: string) => void;
   closeModal: () => void;
+  parcoursRequest: (args: IUpdateParcoursParams) => void;
 }
 
 type Props = RouteComponentProps<{ id: string }> &
@@ -46,7 +50,17 @@ type Props = RouteComponentProps<{ id: string }> &
   IMapToProps &
   ApiComponentProps<{ get: typeof getTheme }>;
 
-const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeModal }: Props) => {
+const ThemeContainer = ({
+  match,
+  themes,
+  history,
+  get,
+  skills,
+  openModal,
+  closeModal,
+  parcoursRequest,
+  parcoursFetching,
+}: Props) => {
   const { id } = match.params;
   const currentIndex = themes.findIndex(theme => theme._id === id); // index in all themes
   const currentTheme = themes[currentIndex];
@@ -62,7 +76,7 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
   /*--- get Next phase ---*/
   let nextUrl: string | null = null;
   const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
-  const currentThemes = themes.filter(theme => theme.type === currentTheme.type);
+  const currentThemes = themes.filter(theme => currentTheme && theme.type === currentTheme.type);
   const indexInCurrent = currentThemes.findIndex(theme => theme._id === id); // index after filter with type
   const { length } = currentSkillsType;
   let i = 0;
@@ -88,10 +102,25 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
 
   const goNext = () => {
     if (nextUrl) {
-      history.push(nextUrl);
+      history.replace(nextUrl);
     } else {
       openModal(<SuccessModal type={currentTheme.type} onClick={successContinueClick} />, classes.backdrop);
     }
+  };
+
+  const onThemeRemove = (theme: any) => {
+    if (theme._id === id) {
+      const nextIndex = currentIndex === themes.length - 1 ? 0 : currentIndex + 1;
+      history.replace(`/theme/${themes[nextIndex]._id}/activities`);
+    }
+    const newSkills = skills.filter(skill => skill.theme._id !== theme._id);
+    parcoursRequest({
+      skills: newSkills.map(skill => ({
+        theme: skill.theme._id,
+        activities: skill.activities.map(({ _id }) => _id),
+        competences: skill.competences,
+      })),
+    });
   };
 
   const mounted = useRef(false);
@@ -138,6 +167,7 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
       <SideBar
         options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))}
         type={currentTheme && currentTheme.type}
+        onItemRemove={themes.length === 1 ? undefined : onThemeRemove}
       />
       <SideBarMobile
         toggleOpen={toggleOpen}
@@ -171,18 +201,25 @@ const ThemeContainer = ({ match, themes, history, get, skills, openModal, closeM
           {fetching && fetchingComponent}
         </Grid>
       </div>
+      {parcoursFetching && (
+        <div className={`fixed_fill flex_center ${classes.spinner_container}`}>
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = ({ themes, parcours }: ReduxState): IMapToProps => ({
   themes,
-  skills: parcours.data.skills
+  skills: parcours.data.skills,
+  parcoursFetching: parcours.fetching,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   openModal: (children, backdropClassName) => dispatch(modalActions.openModal({ children, backdropClassName })),
-  closeModal: () => dispatch(modalActions.closeModal())
+  closeModal: () => dispatch(modalActions.closeModal()),
+  parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
 });
 
 export default connect(
