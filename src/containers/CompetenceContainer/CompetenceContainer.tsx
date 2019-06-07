@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { isEmpty, isEqual,forEach } from 'lodash';
+import { isEmpty, isEqual, forEach } from 'lodash';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Prompt } from 'react-router-dom';
 
@@ -29,7 +29,6 @@ import Experiences from '../../components/experiences/expreriences';
 import classNames from '../../utils/classNames';
 import Grid from '../../components/ui/Grid/Grid';
 import modalAction from '../../reducers/modal';
-  
 
 interface IMapToProps {
   currentThemeSkill: ISkillPopulated;
@@ -82,7 +81,7 @@ const CompetenceContainer = ({
         const baseSkill: ISkill = {
           theme: skill.theme._id,
           activities: skill.activities.map(({ _id }) => _id),
-          competences: skill.competences,
+          competences: skill.competences.filter(({ value }) => value !== 0),
         };
         if (skill.theme._id !== match.params.id) return baseSkill;
         return { ...baseSkill, competences };
@@ -131,25 +130,21 @@ const CompetenceContainer = ({
   if (fetching || !mounted) return <LazyLoader />;
   if (isEmpty(data)) return <div>Aucun competence a afficher</div>;
 
-  const checkSlectedNumberCompetence = (  competences:any ) =>{
+  const checkSlectedNumberCompetence = (competences: any) => {
+    let number = 0;
 
-    let number = 0; 
-
-    forEach( competences,e => {
-
-       if( e.value > 0 ){
-          number++
-       }
-       
+    forEach(competences, e => {
+      if (e.value > 0) {
+        number++;
+      }
     });
 
-     if ( number >= 4 ) {return true;}
+    if (number >= 4) {
+      return true;
+    }
 
-    return false 
-
-
-
-  } 
+    return false;
+  };
   const competenceComponents = data.map(competence => {
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
@@ -157,34 +152,42 @@ const CompetenceContainer = ({
     for (let i = 1; i <= 4; i += 1) {
       const selected = current && current.value >= i;
       const onClick = () => {
-        
-         if( !checkSlectedNumberCompetence(competences ) ||  (competences[currentIndex] != undefined && competences[currentIndex].value >0 )   ){
-        if (i === 4 && !selected) {
-          // save last id
-          lastCompetence.current = { currentIndex, _id: competence._id, value: i };
-          // open modal
-          openModal(<ConfirmModal confirme={onConfirm} onCloseModal={closeModal} />);
+        if (
+          !checkSlectedNumberCompetence(competences) ||
+          (competences[currentIndex] != undefined && competences[currentIndex].value > 0)
+        ) {
+          if (i === 4 && !selected) {
+            // save last id
+            lastCompetence.current = { currentIndex, _id: competence._id, value: i };
+            // open modal
+            openModal(<ConfirmModal confirme={onConfirm} onCloseModal={closeModal} />);
+            return;
+          }
+
+          let currentCompetences = [...competences];
+          if (currentIndex === -1) {
+            currentCompetences = [
+              ...currentCompetences,
+              {
+                _id: competence._id,
+                value: i,
+              },
+            ];
+          } else if (current) {
+            currentCompetences[currentIndex] = { ...current, value: current.value !== i ? i : 0 };
+          }
+          competenceChange(currentCompetences);
+        } else {
+          openModal(
+            <ConfirmModal
+              confirme={onConfirm}
+              text={'Tu as déjà sélectionné 4 compétences pour cette expérience'}
+              onCloseModal={closeModal}
+              isConfirm={false}
+            />,
+          );
           return;
         }
-
-        let currentCompetences = [...competences];
-        if (currentIndex === -1) {
-          currentCompetences = [
-            ...currentCompetences,
-            {
-              _id: competence._id,
-              value: i,
-            },
-          ];
-        } else if (current) {
-          currentCompetences[currentIndex] = { ...current, value: current.value !== i ? i : 0 };
-        }
-        competenceChange(currentCompetences);
-      }else{
-
-        openModal(<ConfirmModal confirme={onConfirm} text={'Tu as déjà sélectionné 4 compétences pour cette expérience'} onCloseModal={closeModal} isConfirm={false}/>);
-        return;
-      }
       };
       buttons.push(
         <Stars
