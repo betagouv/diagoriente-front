@@ -12,6 +12,8 @@ import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 // style
 import classes from './sideBar.module.scss';
 
+import cross from '../../../assets/icons/svg/cross.svg';
+
 interface Option {
   _id: string;
   title: string;
@@ -24,12 +26,22 @@ type IProps<T extends Option> = {
   type?: string;
   title?: string;
   onItemClick?: (item: T) => void;
+  onItemRemove?: (item: T) => void;
 } & RouteComponentProps<{ id: string }>;
 
-const SideBar = <T extends Option>({ options, history, type, disabled, title, onItemClick }: IProps<T>) => {
+const SideBar = <T extends Option>({
+  options,
+  history,
+  type,
+  disabled,
+  title,
+  onItemClick,
+  onItemRemove,
+}: IProps<T>) => {
   const navigate = (path: string) => () => {
-    history.push(path);
+    history.replace(path);
   };
+
   return (
     <div className={classes.container_sideBar}>
       <button className={classes.logo_container} onClick={navigate('/profile')}>
@@ -47,6 +59,12 @@ const SideBar = <T extends Option>({ options, history, type, disabled, title, on
               navigate(`/theme/${o._id}/activities`)();
             }
           };
+
+          const remove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.stopPropagation();
+            (onItemRemove as (item: T) => void)(o);
+          };
+
           return (
             <SelectThemeCard
               onClick={disabled ? undefined : click}
@@ -54,7 +72,13 @@ const SideBar = <T extends Option>({ options, history, type, disabled, title, on
               isSelected={o.isSelected}
               title={o.title}
               themetype={type}
-            />
+            >
+              {!disabled && onItemRemove && (
+                <div onClick={remove} className={classes.remove_button}>
+                  <img src={cross} height={12} width={12} />
+                </div>
+              )}
+            </SelectThemeCard>
           );
         })}
       </div>
