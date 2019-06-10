@@ -1,46 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { RouteComponentProps } from "react-router-dom";
-import { connect } from "react-redux";
-import { Dispatch, AnyAction } from "redux";
-import jsPDF from "jspdf";
+import React, { useState, useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Dispatch, AnyAction } from 'redux';
+import jsPDF from 'jspdf';
+import { isEmpty } from 'lodash';
 // assets
-import body from "../../assets/pdf/body.png";
-import logoRF from "../../assets/pdf/rf.png";
-import logoSNU from "../../assets/pdf/snu.png";
-import starEmpty from "../../assets/pdf/star-empty.png";
-import starFull from "../../assets/pdf/star-full.png";
-import check from "../../assets/pdf/check.png";
+import body from '../../assets/pdf/body.png';
+import logoRF from '../../assets/pdf/rf.png';
+import logoSNU from '../../assets/pdf/snu.png';
+import starEmpty from '../../assets/pdf/star-empty.png';
+import starFull from '../../assets/pdf/star-full.png';
+import check from '../../assets/pdf/check.png';
 
 // types
-import { ReduxState, ApiReducer, IParcoursResponse } from "reducers";
+import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 
 // components
-import Grid from "../../components/ui/Grid/Grid";
-import Info from "../../components/ui/Info/Info";
-import StepCard from "../../components/cards/StepCard/StepCard";
-import QuestionMarks from "../../components/shapes/questionMark/questionMark";
-import Circles from "../../components/shapes/circles/circles";
-import Triangles from "../../components/shapes/triangles/triangles";
-import CardProgress from "../../components/cards/CardProgress/CardProgress";
-import RoundButton from "../../components/buttons/RoundButton/RoundButton";
-import CardCompetence from "../../components/cards/CardCompetence/Competence";
-import Header from "../../layout/Header/Header";
-import CompleteProfile from "../../components/ui/CompleteProfile/CompleteProfile";
-import Spinner from "../../components/ui/Spinner/Spinner";
+import Grid from '../../components/ui/Grid/Grid';
+import Info from '../../components/ui/Info/Info';
+import StepCard from '../../components/cards/StepCard/StepCard';
+import QuestionMarks from '../../components/shapes/questionMark/questionMark';
+import Circles from '../../components/shapes/circles/circles';
+import Triangles from '../../components/shapes/triangles/triangles';
+import CardProgress from '../../components/cards/CardProgress/CardProgress';
+import RoundButton from '../../components/buttons/RoundButton/RoundButton';
+import CardCompetence from '../../components/cards/CardCompetence/Competence';
+import Header from '../../layout/Header/Header';
+import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile';
+import Spinner from '../../components/ui/Spinner/Spinner';
+import Card from '../../components/cards/Card/Card';
+import ReactTooltip from 'react-tooltip';
 // hooks
-import { useDidMount } from "../../hooks";
+import { useDidMount } from '../../hooks';
 
 // api
-import withApis, { ApiComponentProps } from "../../hoc/withApi";
-import { getParcours, getFavorites, createFavorites } from "../../requests";
+import withApis, { ApiComponentProps } from '../../hoc/withApi';
+import { getParcours, getFavorites, createFavorites } from '../../requests';
 
 // actions
-import ParcoursActions from "../../reducers/parcours";
+import ParcoursActions from '../../reducers/parcours';
 
 // css
-import classes from "./profileContainer.module.scss";
-import JobCard from "../../components/cards/JobCard/JobCard";
-import ContinueButton from "../../components/buttons/ContinueButtom/ContinueButton";
+import classes from './profileContainer.module.scss';
+import JobCard from '../../components/cards/JobCard/JobCard';
+import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
 interface ParcourParmas {
   completed?: boolean;
@@ -74,7 +77,7 @@ const ProfileContainer = ({
   parcoursRequest,
   getFavorites,
   authUser,
-  addFavorites
+  addFavorites,
 }: Props) => {
   const navigate = (path: string) => () => {
     history.push(path);
@@ -90,18 +93,18 @@ const ProfileContainer = ({
     if (!addFavorites.fetching && !addFavorites.error) {
       getFavorites.call();
     }
-  }, [addFavorites.fetching]);
+  },        [addFavorites.fetching]);
 
   const gameHandler = () => {
     parcoursRequest({ played: true });
-    navigate("/game")();
+    navigate('/game')();
   };
   const onNavigateToJobs = () => {
-    navigate("/jobs")();
+    navigate('/jobs')();
   };
 
-  const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === "personal");
-  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === "professional");
+  const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
+  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional');
 
   const isPersoCompleted =
     persoSkills.length > 0 && !persoSkills.find(skill => !(skill.activities.length && skill.competences.length));
@@ -115,19 +118,19 @@ const ProfileContainer = ({
   if (niveau === 3 && isProCompleted) niveau = 4;
 
   const onCompleteProfile = () => {
-    let action = navigate("/jobs");
+    let action = navigate('/jobs');
     switch (niveau) {
       case 0:
         action = gameHandler;
         break;
       case 1:
-        action = navigate("/themes");
+        action = navigate('/themes');
         break;
       case 2:
-        action = navigate("/favoris");
+        action = navigate('/favoris');
         break;
       case 3:
-        action = navigate("/themes?type=professional");
+        action = navigate('/themes?type=professional');
         break;
     }
     action();
@@ -137,8 +140,8 @@ const ProfileContainer = ({
     {
       headerComponent: <QuestionMarks />,
       circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-      title: "Mini-jeu",
-      description: "Apprends une méthode simple pour identifier des compétences",
+      title: 'Mini-jeu',
+      description: 'Apprends une méthode simple pour identifier des compétences',
       footerComponent:
         niveau < 1 ? (
           <div className={classes.step_footer}>
@@ -148,89 +151,89 @@ const ProfileContainer = ({
           </div>
         ) : (
           <div className={classes.step_footer}>
-            <button className={classes.step_card_footer_text} onClick={navigate("/game")}>
+            <button className={classes.step_card_footer_text} onClick={navigate('/game')}>
               Rejouer
             </button>
           </div>
-        )
+        ),
     },
     {
       disabled: niveau === 0,
       headerComponent: <Circles />,
       circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
-      title: "Ma carte de compétences",
-      description: "Liste toutes tes expériences et rèvèle tes compétences",
+      title: 'Ma carte de compétences',
+      description: 'Liste toutes tes expériences et rèvèle tes compétences',
       footerComponent:
         niveau <= 1 ? (
           <div className={classes.step_footer}>
             <RoundButton
-              onClick={navigate("/themes")}
+              onClick={navigate('/themes')}
               className={`${classes.round_button} ${classes.step2_round_button}`}
             >
-              {niveau < 1 ? "Bientôt" : "Commencer"}
+              {niveau < 1 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
           <div className={classes.step_footer}>
-            <button onClick={navigate("/themes")} className={classes.step_card_footer_text}>
+            <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
               Mettre à jour
             </button>
           </div>
-        )
+        ),
     },
 
     {
       headerComponent: <div className={classes.info_step_header} />,
       disabled: niveau <= 1,
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
-      title: "Mes thèmes favoris",
-      description: "Trouve des pistes d’orientation",
+      title: 'Mes thèmes favoris',
+      description: 'Trouve des pistes d’orientation',
       footerComponent:
         niveau <= 2 ? (
           <div className={classes.step_footer}>
             <RoundButton
-              onClick={navigate("/favoris")}
+              onClick={navigate('/favoris')}
               className={`${classes.round_button} ${classes.step4_round_button}`}
             >
-              {niveau < 2 ? "Bientôt" : "Commencer"}
+              {niveau < 2 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
           <div className={classes.step_footer}>
-            <button onClick={navigate("/favoris")} className={classes.step_card_footer_text}>
-              Mettre à jour
-            </button>
-          </div>
-        )
-    },
-    {
-      headerComponent: <Triangles />,
-      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{4}</span>,
-      title: "Mon Service National Universel",
-      description: "Evalue ton séjour de cohésion",
-      footerComponent:
-        niveau <= 3 ? (
-          <div className={classes.step_footer}>
-            <RoundButton
-              onClick={navigate("/themes?type=professional")}
-              className={`${classes.round_button} ${classes.step3_round_button}`}
-            >
-              {niveau < 3 ? "Bientôt" : "Commencer"}
-            </RoundButton>
-          </div>
-        ) : (
-          <div className={classes.step_footer}>
-            <button onClick={navigate("/themes?type=professional")} className={classes.step_card_footer_text}>
+            <button onClick={navigate('/favoris')} className={classes.step_card_footer_text}>
               Mettre à jour
             </button>
           </div>
         ),
-      disabled: niveau <= 2
-    }
+    },
+    {
+      headerComponent: <Triangles />,
+      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{4}</span>,
+      title: 'Mon Service National Universel',
+      description: 'Evalue ton séjour de cohésion',
+      footerComponent:
+        niveau <= 3 ? (
+          <div className={classes.step_footer}>
+            <RoundButton
+              onClick={navigate('/themes?type=professional')}
+              className={`${classes.round_button} ${classes.step3_round_button}`}
+            >
+              {niveau < 3 ? 'Bientôt' : 'Commencer'}
+            </RoundButton>
+          </div>
+        ) : (
+          <div className={classes.step_footer}>
+            <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
+              Mettre à jour
+            </button>
+          </div>
+        ),
+      disabled: niveau <= 2,
+    },
   ];
 
   const pdf = async () => {
-    const doc = new jsPDF("l", "pt", "a4", true as any);
+    const doc = new jsPDF('l', 'pt', 'a4', true as any);
     /* doc.addFileToVFS('../../assets/pdf/fonts/Lato-Bold.ttf', 'Lato');
     doc.addFont('Lato-Bold.ttf', 'latoBold', 'normal');
     doc.setFont('latoBold'); */
@@ -238,7 +241,7 @@ const ProfileContainer = ({
     const themesPerso: any = [];
     let skillPro: any = null;
     skills.forEach(skill => {
-      if (skill.theme.type === "personal") themesPerso.push(skill.theme.title);
+      if (skill.theme.type === 'personal') themesPerso.push(skill.theme.title);
       else skillPro = skill;
     });
 
@@ -250,73 +253,73 @@ const ProfileContainer = ({
     }
     const width = doc.internal.pageSize.getWidth();
     const height = doc.internal.pageSize.getHeight();
-    const background = document.createElement("img");
-    background.setAttribute("src", body);
-    doc.addImage(background, "PNG", 25, 25, width - 50, height - 50, "", "FAST");
+    const background = document.createElement('img');
+    background.setAttribute('src', body);
+    doc.addImage(background, 'PNG', 25, 25, width - 50, height - 50, '', 'FAST');
     const firstName: string = authUser.user.user.profile.firstName;
     const lastName = authUser.user.user.profile.lastName;
 
     doc.setFontSize(12);
     doc.setTextColor(0, 49, 137);
-    doc.setFont("Helvetica", "bold");
+    doc.setFont('Helvetica', 'bold');
     doc.text(`DE ${firstName.toUpperCase()} ${lastName.toUpperCase()}`, 350, height / 3.4, { charSpace: 2 });
-    const SNU = document.createElement("img");
-    SNU.setAttribute("src", logoSNU);
-    doc.addImage(SNU, "PNG", 80, 80, 85, 75, "", "FAST");
-    const RF = document.createElement("img");
-    RF.setAttribute("src", logoRF);
-    doc.addImage(RF, "PNG", width - 180, 80, 90, 80, "", "FAST");
-    doc.setFont("Helvetica", "bold");
+    const SNU = document.createElement('img');
+    SNU.setAttribute('src', logoSNU);
+    doc.addImage(SNU, 'PNG', 80, 80, 85, 75, '', 'FAST');
+    const RF = document.createElement('img');
+    RF.setAttribute('src', logoRF);
+    doc.addImage(RF, 'PNG', width - 180, 80, 90, 80, '', 'FAST');
+    doc.setFont('Helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(0, 49, 137);
-    doc.text("Mes expériences", 80, 215, { charSpace: 0 });
-    const checked = document.createElement("img");
-    checked.setAttribute("src", check);
-    const fullStar = document.createElement("img");
-    fullStar.setAttribute("src", starFull);
-    const emptyStar = document.createElement("img");
-    emptyStar.setAttribute("src", starEmpty);
-    doc.setFont("Helvetica", "normal");
+    doc.text('Mes expériences', 80, 215, { charSpace: 0 });
+    const checked = document.createElement('img');
+    checked.setAttribute('src', check);
+    const fullStar = document.createElement('img');
+    fullStar.setAttribute('src', starFull);
+    const emptyStar = document.createElement('img');
+    emptyStar.setAttribute('src', starEmpty);
+    doc.setFont('Helvetica', 'normal');
     doc.setFontSize(8);
     const n1 = themesPerso.length < 5 ? themesPerso.length : 5;
     for (let i = 0; i < n1; i++) {
-      doc.addImage(checked, "PNG", 80, 230 + i * 15, 5, 5, "", "FAST");
+      doc.addImage(checked, 'PNG', 80, 230 + i * 15, 5, 5, '', 'FAST');
       doc.text(themesPerso[i], 90, 235 + i * 15);
     }
-    doc.setFont("Helvetica", "bold");
+    doc.setFont('Helvetica', 'bold');
     doc.setFontSize(10);
     const y2 = 235 + n1 * 15 + 10;
-    doc.text("Mes intérêts", 80, y2);
-    doc.setFont("Helvetica", "normal");
+    doc.text('Mes intérêts', 80, y2);
+    doc.setFont('Helvetica', 'normal');
     doc.setFontSize(8);
     const interests = getParcours.data.globalInterest.map((el: any) => el.title);
     const n2 = interests.length < 5 ? interests.length : 5;
     let lines = 0;
     for (let i = 0; i < n2; i++) {
       const splitText = doc.splitTextToSize(interests[i], 100);
-      doc.addImage(checked, "PNG", 80, y2 + 15 + lines * 10, 5, 5, "", "FAST");
+      doc.addImage(checked, 'PNG', 80, y2 + 15 + lines * 10, 5, 5, '', 'FAST');
       doc.text(splitText, 90, y2 + 20 + lines * 10, { maxWidth: 100 });
       lines += splitText.length;
     }
 
     if (skillPro) {
-      doc.setFont("Helvetica", "bold");
+      doc.setFont('Helvetica', 'bold');
       doc.setFontSize(10);
       const y3 = y2 + 20 + lines * 10 + 10;
       doc.text("Mon SNU : ce que j'apprécie le plus", 80, y3, { maxWidth: 90 });
-      doc.setFont("Helvetica", "normal");
+      doc.setFont('Helvetica', 'normal');
       doc.setFontSize(8);
       lines = 0;
       const n3 = actiPro.length < 3 ? actiPro.length : 3;
       for (let i = 0; i < n3; i++) {
         const splitText = doc.splitTextToSize(actiPro[i], 100);
-        doc.addImage(checked, "PNG", 80, y3 + 30 + lines * 10, 5, 5, "", "FAST");
+        doc.addImage(checked, 'PNG', 80, y3 + 30 + lines * 10, 5, 5, '', 'FAST');
         doc.text(splitText, 90, y3 + 35 + lines * 10, { maxWidth: 100 });
         lines += splitText.length;
       }
     }
 
-    doc.setFont("Helvetica", "bold");
+    doc.setFont('Helvetica', 'bold');
     doc.setFontSize(12);
 
     for (let i = 0; i < 10; i++) {
@@ -325,26 +328,26 @@ const ProfileContainer = ({
       const x = 195 + col;
       const y = 230 + row * 40;
       for (let j = 1; j <= 4; j++) {
-        doc.addImage(j <= competences[i].value ? starFull : starEmpty, "PNG", x + j * 15, y - 10, 11, 11, "", "FAST");
+        doc.addImage(j <= competences[i].value ? starFull : starEmpty, 'PNG', x + j * 15, y - 10, 11, 11, '', 'FAST');
       }
       doc.text(competences[i].title, x + 82, y);
     }
 
-    doc.setFont("Helvetica", "normal");
+    doc.setFont('Helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text("Fait à ………………………………………………………", 480, 470);
-    doc.text("Le …………………………………………………………", 480, 490);
-    doc.text("Signature", 480, 510);
+    doc.text('Fait à ………………………………………………………', 480, 470);
+    doc.text('Le …………………………………………………………', 480, 490);
+    doc.text('Signature', 480, 510);
     console.log(getParcours);
 
     doc.save(
-      "Carte de compétences - " +
+      'Carte de compétences - ' +
         firstName[0].toUpperCase() +
         firstName.slice(1) +
-        " " +
+        ' ' +
         lastName[0].toUpperCase() +
         lastName.slice(1) +
-        ".pdf"
+        '.pdf',
     );
   };
 
@@ -353,19 +356,19 @@ const ProfileContainer = ({
     addFavorites.call({
       interested: false,
       job: favoris.job._id,
-      parcour: favoris.parcour
+      parcour: favoris.parcour,
     });
   };
 
   return (
     <div className={classes.container}>
-      <Header pathTo={"/"} />
+      <Header pathTo={'/'} />
       {addFavorites.fetching && (
         <div className={`fixed_fill flex_center ${classes.loading_container}`}>
           <Spinner />
         </div>
       )}
-      <Grid container className={"flex_center"}>
+      <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
           Bienvenue sur Diagoriente
         </Grid>
@@ -388,7 +391,7 @@ const ProfileContainer = ({
                   classes={{
                     content: classes.step_card_content,
                     title: `${classes.card_title} ${classes[`step${i + 1}_card_title`]}`,
-                    description: classes.card_description
+                    description: classes.card_description,
                   }}
                   {...step}
                 />
@@ -401,7 +404,7 @@ const ProfileContainer = ({
           <CardCompetence parcours={getParcours.data.globalCopmetences} pdfDownload={pdf} />
         </Grid>
       </Grid>
-      <Grid container className={"flex_center"}>
+      <Grid container className={'flex_center'}>
         <Grid item xl={12} className={classes.title}>
           Mes pistes d’orientation
         </Grid>
@@ -424,13 +427,34 @@ const ProfileContainer = ({
             .map((favoris: any) => {
               return (
                 <Grid key={favoris._id} item xl={4} lg={6} md={12} smd={12}>
-                  <JobCard
+                  {/* <JobCard
                     showButtons={true}
                     interested={favoris.interested}
                     title={favoris.job.title}
                     job={favoris.job}
                     onDislikeClick={() => onDislikeClick(favoris)}
-                  />
+                  /> */}
+                  <div className={classes.cardWrapper}>
+                    <Card
+                      className={classes.cardJob}
+                      checked={favoris.interested}
+                      onClick={() => onDislikeClick(favoris)}
+                    >
+                      <span className={classes.jobSecteur}>
+                        {!isEmpty(favoris.job.secteur) ? favoris.job.secteur[0].title : ''}
+                      </span>
+                      <span className={classes.jobTitle}>{favoris.job.title}</span>
+                      <span data-tip data-for={favoris.job._id} className={classes.jobinfo}>
+                        {favoris.job.description}
+                      </span>
+                      <span className={classes.jobEntry}>
+                        Niveau d’entrée en formation :{favoris.job.accessibility}
+                      </span>
+                      <ReactTooltip id={favoris.job._id} place="top" type="light" className={classes.tooltip}>
+                        {favoris.job.description}
+                      </ReactTooltip>
+                    </Card>
+                  </div>
                 </Grid>
               );
             })}
@@ -446,14 +470,14 @@ const ProfileContainer = ({
 
 const mapStateToProps = ({ parcours, authUser }: ReduxState) => ({
   parcours,
-  authUser
+  authUser,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
-  parcoursRequest: (payload: ParcourParmas) => dispatch(ParcoursActions.parcoursRequest(payload))
+  parcoursRequest: (payload: ParcourParmas) => dispatch(ParcoursActions.parcoursRequest(payload)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withApis({ getParcours, getFavorites, addFavorites: createFavorites })(ProfileContainer));

@@ -4,7 +4,7 @@ import classes from './card.module.scss';
 import classNames from '../../../utils/classNames';
 
 interface Props {
-  checked?: boolean;
+  checked?: boolean | null;
   type?: string;
 }
 
