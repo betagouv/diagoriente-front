@@ -196,7 +196,8 @@ const CompetenceContainer = ({
       };
       buttons.push(
         <Stars
-          title={`${competence.title} niveau ${i} `}
+          title={!isEmpty(competence.niveau)?competence.niveau[i].title:''}
+          sub_title={isEmpty(competence.niveau)?competence.niveau[i].sub_title:''}
           onChange={onClick}
           checked={!!selected}
           style={{ margin: '0 5px' }}
