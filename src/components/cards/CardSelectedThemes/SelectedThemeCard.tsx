@@ -11,7 +11,7 @@ interface IProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTML
   themetype?: string;
 }
 
-const SelectedCard = ({ title, logo, themetype, isSelected, ...other }: IProps) => (
+const SelectedCard = ({ title, logo, themetype, isSelected, children, ...other }: IProps) => (
   <button data-tip data-for={title} className={classes.wrapper} {...other}>
     <div
       className={
@@ -30,6 +30,7 @@ const SelectedCard = ({ title, logo, themetype, isSelected, ...other }: IProps) 
         </div>
       )}
       <span className={classes.theme_title}>{title}</span>
+      {children}
     </div>
     {isSelected && <div className={themetype === 'professional' ? classes.triangle_pro : classes.triangle} />}
     <ReactTooltip id={title} place="right" type="light" className={classes.tooltip}>

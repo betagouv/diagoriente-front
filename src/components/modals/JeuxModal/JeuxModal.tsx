@@ -6,14 +6,13 @@ import iconCheck from '../../../assets/icons/svg/icon-check-02.svg';
 import iconCheckPro from '../../../assets/icons/svg/icon-check-pro-02.svg';
 
 import classNames from '../../../utils/classNames';
-import classes from './successModal.module.scss';
+import classes from './JeuxModal.module.scss';
 
 interface Props {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  type?: 'personal' | 'professional';
 }
 
-const SuccessModal = ({ onClick, type }: Props) => {
+const JeuxModal = ({ onClick }: Props) => {
   return (
     <div className={`${classes.wrapper} flex_center`}>
       <div className={classes.container}>
@@ -21,23 +20,20 @@ const SuccessModal = ({ onClick, type }: Props) => {
           <div className={`${classes.header} ${classes.item}`}>
             <div className={classes.circle_container}>
               <div className={classes.circle_absolute} />
-              <div className={classNames(classes.circle, type === 'professional' && classes.circle_pro)}>
-                <img src={type === 'professional' ? iconCheckPro : iconCheck} height={'40%'} width={'40%'} />
+              <div className={classNames(classes.circle)}>
+                <img src={iconCheck} height={'40%'} width={'40%'} />
               </div>
             </div>
           </div>
-          <div className={classNames(classes.title, classes.item, type === 'professional' && classes.title_pro)}>
-            Parfait ! <br /> Tu as terminé cette section
+          <div className={classNames(classes.title, classes.item)}>
+            Parfait ! <br /> Tu as terminé le mini jeux
           </div>
           <div className={`${classes.description} ${classes.item}`}>
-            Tu pourras revenir pour ajouter et/ou modifier des expériences
+            Grâce au mini jeu tu comprends que dans toute expérience se cachent des compétences! Tu es prêt maintenant
+            pour réaliser ta propre carte de compétences{' '}
           </div>
           <div className={`flex_center ${classes.footer} ${classes.item}`}>
-            <ContinueButton
-              onClick={onClick}
-              label="Tu peux voir ta carte ou passer à l’étape 3"
-              className={classNames(classes.continue_button, type === 'professional' && classes.continue_button_pro)}
-            />
+            <ContinueButton onClick={onClick} label="Terminer" className={classNames(classes.continue_button)} />
           </div>
         </div>
       </div>
@@ -45,4 +41,4 @@ const SuccessModal = ({ onClick, type }: Props) => {
   );
 };
 
-export default SuccessModal;
+export default JeuxModal;

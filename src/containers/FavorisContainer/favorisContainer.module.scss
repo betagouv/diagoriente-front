@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 @keyframes placeHolderShimmer {
   0% {
-    background-position: -468px 0;
+    background-position: -950px 0;
   }
   100% {
     background-position: 650px 0;
@@ -101,7 +101,7 @@ li {
 .loaderImage {
   width: 100%;
   height: 100%;
-  animation-duration: 1s;
+  animation-duration: 3s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-name: placeHolderShimmer;
