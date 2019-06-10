@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { map, forEach, filter } from 'lodash';
+import { map, forEach, filter, isEmpty } from 'lodash';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
@@ -14,6 +14,8 @@ import Info from '../../components/ui/Info/Info';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
+import Card from '../../components/cards/Card/Card';
+import ReactTooltip from 'react-tooltip';
 
 interface IMapToProps {
   parcoursId: string;
@@ -100,7 +102,27 @@ const JobsContainer = ({
   }
 
   const renderJob = (job: IJob) => {
-    const onLikeClick = () => {
+
+    /* const onLikeClick = () => {
+      if (!job.interested) {
+        addFavorites.call({
+          interested: true,
+          job: job._id,
+          parcour: parcoursId,
+        });
+        fetchingChange(true);
+      }
+    }; */
+
+    const onClickJob = () => {
+      if (job.interested || job.interested === null) {
+        addFavorites.call({
+          interested: false,
+          job: job._id,
+          parcour: parcoursId,
+        });
+        fetchingChange(true);
+      }
       if (!job.interested) {
         addFavorites.call({
           interested: true,
@@ -111,26 +133,26 @@ const JobsContainer = ({
       }
     };
 
-    const onDislikeClick = () => {
-      if (job.interested || job.interested === null) {
-        addFavorites.call({
-          interested: false,
-          job: job._id,
-          parcour: parcoursId,
-        });
-        fetchingChange(true);
-      }
-    };
-
     return (
       <Grid key={job._id} item xl={6} lg={12} md={12} smd={12}>
-        <JobCard
+        {/* <JobCard
           onLikeClick={onLikeClick}
           onDislikeClick={onDislikeClick}
           interested={job.interested}
           title={job.title}
           job={job}
-        />
+        /> */}
+        <div className={classes.cardWrapper} >
+        <Card className={classes.cardJob} checked={job.interested} onClick={onClickJob}>
+          <span className={classes.jobSecteur}>{!isEmpty(job.secteur) ? job.secteur[0].title : ''}</span>
+          <span className={classes.jobTitle}>{job.title}</span>
+          <span data-tip data-for={job._id} className={classes.jobinfo}>{job.description}</span>
+          <span className={classes.jobEntry}>Niveau d’entrée en formation :{job.accessibility} </span>
+          <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
+            {job.description}
+          </ReactTooltip>
+        </Card>
+        </div>
       </Grid>
     );
   };
@@ -152,7 +174,7 @@ const JobsContainer = ({
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
 
-  return (
+  return ( 
     <div className={classes.container}>
       {fetching && (
         <div className={`fixed_fill flex_center ${classes.loading_container}`}>
