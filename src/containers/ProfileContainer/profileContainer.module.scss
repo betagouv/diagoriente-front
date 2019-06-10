@@ -192,9 +192,8 @@
 }
 .jobinfo {
   display: -webkit-box;
-  /* autoprefixer: off */
+  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /* autoprefixer: on */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -220,7 +219,7 @@
 }
 .cardWrapper {
   margin-bottom: 20px;
- /*  &:hover {
+  /*  &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
   } */
