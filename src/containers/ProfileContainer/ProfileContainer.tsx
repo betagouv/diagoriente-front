@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { RouteComponentProps } from "react-router-dom";
-import { connect } from "react-redux";
-import { Dispatch, AnyAction } from "redux";
+import React, { useState, useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Dispatch, AnyAction } from 'redux';
 
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
@@ -21,6 +21,7 @@ import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile
 import Spinner from '../../components/ui/Spinner/Spinner';
 import Card from '../../components/cards/Card/Card';
 import ReactTooltip from 'react-tooltip';
+import { isEmpty } from 'lodash'; 
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -36,7 +37,7 @@ import classes from './profileContainer.module.scss';
 import JobCard from '../../components/cards/JobCard/JobCard';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
-import { pdf } from "../../utils/pdf";
+import { pdf } from '../../utils/pdf';
 
 interface ParcourParmas {
   completed?: boolean;
