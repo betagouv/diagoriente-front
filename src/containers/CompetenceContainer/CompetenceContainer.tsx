@@ -29,7 +29,7 @@ import Experiences from '../../components/experiences/expreriences';
 import classNames from '../../utils/classNames';
 import Grid from '../../components/ui/Grid/Grid';
 import modalAction from '../../reducers/modal';
-
+ 
 interface IMapToProps {
   currentThemeSkill: ISkillPopulated;
   skills: ISkillPopulated[];
@@ -151,6 +151,7 @@ const CompetenceContainer = ({
     return false;
   };
   const competenceComponents = data.map(competence => {
+    console.log( competence );
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
     const buttons: JSX.Element[] = [];
@@ -196,7 +197,8 @@ const CompetenceContainer = ({
       };
       buttons.push(
         <Stars
-          title={`${competence.title} niveau ${i} `}
+          title={!isEmpty(competence.niveau)?competence.niveau[(i-1)].title:''}
+          sub_title={!isEmpty(competence.niveau)?competence.niveau[(i-1)].sub_title:''}
           onChange={onClick}
           checked={!!selected}
           style={{ margin: '0 5px' }}

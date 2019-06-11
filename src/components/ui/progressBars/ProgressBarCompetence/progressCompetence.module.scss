@@ -23,7 +23,15 @@
 }
 .wrapper {
   position: relative;
+  display: flex;
 }
+
+.dots {
+  width: 16px;
+  height: 16px;
+  margin: 0 5px;
+}
+
 .background_bar_competence {
   position: absolute;
   top: 9;
