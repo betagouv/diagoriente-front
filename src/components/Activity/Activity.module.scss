@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 .activityContainer {
   display: flex;
   flex-direction: row;
@@ -29,6 +29,9 @@
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
+  @media (max-width: map-get($breakpoints, "md")) {
+    font-size: 1.1rem;
+  }
 }
 .title_pro {
   height: 30px;
@@ -44,6 +47,9 @@
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
+  @media (max-width: map-get($breakpoints, "md")) {
+    font-size: 1.1rem;
+  }
 }
 .subtitle {
   height: 20px;

@@ -32,12 +32,16 @@ import classNames from '../../utils/classNames';
 
 // actions
 import startupActions from '../../reducers/startup';
+import loginUserActions from '../../reducers/authUser/login';
 
 // hooks
 import { useDidMount, useDidUpdate } from '../../hooks';
 import JobsContainer from '../JobsContainer/JobsConainer';
+import { useListener } from '../../hooks/useListner';
 
 const footerRoutes = ['/'];
+
+let timer: number | null = null;
 
 interface IMapToProps {
   modal: IModal;
@@ -47,11 +51,26 @@ interface IMapToProps {
 
 interface IDispatchToProps {
   startup: () => void;
+  logout: () => void;
 }
 
 type Props = IMapToProps & IDispatchToProps & RouteComponentProps;
 
-const RootContainer = ({ modal, startup, startupEnd, location, user, history }: Props) => {
+const RootContainer = ({ modal, startup, startupEnd, location, user, history, logout }: Props) => {
+  const resetTimer = () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      logout();
+    },                 420000);
+  };
+
+  useListener('mousemove', resetTimer);
+  useListener('keypress', resetTimer);
+  useListener('wheel', resetTimer);
+  useListener('click', resetTimer);
+
   useDidMount(() => {
     startup();
   });
@@ -94,6 +113,7 @@ const mapStateToProps = ({ modal, startup, authUser }: ReduxState): IMapToProps 
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   startup: () => dispatch(startupActions.startup()),
+  logout: () => dispatch(loginUserActions.logout()),
 });
 
 export default connect(
