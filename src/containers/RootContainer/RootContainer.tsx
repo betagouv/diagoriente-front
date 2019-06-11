@@ -18,7 +18,7 @@ import ThemeContainer from '../ThemeContainer/ThemeContainer';
 import LoginUserContainer from '../LoginContainer/LoginContainer';
 import ProfileContainer from '../ProfileContainer/ProfileContainer';
 import RegisterUserContainer from '../RegistreContainer/RegisterContainer';
-import FavorisContainer from '../FavorisContainer/FavorisContainer';
+import FavorisContainer from '../FavorisProContainer/FavorisContainer';
 import GameContainer from '../../containers/GameContainer/GameContainer';
 import CarteContainer from '../../containers/CarteContainer/CarteContainer';
 

@@ -1,7 +1,8 @@
 .container {
   height: 100%;
   width: 100%;
-
+  /*   margin: 50px 0px;
+ */
   position: relative;
   border-radius: 10px;
 
@@ -19,7 +20,8 @@
 .containerSelected {
   height: 100%;
   width: 100%;
-
+  /*   margin: 50px 0px;
+ */
   position: relative;
 
   &:hover ~ .static {
