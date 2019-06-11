@@ -27,6 +27,7 @@ type IProps<T extends Option> = {
   title?: string;
   onItemClick?: (item: T) => void;
   onItemRemove?: (item: T) => void;
+  numberOfLine?: number;
 } & RouteComponentProps<{ id: string }>;
 
 const SideBar = <T extends Option>({
@@ -37,6 +38,7 @@ const SideBar = <T extends Option>({
   title,
   onItemClick,
   onItemRemove,
+  numberOfLine,
 }: IProps<T>) => {
   const navigate = (path: string) => () => {
     history.replace(path);
@@ -72,6 +74,7 @@ const SideBar = <T extends Option>({
               isSelected={o.isSelected}
               title={o.title}
               themetype={type}
+              numberOfLine={numberOfLine}
             >
               {!disabled && onItemRemove && (
                 <div onClick={remove} className={classes.remove_button}>
