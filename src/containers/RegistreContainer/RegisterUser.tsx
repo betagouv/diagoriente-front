@@ -133,6 +133,10 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         <div className={classes.container_select}>
           <Grid item xl={5} md={12}>
             <Input name="Email" validation={emailValid} onChange={emailChange} className={classes.container_input} />
+            <span>
+              Crée ton mail au format suivant :{' '}
+              <span style={{ color: 'green', textDecoration: 'underline' }}>prenom.nom@monbilansnu.fr</span>
+            </span>
           </Grid>
 
           <Grid item xl={5} md={12}>
@@ -174,7 +178,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         <div className={classes.container_select}>
           <Grid item xl={5} md={12}>
             <Input
-              name="Votre réponse"
+              name="Votre réponse à la question de sécurité"
               validation={responseValid}
               onChange={responseChange}
               className={classes.container_input}
