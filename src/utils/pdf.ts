@@ -137,6 +137,21 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
     }
   }
 
+  doc.roundedRect(674, 175, 149, 245, 7, 7, 'S');
+
+  doc.setFont('nunito', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(26, 68, 131);
+  doc.text('Expériences', 693, 211);
+
+  doc.setFont('lato', 'semiBold');
+  doc.setFontSize(12.5);
+  doc.setTextColor(100, 100, 100);
+  const n2 = themesPerso.length < 10 ? themesPerso.length : 10;
+  for (let i = 0; i < n2; i++) {
+    doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
+  }
+
   const pdfTitle =
     'Carte de compétences - ' +
     firstName[0].toUpperCase() +
