@@ -122,6 +122,9 @@
   background-color: $medium-purple !important;
   background-image: none;
   font-size: 14px;
+  @media (max-width: map-get($breakpoints, "smd" )) {
+    font-size: 11px;
+  }
 }
 
 .continue_button_pro {

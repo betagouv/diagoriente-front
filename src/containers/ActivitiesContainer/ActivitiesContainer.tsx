@@ -122,7 +122,7 @@ const ActivitiesContainer = ({
       <div className={classNames('colorful_bar', classes.bar_color)} />
 
       <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
-        <Grid item xl={12} sm={8} smd={9} xs={6}>
+        <Grid item xl={12} sm={12} smd={12} xs={12}>
           <Info
             borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
             backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
@@ -132,7 +132,7 @@ const ActivitiesContainer = ({
           </Info>
         </Grid>
 
-        <Grid item xl={12} sm={8} smd={9} xs={6}>
+        <Grid item xl={12} sm={12} smd={12} xs={12}>
           <div className={classes.activitiesContainer}>{activitiesComponents}</div>
         </Grid>
         <Grid item xl={12} sm={8} smd={9} xs={6} className={'flex_center'}>

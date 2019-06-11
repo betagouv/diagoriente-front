@@ -30,6 +30,9 @@
   flex-direction: column;
   align-items: center;
   background-color: $card_background;
+  @media (max-width: map-get($breakpoints, "md")) {
+    display: none;
+  }
 }
 .gridContainer {
   display: flex;
@@ -137,3 +140,8 @@ li {
   height: auto;
   margin-bottom: 80px;
 }
+/* .list_container {
+  @media (max-width: map-get($breakpoints, "md")) {
+    display: none;
+  }
+} */
