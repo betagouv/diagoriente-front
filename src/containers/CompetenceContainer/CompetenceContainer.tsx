@@ -240,7 +240,7 @@ const CompetenceContainer = ({
 
       <Grid item xl={8} lg={12} className={classes.list_stars}>
         <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
-          <Grid item xl={12}>
+          <Grid item xl={12} sm={12}>
             <Info
               borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
               backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
