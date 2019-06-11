@@ -10,8 +10,10 @@
   border-radius: 5px;
   background-color: $white;
   margin-bottom: 20px;
-  padding-left: 5px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .theme_title {
     color: $footer_color;
   }
@@ -50,24 +52,35 @@
   font-family: Nunito;
   font-size: 20px;
   font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
   color: $white;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   display: block;
-  margin: 19px 25px;
+  text-align: center;
+  width: calc(100% - 20px);
+  line-height: 25px;
+  max-height: 50px;
 }
+
+.theme_title_multiline {
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  white-space: pre-wrap;
+  display: -webkit-box;
+
+  font-size: 14px;
+}
+
 .box_selected {
   background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
   width: 170px;
   height: 65px;
   border-radius: 5px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .box_selected_pro {
   background-image: linear-gradient(to left, #ff009a, #a521c8);
@@ -75,6 +88,9 @@
   height: 65px;
   border-radius: 5px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .triangle {

@@ -1,22 +1,39 @@
-import jsPDF from "jspdf";
+import jsPDF from 'jspdf';
 // assets
-import body from "../assets/pdf/body.png";
-import logoRF from "../assets/pdf/rf.png";
-import logoSNU from "../assets/pdf/snu.png";
-import starEmpty from "../assets/pdf/star-empty.png";
-import starFull from "../assets/pdf/star-full.png";
-import check from "../assets/pdf/check.png";
+import logoRF from '../assets/pdf/rf.png';
+import logoSNU from '../assets/pdf/snu.png';
+import niveau1 from '../assets/pdf/niveau 1.png';
+import niveau2 from '../assets/pdf/niveau 2.png';
+import niveau3 from '../assets/pdf/niveau 3.png';
+import niveau4 from '../assets/pdf/niveau 4.png';
+import logo2 from '../assets/pdf/logo 2.png';
+import linear from '../assets/pdf/linear.png';
+import backdrop from '../assets/pdf/backdrop.png';
+import diagoriente from '../assets/pdf/logoDiagpdf.png';
+
+import latoRegular from '../assets/pdf/fonts/Lato-Regular';
+import latoBold from '../assets/pdf/fonts/Lato-Bold';
+import latoSemiBold from '../assets/pdf/fonts/Lato-SemiBold';
+import nunitoRegular from '../assets/pdf/fonts/Nunito-Regular';
+import nunitoBold from '../assets/pdf/fonts/Nunito-Bold';
 
 export function pdf(parcours: any, getParcours: any, authUser: any, div: any = false) {
-  const doc = new jsPDF("l", "pt", "a4", true as any);
-  /* doc.addFileToVFS('../../assets/pdf/fonts/Lato-Bold.ttf', 'Lato');
-  doc.addFont('Lato-Bold.ttf', 'latoBold', 'normal');
-  doc.setFont('latoBold'); */
+  const doc = new jsPDF('l', 'pt', 'a4', true as any);
+  doc.addFileToVFS('Lato-Regular', latoRegular);
+  doc.addFont('Lato-Regular', 'lato', 'normal');
+  doc.addFileToVFS('Lato-Bold', latoBold);
+  doc.addFont('Lato-Bold', 'lato', 'bold');
+  doc.addFileToVFS('Lato-Semi-Bold', latoSemiBold);
+  doc.addFont('Lato-Semi-Bold', 'lato', 'semiBold');
+  doc.addFileToVFS('Nunito-Regular', nunitoRegular);
+  doc.addFont('Nunito-Regular', 'nunito', 'normal');
+  doc.addFileToVFS('Nunito-Bold', nunitoBold);
+  doc.addFont('Nunito-Bold', 'nunito', 'bold');
   const skills = parcours.data.skills;
   const themesPerso: any = [];
   let skillPro: any = null;
   skills.forEach((skill: any) => {
-    if (skill.theme.type === "personal") themesPerso.push(skill.theme.title);
+    if (skill.theme.type === 'personal') themesPerso.push(skill.theme.title);
     else skillPro = skill;
   });
 
@@ -28,106 +45,154 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   }
   const width = doc.internal.pageSize.getWidth();
   const height = doc.internal.pageSize.getHeight();
-  const background = document.createElement("img");
-  background.setAttribute("src", body);
-  doc.addImage(background, "PNG", 25, 25, width - 50, height - 50, "", "FAST");
+
+  const background = document.createElement('img');
+  background.setAttribute('src', linear);
+  doc.addImage(background, 'PNG', 0, 0, width, 9, '', 'FAST');
+
   const firstName: string = authUser.user.user.profile.firstName;
   const lastName = authUser.user.user.profile.lastName;
 
-  doc.setFontSize(12);
-  doc.setTextColor(0, 49, 137);
-  doc.setFont("Helvetica", "bold");
-  doc.text(`DE ${firstName.toUpperCase()} ${lastName.toUpperCase()}`, 350, height / 3.4, { charSpace: 2 });
-  const SNU = document.createElement("img");
-  SNU.setAttribute("src", logoSNU);
-  doc.addImage(SNU, "PNG", 80, 80, 85, 75, "", "FAST");
-  const RF = document.createElement("img");
-  RF.setAttribute("src", logoRF);
-  doc.addImage(RF, "PNG", width - 180, 80, 90, 80, "", "FAST");
-  doc.setFont("Helvetica", "bold");
-  doc.setFontSize(10);
-  doc.setTextColor(0, 49, 137);
-  doc.text("Mes expériences", 80, 215, { charSpace: 0 });
-  const checked = document.createElement("img");
-  checked.setAttribute("src", check);
-  const fullStar = document.createElement("img");
-  fullStar.setAttribute("src", starFull);
-  const emptyStar = document.createElement("img");
-  emptyStar.setAttribute("src", starEmpty);
-  doc.setFont("Helvetica", "normal");
-  doc.setFontSize(8);
-  const n1 = themesPerso.length < 5 ? themesPerso.length : 5;
-  for (let i = 0; i < n1; i++) {
-    doc.addImage(checked, "PNG", 80, 230 + i * 15, 5, 5, "", "FAST");
-    doc.text(themesPerso[i], 90, 235 + i * 15);
+  const diagorienteTitle = document.createElement('img');
+  diagorienteTitle.setAttribute('src', diagoriente);
+  doc.addImage(diagorienteTitle, 'PNG', 12, 17, 166, 41, '', 'FAST');
+
+  const backdropDiv = document.createElement('img');
+  backdropDiv.setAttribute('src', backdrop);
+  doc.addImage(backdropDiv, 'PNG', 0, 67, width, 35, '', 'FAST');
+
+  const RF = document.createElement('img');
+  RF.setAttribute('src', logoRF);
+  doc.addImage(RF, 'PNG', width - 168, 87, 70, 57, '', 'FAST');
+
+  const SNU = document.createElement('img');
+  SNU.setAttribute('src', logoSNU);
+  doc.addImage(SNU, 'PNG', width - 75, 87, 57, 57, '', 'FAST');
+
+  doc.setFont('nunito', 'bold');
+  doc.setFontSize(30);
+  doc.setTextColor(26, 68, 131);
+  doc.text('Carte de compétences', 21, 120);
+
+  doc.setFont('nunito', 'normal');
+  doc.setFontSize(16);
+  doc.text(`de ${firstName.toUpperCase()} ${lastName.toUpperCase()}`, 22, 144);
+
+  doc.setLineWidth(1.1);
+  doc.setDrawColor(215, 215, 215);
+  doc.roundedRect(23, 175, 380, 245, 7, 7, 'S');
+
+  doc.setFont('lato', 'semiBold');
+  const y1 = 212;
+  const niveaux = [null, niveau1, niveau2, niveau3, niveau4];
+  for (let i = 0; i < 10; i++) {
+    doc.setFontSize(13);
+    doc.setTextColor(100, 100, 100);
+    doc.text(competences[i].title, 45, y1 + i * 20);
+    doc.setFontSize(8);
+    doc.setTextColor(170, 170, 170);
+    if (competences[i].value > 0) doc.text(competences[i].niveau.title, 45 + 20, y1 + 6.5 + i * 20);
+    for (let j = 1; j <= competences[i].value; j++) {
+      doc.addImage(niveaux[j], 'PNG', 45 + 20 + 240 + j * 16, y1 - 8.5 + i * 20, 11, 11, '', 'FAST');
+    }
   }
-  doc.setFont("Helvetica", "bold");
-  doc.setFontSize(10);
-  const y2 = 235 + n1 * 15 + 10;
-  doc.text("Mes intérêts", 80, y2);
-  doc.setFont("Helvetica", "normal");
-  doc.setFontSize(8);
-  const interests = getParcours.data.globalInterest.map((el: any) => el.title);
-  const n2 = interests.length < 5 ? interests.length : 5;
-  let lines = 0;
+
+  doc.roundedRect(423, 175, 230, 245, 7, 7, 'S');
+
+  doc.setFont('nunito', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(26, 68, 131);
+  doc.text('Intérêts', 442, 211);
+
+  doc.setFont('lato', 'semiBold');
+  doc.setFontSize(12.5);
+  doc.setTextColor(100, 100, 100);
+  const interests = getParcours.data.globalInterest.map((el: any) => el.title.split(' / '));
+
+  const n = interests.length <= 6 ? interests.length : 6;
+  let col = 0;
+  let row = 0;
+  for (let i = 0; i < n; i++) {
+    if (i === 3 || i === 4 || i === 5) col = 1;
+    if (i === 1 || i === 4) row = 1;
+    else if (i === 2 || i === 5) row = 2;
+    else row = 0;
+    const x = 442 + 108 * col;
+    let y = 211 + 4 * 15 * row;
+    y += 5 * row;
+
+    doc.line(x - 4, y + 15, x - 4, y + 15 + 14 * 4);
+    let j = 0;
+    let k = 0;
+    while (k < interests[i].length && j < 4) {
+      const splitText = doc.splitTextToSize(interests[i][k], 100);
+      if (splitText.length + j > 4) break;
+      splitText.forEach((text: any, index: number) => {
+        doc.text(text, x, y + 25 + j * 15 + index * 15, { maxWidth: 100 });
+      });
+      k++;
+      j += splitText.length;
+    }
+  }
+
+  doc.roundedRect(674, 175, 149, 245, 7, 7, 'S');
+
+  doc.setFont('nunito', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(26, 68, 131);
+  doc.text('Expériences', 693, 211);
+
+  doc.setFont('lato', 'semiBold');
+  doc.setFontSize(12.5);
+  doc.setTextColor(100, 100, 100);
+  const n2 = themesPerso.length < 10 ? themesPerso.length : 10;
   for (let i = 0; i < n2; i++) {
-    const splitText = doc.splitTextToSize(interests[i], 100);
-    doc.addImage(checked, "PNG", 80, y2 + 15 + lines * 10, 5, 5, "", "FAST");
-    doc.text(splitText, 90, y2 + 20 + lines * 10, { maxWidth: 100 });
-    lines += splitText.length;
+    doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
   }
 
   if (skillPro) {
-    doc.setFont("Helvetica", "bold");
-    doc.setFontSize(10);
-    const y3 = y2 + 20 + lines * 10 + 10;
-    doc.text("Mon SNU : ce que j'apprécie le plus", 80, y3, { maxWidth: 90 });
-    doc.setFont("Helvetica", "normal");
-    doc.setFontSize(8);
-    lines = 0;
+    doc.roundedRect(23, 442, 380, 120, 7, 7, 'S');
+
+    doc.setFont('nunito', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(26, 68, 131);
+    doc.text('Mon SNU', 42, 478);
+
+    doc.setFont('lato', 'semiBold');
+    doc.setFontSize(12.5);
+    doc.setTextColor(100, 100, 100);
     const n3 = actiPro.length < 3 ? actiPro.length : 3;
-    for (let i = 0; i < n3; i++) {
-      const splitText = doc.splitTextToSize(actiPro[i], 100);
-      doc.addImage(checked, "PNG", 80, y3 + 30 + lines * 10, 5, 5, "", "FAST");
-      doc.text(splitText, 90, y3 + 35 + lines * 10, { maxWidth: 100 });
-      lines += splitText.length;
-    }
+    for (let i = 0; i < n3; i++) doc.text(actiPro[i], 42, 506 + i * 18);
   }
 
-  doc.setFont("Helvetica", "bold");
-  doc.setFontSize(12);
+  const logo2Div = document.createElement('img');
+  logo2Div.setAttribute('src', logo2);
+  doc.addImage(logo2Div, 484, 462, 118, 90, '' as any, 'FAST');
 
-  for (let i = 0; i < 10; i++) {
-    const row = i >= 5 ? i - 5 : i;
-    const col = i >= 5 ? 260 : 0;
-    const x = 195 + col;
-    const y = 230 + row * 40;
-    for (let j = 1; j <= 4; j++) {
-      doc.addImage(j <= competences[i].value ? starFull : starEmpty, "PNG", x + j * 15, y - 10, 11, 11, "", "FAST");
-    }
-    doc.text(competences[i].title, x + 82, y);
-  }
+  doc.setFont('nunito', 'normal');
+  doc.setFontSize(12.5);
+  doc.setTextColor(26, 68, 131);
 
-  doc.setFont("Helvetica", "normal");
-  doc.setFontSize(8);
-  doc.text("Fait à ………………………………………………………", 480, 470);
-  doc.text("Le …………………………………………………………", 480, 490);
-  doc.text("Signature", 480, 510);
+  doc.text('Fait à .......................................', 622, 478);
+  doc.text('Le .......................................', 622, 508);
+  doc.text('Signature', 622, 538);
+
+  doc.addImage(background, 'PNG', 0, height - 9, width, 9, '', 'FAST');
 
   const pdfTitle =
-    "Carte de compétences - " +
+    'Carte de compétences - ' +
     firstName[0].toUpperCase() +
     firstName.slice(1) +
-    " " +
+    ' ' +
     lastName[0].toUpperCase() +
     lastName.slice(1) +
-    ".pdf";
+    '.pdf';
 
   if (div) {
     doc.setProperties({
-      title: pdfTitle
+      title: pdfTitle,
     });
-    const output = doc.output("datauristring");
+    const output = doc.output('datauristring');
     return output;
   }
   doc.save(pdfTitle);
