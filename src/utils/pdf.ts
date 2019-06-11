@@ -1,17 +1,12 @@
 import jsPDF from 'jspdf';
 // assets
-import body from '../assets/pdf/body.png';
 import logoRF from '../assets/pdf/rf.png';
 import logoSNU from '../assets/pdf/snu.png';
-import starEmpty from '../assets/pdf/star-empty.png';
-import starFull from '../assets/pdf/star-full.png';
-import check from '../assets/pdf/check.png';
-import niveau0 from '../assets/pdf/niveau 0.png';
 import niveau1 from '../assets/pdf/niveau 1.png';
 import niveau2 from '../assets/pdf/niveau 2.png';
 import niveau3 from '../assets/pdf/niveau 3.png';
 import niveau4 from '../assets/pdf/niveau 4.png';
-import logo1 from '../assets/pdf/logo 1.png';
+import logo2 from '../assets/pdf/logo 2.png';
 import linear from '../assets/pdf/linear.png';
 import backdrop from '../assets/pdf/backdrop.png';
 import diagoriente from '../assets/pdf/logoDiagpdf.png';
@@ -113,7 +108,6 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.setFontSize(12.5);
   doc.setTextColor(100, 100, 100);
   const interests = getParcours.data.globalInterest.map((el: any) => el.title.split(' / '));
-  console.log('*', interests);
 
   const n = interests.length <= 6 ? interests.length : 6;
   let col = 0;
@@ -128,12 +122,16 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
     y += 5 * row;
 
     doc.line(x - 4, y + 15, x - 4, y + 15 + 14 * 4);
-    for (let j = 0; j < interests[i].length; j++) {
-      const splitText = doc.splitTextToSize(interests[i][j], 100);
+    let j = 0;
+    let k = 0;
+    while (k < interests[i].length && j < 4) {
+      const splitText = doc.splitTextToSize(interests[i][k], 100);
       if (splitText.length + j > 4) break;
       splitText.forEach((text: any, index: number) => {
         doc.text(text, x, y + 25 + j * 15 + index * 15, { maxWidth: 100 });
       });
+      k++;
+      j += splitText.length;
     }
   }
 
@@ -152,20 +150,34 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
     doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
   }
 
-  doc.roundedRect(23, 442, 380, 120, 7, 7, 'S');
-
-  doc.setFont('nunito', 'bold');
-  doc.setFontSize(20);
-  doc.setTextColor(26, 68, 131);
-  doc.text('Mon SNU', 42, 478);
-
   if (skillPro) {
+    doc.roundedRect(23, 442, 380, 120, 7, 7, 'S');
+
+    doc.setFont('nunito', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(26, 68, 131);
+    doc.text('Mon SNU', 42, 478);
+
     doc.setFont('lato', 'semiBold');
     doc.setFontSize(12.5);
     doc.setTextColor(100, 100, 100);
     const n3 = actiPro.length < 3 ? actiPro.length : 3;
     for (let i = 0; i < n3; i++) doc.text(actiPro[i], 42, 506 + i * 18);
   }
+
+  const logo2Div = document.createElement('img');
+  logo2Div.setAttribute('src', logo2);
+  doc.addImage(logo2Div, 484, 462, 118, 90, '' as any, 'FAST');
+
+  doc.setFont('nunito', 'normal');
+  doc.setFontSize(12.5);
+  doc.setTextColor(26, 68, 131);
+
+  doc.text('Fait à .......................................', 622, 478);
+  doc.text('Le .......................................', 622, 508);
+  doc.text('Signature', 622, 538);
+
+  doc.addImage(background, 'PNG', 0, height - 9, width, 9, '', 'FAST');
 
   const pdfTitle =
     'Carte de compétences - ' +
