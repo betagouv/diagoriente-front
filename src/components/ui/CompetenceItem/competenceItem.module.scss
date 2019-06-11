@@ -6,6 +6,7 @@
 .item {
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 .label {
   font-size: 13px;
@@ -39,4 +40,17 @@
       border-right-width: 6px !important;
     }
   }
+}
+.spanDescription {
+  display: block;
+  line-height: 1;
+  color: #9e9fa1;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.spanTitle {
+  line-height: 1.2;
+    display: block;
 }

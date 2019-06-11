@@ -19,11 +19,12 @@ const CompetenceItem = ({ parcours }: IProps) => {
         return (
           <div key={item._id} className={classes.item}>
             <div className={classes.label} data-for={item._id} data-tip>
-              {item.title}
+              <span className={classes.spanTitle}>{item.title}</span>
+              <span className={classes.spanDescription}>{item.niveau.title}</span>
             </div>
             <ReactTooltip id={item._id} place="top" type="light" className={classes.tooltip}>
-            <span className={classes.bold_tooltip}>{item.niveau.title}</span>
-             <span>{item.niveau.sub_title}</span>
+              <span className={classes.bold_tooltip}>{item.niveau.title}</span>
+              <span>{item.niveau.sub_title}</span>
             </ReactTooltip>
             <div className={classes.value}>
               <Progress
