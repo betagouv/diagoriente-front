@@ -235,6 +235,7 @@ const ProfileContainer = ({
     });
   };
 
+  console.log(getParcours.data.globalCopmetences)
   return (
     <div className={classes.container}>
       <Header pathTo={'/'} />
