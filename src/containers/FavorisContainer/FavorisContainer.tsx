@@ -137,6 +137,23 @@ const FavorisContainer = ({
   return (
     <div className={classes.container}>
       <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
+        <Grid item xl={3} className={classes.item2}>
+          <Grid item xl={12} className={classes.sideBarWrapper}>
+            <img className={classes.side_bar_logo} src={logo} />
+            <div className={classes.text_container_selection}>
+              <span className={classes.text_selection}>Ma séléction</span>
+            </div>
+            <List
+              onSubmit={onSubmit}
+              famileSelected={selectedFamily}
+              onDragEnd={onDragEnd}
+              renderPlaceholder={renderPlaceholder}
+              disable={selectedFamily.length}
+              handleDeleteClick={handleClick}
+              fetching={parcoursFetching}
+            />
+          </Grid>
+        </Grid>
         <Grid item xl={9}>
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
@@ -175,7 +192,7 @@ const FavorisContainer = ({
               <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
                 {fetching ? (
                   <div className={classes.container_loading}>
-                      <Spinner />
+                    <Spinner />
                     <Carousel
                       showThumbs={false}
                       showIndicators={false}
@@ -215,22 +232,6 @@ const FavorisContainer = ({
                 )}
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xl={3} className={classes.item2}>
-          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
-            <div className={classes.text_container_selection}>
-              <span className={classes.text_selection}>Ma séléction</span>
-            </div>
-            <List
-              onSubmit={onSubmit}
-              famileSelected={selectedFamily}
-              onDragEnd={onDragEnd}
-              renderPlaceholder={renderPlaceholder}
-              disable={selectedFamily.length}
-              handleDeleteClick={handleClick}
-              fetching={parcoursFetching}
-            />
           </Grid>
         </Grid>
       </Grid>

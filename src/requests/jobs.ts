@@ -1,4 +1,4 @@
-import { Response, axiosGet, axiosPost } from './http';
+import { Response, axiosGet, axiosPost, axiosDelete } from './http';
 
 export interface ISecteur {
   activities: null;
@@ -24,6 +24,7 @@ export interface IJob {
   secteur: ISecteur[];
   accessibility: string;
   interested: boolean | null;
+  favoriteId: string | null;
 }
 
 export const getMyJob = (
@@ -40,3 +41,5 @@ export interface FavoritesData {
 export const createFavorites = (data: FavoritesData): Promise<Response<any>> => axiosPost('v1/favorites', { data });
 
 export const getFavorites = (): Promise<Response<any>> => axiosGet('v1/favorites');
+
+export const deleteFavorites = (id: string): Promise<Response<any>> => axiosDelete(`v1/favorites/${id}`);
