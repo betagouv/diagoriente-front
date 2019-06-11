@@ -3,10 +3,16 @@
   display: flex;
   margin-top: 40px;
   align-items: center;
+  @media (max-width: map-get($breakpoints, "md")) {
+    flex-wrap: wrap;
+  }
 }
 .item_container {
   display: flex;
   margin: 0 5px 0px 7.5px;
+  @media (max-width: map-get($breakpoints, "md")) {
+    margin: 0 2px 0px 3.5px;
+  }
 }
 .item {
   display: flex;
@@ -19,6 +25,9 @@
   letter-spacing: normal;
   color: $footer_color;
   cursor: pointer;
+  @media (max-width: map-get($breakpoints, "md")) {
+    margin: 0 3px 0px 3.5px;
+  }
 }
 .item_selected {
   display: flex;
@@ -30,6 +39,9 @@
   line-height: 1.54;
   letter-spacing: normal;
   color: $purple;
+  @media (max-width: map-get($breakpoints, "md")) {
+    margin: 0 3px 0px 3.5px;
+  }
 }
 .item_selected_pro {
   display: flex;
@@ -41,8 +53,11 @@
   line-height: 1.54;
   letter-spacing: normal;
   color: $purple-red;
+  @media (max-width: map-get($breakpoints, "md")) {
+    margin: 0 3px 0px 3.5px;
+  }
 }
-.item_selectes_standard{
+.item_selectes_standard {
   display: flex;
   margin: 0 5px 0px 7.5px;
   font-size: 13px;
@@ -52,4 +67,7 @@
   line-height: 1.54;
   letter-spacing: normal;
   color: $darkblue;
+  @media (max-width: map-get($breakpoints, "md")) {
+    margin: 0 3px 0px 3.5px;
+  }
 }

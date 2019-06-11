@@ -29,7 +29,7 @@ import Experiences from '../../components/experiences/expreriences';
 import classNames from '../../utils/classNames';
 import Grid from '../../components/ui/Grid/Grid';
 import modalAction from '../../reducers/modal';
- 
+
 interface IMapToProps {
   currentThemeSkill: ISkillPopulated;
   skills: ISkillPopulated[];
@@ -151,7 +151,7 @@ const CompetenceContainer = ({
     return false;
   };
   const competenceComponents = data.map(competence => {
-    console.log( competence );
+    console.log(competence);
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
     const buttons: JSX.Element[] = [];
@@ -197,8 +197,8 @@ const CompetenceContainer = ({
       };
       buttons.push(
         <Stars
-          title={!isEmpty(competence.niveau)?competence.niveau[(i-1)].title:''}
-          sub_title={!isEmpty(competence.niveau)?competence.niveau[(i-1)].sub_title:''}
+          title={!isEmpty(competence.niveau) ? competence.niveau[i - 1].title : ''}
+          sub_title={!isEmpty(competence.niveau) ? competence.niveau[i - 1].sub_title : ''}
           onChange={onClick}
           checked={!!selected}
           style={{ margin: '0 5px' }}
@@ -240,7 +240,7 @@ const CompetenceContainer = ({
 
       <Grid item xl={8} lg={12} className={classes.list_stars}>
         <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
-          <Grid item xl={12}>
+          <Grid item xl={12} sm={12}>
             <Info
               borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
               backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}

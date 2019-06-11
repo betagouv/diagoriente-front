@@ -16,6 +16,9 @@
       max-height: 30px;
       max-width: 30px;
     }
+    @media (max-width: map-get($breakpoints, "md")) {
+      display: none;
+    }
   }
   .logo_pro {
     width: 50px;
@@ -30,8 +33,12 @@
       max-height: 30px;
       max-width: 30px;
     }
+    @media (max-width: map-get($breakpoints, "md")) {
+      display: none;
+    }
   }
   .title_content {
+    width: 100%;
     .title {
       font-family: Nunito;
       font-size: 48px;

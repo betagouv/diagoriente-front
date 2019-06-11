@@ -154,18 +154,11 @@ const FavorisContainer = ({
             />
           </Grid>
         </Grid>
-        <Grid item xl={9}>
+        <Grid item xl={9} smd={12} sm={12}>
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
-              <Grid container xl={12} padding={{ xl: 0 }}>
-                <Grid item xl={4}>
-                  <div className={classes.header}>
-                    <div className={classes.logo_container} onClick={onNavigateToHome}>
-                      <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />{' '}
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xl={8}>
+              <Grid container xl={12} padding={{ xl: 0, sm: 0, smd: 0 }}>
+                <Grid item xl={8} smd={12} sm={12}>
                   <PathStepper options={stepperOptions} onClick={onNavigate} type="type" />
                 </Grid>
               </Grid>
