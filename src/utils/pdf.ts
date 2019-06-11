@@ -152,6 +152,21 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
     doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
   }
 
+  doc.roundedRect(23, 442, 380, 120, 7, 7, 'S');
+
+  doc.setFont('nunito', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(26, 68, 131);
+  doc.text('Mon SNU', 42, 478);
+
+  if (skillPro) {
+    doc.setFont('lato', 'semiBold');
+    doc.setFontSize(12.5);
+    doc.setTextColor(100, 100, 100);
+    const n3 = actiPro.length < 3 ? actiPro.length : 3;
+    for (let i = 0; i < n3; i++) doc.text(actiPro[i], 42, 506 + i * 18);
+  }
+
   const pdfTitle =
     'Carte de compétences - ' +
     firstName[0].toUpperCase() +
