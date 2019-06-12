@@ -140,7 +140,7 @@ const FavorisContainer = ({
         <Grid item xl={9}>
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
-              <Grid container xl={12} padding={{ xl: 0 }}>
+              <Grid container padding={{ xl: 0 }}>
                 <Grid item xl={4}>
                   <div className={classes.header}>
                     <div className={classes.logo_container} onClick={onNavigateToHome}>

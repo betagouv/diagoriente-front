@@ -82,16 +82,16 @@ button {
   left: 15px;
 }
 .get_left_25 {
-  left: 20% ;
+  left: 20%;
 }
 .get_left_50 {
-  left: 40% ;
+  left: 40%;
 }
 .get_left_75 {
-  left: 60% ;
+  left: 60%;
 }
 .get_left_100 {
-  right: 15px ;
+  right: 15px;
 }
 
 .position_text_1 {
@@ -100,7 +100,7 @@ button {
 .position_text_2 {
   margin-left: 45%;
 }
-.position_text_3{
+.position_text_3 {
   margin-left: 30%;
   margin-top: 95px;
 }
@@ -118,7 +118,7 @@ button {
   top: 0;
   z-index: $zindex-fixed;
 }
-ul{
+ul {
   list-style: none;
   padding-inline-start: 0px !important;
 }
@@ -129,11 +129,16 @@ ul{
   .position_text_1 {
     margin-left: 20% !important;
   }
-  .position_text_3{
-    margin-left:54% !important; 
+  .position_text_3 {
+    margin-left: 54% !important;
     margin-top: 0;
   }
   .position_text_4 {
     margin-left: 20%;
   }
+}
+
+.carousel .slide {
+  text-align: inherit !important;
+  background-color: transparent !important;
 }

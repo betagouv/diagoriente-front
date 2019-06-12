@@ -43,7 +43,8 @@
 }
 
 .job_portion {
-  padding: 30px !important ;
+  padding-top: 30px !important ;
+  padding-bottom: 30px !important ;
 }
 
 .competence_container {
@@ -129,4 +130,9 @@
       border-right-width: 6px !important;
     }
   }
+}
+
+.carousel {
+  background-color: transparent;
+  align-items: flex-start;
 }

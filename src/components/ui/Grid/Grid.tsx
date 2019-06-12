@@ -1,4 +1,4 @@
-import React, { CSSProperties, HTMLAttributes } from 'react';
+import React, { CSSProperties, HTMLAttributes, RefObject } from 'react';
 import styled from 'styled-components';
 
 import classes from './grid.module.scss';
@@ -55,8 +55,8 @@ interface BaseProps extends HTMLAttributes<HTMLDivElement> {
 interface ContainerProps extends BaseProps {
   container: true;
   item?: false;
-  padding: BreakPoints;
-  spacing: BreakPoints;
+  padding?: BreakPoints;
+  spacing?: BreakPoints;
 }
 
 interface ItemProps extends BaseProps, BreakPoints {
@@ -66,7 +66,7 @@ interface ItemProps extends BaseProps, BreakPoints {
 
 const ExtraPropsRemover = styled.div(() => ({}));
 
-const ContainerComponent = styled.div(
+const ContainerComponent: any = styled.div(
   ({ spacingValues, paddingValues }: { spacingValues: BreakPoints; paddingValues: BreakPoints }) => ({
     width: spacingValues.xl ? `calc(100% + ${spacingValues.xl}px)` : '100%',
     padding: `0 ${paddingValues.xl || 0}px`,
@@ -106,33 +106,38 @@ const ItemComponent = styled.div((props: BreakPoints) => ({
 
 type Props = ContainerProps | ItemProps;
 
-const Grid = ({ className, children, container, item, ...other }: Props) => {
-  if (container) {
-    const { spacing, padding, ...rest } = other as any;
+const Grid = React.forwardRef(
+  (
+    { className, children, container, item, ...other }: Props,
+    ref: ((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null | undefined,
+  ) => {
+    if (container) {
+      const { spacing, padding, ...rest } = other as any;
+      return (
+        <div ref={ref} className={classes.wrapper}>
+          <ContainerComponent
+            className={classNames(classes.container, className)}
+            spacingValues={spacing}
+            paddingValues={padding}
+            {...rest}
+          >
+            {children}
+          </ContainerComponent>
+        </div>
+      );
+    }
+
+    const { xs, sm, md, lg, xl, smd, spacing, padding, ...rest } = other as any;
+
     return (
-      <div className={classes.wrapper}>
-        <ContainerComponent
-          className={classNames(classes.container, className)}
-          spacingValues={spacing}
-          paddingValues={padding}
-          {...rest}
-        >
+      <ItemComponent ref={ref} className={classNames(classes.item)} xs={xs} xl={xl} md={md} sm={sm} lg={lg} smd={smd}>
+        <ExtraPropsRemover {...rest} className={classNames(classes.item_wrapper, className)}>
           {children}
-        </ContainerComponent>
-      </div>
+        </ExtraPropsRemover>
+      </ItemComponent>
     );
-  }
-
-  const { xs, sm, md, lg, xl, smd, spacing, padding, ...rest } = other as any;
-
-  return (
-    <ItemComponent className={classNames(classes.item)} xs={xs} xl={xl} md={md} sm={sm} lg={lg} smd={smd}>
-      <ExtraPropsRemover {...rest} className={classNames(classes.item_wrapper, className)}>
-        {children}
-      </ExtraPropsRemover>
-    </ItemComponent>
-  );
-};
+  },
+);
 
 Grid.defaultProps = {
   padding: {
