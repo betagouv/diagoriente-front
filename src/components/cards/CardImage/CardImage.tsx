@@ -74,7 +74,7 @@ const CardImage = ({ handleClick, resources, index, famille, checked, nom }: Pro
         <div className={classes.animated_background} />
       )}
 
-      {resources && famille.resources && (
+      {resources && famille.resources && !checked && (
         <Button disabled={checked} checkedButon={checked} onClick={onClick}>
           {/*           <img src={checked ? redLike : like} alt="heart" className={classes.heartImage} />
            */}
