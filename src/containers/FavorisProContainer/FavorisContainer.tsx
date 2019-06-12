@@ -213,6 +213,7 @@ const FavorisContainer = ({
                     axis={'vertical'}
                     infiniteLoop
                     emulateTouch
+                    showArrows={false}
                   >
                     {familles.map(famille => (
                       <CardImage
