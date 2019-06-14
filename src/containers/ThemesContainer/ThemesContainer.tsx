@@ -79,6 +79,7 @@ const ThemesContainer = ({
   ) {
     return <Redirect to={'/profile'} />;
   }
+  console.log(list);
 
   useDidMount(() => {
     list.call({ type });
@@ -88,7 +89,7 @@ const ThemesContainer = ({
     updateThemes(parcours.skills.map(skill => skill.theme));
   });
 
-  useDidUpdate(() => {
+  /* useDidUpdate(() => {
     if (type === 'professional' && !list.fetching && !list.error) {
       const skills = parcours.skills.map(skill => {
         return {
@@ -112,7 +113,7 @@ const ThemesContainer = ({
         skills,
       });
     }
-  },           [list.fetching]);
+  },           [list.fetching]); */
 
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(!open);
@@ -169,9 +170,6 @@ const ThemesContainer = ({
   const { data } = list.data;
   let themesComponents: JSX.Element[] = [];
   if (data) {
-    if (type === 'professional') {
-      return <LazyLoader />;
-    }
     themesComponents = data.map(theme => {
       const selected = themes.find(row => row._id === theme._id);
       const onClick = () => {

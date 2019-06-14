@@ -16,8 +16,8 @@ const Footer = () => {
   const firstRowImages = (
     <>
       <img className={classes.logosContainer} src={gpi1x} srcSet={`${gpi2x} 2x, ${gpi3x} 3x `} alt="gpi" />
-      <img className={classes.gpi} src={national1x} srcSet={`${national2x} 2x,${national3x} 3x `} alt="national" />
-    </>
+{/*       <img className={classes.gpi} src={national1x} srcSet={`${national2x} 2x,${national3x} 3x `} alt="national" />
+ */}    </>
   );
 
   const secondRowImages = (

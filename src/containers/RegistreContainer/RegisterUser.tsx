@@ -165,20 +165,6 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
             />
           </Grid>
           <Grid item xl={5} md={12}>
-            <SelectLocation
-              options={map(arrays, local => ({ value: local.value, label: local.label }))}
-              open={openLocation}
-              onChange={onChangeLocation}
-              value={location}
-              className={classes.container_input_select}
-              placeholder="Département de ton SNU"
-              selectOpen={onOpenLocation}
-              selectClose={onCloseLocation}
-            />
-          </Grid>
-        </div>
-        <div className={classes.container_select}>
-          <Grid item xl={5} md={12}>
             <Input
               name="Votre réponse à la question de sécurité"
               validation={responseValid}
@@ -186,7 +172,6 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
               className={classes.container_input}
             />
           </Grid>
-          <Grid item xl={5} md={12} />
         </div>
 
         <div className={classes.container_button}>
