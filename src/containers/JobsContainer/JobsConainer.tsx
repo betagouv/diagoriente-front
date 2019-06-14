@@ -166,7 +166,7 @@ const JobsContainer = ({
       )}
       <SideBar
         onItemClick={onSecteurClick}
-        title={'Mes pistes métiers préférés'}
+        title={'Mes pistes métiers  préférées'}
         options={filter(listJobs.data, job => !!job.interested)}
         numberOfLine={2}
         onItemRemove={onJobRemove}
