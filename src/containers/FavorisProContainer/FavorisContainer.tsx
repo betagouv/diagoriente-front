@@ -186,7 +186,7 @@ const FavorisContainer = ({
               >
                 {fetching ? (
                   <div className={classes.container_loading}>
-                    <Spinner />
+                    <Spinner hasText />
                     <Carousel
                       showThumbs={false}
                       showIndicators={false}
