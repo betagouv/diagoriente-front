@@ -1,0 +1,91 @@
+@import "../../../styles/variables.scss";
+
+.wrapper {
+  width: 100%;
+  margin: 30px 0;
+  position: relative;
+}
+
+.section_wrapper {
+  width: 100%;
+}
+
+.stepper {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  right: -50px;
+}
+
+.stepper_circle {
+  border: 1px solid #1d1af3;
+  border-radius: 15px;
+  width: 10px;
+  height: 10px;
+  margin: 7px;
+  cursor: pointer;
+  position: relative;
+}
+
+.stepper_circle_active {
+  transform: scale(1.7);
+}
+
+.stepper_small_circle {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 1px;
+  right: 1px;
+  background-color: #1d1af3;
+  border-radius: 50%;
+  transition: transform 0.25s ease-in-out;
+  transform: scale(0);
+}
+
+.stepper_small_circle_active {
+  transform: scale(1);
+}
+
+.nav_arrows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.nav_arrow {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  img {
+    cursor: pointer;
+  }
+}
+
+.nav_arrow_left {
+  transform: rotate(180deg);
+}
+
+.tooltip {
+  color: $darkblue !important;
+  background-color: $white !important;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  width: 250px;
+  &.place-right {
+    &:after {
+      border-right-color: $white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
+    }
+  }
+}

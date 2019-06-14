@@ -23,11 +23,25 @@
   line-height: 2.33;
   letter-spacing: 2px;
   text-align: center;
-  color: $footer_color;
+  color: #fff;
+  background: #003189;
+  border-radius: 30px;
+  padding: 10px 20px;
+  text-transform: uppercase;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease-in-out;
   &:hover {
-    
-    letter-spacing: 4px;
-    color: purple;
+    .arrow {
+      transform: rotate(90deg);
+    }
   }
 }
+.arrow {
+  width: 8px;
+  margin-left: 10px;
+  transition: 0.3s ease-in-out;
+}
+

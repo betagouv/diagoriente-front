@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, Ref, RefObject, MutableRefObject } from 'react';
 
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { ReduxState, ApiReducer, IFamille, Famille } from 'reducers';
-import { useHover } from '../../hooks';
 
 import listFamilleActions from '../../reducers/listFamille';
 import parcoursActions from '../../reducers/parcours';
-import { useDidMount, useDidUpdate } from '../../hooks';
+import { useDidMount, useDidUpdate, useHover } from '../../hooks';
 import classes from './favorisContainer.module.scss';
 import Grid from '../../components/ui/Grid/Grid';
 import Info from '../../components/ui/Info/Info';
@@ -19,11 +18,13 @@ import List from '../../components/ui/List/List';
 import CardImage from '../../components/cards/CardImage/CardImage';
 import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
 import Spinner from '../../components/Spinner/Spinner';
+import VerticalStepper from '../../components/VerticalStepper/VerticalStepper';
 // assets
 import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
 import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
 import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
 import preloadImage from '../../assets/images/preloadImage.png';
+import scrollArrow from '../../assets/icons/svg/scrollArrow.svg';
 import { IUpdateParcoursParams } from '../../requests';
 import addPrevFamily from '../../utils/addPrevFamille';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -44,10 +45,8 @@ interface IMapDispatchToProps {
   updateParcoursRequest: (payload: IUpdateParcoursParams) => void;
 }
 
-/* interface Props extends IMapToProps, IMapDispatchToProps, RouteComponentProps<{ id: string }> {}
- */
-
 type Props = RouteComponentProps<{ id: string }> & IMapDispatchToProps & IMapToProps;
+
 const FavorisContainer = ({
   famillesRequest,
   history,
@@ -60,8 +59,9 @@ const FavorisContainer = ({
 }: Props) => {
   const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
   const [DisplayedFamily, changeDisplayedFamily] = useState(0);
-  /*   const [isMouseEnter, onMouseEnter, onMouseLeave] = useHover(false);
-   */
+
+  const myRef: (HTMLDivElement | null)[] = []; // Hook to ref object
+
   useDidMount(() => {
     famillesRequest();
   });
@@ -136,29 +136,19 @@ const FavorisContainer = ({
 
   return (
     <div className={classes.container}>
-      <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }}>
-        <Grid item xl={3} className={classes.item2}>
-          <Grid item xl={12} className={classes.sideBarWrapper}>
-            <img className={classes.side_bar_logo} src={logo} />
-            <div className={classes.text_container_selection}>
-              <span className={classes.text_selection}>Ma séléction</span>
-            </div>
-            <List
-              onSubmit={onSubmit}
-              famileSelected={selectedFamily}
-              onDragEnd={onDragEnd}
-              renderPlaceholder={renderPlaceholder}
-              disable={selectedFamily.length}
-              handleDeleteClick={handleClick}
-              fetching={parcoursFetching}
-            />
-          </Grid>
-        </Grid>
-        <Grid item xl={9} smd={12} sm={12}>
+      <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }} style={{ flexDirection: 'row-reverse' }}>
+        <Grid item xl={9}>
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
-              <Grid container padding={{ xl: 0, sm: 0, smd: 0 }}>
-                <Grid item xl={8} smd={12} sm={12}>
+              <Grid container padding={{ xl: 0 }}>
+                <Grid item xl={4}>
+                  <div className={classes.header}>
+                    <div className={classes.logo_container} onClick={onNavigateToHome}>
+                      <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />{' '}
+                    </div>
+                  </div>
+                </Grid>
+                <Grid item xl={8}>
                   <PathStepper options={stepperOptions} onClick={onNavigate} type="type" />
                 </Grid>
               </Grid>
@@ -181,8 +171,19 @@ const FavorisContainer = ({
             </Grid>
           </Grid>
           <Grid container padding={{ xl: 15, lg: 15 }} spacing={{ xl: 9, lg: 9 }} style={{ margin: '50px 0px' }}>
-            <Grid item xl={12} className={'flex_center'}>
-              <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
+            <Grid item xl={11} className={'flex_center'}>
+              <Grid
+                item
+                xl={12}
+                style={{
+                  width: '90%',
+                  margin: '0 auto',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}
+              >
                 {fetching ? (
                   <div className={classes.container_loading}>
                     <Spinner />
@@ -205,10 +206,14 @@ const FavorisContainer = ({
                     showIndicators={false}
                     showStatus={false}
                     selectedItem={DisplayedFamily}
-                    onChange={changeDisplayedFamily}
+                    onChange={index => changeDisplayedFamily(index)}
                     className={classes.carou}
-                    width={'97%'}
+                    width={'100%'}
                     stopOnHover={false}
+                    axis={'vertical'}
+                    infiniteLoop
+                    emulateTouch
+                    showArrows={false}
                   >
                     {familles.map(famille => (
                       <CardImage
@@ -223,8 +228,48 @@ const FavorisContainer = ({
                     ))}
                   </Carousel>
                 )}
+                <button className={classes.scrollNext} onClick={() => changeDisplayedFamily(DisplayedFamily + 1)}>
+                  <img src={scrollArrow} alt="next" style={{ width: '25px', height: '25px' }} />
+                </button>
+              </Grid>
+
+              <Grid
+                item
+                xl={1}
+                className={'flex_center'}
+                style={{
+                  position: 'fixed',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  right: '1%',
+                  top: '2%',
+                  maxWidth: '30px',
+                }}
+              >
+                <VerticalStepper
+                  handleClick={changeDisplayedFamily}
+                  DisplayedFamily={DisplayedFamily}
+                  selectedFamilys={selectedFamily}
+                  listItems={familles}
+                />
               </Grid>
             </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xl={3} className={classes.item2}>
+          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
+            <div className={classes.text_container_selection}>
+              <span className={classes.text_selection}>Ma séléction</span>
+            </div>
+            <List
+              onSubmit={onSubmit}
+              famileSelected={selectedFamily}
+              onDragEnd={onDragEnd}
+              renderPlaceholder={renderPlaceholder}
+              disable={selectedFamily.length}
+              handleDeleteClick={handleClick}
+              fetching={parcoursFetching}
+            />
           </Grid>
         </Grid>
       </Grid>

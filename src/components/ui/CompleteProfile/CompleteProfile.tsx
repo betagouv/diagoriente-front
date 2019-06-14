@@ -14,7 +14,7 @@ const CompleteProfile = ({
 }) => {
   return (
     <div className={classes.container}>
-      <Grid container xl={12} spacing={{ xl: 10 }} padding={{ xl: 80, md: 30, sm: 15 }}>
+      <Grid container spacing={{ xl: 10 }} padding={{ xl: 80, md: 30, sm: 15 }}>
         <Grid item xl={4} md={6} className={classes.margin}>
           <div className={classes.box_1} />
         </Grid>

@@ -6,6 +6,7 @@
 .item {
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 .label {
   font-size: 13px;
@@ -22,15 +23,34 @@
   justify-content: flex-start;
   width: 100px;
 }
+.bold_tooltip {
+  font-weight: bold !important;
+  margin-right: 3px;
+}
+
 .tooltip {
-  color: $darkblue !important;
+  color: $purple !important;
   background-color: $white !important;
   box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
-  &.place-top {
+  width: 250px;
+  &.place-right {
     &:after {
-      border-top-color: $white !important;
-      border-top-style: solid !important;
-      border-top-width: 6px !important;
+      border-right-color: $white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
     }
   }
+}
+.spanDescription {
+  display: block;
+  line-height: 1;
+  color: #9e9fa1;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.spanTitle {
+  line-height: 1.2;
+    display: block;
 }

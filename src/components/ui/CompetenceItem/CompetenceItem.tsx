@@ -1,5 +1,5 @@
 import React from 'react';
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 import classes from './competenceItem.module.scss';
 import Progress from '../progressBars/ProgressBarCompetence/ProgressCompetence';
 import ReactTooltip from 'react-tooltip';
@@ -9,6 +9,7 @@ interface IProps {
     title: string;
     value: number;
     _id: string;
+    niveau: { title: string; sub_title?: string };
   }[];
 }
 const CompetenceItem = ({ parcours }: IProps) => {
@@ -18,13 +19,19 @@ const CompetenceItem = ({ parcours }: IProps) => {
         return (
           <div key={item._id} className={classes.item}>
             <div className={classes.label} data-for={item._id} data-tip>
-              {item.title}
+              <span className={classes.spanTitle}>{item.title}</span>
+              <span className={classes.spanDescription}>{item.niveau.title}</span>
             </div>
             <ReactTooltip id={item._id} place="top" type="light" className={classes.tooltip}>
-              {item.title} niveau  {item.value}
+              <span className={classes.bold_tooltip}>{item.niveau.title}</span>
+              <span>{item.niveau.sub_title}</span>
             </ReactTooltip>
             <div className={classes.value}>
-              <Progress width={item.value} />
+              <Progress
+                width={item.value}
+                title={!isEmpty(item.niveau) ? item.niveau.title : ''}
+                sub_title={!isEmpty(item.niveau) ? item.niveau.sub_title : ''}
+              />
             </div>
           </div>
         );

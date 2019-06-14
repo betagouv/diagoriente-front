@@ -26,6 +26,10 @@
   }
 }
 
+.arrow {
+  width: auto !important;
+}
+
 .btn_text {
   color: inherit;
   margin-right: 15px;
@@ -37,7 +41,6 @@
     padding: 15px 30px;
     letter-spacing: 0px;
   }
-
 }
 @media (max-width: 375px) {
   .button {
@@ -45,6 +48,4 @@
     padding: 10px 15px;
     letter-spacing: 0px;
   }
-
 }
-

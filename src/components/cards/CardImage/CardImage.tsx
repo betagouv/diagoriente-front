@@ -10,6 +10,8 @@ import { IFamille } from 'reducers';
 import { useHover } from '../../../hooks';
 
 interface Props {
+  /*   ref?: (ref: React.RefObject<HTMLDivElement | null>) => void;
+   */
   checked?: boolean;
   resources?: {
     base64: string;
@@ -72,9 +74,10 @@ const CardImage = ({ handleClick, resources, index, famille, checked, nom }: Pro
         <div className={classes.animated_background} />
       )}
 
-      {resources && famille.resources && (
+      {resources && famille.resources && !checked && (
         <Button disabled={checked} checkedButon={checked} onClick={onClick}>
-          <img src={checked ? redLike : like} alt="heart" className={classes.heartImage} />
+          {/*           <img src={checked ? redLike : like} alt="heart" className={classes.heartImage} />
+           */}
           <span className={classes.likeText}>j'aime</span>
         </Button>
       )}
