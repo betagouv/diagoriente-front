@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { map, forEach, filter, isEmpty } from 'lodash';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import { getMyJob, createFavorites, getParcours, IJob, ISecteur, deleteFavorites } from '../../requests';
@@ -15,7 +16,7 @@ import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 import Card from '../../components/cards/Card/Card';
-import ReactTooltip from 'react-tooltip';
+import Carousel from '../../components/ui/Carousel/Carousel';
 
 interface IMapToProps {
   parcoursId: string;
@@ -116,17 +117,6 @@ const JobsContainer = ({
   }
 
   const renderJob = (job: IJob) => {
-    /* const onLikeClick = () => {
-      if (!job.interested) {
-        addFavorites.call({
-          interested: true,
-          job: job._id,
-          parcour: parcoursId,
-        });
-        fetchingChange(true);
-      }
-    }; */
-
     const onClickJob = (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       if (job.interested && job.favoriteId) {
@@ -143,39 +133,19 @@ const JobsContainer = ({
     };
 
     return (
-      <Grid key={job._id} item xl={6} lg={12} md={12} smd={12}>
-        {/* <JobCard
-          onLikeClick={onLikeClick}
-          onDislikeClick={onDislikeClick}
-          interested={job.interested}
-          title={job.title}
-          job={job}
-        /> */}
-        <div className={classes.cardWrapper}>
-          <Card className={classes.cardJob} checked={job.interested} onClick={onClickJob}>
-            <span className={classes.jobSecteur}>{!isEmpty(job.secteur) ? job.secteur[0].title : ''}</span>
-            <span className={classes.jobTitle}>{job.title}</span>
-            <span data-tip data-for={job._id} className={classes.jobinfo}>
-              {job.description}
-            </span>
-            <span className={classes.jobEntry}>Niveau d’entrée en formation :{job.accessibility} </span>
-            <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
-              {job.description}
-            </ReactTooltip>
-          </Card>
-        </div>
-      </Grid>
-    );
-  };
-
-  const renderJobPortion = (job: { secteur: any; jobs: IJob[] }) => {
-    return (
-      <Grid key={job.secteur._id} className={classes.job_portion} container padding={{ xl: 0 }}>
-        <Grid className={classes.secteur} item xl={12}>
-          {job.secteur.title}
-        </Grid>
-        {map(job.jobs, renderJob)}
-      </Grid>
+      <div className={classes.cardWrapper}>
+        <Card className={classes.cardJob} checked={job.interested} onClick={onClickJob}>
+          <span className={classes.jobSecteur}>{!isEmpty(job.secteur) ? job.secteur[0].title : ''}</span>
+          <span className={classes.jobTitle}>{job.title}</span>
+          <span data-tip data-for={job._id} className={classes.jobinfo}>
+            {job.description}
+          </span>
+          <span className={classes.jobEntry}>Niveau d’entrée en formation :{job.accessibility} </span>
+          <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
+            {job.description}
+          </ReactTooltip>
+        </Card>
+      </div>
     );
   };
 
@@ -184,6 +154,8 @@ const JobsContainer = ({
   if (selectedSecteurs.length) {
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
+
+  const sections = [...selectedJobs, autres];
 
   return (
     <div className={classes.container}>
@@ -214,10 +186,22 @@ const JobsContainer = ({
             </Info>
           </Grid>
           <Grid item xl={12} lg={12}>
-            {selectedJobs.map(renderJobPortion)}
-            {autres.jobs.length && (!selectedSecteurs.length || selectedSecteurs.find(id => id === 'Autre'))
-              ? renderJobPortion(autres)
-              : null}
+            <Carousel
+              className={classes.carousel}
+              sections={sections.map(section => ({
+                title: section.secteur.title,
+                data: section.jobs,
+                secteur: section.secteur,
+              }))}
+              renderItem={renderJob}
+              itemWrapperComponent={<Grid item xl={6} lg={12} md={12} smd={12} />}
+              itemKeyExtractor={job => job._id}
+              renderTitle={({ title }) => (
+                <Grid className={classes.secteur} item xl={12}>
+                  {title}
+                </Grid>
+              )}
+            />
           </Grid>
           <Grid item xl={12} className={classes.btn_container_jobs}>
             <ContinueButton className={classes.btn_jobs} onClick={onNavigate} label="Terminer" />

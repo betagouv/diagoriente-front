@@ -50,11 +50,10 @@
   &:hover {
     background-image: linear-gradient(to left, #ff009a, #a521c8);
     opacity: 0.5;
-    .title{
+    .title {
       color: $white;
     }
   }
-  
 }
 
 .title {
@@ -105,7 +104,6 @@
   }
 }
 
-
 .check {
   position: absolute;
   top: 10px;
@@ -114,4 +112,5 @@
   height: 20px;
   object-fit: contain;
   border: none;
+  width: auto !important;
 }

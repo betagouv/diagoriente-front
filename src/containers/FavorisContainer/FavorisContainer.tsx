@@ -157,7 +157,7 @@ const FavorisContainer = ({
         <Grid item xl={9} smd={12} sm={12}>
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
-              <Grid container xl={12} padding={{ xl: 0, sm: 0, smd: 0 }}>
+              <Grid container padding={{ xl: 0, sm: 0, smd: 0 }}>
                 <Grid item xl={8} smd={12} sm={12}>
                   <PathStepper options={stepperOptions} onClick={onNavigate} type="type" />
                 </Grid>
@@ -205,7 +205,7 @@ const FavorisContainer = ({
                     showIndicators={false}
                     showStatus={false}
                     selectedItem={DisplayedFamily}
-                    onChange={index => changeDisplayedFamily(index)}
+                    onChange={changeDisplayedFamily}
                     className={classes.carou}
                     width={'97%'}
                     stopOnHover={false}
