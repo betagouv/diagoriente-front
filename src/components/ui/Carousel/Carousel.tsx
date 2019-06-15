@@ -147,6 +147,7 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
     } = this.props;
     return (
       <div ref={this.container} className={classes.wrapper} style={{ opacity: this.state.opacity }}>
+        
         <BaseCarousel
           onChange={this.onItemChange}
           selectedItem={this.state.selectedItem}
@@ -159,6 +160,7 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
           {...other}
           ref={this.carousel}
         >
+        
           {sections.map((section, index) => {
             const captureWrapperRef = (ref: HTMLDivElement) => {
               this.wrapperRefs[index] = ref;
@@ -197,6 +199,7 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
           })}
         </BaseCarousel>
         <div className={classes.stepper}>
+        <span  className={classes.titleCarousel}>Secteur</span>
           {sections.map((section, index) => {
             const active = this.state.selectedItem === index;
             if (renderStepper) return renderStepper(section, active, index);
