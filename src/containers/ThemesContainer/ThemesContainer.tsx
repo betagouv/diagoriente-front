@@ -127,7 +127,7 @@ const ThemesContainer = ({
             theme: skill.theme._id,
             activities: skill.activities.map(({ _id }) => _id),
             type: theme.type,
-            competences: skill.competences,
+            competences: skill.competences.filter(({ value }) => value !== 0),
           };
         }
 
