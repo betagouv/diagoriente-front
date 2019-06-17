@@ -21,7 +21,7 @@ import CompleteProfile from '../../components/ui/CompleteProfile/CompleteProfile
 import Spinner from '../../components/ui/Spinner/Spinner';
 import Card from '../../components/cards/Card/Card';
 import ReactTooltip from 'react-tooltip';
-import { isEmpty } from 'lodash'; 
+import { isEmpty } from 'lodash';
 // hooks
 import { useDidMount } from '../../hooks';
 
@@ -175,11 +175,34 @@ const ProfileContainer = ({
           </div>
         ),
     },
-
+    {
+      headerComponent: <Triangles />,
+      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
+      title: 'Mes expériences professionnelles',
+      description: 'Liste toutes tes expériences et rèvèle tes compétences',
+      footerComponent:
+        niveau <= 3 ? (
+          <div className={classes.step_footer}>
+            <RoundButton
+              onClick={navigate('/themes?type=professional')}
+              className={`${classes.round_button} ${classes.step3_round_button}`}
+            >
+              {niveau < 3 ? 'Bientôt' : 'Commencer'}
+            </RoundButton>
+          </div>
+        ) : (
+          <div className={classes.step_footer}>
+            <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
+              Mettre à jour
+            </button>
+          </div>
+        ),
+      disabled: niveau <= 2,
+    },
     {
       headerComponent: <div className={classes.info_step_header} />,
       disabled: niveau <= 1,
-      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{3}</span>,
+      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
       title: 'Mes thèmes favoris',
       description: 'Trouve des pistes d’orientation',
       footerComponent:
@@ -200,30 +223,6 @@ const ProfileContainer = ({
           </div>
         ),
     },
-    {
-      headerComponent: <Triangles />,
-      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{4}</span>,
-      title: 'Mon Service National Universel',
-      description: 'Evalue ton séjour de cohésion',
-      footerComponent:
-        niveau <= 3 ? (
-          <div className={classes.step_footer}>
-            <RoundButton
-              onClick={navigate('/themes?type=professional')}
-              className={`${classes.round_button} ${classes.step3_round_button}`}
-            >
-              {niveau < 3 ? 'Bientôt' : 'Commencer'}
-            </RoundButton>
-          </div>
-        ) : (
-          <div className={classes.step_footer}>
-            <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
-              Mettre à jour
-            </button>
-          </div>
-        ),
-      disabled: niveau <= 2,
-    },
   ];
 
   const onDislikeClick = (favoris: any) => {
@@ -235,7 +234,7 @@ const ProfileContainer = ({
     });
   };
 
-  console.log(getParcours.data.globalCopmetences)
+  console.log(getParcours.data.globalCopmetences);
   return (
     <div className={classes.container}>
       <Header pathTo={'/'} />
