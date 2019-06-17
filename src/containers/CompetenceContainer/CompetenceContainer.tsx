@@ -86,7 +86,7 @@ const CompetenceContainer = ({
           competences: skill.competences.filter(({ value }) => value !== 0),
         };
         if (skill.theme._id !== match.params.id) return baseSkill;
-        return { ...baseSkill, competences };
+        return { ...baseSkill, competences: competences.filter(({ value }) => value !== 0) };
       }),
     });
   };
