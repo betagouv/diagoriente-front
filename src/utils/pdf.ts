@@ -36,7 +36,9 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   });
 
   const competences = getParcours.data.globalCopmetences;
-  let themePro, actiPro;
+
+  let actiPro = [];
+  let themePro;
   if (skillPro) {
     themePro = skillPro.theme.title;
     actiPro = skillPro.activities.map((acti: any) => acti.title);
@@ -101,7 +103,6 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.setFont('lato', 'semiBold');
   doc.setFontSize(12.5);
   doc.setTextColor(100, 100, 100);
-  console.log('**', getParcours);
   const interests = getParcours.data.globalInterest.map((el: any) =>
     el.title.split('/').map((el: string) => el.trim()),
   );
@@ -118,7 +119,6 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
     let y = 211 + 4 * 15 * row;
     y += 5 * row;
 
-    doc.line(x - 4, y + 15, x - 4, y + 15 + 14 * 4);
     let j = 0;
     let k = 0;
     while (k < interests[i].length && j < 4) {
@@ -130,6 +130,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
       k++;
       j += splitText.length;
     }
+    doc.line(x - 4, y + 15, x - 4, y + 15 + 14 * j);
   }
 
   doc.roundedRect(674, 175, 149, 245, 7, 7, 'S');
@@ -147,7 +148,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
     doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
   }
 
-  if (skillPro) {
+  if (actiPro && actiPro.length) {
     doc.roundedRect(23, 442, 380, 120, 7, 7, 'S');
 
     doc.setFont('nunito', 'bold');
