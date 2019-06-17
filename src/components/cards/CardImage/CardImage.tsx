@@ -48,7 +48,6 @@ const CardImage = ({ handleClick, resources, index, famille, checked, nom }: Pro
     animated = resources.filter(ele => ele.mimetype !== 'image/gif')[0];
     Static = resources.filter(ele => ele.mimetype === 'image/gif')[0];
   }
-
   return (
     <div className={getClassNames()}>
       {resources && resources.length > 1 && animated && (

@@ -214,17 +214,24 @@ const FavorisContainer = ({
                     infiniteLoop
                     emulateTouch
                   >
-                    {familles.map(famille => (
-                      <CardImage
-                        resources={famille.resources}
-                        handleClick={handleClick}
-                        id={famille._id}
-                        checked={isChecked(famille._id)}
-                        index={selectedFamily.findIndex(elem => elem._id === famille._id)}
-                        nom={famille.nom}
-                        famille={famille}
-                      />
-                    ))}
+                    {familles
+                      .filter((element: IFamille) => {
+                        if (element.resources) {
+                          return element.resources.length !== 0;
+                        }
+                        return false
+                      })
+                      .map(famille => (
+                        <CardImage
+                          resources={famille.resources}
+                          handleClick={handleClick}
+                          id={famille._id}
+                          checked={isChecked(famille._id)}
+                          index={selectedFamily.findIndex(elem => elem._id === famille._id)}
+                          nom={famille.nom}
+                          famille={famille}
+                        />
+                      ))}
                   </Carousel>
                 )}
                 <button className={classes.scrollNext} onClick={() => changeDisplayedFamily(DisplayedFamily + 1)}>

@@ -79,7 +79,6 @@ const ThemesContainer = ({
   ) {
     return <Redirect to={'/profile'} />;
   }
-  console.log(list);
 
   useDidMount(() => {
     list.call({ type });

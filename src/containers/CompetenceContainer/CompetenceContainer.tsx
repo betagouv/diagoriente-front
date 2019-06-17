@@ -151,7 +151,6 @@ const CompetenceContainer = ({
     return false;
   };
   const competenceComponents = data.map(competence => {
-    console.log(competence);
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
     const buttons: JSX.Element[] = [];
