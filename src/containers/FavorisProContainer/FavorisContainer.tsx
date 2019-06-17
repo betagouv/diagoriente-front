@@ -160,7 +160,8 @@ const FavorisContainer = ({
 
               <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
                 <span className={classes.text_info}>
-                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le.
+                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le. Tu pourras les classer par
+                  ordre de préférence dans la colonne de droite
                 </span>
                 <br />
                 <span className={classes.italic_text}>
@@ -176,20 +177,13 @@ const FavorisContainer = ({
                 xl={12}
                 style={{
                   width: '90%',
-                  margin: '0 14%',
+                  margin: '0 auto',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexDirection: 'column',
                 }}
               >
-                <button
-                  style={{ transform: 'rotate(180deg)' }}
-                  className={classes.scrollNext}
-                  onClick={() => changeDisplayedFamily(DisplayedFamily - 1)}
-                >
-                  <img src={scrollArrow} alt="next" style={{ width: '25px', height: '25px' }} />
-                </button>
                 {fetching ? (
                   <div className={classes.container_loading}>
                     <Spinner />
@@ -219,7 +213,6 @@ const FavorisContainer = ({
                     axis={'vertical'}
                     infiniteLoop
                     emulateTouch
-                    showArrows={false}
                   >
                     {familles.map(famille => (
                       <CardImage
@@ -265,11 +258,6 @@ const FavorisContainer = ({
         <Grid item xl={3} className={classes.item2}>
           <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
             <div className={classes.text_container_selection}>
-              <span
-                style={{ color: 'red', margin: '0 45px', textAlign: 'center', lineHeight: '1.6', fontSize: 'larger' }}
-              >
-                Classe par ordre de préférence, les 5 univers que tu as sélectionnés
-              </span>
               <span className={classes.text_selection}>Ma séléction</span>
             </div>
             <List

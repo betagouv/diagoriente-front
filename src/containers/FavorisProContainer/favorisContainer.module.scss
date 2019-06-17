@@ -52,13 +52,10 @@ html {
 }
 .text_container_selection {
   display: flex;
-  flex-direction: column;
-  -webkit-justify-content: center;
-  justify-content: space-around;
-  align-items: center;
-  /* margin-top: 150px; */
+  justify-content: center;
+  /*   margin-top: 150px;
+ */
   margin-bottom: 20;
-  height: 15%;
 }
 .text_selection {
   font-family: Lato;
@@ -142,6 +139,7 @@ li {
 .sideBarWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   height: 100%;
 }
