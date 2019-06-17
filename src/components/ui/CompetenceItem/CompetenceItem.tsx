@@ -23,7 +23,7 @@ const CompetenceItem = ({ parcours }: IProps) => {
               <span className={classes.spanDescription}>{item.niveau.title}</span>
             </div>
             <ReactTooltip id={item._id} place="top" type="light" className={classes.tooltip}>
-              <span className={classes.bold_tooltip}>{item.niveau.title}</span>
+              <span className={classes.bold_tooltip}>{item.value === 0 ? item.title : item.niveau.title}</span>
               <span>{item.niveau.sub_title}</span>
             </ReactTooltip>
             <div className={classes.value}>

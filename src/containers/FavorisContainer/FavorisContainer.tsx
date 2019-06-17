@@ -185,7 +185,7 @@ const FavorisContainer = ({
               <Grid item xl={12} style={{ width: '80%', display: 'block', margin: '0 auto' }}>
                 {fetching ? (
                   <div className={classes.container_loading}>
-                    <Spinner />
+                    <Spinner hasText />
                     <Carousel
                       showThumbs={false}
                       showIndicators={false}

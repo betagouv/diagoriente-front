@@ -105,7 +105,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.text('Intérêts', 442, 211);
 
   doc.setFont('lato', 'semiBold');
-  doc.setFontSize(12.5);
+  doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
   const interests = getParcours.data.globalInterest.map((el: any) => el.title.split(' / '));
 
@@ -143,7 +143,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.text('Expériences', 693, 211);
 
   doc.setFont('lato', 'semiBold');
-  doc.setFontSize(12.5);
+  doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
   const n2 = themesPerso.length < 10 ? themesPerso.length : 10;
   for (let i = 0; i < n2; i++) {
