@@ -107,7 +107,10 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.setFont('lato', 'semiBold');
   doc.setFontSize(12.5);
   doc.setTextColor(100, 100, 100);
-  const interests = getParcours.data.globalInterest.map((el: any) => el.title.split(' / '));
+  console.log('**', getParcours);
+  const interests = getParcours.data.globalInterest.map((el: any) =>
+    el.title.split('/').map((el: string) => el.trim()),
+  );
 
   const n = interests.length <= 6 ? interests.length : 6;
   let col = 0;
