@@ -27,6 +27,10 @@ const List = ({
   fetching,
 }: IProps) => (
   <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <span className={classes.text_selection}>Ma séléction</span>
+    </div>
+
     {famileSelected && (
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
