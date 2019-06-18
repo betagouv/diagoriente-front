@@ -141,13 +141,6 @@ const FavorisContainer = ({
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
               <Grid container padding={{ xl: 0 }}>
-                <Grid item xl={4}>
-                  <div className={classes.header}>
-                    <div className={classes.logo_container} onClick={onNavigateToHome}>
-                      <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />{' '}
-                    </div>
-                  </div>
-                </Grid>
                 <Grid item xl={8}>
                   <PathStepper options={stepperOptions} onClick={onNavigate} type="type" />
                 </Grid>
@@ -160,7 +153,8 @@ const FavorisContainer = ({
 
               <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
                 <span className={classes.text_info}>
-                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le.
+                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le. Tu pourras les classer par
+                  ordre de préférence dans la colonne de gauche
                 </span>
                 <br />
                 <span className={classes.italic_text}>
@@ -265,12 +259,12 @@ const FavorisContainer = ({
         <Grid item xl={3} className={classes.item2}>
           <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
             <div className={classes.text_container_selection}>
-              <span
-                style={{ color: 'red', margin: '0 45px', textAlign: 'center', lineHeight: '1.6', fontSize: 'larger' }}
-              >
-                Classe par ordre de préférence, les 5 univers que tu as sélectionnés
-              </span>
-              <span className={classes.text_selection}>Ma séléction</span>
+              <div className={classes.header}>
+                <div className={classes.logo_container} onClick={onNavigateToHome}>
+                  <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />{' '}
+                </div>
+              </div>
+              <span className={classes.tips}>Classe par ordre de préférence, les 5 univers que tu as sélectionnés</span>
             </div>
             <List
               onSubmit={onSubmit}
