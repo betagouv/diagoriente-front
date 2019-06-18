@@ -38,7 +38,7 @@
   font-stretch: normal;
   line-height: 1.54;
   letter-spacing: normal;
-  color: $purple;
+  color: #b82635;
   @media (max-width: map-get($breakpoints, "md")) {
     margin: 0 3px 0px 3.5px;
   }
@@ -52,7 +52,7 @@
   font-stretch: normal;
   line-height: 1.54;
   letter-spacing: normal;
-  color: $purple-red;
+  color: #ff701e;
   @media (max-width: map-get($breakpoints, "md")) {
     margin: 0 3px 0px 3.5px;
   }

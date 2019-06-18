@@ -26,10 +26,10 @@
 }
 
 .title_active {
-  color: $purple;
+  color: #b82635;
 }
 .title_active_pro {
-  color: $purple-red;
+  color: #ff701e;
 }
 
 .continue_button {
@@ -37,14 +37,31 @@
   margin-top: 55px;
 }
 
-.info_pro {
-  color: $purple-red;
+.info_perso {
+  color: #b82635;
 }
+.info_pro {
+  color:#ff701e;
+}
+
 .button_pro {
   
-  background-image: linear-gradient(to left, #ff009a, #a521c8);
+  background-image: linear-gradient(to left, #ff701e, #ff701e);
     margin: auto;
     margin-top: 55px;
+    &:hover {
+      background-image: linear-gradient(to left, #d34a23, #d34a23);
+    }
+
+}
+
+.buttonPerso {
+  margin: auto;
+  margin-top: 55px;
+  background-image: linear-gradient(to left, #b82635, #b82635);
+  &:hover {
+    background-image: linear-gradient(to left, #9a222b, #9a222b);
+  }
 }
 
 

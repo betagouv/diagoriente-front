@@ -29,8 +29,8 @@
 }
 
 .card:hover {
-  background-image: linear-gradient(247deg, $wisteria, $perano);
-
+  background-image: linear-gradient(247deg, #b82635b3, #ff2215b3);
+  
   .title {
     color: $white;
   }
@@ -48,7 +48,7 @@
     opacity: 0;
   }
   &:hover {
-    background-image: linear-gradient(to left, #ff009a, #a521c8);
+    background-image: linear-gradient(to right, #ff2215, #ff701e);
     opacity: 0.5;
     .title {
       color: $white;
@@ -81,7 +81,7 @@
 }
 
 .card_focus {
-  background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
+  background-image: linear-gradient(247deg, #b82635, #ff2215);
   outline: none;
   border: none;
   .title {
@@ -93,7 +93,7 @@
 }
 
 .card_pro_focus {
-  background-image: linear-gradient(to left, #ff009a, #a521c8);
+  background-image: linear-gradient(to right, #b82635, #ff701e);
   outline: none;
   border: none;
   .title {

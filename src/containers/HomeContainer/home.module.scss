@@ -96,7 +96,7 @@
 }
 
 .cardContainer {
-  background-image: linear-gradient(255deg, $rose, $purple 51%, $cyan);
+  background-image: linear-gradient(255deg, #ffba27, #ff2215 51%, #003189);
   mix-blend-mode: multiply;
   padding-top: 20px;
   align-items: stretch;
@@ -195,7 +195,7 @@
 
 .headerContainer::before {
   height: 5px;
-  background-image: linear-gradient(to left, $rose, $purple 51%, $cyan);
+  background-image: linear-gradient(to right, #003189, #ff2215 51%, #ffba27);
   content: "";
   position: fixed;
   top: 0;

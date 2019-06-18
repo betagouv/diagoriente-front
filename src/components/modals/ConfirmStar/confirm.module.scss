@@ -24,7 +24,14 @@
   display: flex;
   justify-content: center;
   padding-top: 15px;
-  color: $purple;
+  color: #b82635;
+  text-align: center;
+}
+.title_pro {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  color: #ff701e;
   text-align: center;
 }
 
@@ -33,9 +40,13 @@
   justify-content: center;
   position: relative;
   padding-top: 40px;
-  .blue_btn {
+  .red_btn {
     padding: 10px 30px;
-    background-color: $darkblue;
+    background-color: #b82635;
+  }
+  .orangeBtn {
+    padding: 10px 30px;
+    background-color: #ff701e;
   }
   .rose_btn {
     padding: 10px 30px;

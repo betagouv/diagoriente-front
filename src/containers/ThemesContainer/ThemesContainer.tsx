@@ -233,8 +233,8 @@ const ThemesContainer = ({
           <Grid item xl={12}>
             <Info
               borderColor={type === 'professional' ? '#dec8dd' : '#ede7ff'}
-              backgroundColor={type === 'professional' ? '#fbeef9' : '#f7f7ff'}
-              className={type === 'professional' ? classes.info_pro : ''}
+              backgroundColor={type === 'professional' ? '#f9f3f3' : '#f9f3f3'}
+              className={type === 'professional' ? classes.info_pro : classes.info}
             >
               <span>Choisis des thèmes qui correspondent à des activités que tu as l’habitude de faire</span>
               <br />
@@ -253,7 +253,7 @@ const ThemesContainer = ({
               disabled={listThemes.length === 0}
               onClick={onClick}
               isFetching={fetching}
-              className={type === 'professional' ? classes.button_pro : ''}
+              className={type === 'professional' ? classes.button_pro : classes.buttonPerso}
             />
           </Grid>
         </Grid>

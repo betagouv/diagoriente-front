@@ -14,7 +14,7 @@
 }
 .btnOut {
   padding: 10px 30px;
-  background-color: $darkblue;
+  background-color: #b82635;
 }
 .wrapperModal {
   width: 100%;
@@ -30,13 +30,12 @@
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 30px; span {
-    color: $darkblue;
+    color: #d34a23;
     text-align: center;
   }
 }
 @media (max-width: map-get($breakpoints, "md" )) {
-  .container {
-  }
+  
   .title_container {
     display: flex;
     justify-content: center;

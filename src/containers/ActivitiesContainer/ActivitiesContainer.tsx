@@ -125,7 +125,7 @@ const ActivitiesContainer = ({
         <Grid item xl={12} sm={12} smd={12} xs={12}>
           <Info
             borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
-            backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
+            backgroundColor={theme.type === 'professional' ? '#f9f3f3' : '#f9f3f3'}
             className={theme.type === 'professional' ? classes.info_pro : ''}
           >
             Sélectionne les activités que tu as déjà faites
@@ -140,7 +140,7 @@ const ActivitiesContainer = ({
             disabled={theme.activities.length !== 0 && activities.length === 0}
             onClick={onContinueClick}
             isFetching={fetching}
-            className={theme.type === 'professional' ? classes.button_pro : ''}
+            className={theme.type === 'professional' ? classes.button_pro : classes.buttonPerso}
           />
         </Grid>
       </Grid>

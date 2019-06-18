@@ -68,7 +68,7 @@
 }
 
 .circle {
-  background-color: rgba(117, 51, 255, 0.15);
+  background-color: #f9f3f3;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -80,7 +80,7 @@
 }
 
 .circle_pro {
-  background-color: rgba(207, 17, 178, 0.15);
+  background-color: #f9f3f3;
 }
 
 .title {
@@ -90,14 +90,14 @@
   font-weight: bold;
   line-height: 1.33;
   text-align: center;
-  color: $medium-purple;
+  color: #b82635;
   @media (max-width: map-get($breakpoints, "smd" )) {
     font-size: 20px;
   }
 }
 
 .title_pro {
-  color: $purple-red;
+  color: #ff701e;
 }
 
 .description {
@@ -119,15 +119,22 @@
 }
 
 .continue_button {
-  background-color: $medium-purple !important;
+  background-color: #b82635 !important;
   background-image: none;
   font-size: 14px;
   @media (max-width: map-get($breakpoints, "smd" )) {
     font-size: 11px;
   }
+  &:hover {
+    background-color: #9a222b !important;
+    background-image: none;
+  }
 }
 
 .continue_button_pro {
-  background-color: $purple-red !important;
+  background-color: #ff701e !important;
   font-size: 14px;
+  &:hover {
+    background-color: #d34a23 !important;
+  }
 }

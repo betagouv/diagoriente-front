@@ -13,6 +13,7 @@ import StepCard from '../../components/cards/StepCard/StepCard';
 import QuestionMarks from '../../components/shapes/questionMark/questionMark';
 import Circles from '../../components/shapes/circles/circles';
 import Triangles from '../../components/shapes/triangles/triangles';
+import Stars from '../../components/shapes/stars/stars';
 import CardProgress from '../../components/cards/CardProgress/CardProgress';
 import RoundButton from '../../components/buttons/RoundButton/RoundButton';
 import CardCompetence from '../../components/cards/CardCompetence/Competence';
@@ -200,7 +201,7 @@ const ProfileContainer = ({
       disabled: niveau <= 2,
     },
     {
-      headerComponent: <div className={classes.info_step_header} />,
+      headerComponent: <Stars />,
       disabled: niveau <= 1,
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
       title: 'Mes thèmes favoris',
@@ -226,7 +227,7 @@ const ProfileContainer = ({
   ];
 
   const onDislikeClick = (favoris: any) => {
-    console.log(favoris);
+    // console.log(favoris);
     addFavorites.call({
       interested: false,
       job: favoris.job._id,
@@ -234,7 +235,7 @@ const ProfileContainer = ({
     });
   };
 
-  console.log(getParcours.data.globalCopmetences);
+ // console.log(getParcours.data.globalCopmetences);
   return (
     <div className={classes.container}>
       <Header pathTo={'/'} />
@@ -251,7 +252,7 @@ const ProfileContainer = ({
       <Grid container>
         <Grid item xl={12}>
           <Info>
-            <span className={classes.step_4}>
+            <span className={classes.step_1}>
               Complète les différentes rubriques pour enrichir ton profil de compétences
             </span>
           </Info>
@@ -290,7 +291,7 @@ const ProfileContainer = ({
       <Grid container>
         <Grid item xl={12}>
           <Info>
-            <span className={classes.step_4}>
+            <span className={classes.step_1}>
               Grâce à tes réponses, voici des suggestions de métiers qui pourraient te convenir
             </span>
           </Info>

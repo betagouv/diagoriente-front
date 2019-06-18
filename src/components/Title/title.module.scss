@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $purple;
+    background-color: #b82635;
     margin-right: 20px;
     .logo {
       max-height: 30px;
@@ -27,7 +27,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $purple-red;
+    background-color: #ff701e;
     margin-right: 20px;
     .logo {
       max-height: 30px;
@@ -47,7 +47,7 @@
       font-stretch: normal;
       line-height: normal;
       letter-spacing: normal;
-      color: $purple;
+      color: #b82635;
 
       @media (max-width: map-get($breakpoints, "lg")) {
         font-size: 32px;
@@ -65,7 +65,7 @@
       font-stretch: normal;
       line-height: normal;
       letter-spacing: normal;
-      color: $purple-red;
+      color: #ff701e;
       @media (max-width: map-get($breakpoints, "lg")) {
         font-size: 32px;
       }

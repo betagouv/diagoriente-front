@@ -90,7 +90,7 @@
   font-weight: bold;
   line-height: 1.33;
   text-align: center;
-  color: $medium-purple;
+  color: #003189;
   @media (max-width: map-get($breakpoints, "smd" )) {
     font-size: 20px;
   }
@@ -119,7 +119,7 @@
 }
 
 .continue_button {
-  background-color: $medium-purple !important;
+  background-color: #003189 !important;
   background-image: none;
 }
 

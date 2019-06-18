@@ -177,7 +177,7 @@ const JobsContainer = ({
             Mes pistes métiers
           </Grid>
           <Grid item xl={12}>
-            <Info>
+            <Info backgroundColor={'#f9f3f3'}>
               <span className={classes.info}>Sélectionne des métiers que tu aimerais découvrir</span>
               <br />
               <span className={classes.italic_text}>
