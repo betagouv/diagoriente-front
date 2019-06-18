@@ -227,7 +227,6 @@ const ProfileContainer = ({
   ];
 
   const onDislikeClick = (favoris: any) => {
-    // console.log(favoris);
     addFavorites.call({
       interested: false,
       job: favoris.job._id,
@@ -235,7 +234,6 @@ const ProfileContainer = ({
     });
   };
 
- // console.log(getParcours.data.globalCopmetences);
   return (
     <div className={classes.container}>
       <Header pathTo={'/'} />

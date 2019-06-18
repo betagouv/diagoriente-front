@@ -86,7 +86,7 @@ const CompetenceContainer = ({
           competences: skill.competences.filter(({ value }) => value !== 0),
         };
         if (skill.theme._id !== match.params.id) return baseSkill;
-        return { ...baseSkill, competences };
+        return { ...baseSkill, competences: competences.filter(({ value }) => value !== 0) };
       }),
     });
   };
@@ -151,7 +151,6 @@ const CompetenceContainer = ({
     return false;
   };
   const competenceComponents = data.map(competence => {
-    console.log(competence);
     const currentIndex = competences.findIndex(({ _id }) => competence._id === _id);
     const current = currentIndex === -1 ? undefined : competences[currentIndex];
     const buttons: JSX.Element[] = [];
