@@ -154,7 +154,7 @@ const FavorisContainer = ({
               <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
                 <span className={classes.text_info}>
                   Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le. Tu pourras les classer par
-                  ordre de préférence dans la colonne de droite
+                  ordre de préférence dans la colonne de gauche
                 </span>
                 <br />
                 <span className={classes.italic_text}>
