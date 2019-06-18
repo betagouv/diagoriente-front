@@ -48,8 +48,8 @@
     opacity: 0;
   }
   &:hover {
-    background-image: linear-gradient(to right, #ff2215, #ff701e);
-    opacity: 0.5;
+    background-image: linear-gradient(to right, #ff2215cc, #ff701ecc);
+    
     .title {
       color: $white;
     }

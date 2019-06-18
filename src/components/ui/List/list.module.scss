@@ -29,11 +29,19 @@
 }
 .btn {
   background-image: none;
-  background-color: $rose !important;
+  background:#ffba27 !important;
+  background-color:#ffba27 !important;
   padding: 10px 30px !important;
+  &:hover {
+    background-image: none;
+  background-color: #e3a928 !important;
+  }
 }
 .disabled {
   background-color: $footer_color !important;
+  &:hover {
+    background-color: $footer_color !important;
+  }
 }
 .text_selection {
   font-family: Lato;

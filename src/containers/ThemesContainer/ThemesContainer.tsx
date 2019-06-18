@@ -231,7 +231,7 @@ const ThemesContainer = ({
           </Grid>
           <Grid item xl={12}>
             <Info
-              borderColor={type === 'professional' ? '#dec8dd' : '#ede7ff'}
+              borderColor={type === 'professional' ? '#f9e5de' : '#ede7ff'}
               backgroundColor={type === 'professional' ? '#f9f3f3' : '#f9f3f3'}
               className={type === 'professional' ? classes.info_pro : classes.info}
             >

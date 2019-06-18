@@ -85,6 +85,10 @@
   margin: 0 auto;
   width: auto;
   text-transform: uppercase;
+  background-color: #b82635;
+  &:hover {
+    background-color: #9a222b;
+  }
 }
 
 .btn_text {

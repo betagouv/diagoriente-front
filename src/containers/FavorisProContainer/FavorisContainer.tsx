@@ -151,7 +151,7 @@ const FavorisContainer = ({
                 <Title type="type" title={'Mes intérêts professionnels'} />
               </div>
 
-              <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
+              <Info borderColor={'#F2F4F9'} backgroundColor={'#f7f3ed'}>
                 <span className={classes.text_info}>
                   Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le. Tu pourras les classer par
                   ordre de préférence dans la colonne de gauche
@@ -256,7 +256,7 @@ const FavorisContainer = ({
           </Grid>
         </Grid>
         <Grid item xl={3} className={classes.item2}>
-          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
+          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%', background: '#f7f3ed' }}>
             <div className={classes.text_container_selection}>
               <div className={classes.header}>
                 <div className={classes.logo_container} onClick={onNavigateToHome}>

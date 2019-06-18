@@ -52,7 +52,10 @@
     margin: 10px;
     button {
       padding: 10px 30px;
-      background-image: linear-gradient(254deg, #a422c9, #5065ff);
+      background-color: #b82635;
+      &:hover {
+        background-color: #9a222b;
+      }
     }
   }
   .container_forget_Password {

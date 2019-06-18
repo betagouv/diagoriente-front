@@ -175,7 +175,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         </div>
 
         <div className={classes.container_button}>
-          <Button onClick={onSubmit}> Inscription</Button>
+          <Button className={classes.btn} onClick={onSubmit}> Inscription</Button>
         </div>
 
         <div className={classes.container_forget_Password}>

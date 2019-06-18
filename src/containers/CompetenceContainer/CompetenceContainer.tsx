@@ -242,7 +242,7 @@ const CompetenceContainer = ({
         <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
           <Grid item xl={12} sm={12}>
             <Info
-              borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
+              borderColor={theme.type === 'professional' ? '#f9e5de' : '#ede7ff'}
               backgroundColor={theme.type === 'professional' ? '#f9f3f3' : '#f9f3f3'}
               className={theme.type === 'professional' ? classes.info_pro : classes.info_perso}
             >

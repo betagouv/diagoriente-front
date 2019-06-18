@@ -112,7 +112,7 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
             </Grid>
 
             <Grid item xl={12} className={classes.container_button}>
-              <Button onClick={onSubmit}>Envoyer</Button>
+              <Button className={classes.btn} onClick={onSubmit}>Envoyer</Button>
             </Grid>
           </Grid>
         </Grid>
