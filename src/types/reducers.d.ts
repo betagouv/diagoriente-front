@@ -37,7 +37,7 @@ declare module 'reducers' {
     email: string;
     parcours: string[];
     platform: string;
-    profile: { pseudo: string; firstName: string; lastName: string; institution: string };
+    profile: { pseudo: string; firstName: string; lastName: string };
     question: [];
     role: string;
     _id: string;
