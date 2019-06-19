@@ -11,21 +11,19 @@ interface IRegisterRequestAction {
   password: string;
   firstName: string;
   lastName: string;
-  institution: string;
   question: {
     _id: string;
     response: string;
   };
 }
 
-export function* registerUser({ email, password, firstName, lastName, institution, question }: IRegisterRequestAction) {
+export function* registerUser({ email, password, firstName, lastName, question }: IRegisterRequestAction) {
   try {
     const response: WrappedResponse<IUser> = yield call(wrapApiCall, registerUserRequest, {
       email,
       password,
       firstName,
       lastName,
-      institution,
       question,
     });
     if (response.success) {
