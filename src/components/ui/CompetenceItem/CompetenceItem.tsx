@@ -23,13 +23,13 @@ const CompetenceItem = ({ parcours }: IProps) => {
               <span className={classes.spanDescription}>{item.niveau.title}</span>
             </div>
             <ReactTooltip id={item._id} place="top" type="light" className={classes.tooltip}>
-              <span className={classes.bold_tooltip}>{item.niveau.title}</span>
+              <span className={classes.bold_tooltip}>{!isEmpty(item.niveau) ? item.niveau.title : item.title}</span>
               <span>{item.niveau.sub_title}</span>
             </ReactTooltip>
             <div className={classes.value}>
               <Progress
                 width={item.value}
-                title={!isEmpty(item.niveau) ? item.niveau.title : ''}
+                title={!isEmpty(item.niveau) ? item.niveau.title : item.title}
                 sub_title={!isEmpty(item.niveau) ? item.niveau.sub_title : ''}
               />
             </div>
