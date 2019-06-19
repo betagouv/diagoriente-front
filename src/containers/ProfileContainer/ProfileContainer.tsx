@@ -109,8 +109,8 @@ const ProfileContainer = ({
   let niveau = 0;
   if (parcours.data.played) niveau = 1;
   if (niveau === 1 && isPersoCompleted) niveau = 2;
-  if (niveau === 2 && parcours.data.families.length) niveau = 3;
-  if (niveau === 3 && isProCompleted) niveau = 4;
+  if (niveau === 2 && isProCompleted) niveau = 3;
+  if (niveau === 3 && parcours.data.families.length) niveau = 4;
 
   const onCompleteProfile = () => {
     let action = navigate('/jobs');
@@ -122,15 +122,15 @@ const ProfileContainer = ({
         action = navigate('/themes');
         break;
       case 2:
-        action = navigate('/favoris');
+        action = navigate('/themes?type=professional');
         break;
       case 3:
-        action = navigate('/themes?type=professional');
+        action = navigate('/favoris');
         break;
     }
     action();
   };
-
+  console.log('niveau', niveau);
   const steps = [
     {
       headerComponent: <QuestionMarks />,
@@ -177,18 +177,19 @@ const ProfileContainer = ({
         ),
     },
     {
+      disabled: niveau <= 1,
       headerComponent: <Triangles />,
       circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
       title: 'Mes expériences professionnelles',
       description: 'Liste toutes tes expériences et rèvèle tes compétences',
       footerComponent:
-        niveau <= 3 ? (
+        niveau <= 2 ? (
           <div className={classes.step_footer}>
             <RoundButton
               onClick={navigate('/themes?type=professional')}
               className={`${classes.round_button} ${classes.step3_round_button}`}
             >
-              {niveau < 3 ? 'Bientôt' : 'Commencer'}
+              {niveau < 2 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
@@ -198,22 +199,21 @@ const ProfileContainer = ({
             </button>
           </div>
         ),
-      disabled: niveau <= 2,
     },
     {
       headerComponent: <Stars />,
-      disabled: niveau <= 1,
+      disabled: niveau <= 2,
       circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
       title: 'Mes thèmes favoris',
       description: 'Trouve des pistes d’orientation',
       footerComponent:
-        niveau <= 2 ? (
+        niveau <= 3 ? (
           <div className={classes.step_footer}>
             <RoundButton
               onClick={navigate('/favoris')}
               className={`${classes.round_button} ${classes.step4_round_button}`}
             >
-              {niveau < 2 ? 'Bientôt' : 'Commencer'}
+              {niveau < 3 ? 'Bientôt' : 'Commencer'}
             </RoundButton>
           </div>
         ) : (
