@@ -11,7 +11,7 @@ export interface IListThemesParams {
 export type ListThemesResponse = ListResponse<ITheme>;
 
 export const listThemes = (params?: IListThemesParams): Promise<Response<ListThemesResponse>> => {
-  return axiosGet('v1/themes', { params });
+  return axiosGet('v1/themes/all', { params });
 };
 
 export const getTheme = (id: string): Promise<Response<ITheme>> => axiosGet(`v1/themes/${id}`);

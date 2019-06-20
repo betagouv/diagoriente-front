@@ -13,7 +13,7 @@ import Triangles from '../../components/shapes/triangles/triangles';
 // import Stars from '../../components/shapes/stars/stars';
 import StepCard from '../../components/cards/StepCard/StepCard';
 
-import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
+import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import start_arrow from '../../assets/icons/start-arrow.png';
 import O from '../../assets/icons/svg/O.svg';
 import loginIcon from '../../assets/icons/svg/login.svg';
