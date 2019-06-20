@@ -20,9 +20,9 @@ import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
 import Spinner from '../../components/Spinner/Spinner';
 import VerticalStepper from '../../components/VerticalStepper/VerticalStepper';
 // assets
-import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
-import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
-import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo2x from '../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo3x from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import preloadImage from '../../assets/images/preloadImage.png';
 import scrollArrow from '../../assets/icons/svg/scrollArrow.svg';
 import { IUpdateParcoursParams } from '../../requests';
@@ -212,7 +212,7 @@ const FavorisContainer = ({
                         if (element.resources) {
                           return element.resources.length !== 0;
                         }
-                        return false
+                        return false;
                       })
                       .map(famille => (
                         <CardImage

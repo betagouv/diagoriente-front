@@ -51,6 +51,9 @@ interface IDispatchToProps {
   updateThemes: (themes: ITheme[]) => void;
   getActivity: (id: any) => void;
 }
+interface IState {
+  themesFiltred: ITheme[];
+}
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
 
@@ -79,7 +82,11 @@ const ThemesContainer = ({
   ) {
     return <Redirect to={'/profile'} />;
   }
+  const [open, setOpen] = useState(false);
+  const [themesFiltred, setThemesFiltred] = useState(list.data.data);
+  const [value, setValue] = useState('');
 
+  const toggleOpen = () => setOpen(!open);
   useDidMount(() => {
     list.call({ type });
   });
@@ -87,35 +94,6 @@ const ThemesContainer = ({
   useWillUnmount(() => {
     updateThemes(parcours.skills.map(skill => skill.theme));
   });
-
-  /* useDidUpdate(() => {
-    if (type === 'professional' && !list.fetching && !list.error) {
-      const skills = parcours.skills.map(skill => {
-        return {
-          theme: skill.theme._id,
-          activities: skill.activities.map(({ _id }) => _id),
-          type: skill.theme.type,
-          competences: skill.competences,
-        };
-      });
-
-      if (!skills.find(skill => skill.type === 'professional')) {
-        skills.push({
-          theme: list.data.data[0]._id,
-          activities: [],
-          type: 'professional',
-          competences: [],
-        });
-      }
-
-      parcoursRequest({
-        skills,
-      });
-    }
-  },           [list.fetching]); */
-
-  const [open, setOpen] = useState(false);
-  const toggleOpen = () => setOpen(!open);
 
   const onClick = () => {
     parcoursRequest({
@@ -136,6 +114,19 @@ const ThemesContainer = ({
   };
   const onMouseEnter = (id: string) => {
     getActivity({ id });
+  };
+  const handleSearch = async (event: React.FormEvent<HTMLInputElement>) => {
+    setValue(event.currentTarget.value);
+    if (event.currentTarget.value === '') {
+      list.call({
+        type,
+      });
+    } else if (event.currentTarget.value.length > 2) {
+      list.call({
+        type,
+        search: event.currentTarget.value,
+      });
+    }
   };
 
   useDidUpdate(() => {
@@ -242,6 +233,21 @@ const ThemesContainer = ({
               </span>
             </Info>
           </Grid>
+          {type === 'professional' ? (
+            <Grid item xl={12}>
+              <Grid container padding={{ xl: 20 }}>
+                <div className={classes.searchContainer}>
+                  <input
+                    type="text"
+                    value={value}
+                    className={classNames(classes.inputSearch, classes.borderInputPro)}
+                    onChange={handleSearch}
+                    placeholder="Recherche ..."
+                  />
+                </div>
+              </Grid>
+            </Grid>
+          ) : null}
           <Grid item xl={12}>
             <Grid container padding={{ xl: 0 }} spacing={{ xl: 30, md: 25 }}>
               {themesComponents}

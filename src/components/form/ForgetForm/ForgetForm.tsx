@@ -16,7 +16,7 @@ import resetActions from '../../../reducers/authUser/resetPassword';
 import Spinner from '../../ui/Spinner/Spinner';
 import Input from '../Input/Input';
 import Button from '../../buttons/RoundButton/RoundButton';
-import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
+import logo from '../../../assets/icons/logo/Diagoriente_Logo.svg';
 import Select from '../Select/select';
 import classes from './forget.module.scss';
 
@@ -77,8 +77,7 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
           </Grid>
           <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }}>
             <Grid item xl={12}>
-              <div className={classes.title}>
-              </div>
+              <div className={classes.title} />
             </Grid>
             <Grid item xl={12}>
               <Input
@@ -112,7 +111,9 @@ const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, his
             </Grid>
 
             <Grid item xl={12} className={classes.container_button}>
-              <Button className={classes.btn} onClick={onSubmit}>Envoyer</Button>
+              <Button className={classes.btn} onClick={onSubmit}>
+                Envoyer
+              </Button>
             </Grid>
           </Grid>
         </Grid>

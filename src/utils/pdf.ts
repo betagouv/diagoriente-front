@@ -1,10 +1,13 @@
 import jsPDF from 'jspdf';
 // assets
 import logoRF from '../assets/pdf/rf.png';
+import logoSNU from '../assets/pdf/snu.png';
 import niveau1 from '../assets/pdf/niveau1.png';
 import niveau2 from '../assets/pdf/niveau2.png';
 import niveau3 from '../assets/pdf/niveau3.png';
 import niveau4 from '../assets/pdf/niveau4.png';
+import logo2 from '../assets/pdf/pdfreloc.png';
+
 import linear from '../assets/pdf/lignetop.png';
 import backdrop from '../assets/pdf/backdrop.png';
 import diagoriente from '../assets/pdf/diagor2.png';
@@ -37,12 +40,6 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
 
   const competences = getParcours.data.globalCopmetences;
 
-  let actiPro = [];
-  let themePro;
-  if (skillPro) {
-    themePro = skillPro.theme.title;
-    actiPro = skillPro.activities.map((acti: any) => acti.title);
-  }
   const width = doc.internal.pageSize.getWidth();
   const height = doc.internal.pageSize.getHeight();
 
@@ -63,7 +60,11 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
 
   const RF = document.createElement('img');
   RF.setAttribute('src', logoRF);
-  doc.addImage(RF, 'PNG', width - 126, 87, 70, 57, '', 'FAST');
+  doc.addImage(RF, 'PNG', width - 168, 87, 70, 57, '', 'FAST');
+
+  const SNU = document.createElement('img');
+  SNU.setAttribute('src', logoSNU);
+  doc.addImage(SNU, 'PNG', width - 75, 87, 57, 57, '', 'FAST');
 
   doc.setFont('nunito', 'bold');
   doc.setFontSize(30);
@@ -76,7 +77,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
 
   doc.setLineWidth(1.1);
   doc.setDrawColor(215, 215, 215);
-  doc.roundedRect(23, 175, 380, 245, 7, 7, 'S');
+  doc.roundedRect(23, 175, 380, 380, 7, 7, 'S');
 
   doc.setFont('lato', 'semiBold');
   const y1 = 212;
@@ -84,12 +85,12 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   for (let i = 0; i < 10; i++) {
     doc.setFontSize(13);
     doc.setTextColor(100, 100, 100);
-    doc.text(competences[i].title, 45, y1 + i * 20);
+    doc.text(competences[i].title, 45, y1 + i * 35);
     doc.setFontSize(8);
     doc.setTextColor(170, 170, 170);
-    if (competences[i].value > 0) doc.text(competences[i].niveau.title, 45 + 20, y1 + 6.5 + i * 20);
+    if (competences[i].value > 0) doc.text(competences[i].niveau.title, 45 + 5, 221 + 6.3 + i * 35);
     for (let j = 1; j <= competences[i].value; j++) {
-      doc.addImage(niveaux[j], 'PNG', 45 + 20 + 240 + j * 16, y1 - 8.5 + i * 20, 11, 11, '', 'FAST');
+      doc.addImage(niveaux[j], 'PNG', 45 + 20 + 240 + j * 16, y1 - 8.5 + i * 35, 11, 11, '', 'FAST');
     }
   }
 
@@ -147,22 +148,10 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   for (let i = 0; i < n2; i++) {
     doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
   }
-
-  if (actiPro && actiPro.length) {
-    doc.roundedRect(23, 442, 380, 120, 7, 7, 'S');
-
-    doc.setFont('nunito', 'bold');
-    doc.setFontSize(20);
-    doc.setTextColor(26, 68, 131);
-    doc.text('Mon SNU', 42, 478);
-
-    doc.setFont('lato', 'semiBold');
-    doc.setFontSize(12.5);
-    doc.setTextColor(100, 100, 100);
-    const n3 = actiPro.length < 3 ? actiPro.length : 3;
-    for (let i = 0; i < n3; i++) doc.text(actiPro[i], 42, 506 + i * 18);
-  }
-
+  const logo2Div = document.createElement('img');
+  logo2Div.setAttribute('src', logo2);
+  doc.addImage(logo2Div, 484, 462, 118, 90, '' as any, 'FAST');
+  
   doc.setFont('nunito', 'normal');
   doc.setFontSize(12.5);
   doc.setTextColor(26, 68, 131);
