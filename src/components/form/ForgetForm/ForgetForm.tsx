@@ -16,7 +16,7 @@ import resetActions from '../../../reducers/authUser/resetPassword';
 import Spinner from '../../ui/Spinner/Spinner';
 import Input from '../Input/Input';
 import Button from '../../buttons/RoundButton/RoundButton';
-import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
+import logo from '../../../assets/icons/logo/Diagoriente_Logo.svg';
 import Select from '../Select/select';
 import classes from './forget.module.scss';
 

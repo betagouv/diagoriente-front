@@ -10,9 +10,9 @@ import Grid from '../../components/ui/Grid/Grid';
 import LogoutModal from '../../components/modals/LogOutModal/LogoutModal';
 
 // assets
-import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
-import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
-import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo2x from '../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo3x from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import logoutSvg from '../../assets/icons/svg/logout.svg';
 
 import classes from './header.module.scss';

@@ -3,9 +3,9 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // assets
-import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
-import logo2x from '../../../assets/icons/logo/diagoriente-logo-01@2x.png';
-import logo3x from '../../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import logo from '../../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo2x from '../../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo3x from '../../../assets/icons/logo/Diagoriente_Logo.svg';
 // components
 import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 
