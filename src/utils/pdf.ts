@@ -60,11 +60,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
 
   const RF = document.createElement('img');
   RF.setAttribute('src', logoRF);
-  doc.addImage(RF, 'PNG', width - 168, 87, 70, 57, '', 'FAST');
-
-  const SNU = document.createElement('img');
-  SNU.setAttribute('src', logoSNU);
-  doc.addImage(SNU, 'PNG', width - 75, 87, 57, 57, '', 'FAST');
+  doc.addImage(RF, 'PNG', width - 90, 87, 70, 57, '', 'FAST');
 
   doc.setFont('nunito', 'bold');
   doc.setFontSize(30);
@@ -151,7 +147,7 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   const logo2Div = document.createElement('img');
   logo2Div.setAttribute('src', logo2);
   doc.addImage(logo2Div, 484, 462, 118, 90, '' as any, 'FAST');
-  
+
   doc.setFont('nunito', 'normal');
   doc.setFontSize(12.5);
   doc.setTextColor(26, 68, 131);
