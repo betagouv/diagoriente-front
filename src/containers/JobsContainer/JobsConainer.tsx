@@ -140,7 +140,7 @@ const JobsContainer = ({
           <span data-tip data-for={job._id} className={classes.jobinfo}>
             {job.description}
           </span>
-          <span className={classes.jobEntry}>Niveau d’entrée en formation :{job.accessibility} </span>
+          <span className={classes.jobEntry}>Niveau d’accès au métier :{job.accessibility} </span>
           <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
             {job.description}
           </ReactTooltip>
