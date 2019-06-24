@@ -230,7 +230,7 @@ const CompetenceContainer = ({
   return (
     <Grid container padding={{ xl: 0 }} spacing={{ xl: 40, lg: 0 }} className={classes.container}>
       <Prompt
-        when={!isEqual(currentThemeSkill.competences, competences)}
+        when={!isEqual(currentThemeSkill.competences, competences.filter(({ value }) => value !== 0))}
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
       <div className={classNames('colorful_bar', classes.bar_color)} />

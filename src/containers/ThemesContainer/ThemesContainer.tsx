@@ -200,6 +200,13 @@ const ThemesContainer = ({
   };
 
   const listThemes = themes.filter(theme => theme.type === type);
+
+  let logo: string | undefined;
+  if (themes.length) {
+    const lastThemeResource = themes[themes.length - 1].resources;
+    logo = lastThemeResource ? lastThemeResource.icon : undefined;
+  }
+
   return (
     <div className={classes.container_themes}>
       <Prompt
@@ -215,7 +222,7 @@ const ThemesContainer = ({
           </Grid>
           <Grid item xl={12} className={classes.grid_padding}>
             <Title
-              logo={themes.length ? themes[themes.length - 1].resources.icon : undefined}
+              logo={logo}
               title={type === 'professional' ? 'Mes expériences professionnelles' : 'Mes expériences personnelles'}
               type={type}
             />
