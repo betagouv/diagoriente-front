@@ -325,7 +325,7 @@ const ProfileContainer = ({
                         {favoris.job.description}
                       </span>
                       <span className={classes.jobEntry}>
-                        Niveau d’entrée en formation :{favoris.job.accessibility}
+                      Niveau d’accès au métier :{favoris.job.accessibility}
                       </span>
                       <ReactTooltip id={favoris.job._id} place="top" type="light" className={classes.tooltip}>
                         {favoris.job.description}
