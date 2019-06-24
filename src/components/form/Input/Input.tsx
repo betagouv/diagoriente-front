@@ -15,15 +15,7 @@ const Input = ({ className, name, validation, type, email, ...other }: props) =>
   return (
     <div className={className}>
       <div className={classes.login_container_input}>
-        <span className={classes.label_input}>
-          {name}
-          {email && (
-            <span style={{ fontSize: '9px' }}>
-              ( Crée ton mail au format suivant{' '}
-              <span style={{ color: '#003189', textDecoration: 'underline' }}>prenom.nom@monbilansnu.fr)</span>
-            </span>
-          )}
-        </span>
+        <span className={classes.label_input}>{name}</span>
 
         <input className={classes.input_login} type={type} {...other} />
         {validation !== '' && <span className={classes.error_input}>{validation}</span>}

@@ -156,7 +156,7 @@ const ThemesContainer = ({
     }
   },           [fetching]);
 
-  if (list.fetching) return <div>...loading</div>;
+  /* if (list.fetching) return <div>...loading</div>; */
   const { data } = list.data;
   let themesComponents: JSX.Element[] = [];
   if (data) {
@@ -180,9 +180,9 @@ const ThemesContainer = ({
             {theme.title}
             <ReactTooltip id={theme._id} type="light" className={'tooltip'}>
               <div className={classes.activity_container}>
-                {map(activity.data.activities, (e: any) => (
-                  <span key={e._id}>{e.title}</span>
-                ))}
+                {activity.data.activities && activity.data.activities.length !== 0
+                  ? map(activity.data.activities, (e: any) => <span key={e._id}>{e.title}</span>)
+                  : theme.title}
               </div>
             </ReactTooltip>
           </CardTheme>

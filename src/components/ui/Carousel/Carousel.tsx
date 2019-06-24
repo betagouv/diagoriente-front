@@ -197,6 +197,8 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
           })}
         </BaseCarousel>
         <div className={classes.stepper}>
+          <span className={classes.titleCarousel}>Secteur</span>
+
           {sections.map((section, index) => {
             const active = this.state.selectedItem === index;
             if (renderStepper) return renderStepper(section, active, index);
