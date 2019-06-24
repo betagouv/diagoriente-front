@@ -15,7 +15,7 @@ import StepCard from '../../components/cards/StepCard/StepCard';
 
 import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import start_arrow from '../../assets/icons/start-arrow.png';
-import O from '../../assets/icons/svg/O.svg';
+import O from '../../assets/icons/svg/Ocolor.svg';
 import loginIcon from '../../assets/icons/svg/login.svg';
 import logoutIcon from '../../assets/icons/svg/logout.svg';
 
