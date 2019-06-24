@@ -17,8 +17,6 @@ interface IProps {
 }
 
 const ProgressBarCompetence = ({ width, color, title, sub_title }: IProps) => {
-  // const classe = getWidth(width);
-
   return (
     <div className={classes.wrapper}>
       <ReactTooltip id={title} type="light" className={classes.tooltip_star}>

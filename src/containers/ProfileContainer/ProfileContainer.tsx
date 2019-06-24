@@ -130,7 +130,6 @@ const ProfileContainer = ({
     }
     action();
   };
-  console.log('niveau', niveau);
   const steps = [
     {
       headerComponent: <QuestionMarks />,
