@@ -79,7 +79,7 @@ declare module 'reducers' {
     verified: boolean;
     createdAt: string;
     activities: IActivity[];
-    resources: { color: string; backgroundColor: string; icon: string };
+    resources?: { color: string; backgroundColor: string; icon: string };
   }
 
   export interface ISkillPopulated {

@@ -130,6 +130,7 @@ const ProfileContainer = ({
     }
     action();
   };
+
   const steps = [
     {
       headerComponent: <QuestionMarks />,

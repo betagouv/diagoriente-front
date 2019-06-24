@@ -182,7 +182,11 @@ const ThemeContainer = ({
           </Grid>
           <Grid item xl={12} className={classes.grid_padding}>
             {currentTheme && (
-              <Title title={currentTheme.title} logo={currentTheme.resources.icon} type={currentTheme.type} />
+              <Title
+                title={currentTheme.title}
+                logo={currentTheme.resources ? currentTheme.resources.icon : undefined}
+                type={currentTheme.type}
+              />
             )}
           </Grid>
           <Switch>
