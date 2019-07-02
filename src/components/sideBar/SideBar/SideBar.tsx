@@ -77,7 +77,7 @@ const SideBar = <T extends Option>({
               themetype={type}
               numberOfLine={numberOfLine}
             >
-              {!disabled && onItemRemove && (
+              { onItemRemove && (
                 <div onClick={remove} className={classes.remove_button}>
                   <img src={type === 'professional' ? crossPro : cross} height={12} width={12} />
                 </div>
