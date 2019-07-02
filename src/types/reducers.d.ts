@@ -37,7 +37,7 @@ declare module 'reducers' {
     email: string;
     parcours: string[];
     platform: string;
-    profile: { pseudo: string; firstName: string; lastName: string; institution: string };
+    profile: { pseudo: string; firstName: string; lastName: string };
     question: [];
     role: string;
     _id: string;
@@ -79,7 +79,7 @@ declare module 'reducers' {
     verified: boolean;
     createdAt: string;
     activities: IActivity[];
-    resources: { color: string; backgroundColor: string; icon: string };
+    resources?: { color: string; backgroundColor: string; icon: string };
   }
 
   export interface ISkillPopulated {

@@ -25,10 +25,21 @@
   left: 0;
 }
 .info_pro {
-  color: $purple-red;
+  color: #ff701e;
+}
+.info_perso {
+  color: #b82635;
 }
 .button_pro {
   
-  background-image: linear-gradient(to left, #ff009a, #a521c8);
-
+  background-image: linear-gradient(to left, #d34a23, #d34a23);
+  &:hover {
+    background-image: linear-gradient(to left, #d34a23, #d34a23);
+  }
+}
+.buttonPerso {
+  background-image: linear-gradient(to left, #b82635, #b82635);
+  &:hover {
+    background-image: linear-gradient(to left, #9a222b, #9a222b);
+  }
 }

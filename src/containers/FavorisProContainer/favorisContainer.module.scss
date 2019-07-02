@@ -54,11 +54,10 @@ html {
   display: flex;
   flex-direction: column;
   -webkit-justify-content: center;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   /* margin-top: 150px; */
-  margin-bottom: 20;
-  height: 15%;
+  height: 25%;
 }
 .text_selection {
   font-family: Lato;
@@ -70,7 +69,7 @@ html {
 }
 .logo_container {
   width: 152.6px;
-  height: 50px;
+  height: auto;
   margin-top: 40px;
   cursor: pointer;
 }
@@ -83,12 +82,12 @@ html {
   align-items: center;
 }
 .text_info {
-  color: #003189;
+  color: #ffba27;
 }
 .italic_text {
   font-size: 12px;
   font-style: italic;
-  color: $darkblue;
+  color: #ffba27;
 }
 li {
   width: 100% !important;
@@ -98,11 +97,11 @@ li {
   width: 97% !important;
   border-radius: 2% !important;
 
-  /*  &:hover {
-    -webkit-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
-  } */
+  /* &:hover {
+-webkit-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
+-moz-box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
+box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
+} */
 }
 .carou > div:first-child > div:nth-child(2) {
   height: 100%;
@@ -142,7 +141,9 @@ li {
 .sideBarWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
 }
 .container_loading {
@@ -154,4 +155,14 @@ li {
   height: 30px;
   width: 30px;
   cursor: pointer;
+}
+.tips {
+  color: #ffba27;
+
+  margin: 0 45px;
+  text-align: center;
+  line-height: 1.6;
+  font-size: larger;
+  font-family: Lato;
+  font-weight: bold;
 }

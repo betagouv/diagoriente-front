@@ -43,19 +43,19 @@
 }
 
 .step_1 {
-  color: $medium-blue;
+  color: #003189;
 }
 
 .step_2 {
-  color: $purple;
+  color: #b82635 ;
 }
 
 .step_3 {
-  color: #cf11b2;
+  color: #ff701e;
 }
 
 .step_4 {
-  color: $darkblue;
+  color: #ffba27 ;
 }
 
 .info_step_header {
@@ -94,47 +94,59 @@
 }
 
 .step1_round_button {
-  background-color: $cyan;
+  background-color: #003189;
   &:disabled {
     color: $cyan;
+  }
+  &:hover {
+    background-color: #1e3067;
   }
 }
 
 .step2_round_button {
-  background-color: $purple;
+  background-color: #b82635;
   &:disabled {
     color: $purple;
+  }
+  &:hover {
+    background-color: #9a222b;
   }
 }
 
 .step3_round_button {
-  background-color: $purple-red;
+  background-color: #ff701e;
   &:disabled {
     color: $purple-red;
+  }
+  &:hover {
+    background-color: #d34a23;
   }
 }
 
 .step4_round_button {
-  background-color: $darkblue;
+  background-color: #ffba27;
   &:disabled {
     color: $darkblue;
+  }
+  &:hover {
+    background-color: #e3a928;
   }
 }
 
 .step1_card_title {
-  color: $medium-blue;
+  color: #003189
 }
 
 .step2_card_title {
-  color: $purple;
+  color: #b82635 ;
 }
 
 .step3_card_title {
-  color: #cf11b2;
+  color: #ff701e;
 }
 
 .step4_card_title {
-  color: $darkblue;
+  color: #ffba27;
 }
 
 .card_title {
@@ -172,8 +184,12 @@
   margin-top: 20px;
 }
 .btn_jobs {
-  background-color: $rose !important;
+  background-color: #b82635 !important;
   background-image: none !important;
+  &:hover {
+    background-color: #9a222b !important;
+  background-image: none !important;
+  }
 }
 
 .jobSecteur {
@@ -225,7 +241,7 @@
   } */
 }
 .tooltip {
-  color: $darkblue !important;
+  color: #bb5f43 !important;
   background-color: $white !important;
   box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
   width: 250px;

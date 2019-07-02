@@ -37,7 +37,6 @@ interface DispatchToProps {
     password: string,
     firstName: string,
     lastName: string,
-    institution: string,
     question: {
       _id: string;
       response: string;
@@ -93,7 +92,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
       response,
       _id: questionValue,
     };
-    registerRequest(email, password, firstName, lastName, location, question);
+    registerRequest(email, password, firstName, lastName, question);
   };
   useDidUpdate(() => {
     if (!(fetching || error)) {
@@ -175,7 +174,7 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
         </div>
 
         <div className={classes.container_button}>
-          <Button onClick={onSubmit}> Inscription</Button>
+          <Button className={classes.btn} onClick={onSubmit}> Inscription</Button>
         </div>
 
         <div className={classes.container_forget_Password}>
@@ -195,8 +194,8 @@ const mapStateToProps = ({ authUser }: ReduxState): MapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
-  registerRequest: (email, password, firstName, lastName, institution, question) =>
-    dispatch(registerUserActions.registerUserRequest({ email, password, firstName, lastName, institution, question })),
+  registerRequest: (email, password, firstName, lastName, question) =>
+    dispatch(registerUserActions.registerUserRequest({ email, password, firstName, lastName, question })),
 });
 
 export default connect(

@@ -51,6 +51,9 @@ interface IDispatchToProps {
   updateThemes: (themes: ITheme[]) => void;
   getActivity: (id: any) => void;
 }
+interface IState {
+  themesFiltred: ITheme[];
+}
 
 type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listThemes }> & IMapToProps & IDispatchToProps;
 
@@ -79,7 +82,11 @@ const ThemesContainer = ({
   ) {
     return <Redirect to={'/profile'} />;
   }
+  const [open, setOpen] = useState(false);
+  const [themesFiltred, setThemesFiltred] = useState(list.data.data);
+  const [value, setValue] = useState('');
 
+  const toggleOpen = () => setOpen(!open);
   useDidMount(() => {
     list.call({ type });
   });
@@ -87,35 +94,6 @@ const ThemesContainer = ({
   useWillUnmount(() => {
     updateThemes(parcours.skills.map(skill => skill.theme));
   });
-
-  /* useDidUpdate(() => {
-    if (type === 'professional' && !list.fetching && !list.error) {
-      const skills = parcours.skills.map(skill => {
-        return {
-          theme: skill.theme._id,
-          activities: skill.activities.map(({ _id }) => _id),
-          type: skill.theme.type,
-          competences: skill.competences,
-        };
-      });
-
-      if (!skills.find(skill => skill.type === 'professional')) {
-        skills.push({
-          theme: list.data.data[0]._id,
-          activities: [],
-          type: 'professional',
-          competences: [],
-        });
-      }
-
-      parcoursRequest({
-        skills,
-      });
-    }
-  },           [list.fetching]); */
-
-  const [open, setOpen] = useState(false);
-  const toggleOpen = () => setOpen(!open);
 
   const onClick = () => {
     parcoursRequest({
@@ -136,6 +114,19 @@ const ThemesContainer = ({
   };
   const onMouseEnter = (id: string) => {
     getActivity({ id });
+  };
+  const handleSearch = async (event: React.FormEvent<HTMLInputElement>) => {
+    setValue(event.currentTarget.value);
+    if (event.currentTarget.value === '') {
+      list.call({
+        type,
+      });
+    } else if (event.currentTarget.value.length > 2) {
+      list.call({
+        type,
+        search: event.currentTarget.value,
+      });
+    }
   };
 
   useDidUpdate(() => {
@@ -165,7 +156,7 @@ const ThemesContainer = ({
     }
   },           [fetching]);
 
-  if (list.fetching) return <div>...loading</div>;
+  /* if (list.fetching) return <div>...loading</div>; */
   const { data } = list.data;
   let themesComponents: JSX.Element[] = [];
   if (data) {
@@ -189,9 +180,9 @@ const ThemesContainer = ({
             {theme.title}
             <ReactTooltip id={theme._id} type="light" className={'tooltip'}>
               <div className={classes.activity_container}>
-                {map(activity.data.activities, (e: any) => (
-                  <span key={e._id}>{e.title}</span>
-                ))}
+                {activity.data.activities && activity.data.activities.length !== 0
+                  ? map(activity.data.activities, (e: any) => <span key={e._id}>{e.title}</span>)
+                  : theme.title}
               </div>
             </ReactTooltip>
           </CardTheme>
@@ -209,6 +200,13 @@ const ThemesContainer = ({
   };
 
   const listThemes = themes.filter(theme => theme.type === type);
+
+  let logo: string | undefined;
+  if (themes.length) {
+    const lastThemeResource = themes[themes.length - 1].resources;
+    logo = lastThemeResource ? lastThemeResource.icon : undefined;
+  }
+
   return (
     <div className={classes.container_themes}>
       <Prompt
@@ -224,16 +222,16 @@ const ThemesContainer = ({
           </Grid>
           <Grid item xl={12} className={classes.grid_padding}>
             <Title
-              logo={themes.length ? themes[themes.length - 1].resources.icon : undefined}
+              logo={logo}
               title={type === 'professional' ? 'Mes expériences professionnelles' : 'Mes expériences personnelles'}
               type={type}
             />
           </Grid>
           <Grid item xl={12}>
             <Info
-              borderColor={type === 'professional' ? '#dec8dd' : '#ede7ff'}
-              backgroundColor={type === 'professional' ? '#fbeef9' : '#f7f7ff'}
-              className={type === 'professional' ? classes.info_pro : ''}
+              borderColor={type === 'professional' ? '#f9e5de' : '#ede7ff'}
+              backgroundColor={type === 'professional' ? '#f9f3f3' : '#f9f3f3'}
+              className={type === 'professional' ? classes.info_pro : classes.info}
             >
               <span>Choisis des thèmes qui correspondent à des activités que tu as l’habitude de faire</span>
               <br />
@@ -242,6 +240,21 @@ const ThemesContainer = ({
               </span>
             </Info>
           </Grid>
+          {type === 'professional' ? (
+            <Grid item xl={12}>
+              <Grid container padding={{ xl: 20 }}>
+                <div className={classes.searchContainer}>
+                  <input
+                    type="text"
+                    value={value}
+                    className={classNames(classes.inputSearch, classes.borderInputPro)}
+                    onChange={handleSearch}
+                    placeholder="Recherche ..."
+                  />
+                </div>
+              </Grid>
+            </Grid>
+          ) : null}
           <Grid item xl={12}>
             <Grid container padding={{ xl: 0 }} spacing={{ xl: 30, md: 25 }}>
               {themesComponents}
@@ -252,7 +265,7 @@ const ThemesContainer = ({
               disabled={listThemes.length === 0}
               onClick={onClick}
               isFetching={fetching}
-              className={type === 'professional' ? classes.button_pro : ''}
+              className={type === 'professional' ? classes.button_pro : classes.buttonPerso}
             />
           </Grid>
         </Grid>

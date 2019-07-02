@@ -37,7 +37,7 @@ const SideBarMobile = ({ options, open, toggleOpen, type }: IProps) => {
           <SelectThemeCard
             key={option.title}
             open={open}
-            logo={option.resources.icon || CHECK}
+            logo={option.resources ? option.resources.icon : CHECK}
             title={option.title}
             themetype={type}
           />

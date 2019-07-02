@@ -3,9 +3,9 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // assets
-import logo from '../../../assets/icons/logo/diagoriente-logo-01.png';
-import logo2x from '../../../assets/icons/logo/diagoriente-logo-01@2x.png';
-import logo3x from '../../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import logo from '../../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo2x from '../../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo3x from '../../../assets/icons/logo/Diagoriente_Logo.svg';
 // components
 import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 
@@ -13,6 +13,7 @@ import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
 import classes from './sideBar.module.scss';
 
 import cross from '../../../assets/icons/svg/cross.svg';
+import crossPro from '../../../assets/icons/svg/cross_pro.svg';
 
 interface Option {
   _id: string;
@@ -78,7 +79,7 @@ const SideBar = <T extends Option>({
             >
               {!disabled && onItemRemove && (
                 <div onClick={remove} className={classes.remove_button}>
-                  <img src={cross} height={12} width={12} />
+                  <img src={type === 'professional' ? crossPro : cross} height={12} width={12} />
                 </div>
               )}
             </SelectThemeCard>

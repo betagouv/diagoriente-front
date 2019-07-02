@@ -1,15 +1,28 @@
 .stepperCircle {
-  border: 1px solid #1d1af3;
+  border: 1px solid #ffba27;
   border-radius: 15px;
   width: 10px;
   height: 10px;
   margin: 7px;
+  cursor: pointer;
 }
 .stepperCIRCLE {
-  border: 1px solid #1d1af3;
+  cursor: pointer;
+  border: 1px solid #ffba27;
   border-radius: 15px;
   width: 10px;
   height: 10px;
   margin: 7px;
   transform: scale(1.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &::before {
+    content: "";
+    width: 80%;
+    height: 80%;
+    background: #e3a928;
+    position: absolute;
+    border-radius: 50%;
+  }
 }

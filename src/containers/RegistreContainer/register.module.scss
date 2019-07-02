@@ -173,3 +173,11 @@
 .select_content {
   width: 200px;
 }
+
+.btn {
+  background-color: #b82635;
+  background-image: none !important;
+      &:hover {
+        background-color: #9a222b;
+      }
+}

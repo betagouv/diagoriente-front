@@ -73,3 +73,10 @@
   display: flex;
   justify-content: center;
 }
+.btn {
+  background-color: #b82635 !important;
+  background-image: none !important;
+  &:hover {
+    background-color: #9a222b !important;
+  }
+}

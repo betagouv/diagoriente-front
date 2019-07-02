@@ -39,11 +39,25 @@
 }
 
 .info_pro {
-  color: $purple-red;
+  color: #ff701e;
+}
+
+.info {
+  color: #b82635;
 }
 .button_pro {
-  background-image: linear-gradient(to left, #ff009a, #a521c8);
+  background-image: linear-gradient(to left, #ff701e, #ff701e);
+  &:hover {
+    background-image: linear-gradient(to left, #d34a23, #d34a23);
+  }
 }
+.buttonPerso {
+  background-image: linear-gradient(to left, #b82635, #b82635);
+  &:hover {
+    background-image: linear-gradient(to left, #9a222b, #9a222b);
+  }
+}
+
 .italic_text {
   font-size: 12px;
   font-style: italic;
@@ -51,4 +65,38 @@
 .activity_container {
   display: flex;
   flex-direction: column;
+}
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 20px 0px;
+}
+.inputSearch {
+  width: 350px;
+  height: 30px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  outline: none;
+}
+.borderInputPro {
+  border-color: #ff701e;
+  color: #ff701e;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ff701e;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ff701e;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #ff701e;
 }

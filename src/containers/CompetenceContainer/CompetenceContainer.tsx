@@ -165,7 +165,7 @@ const CompetenceContainer = ({
             // save last id
             lastCompetence.current = { currentIndex, _id: competence._id, value: i };
             // open modal
-            openModal(<ConfirmModal confirme={onConfirm} onCloseModal={closeModal} />);
+            openModal(<ConfirmModal confirme={onConfirm} onCloseModal={closeModal} type={theme.type} />);
             return;
           }
 
@@ -189,6 +189,7 @@ const CompetenceContainer = ({
               text={'Tu as déjà sélectionné 4 compétences pour cette expérience'}
               onCloseModal={closeModal}
               isConfirm={false}
+              type={theme.type}
             />,
           );
           return;
@@ -229,7 +230,7 @@ const CompetenceContainer = ({
   return (
     <Grid container padding={{ xl: 0 }} spacing={{ xl: 40, lg: 0 }} className={classes.container}>
       <Prompt
-        when={!isEqual(currentThemeSkill.competences, competences)}
+        when={!isEqual(currentThemeSkill.competences, competences.filter(({ value }) => value !== 0))}
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
       <div className={classNames('colorful_bar', classes.bar_color)} />
@@ -241,9 +242,9 @@ const CompetenceContainer = ({
         <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
           <Grid item xl={12} sm={12}>
             <Info
-              borderColor={theme.type === 'professional' ? '#dec8dd' : '#ede7ff'}
-              backgroundColor={theme.type === 'professional' ? '#fbeef9' : '#f7f7ff'}
-              className={theme.type === 'professional' ? classes.info_pro : ''}
+              borderColor={theme.type === 'professional' ? '#f9e5de' : '#ede7ff'}
+              backgroundColor={theme.type === 'professional' ? '#f9f3f3' : '#f9f3f3'}
+              className={theme.type === 'professional' ? classes.info_pro : classes.info_perso}
             >
               <span>Choisis 3 ou 4 compétences qui t'ont été utiles dans cette situation</span>
               <br />
@@ -263,7 +264,7 @@ const CompetenceContainer = ({
           onClick={onContinueClick}
           isFetching={parcoursFetching}
           label={nextUrl ? 'EXPERIENCE SUIVANTE' : 'Terminer cette partie'}
-          className={theme.type === 'professional' ? classes.button_pro : classes.continue_button}
+          className={theme.type === 'professional' ? classes.button_pro : classes.buttonPerso}
         />
       </Grid>
     </Grid>

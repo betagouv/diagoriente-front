@@ -73,7 +73,7 @@
 }
 
 .box_selected {
-  background-image: linear-gradient(247deg, $darkOrchid, $neonBlue);
+  background-image: linear-gradient(-247deg, #b82635, #ff2215);
   width: 170px;
   height: 65px;
   border-radius: 5px;
@@ -83,7 +83,7 @@
   justify-content: center;
 }
 .box_selected_pro {
-  background-image: linear-gradient(to left, #ff009a, #a521c8);
+  background-image: linear-gradient(to right, #ff2215, #ff701e);
   width: 170px;
   height: 65px;
   border-radius: 5px;
@@ -98,7 +98,7 @@
   position: absolute;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 7px solid #992bcf;
+  border-bottom: 7px solid #ff2215;
   transform: rotate(90deg);
   top: 29px;
   right: -7px;
@@ -108,7 +108,7 @@
   position: absolute;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 7px solid #ff029b;
+  border-bottom: 7px solid #ff701e;
   transform: rotate(90deg);
   top: 29px;
   right: -7px;
@@ -133,7 +133,7 @@
   }
 }
 .tooltip {
-  color: $purple !important;
+  color: #bb5f43 !important;
   background-color: $white !important;
   box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
   &.place-right {

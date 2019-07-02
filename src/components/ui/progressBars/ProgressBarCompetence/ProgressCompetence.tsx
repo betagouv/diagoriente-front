@@ -2,10 +2,10 @@ import React from 'react';
 import classes from './progressCompetence.module.scss';
 import { getWidth } from '../../../../utils/getWidth';
 import classNames from '../../../../utils/classNames';
-import dot1 from '../../../../assets/icons/Dots/dot1.svg';
-import dot2 from '../../../../assets/icons/Dots/dot2.svg';
-import dot3 from '../../../../assets/icons/Dots/dot3.svg';
-import dot4 from '../../../../assets/icons/Dots/dot4.svg';
+import dot1 from '../../../../assets/icons/Dots/niveau1.png';
+import dot2 from '../../../../assets/icons/Dots/niveau2.png';
+import dot3 from '../../../../assets/icons/Dots/niveau3.png';
+import dot4 from '../../../../assets/icons/Dots/niveau4.png';
 import greyDot from '../../../../assets/icons/Dots/greyDot.svg';
 import ReactTooltip from 'react-tooltip';
 
@@ -17,8 +17,6 @@ interface IProps {
 }
 
 const ProgressBarCompetence = ({ width, color, title, sub_title }: IProps) => {
-  // const classe = getWidth(width);
-
   return (
     <div className={classes.wrapper}>
       <ReactTooltip id={title} type="light" className={classes.tooltip_star}>

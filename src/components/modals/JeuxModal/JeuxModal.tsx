@@ -2,8 +2,7 @@ import React from 'react';
 
 import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
 
-import iconCheck from '../../../assets/icons/svg/icon-check-02.svg';
-import iconCheckPro from '../../../assets/icons/svg/icon-check-pro-02.svg';
+import iconCheck from '../../../assets/icons/svg/icon-check-blue.svg';
 
 import classNames from '../../../utils/classNames';
 import classes from './JeuxModal.module.scss';

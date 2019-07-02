@@ -12,7 +12,6 @@ export interface IRegisterParams {
   password: string;
   firstName: string;
   lastName: string;
-  institution: string;
   question: QuestionQuery;
 }
 

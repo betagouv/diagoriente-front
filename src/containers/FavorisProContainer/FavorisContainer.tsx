@@ -20,9 +20,9 @@ import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
 import Spinner from '../../components/Spinner/Spinner';
 import VerticalStepper from '../../components/VerticalStepper/VerticalStepper';
 // assets
-import logo from '../../assets/icons/logo/diagoriente-logo-01.png';
-import logo2x from '../../assets/icons/logo/diagoriente-logo-01@2x.png';
-import logo3x from '../../assets/icons/logo/diagoriente-logo-01@3x.png';
+import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo2x from '../../assets/icons/logo/Diagoriente_Logo.svg';
+import logo3x from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import preloadImage from '../../assets/images/preloadImage.png';
 import scrollArrow from '../../assets/icons/svg/scrollArrow.svg';
 import { IUpdateParcoursParams } from '../../requests';
@@ -141,13 +141,6 @@ const FavorisContainer = ({
           <Grid container className={classes.textContainer} padding={{ xl: 40 }}>
             <Grid item xl={12}>
               <Grid container padding={{ xl: 0 }}>
-                <Grid item xl={4}>
-                  <div className={classes.header}>
-                    <div className={classes.logo_container} onClick={onNavigateToHome}>
-                      <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />{' '}
-                    </div>
-                  </div>
-                </Grid>
                 <Grid item xl={8}>
                   <PathStepper options={stepperOptions} onClick={onNavigate} type="type" />
                 </Grid>
@@ -158,9 +151,10 @@ const FavorisContainer = ({
                 <Title type="type" title={'Mes intérêts professionnels'} />
               </div>
 
-              <Info borderColor={'#F2F4F9'} backgroundColor={'#F2F4F9'}>
+              <Info borderColor={'#F2F4F9'} backgroundColor={'#f7f3ed'}>
                 <span className={classes.text_info}>
-                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le.
+                  Voici 22 univers professionnels. Dès qu’un univers t’attire « like » le. Tu pourras les classer par
+                  ordre de préférence dans la colonne de gauche
                 </span>
                 <br />
                 <span className={classes.italic_text}>
@@ -176,20 +170,13 @@ const FavorisContainer = ({
                 xl={12}
                 style={{
                   width: '90%',
-                  margin: '0 14%',
+                  margin: '0 auto',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexDirection: 'column',
                 }}
               >
-                <button
-                  style={{ transform: 'rotate(180deg)' }}
-                  className={classes.scrollNext}
-                  onClick={() => changeDisplayedFamily(DisplayedFamily - 1)}
-                >
-                  <img src={scrollArrow} alt="next" style={{ width: '25px', height: '25px' }} />
-                </button>
                 {fetching ? (
                   <div className={classes.container_loading}>
                     <Spinner />
@@ -219,14 +206,13 @@ const FavorisContainer = ({
                     axis={'vertical'}
                     infiniteLoop
                     emulateTouch
-                    showArrows={false}
                   >
                     {familles
                       .filter((element: IFamille) => {
                         if (element.resources) {
                           return element.resources.length !== 0;
                         }
-                        return false
+                        return false;
                       })
                       .map(famille => (
                         <CardImage
@@ -270,14 +256,14 @@ const FavorisContainer = ({
           </Grid>
         </Grid>
         <Grid item xl={3} className={classes.item2}>
-          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%' }}>
+          <Grid item xl={12} className={classes.sideBarWrapper} style={{ height: '100%', background: '#f7f3ed' }}>
             <div className={classes.text_container_selection}>
-              <span
-                style={{ color: 'red', margin: '0 45px', textAlign: 'center', lineHeight: '1.6', fontSize: 'larger' }}
-              >
-                Classe par ordre de préférence, les 5 univers que tu as sélectionnés
-              </span>
-              <span className={classes.text_selection}>Ma séléction</span>
+              <div className={classes.header}>
+                <div className={classes.logo_container} onClick={onNavigateToHome}>
+                  <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />{' '}
+                </div>
+              </div>
+              <span className={classes.tips}>Classe par ordre de préférence, les 5 univers que tu as sélectionnés</span>
             </div>
             <List
               onSubmit={onSubmit}
