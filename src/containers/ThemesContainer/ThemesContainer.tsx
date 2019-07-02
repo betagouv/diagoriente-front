@@ -198,6 +198,9 @@ const ThemesContainer = ({
       history.push('/themes');
     }
   };
+  const onThemeRemove = (theme: any) => {
+    removeTheme(theme)
+  };
 
   const listThemes = themes.filter(theme => theme.type === type);
 
@@ -213,7 +216,12 @@ const ThemesContainer = ({
         when={!isEqual(parcours.skills.map(skill => skill.theme), themes)}
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
-      <SideBar disabled options={listThemes} type={type} />
+      <SideBar
+        disabled
+        options={listThemes}
+        onItemRemove={listThemes.length === 1 ? undefined : onThemeRemove}
+        type={type}
+      />
       <SideBarMobile toggleOpen={toggleOpen} open={open} options={listThemes} type={type} />
       <div className={classes.content_themes}>
         <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
