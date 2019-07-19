@@ -31,11 +31,9 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.addFileToVFS('Nunito-Bold', nunitoBold);
   doc.addFont('Nunito-Bold', 'nunito', 'bold');
   const skills = parcours.data.skills;
-  const themesPerso: any = [];
-  let skillPro: any = null;
+  const themes: any = [];
   skills.forEach((skill: any) => {
-    if (skill.theme.type === 'personal') themesPerso.push(skill.theme.title);
-    else skillPro = skill;
+    themes.push(skill.theme.title);
   });
 
   const competences = getParcours.data.globalCopmetences;
@@ -140,9 +138,18 @@ export function pdf(parcours: any, getParcours: any, authUser: any, div: any = f
   doc.setFont('lato', 'semiBold');
   doc.setFontSize(12.5);
   doc.setTextColor(100, 100, 100);
-  const n2 = themesPerso.length < 10 ? themesPerso.length : 10;
-  for (let i = 0; i < n2; i++) {
-    doc.text(themesPerso[i], 693, 211 + 28 + i * 18);
+
+  const n2 = themes.length < 10 ? themes.length : 10;
+  let j = 0;
+  let k = 0;
+  while (j < n2) {
+    const splitText = doc.splitTextToSize(themes[k], 100);
+    if (splitText.length + j > 10) break;
+    splitText.forEach((text: any, index: number) => {
+      doc.text(text, 693, 211 + 28 + j * 18 + index * 18, { maxWidth: 100 });
+    });
+    k++;
+    j += splitText.length;
   }
   const logo2Div = document.createElement('img');
   logo2Div.setAttribute('src', logo2);
