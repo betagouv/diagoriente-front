@@ -26,7 +26,10 @@
     border-radius: 0;
   }
 }
-
+.logoHome {
+  height: 50px;
+  width: 50px;
+}
 .logout_text {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -67,11 +70,10 @@
 }
 
 .home {
-  background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow: hidden;
+  background-color: #f1f1f1;
 }
 
 .commencerBtn {
@@ -171,9 +173,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  background-image: url("../../assets/homeasset/im-undraw-career-progress-ivdb-1.png");
-  background-position: center;
-  justify-content: space-between;
+  /*   justify-content: space-between;
+ */
   height: 600px;
 }
 
@@ -193,18 +194,8 @@
 
 .headerContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding-top: 40px;
-}
-
-.headerContainer::before {
-  height: 5px;
-  background-image: linear-gradient(to right, #003189, #ff2215 51%, #ffba27);
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 .cardContainerBackground {
@@ -229,7 +220,7 @@
 }
 
 .step_2 {
-  color:#b82635;
+  color: #b82635;
 }
 
 .step_3 {

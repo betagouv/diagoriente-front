@@ -12,7 +12,13 @@ import Circles from '../../components/shapes/circles/circles';
 import Triangles from '../../components/shapes/triangles/triangles';
 // import Stars from '../../components/shapes/stars/stars';
 import StepCard from '../../components/cards/StepCard/StepCard';
-
+import ApparationCard from '../../components_v3/ApparationCard/index';
+import GraduationLevel from '../../components_v3/GraduationLevel';
+import ColoredLine from '../../components_v3/ColoredLine/ColoredLine';
+import Header from '../../components_v3/Header/Header';
+import playIcon from '../../assets/homeasset/play.svg';
+import Progress from '../../components/ui/progressBars/ProgressBarCompetence/ProgressCompetence';
+import HomeLogo from '../../assets/homeasset/im-undraw-career-progress-ivdb-1.png';
 import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import start_arrow from '../../assets/icons/start-arrow.png';
 import O from '../../assets/icons/svg/Ocolor.svg';
@@ -58,12 +64,10 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
 
   return (
     <div className={classes.home}>
+      <Header />
       <div className={classes.contentContainer}>
         <Grid container>
           <Grid className={classes.headerContainer} item xl={12}>
-            <div className={classes.logoWrapper}>
-              <img src={logo} alt="Logo" className={classes.logo} />
-            </div>
             <button className={classes.logout} onClick={advisor.advisor ? logoutAdvisor : loginAdvisor}>
               <span className={classes.logout_text}>
                 {!advisor.advisor
@@ -77,11 +81,10 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
           </Grid>
         </Grid>
         <div className={classes.content}>
+          <img src={HomeLogo} alt={'homeLogo'} className={classes.logoHome} />
           <WithSub
             className={classes.WithSub}
-            title1={'Trouve ta v'}
-            titleIcon={O}
-            title2={'ie !'}
+            title1={'Trouve ta voie'}
             subTitle={'Révèle tes compétences et engage toi dans ton orientation'}
           />
           <Button onClick={navigate} className={classes.commencerBtn}>

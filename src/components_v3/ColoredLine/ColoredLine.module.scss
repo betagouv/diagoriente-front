@@ -1,0 +1,18 @@
+.line {
+  height: 6px;
+  width: 100%;
+  position: absolute;
+  background-image: linear-gradient(
+    to right,
+    #223b77 0%,
+    #223b77 39.4%,
+    #b62939 39.4%,
+    #b62939 46.3%,
+    #ea6f35 46.3%,
+    #ea6f35 47.8%,
+    #f7b73e 47.6%,
+    #f7b73e 50.5%,
+    #223b77 50.5%,
+    #223b77 100%
+  );
+}
