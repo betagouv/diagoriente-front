@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tetx {
+    background: white;
+    padding: 20px 35px;
+    border-radius: 50px;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: purple;
+    width: auto;
+}

@@ -1,0 +1,82 @@
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  cursor: pointer;
+  transition: .5s all;
+}
+.buttonStyle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  background: red;
+  transition: 0.3s ease-in-out;
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: .5s all;
+}
+
+.buutonClicked {
+  width: 120%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  background: red;
+  transition: 0.3s ease-in-out;
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  padding:0 30px;
+  cursor: pointer;
+  transition: .5s all;
+}
+
+.logo {
+  width: 28px;
+  height: 25px;
+  transition: .5s all;
+}
+.logoContainer {
+  padding: 10px;
+  border: 5px solid;
+  border-radius: 50%;
+  position: absolute;
+  left: 85%;
+  background: white;
+  transition: 0.3s ease-in-out;
+  border-color: red;
+  cursor: pointer;
+  transition: .5s all;
+}
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  padding-left: 30px;
+}
+
+.titleSelected {
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  padding-left: 10px;
+}
+.logoUnselected {
+  display: none;
+}
