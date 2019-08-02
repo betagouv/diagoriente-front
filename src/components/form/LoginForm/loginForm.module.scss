@@ -1,26 +1,44 @@
-@import "../../../styles//variables.scss";
-.container_home {
-  width: 100%;
-  height: calc(100% - 83px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $white;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+@import "../../../styles/variables.scss";
+
   .container_title {
-    margin: 20px 20px;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding: 15px;
     span {
       display: block;
-      font-size: 39px;
-      color: $gray-700;
+      font-size: 24px;
+      color: $grey-blue;
       font-weight: bold;
       line-height: 1.2;
       text-align: center;
+      cursor: pointer;
     }
   }
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transition: .5s all;
+  padding: 0 30px;
 }
+.arrow {
+  width: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: .5s all;
+}
+.arrowUp {
+  width: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transform: rotate(-90deg);
+  transition: .5s all;
+}
+
 .container_form::-webkit-scrollbar {
   display: none;
 }
@@ -29,12 +47,13 @@
   flex-direction: column;
   height: auto;
   overflow: auto;
-  padding: 0 40px;
   align-items: center;
   background-color: $white;
-  border-radius: 10px;
   box-shadow: $box-shadow;
-  width: 750px;
+  width:45%;
+  transition: .5s all;
+
+
   .container_input {
     width: 100%;
     display: flex;
@@ -91,10 +110,10 @@
 @media (max-width: map-get($breakpoints, "md")) {
   .container_home {
     .container_title {
-      margin: 20px 20px;
+      
       span {
         display: block;
-        font-size: 30px;
+        font-size: 20px;
         color: $gray-700;
         line-height: 1.2;
         text-align: center;
@@ -107,7 +126,6 @@
     width: 80vw;
     align-items: center;
     background-color: $white;
-    border-radius: 10px;
     .container_input {
       width: 100%;
       display: flex;
@@ -129,12 +147,4 @@
   min-height: 20px;
 }
 
-// gradient animation
-@keyframes gradient {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
-}
+

@@ -1,31 +1,27 @@
 .container {
     width: 60px;
-    height: 50px;
-    background: purple;
-    border-radius: 0px 25px 25px 0px;
+    height: 60px;
+    //background: purple;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 17px;
     cursor: pointer;
     transition: .5s all;
-    &:hover {
-        animation: animate 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) ;
-        width: 80px;
-        box-shadow: 0px 0px 10px 2px rgba(128, 0, 128, 0.5);
-    }
+    
     
 }
 .multiIcon {
     width: 30px;
 
 }
+.text {
+    margin: 0 10px;
+}
 
 .validateContainer {
-    width: 125px;
-    height: 50px;
-    background: purple;
-    border-radius: 0px 25px 25px 0px;
+    
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -34,30 +30,55 @@
     justify-content: center;
     padding: 17px;
     justify-content: space-between;
-    color: white;
-    font-size: 16px;
+    color: #7992bf;
+    font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
     transition: .5s all;
     cursor: pointer;
-    &:hover {
-        animation: animate2 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) ;
-        width: 140px;
-        box-shadow: 0px 0px 10px 2px rgba(128, 0, 128, 0.5);
-    }
+    flex-direction: row-reverse;
+    
 }
+
+.containerleft {
+    
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 17px;
+    justify-content: space-between;
+    color: #7992bf;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: .5s all;
+    cursor: pointer;
+    flex-direction: row;
+    
+}
+.containerBottom {
+    
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 17px;
+    justify-content: space-between;
+    color: #7992bf;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: .5s all;
+    cursor: pointer;
+    flex-direction: column-reverse;
+    
+}
+
 .validIcon {
     height: 100%;
-}
-@keyframes animate {
-    0% {
-        width: 60px;
-    }
-    
-}
-@keyframes animate2 {
-    0% {
-        width: 125px;
-    }
-    
 }

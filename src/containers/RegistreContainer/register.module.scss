@@ -1,37 +1,73 @@
-@import "../../styles//variables.scss";
+@import "../../styles/variables.scss";
 
 .container_home {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0px;
+  margin: 5px 0px;
   background-color: $white;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   .container_title {
-    margin: 20px 20px;
-    h3 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    cursor: pointer;
+    span {
       display: block;
-      font-size: $h3-font-size;
-      color: $gray-700;
+      font-weight: bold;
+      font-size: 24px;
+      color: $grey-blue;
       line-height: 1.2;
       text-align: center;
     }
   }
 }
+.columnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.arrow {
+  width: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: 0.5s all;
+}
+.arrowUp {
+  width: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transform: rotate(-90deg);
+  transition: 0.5s all;
+}
+
 .container_form::-webkit-scrollbar {
   display: none;
 }
 .container_form {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 45%;
   height: auto;
   align-items: center;
   background-color: $white;
-  border-radius: 10px;
   box-shadow: $box-shadow;
   max-height: 80%;
   overflow: auto;
@@ -81,7 +117,7 @@
   .container_button {
     display: flex;
     flex-direction: column;
-    margin: 15px;
+    //margin: 15px;
     button {
       padding: 10px 30px;
       background-image: linear-gradient(254deg, #a422c9, #5065ff);
@@ -104,10 +140,19 @@
     }
   }
 }
+@media (min-width: 768px) {
+  .columnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+  }
+}
+
 @media (max-width: map-get($breakpoints, "md")) {
   .container_home {
     .container_title {
-      margin: 20px 20px;
       h3 {
         display: block;
         font-size: $h3-font-size;
@@ -124,7 +169,6 @@
     height: 90%;
     align-items: center;
     background-color: $white;
-    border-radius: 10px;
     .container_input {
       display: flex;
       flex-direction: column;
@@ -151,7 +195,7 @@
   .container_select {
     display: flex;
     flex-direction: column;
-    padding: 10px 20px;
+    // padding: 10px 20px;
   }
 }
 
@@ -168,7 +212,7 @@
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  padding: 10px 5px;
+  // padding: 10px 5px;
 }
 .select_content {
   width: 200px;
@@ -177,7 +221,7 @@
 .btn {
   background-color: #b82635;
   background-image: none !important;
-      &:hover {
-        background-color: #9a222b;
-      }
+  &:hover {
+    background-color: #9a222b;
+  }
 }
