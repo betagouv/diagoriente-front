@@ -25,6 +25,7 @@ import O from '../../assets/icons/svg/Ocolor.svg';
 import loginIcon from '../../assets/icons/svg/login.svg';
 import logoutIcon from '../../assets/icons/svg/logout.svg';
 
+import CardHome from '../..//components_v3/CardHome';
 import advisorActions from '../../reducers/authAdvisor/login';
 
 import classNames from '../../utils/classNames';
@@ -87,20 +88,22 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
             title1={'Trouve ta voie'}
             subTitle={'Révèle tes compétences et engage toi dans ton orientation'}
           />
-          <Button onClick={navigate} className={classes.commencerBtn}>
-            <span className={classes.btn_text}>Commencer</span>
-            <img src={start_arrow} alt="start" />
-          </Button>
+          <div className={classes.groupBotton}>
+            <div onClick={navigate} className={classes.commencerBtn}>
+              <span className={classes.btn_text}>Commencer</span>
+              <img src={start_arrow} alt="start" />
+            </div>
+            <div onClick={navigate} className={classes.commencerBtn}>
+              <span className={classes.btn_text}>Commencer</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <Grid container className={classes.cardContainer}>
-        <div className={classNames('absolute_fill', classes.cardContainerBackground)} />
-        <div className={classes.left_triangle_container} />
-        <div className={classes.right_triangle_container} />
         {steps.map((step, i) => (
-          <Grid key={i} className={classes.step_card} item xl={4} md={6} smd={12}>
-            <StepCard className={classes.card_content} {...step} />
+          <Grid key={i} className={classes.step_card} item xl={3} md={6} smd={12}>
+            <CardHome icon={playIcon} description={'Découvre comment identifier '} />
           </Grid>
         ))}
       </Grid>
