@@ -29,7 +29,7 @@ interface Props {
     | 'remove'
     | 'connect'
     | 'warning'
-    |'border';
+    | 'border';
   withText?: boolean;
   text?: string;
   width: string;
@@ -50,12 +50,19 @@ const MultiIcon = ({
   left,
   textColor,
   Iconcolor,
+  bottom,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
     <div
       className={classNames(
-        withText ? (left ? classes.containerleft : classes.validateContainer) : classes.container,
+        withText
+          ? left
+            ? classes.containerleft
+            : bottom
+            ? classes.containerBottom
+            : classes.validateContainer
+          : classes.container,
         className,
       )}
       {...other}

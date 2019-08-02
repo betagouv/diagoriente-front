@@ -257,7 +257,7 @@ const ProfileContainer = ({
               Complète les différentes rubriques pour enrichir ton profil de compétences
             </span>
           </Info>
-        {/*   <ThemeIcon icon={Idea} title="CUISINE" color={'#000'} /> */}
+         {/*  <ThemeIcon icon={Idea} title="BRICOLAGE MAQUETTE ROBOTIQUE" color={'#000'}  /> */}
         </Grid>
       </Grid>
       <Grid className={classes.steps_container} container>

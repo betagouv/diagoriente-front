@@ -6,11 +6,12 @@ interface Props {
   icon: string;
   title: string;
   color?: string;
+  width?: number;
 }
 
-const ThemeIcon = ({ icon, title, color, className, ...other }: Props & React.HTMLAttributes<HTMLElement>) => {
+const ThemeIcon = ({ icon, title, color, className, width, ...other }: Props & React.HTMLAttributes<HTMLElement>) => {
   return (
-    <div className={classes.container} {...other}>
+    <div className={classes.container} style={{ width }} {...other}>
       <div className={classNames(classes.iconWrapper, className)}>
         <img className={classes.icon} src={icon} alt="icon" />
       </div>
