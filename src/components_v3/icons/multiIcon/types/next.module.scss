@@ -1,0 +1,21 @@
+.circle {
+    border: 5px solid #7992BF;
+    border-radius: 50%;
+    padding: 10px 10px 10px 14px;
+}
+.circleReverse {
+    border: 5px solid #7992BF;
+    border-radius: 50%;
+    padding: 10px 10px 10px 14px;
+    transform: rotate(180deg);
+}
+.danger {
+    border: 5px solid #E55E68;
+    border-radius: 50%;
+    padding: 10px 12px;
+}
+.border {
+    border: 4px solid #7992BF;
+    border-radius: 50%;
+    padding: 17px ;
+}

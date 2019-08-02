@@ -38,7 +38,11 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location, 
     }
   },           [fetching]);
 
-  return <LoginForm showInscription={false} error={error} onSubmit={onSubmit} />;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90%' }}>
+      <LoginForm error={error} onSubmitForm={onSubmit} showLogin />
+    </div>
+  );
 };
 
 const mapStateToProps = ({ authAdvisor }: ReduxState): MapToProps => ({

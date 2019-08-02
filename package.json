@@ -18,6 +18,7 @@
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",
     "react-content-loader": "^4.2.1",
+    "react-cookie-banner": "^4.0.0",
     "react-countup": "^4.2.0",
     "react-dom": "^16.8.6",
     "react-onclickoutside": "^6.7.3",

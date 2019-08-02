@@ -39,6 +39,9 @@ import JobCard from '../../components/cards/JobCard/JobCard';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
 import { pdf } from '../../utils/pdf';
+import ThemeIcon from '../../components_v3/icons/themeIcon/themeIcon';
+import Idea from '../../assets_v3/icons/idea.svg';
+
 
 interface ParcourParmas {
   completed?: boolean;
@@ -254,6 +257,7 @@ const ProfileContainer = ({
               Complète les différentes rubriques pour enrichir ton profil de compétences
             </span>
           </Info>
+        {/*   <ThemeIcon icon={Idea} title="CUISINE" color={'#000'} /> */}
         </Grid>
       </Grid>
       <Grid className={classes.steps_container} container>
