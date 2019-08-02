@@ -1148,6 +1148,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-countup@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-countup/-/react-countup-4.0.1.tgz#db718f8a72184684034cbbc4d4f8a98b863d4d66"
+  integrity sha512-b6rQxkkYOA4WXmnW2rUBvExAxZmEPvPGfaXS3UkOSZF2TiCO0kh5EF8jvKQU2jFzeI6Hb6LtXUJhFMk9ir9kVQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@16.8.4":
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.4.tgz#7fb7ba368857c7aa0f4e4511c4710ca2c5a12a88"
@@ -2971,6 +2978,11 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.0.5, cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     lodash.get "^4.4.2"
     parse-json "^4.0.0"
+
+countup.js@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/countup.js/-/countup.js-1.9.3.tgz#ce3e50cd7160441e478f07da31895edcc0f1c9dd"
+  integrity sha1-zj5QzXFgRB5HjwfaMYle3MDxyd0=
 
 create-ecdh@^4.0.0:
   version "4.0.3"
@@ -8774,6 +8786,15 @@ react-content-loader@^4.2.1:
   resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-4.2.1.tgz#0d355134ed7d0987966abd0f784bc59e76976e91"
   integrity sha512-XA5irUvZpQAEavfUBo7kc4tdvAbWwVKJolz/+2Pkj/XU7pn78AweAUtn+AxEajN0Srg/mraJ8XMKlUsXOFiknw==
 
+react-countup@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-countup/-/react-countup-4.2.0.tgz#ecbcd85182ceb27cea5a9227219f8fad8443cd52"
+  integrity sha512-CkmtvYOZV0iW8byfrZ96OKPDWwmvpS7rcfTKU9Ngn+oYRVoZrZ5quoKC2gbUS66Iona6vAoko6f8YxXJJuP2FQ==
+  dependencies:
+    countup.js "^1.9.3"
+    prop-types "^15.6.2"
+    warning "^4.0.2"
+
 react-cookie-banner@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-cookie-banner/-/react-cookie-banner-4.0.0.tgz#b16ed0c6e8fb93af81f6928e2d7f94894ae43eeb"
@@ -10992,7 +11013,7 @@ walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-warning@^4.0.1:
+warning@^4.0.1, warning@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
   integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
