@@ -19,8 +19,8 @@
       // background: red;
       position: absolute;
       border-radius: 50%;
-      border: 1px solid gray;
-      animation: animate 1s infinite;
+      border: 1px solid #2f2f2f40;
+      animation: animate .5s infinite;
     }
   }
 }
@@ -47,6 +47,9 @@
   transition: 0.5s all;
   cursor: pointer;
   flex-direction: row-reverse;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .containerleft {
