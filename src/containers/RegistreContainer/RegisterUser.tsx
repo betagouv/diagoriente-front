@@ -1,10 +1,11 @@
-import React, { MouseEvent, useRef, useEffect } from 'react';
+import React, { MouseEvent, useRef, useEffect, useState } from 'react';
 import { map } from 'lodash';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState } from 'reducers';
+import arrow from '../../assets_v3/icons/arrow/arrow.svg';
 
 // hooks
 import { useTextInput, useDidUpdate, useDidMount, useSelectInput } from '../../hooks';
@@ -30,6 +31,7 @@ import Select from '../../components/form/Select/select';
 import SelectLocation from '../../components/form/Select/SelectLocation';
 
 import Grid from '../../components/ui/Grid/Grid';
+import MultiIcon from '../../components_v3/icons/multiIcon/multiIcon';
 
 interface DispatchToProps {
   registerRequest: (
@@ -48,14 +50,29 @@ interface MapToProps {
   fetching: boolean;
   error: string;
 }
+interface Show {
+  showRegister: boolean;
+}
 
-type Props = RouteComponentProps & ApiComponentProps<{ list: typeof listQuestions }> & DispatchToProps & MapToProps;
+type Props = RouteComponentProps &
+  ApiComponentProps<{ list: typeof listQuestions }> &
+  DispatchToProps &
+  MapToProps &
+  Show;
 
-const RegisterUserContainer = ({ list, registerRequest, fetching, error, history }: Props) => {
+const RegisterUserContainer = ({
+  list,
+  registerRequest,
+  fetching,
+  error,
+  history,
+  showRegister,
+  ...other
+}: Props & React.HTMLAttributes<HTMLElement>) => {
   useDidMount(() => {
     list.call();
   });
-
+  // const [showRegister, setShow] = useState(false);
   const { data } = list;
   const [email, emailChange, emailTouched] = useTextInput('');
   const [password, passwordChange, passwordTouched] = useTextInput('');
@@ -105,84 +122,105 @@ const RegisterUserContainer = ({ list, registerRequest, fetching, error, history
   return (
     <div className={classes.container_home}>
       <div className={classes.container_form}>
-        <div className={classes.container_title}>
-          <h3>Inscription</h3>
+        <div className={classes.container_title} {...other}>
+          <img className={showRegister ? classes.arrowUp : classes.arrow} src={arrow} alt="arrow" />
+          <span>Inscription</span>
         </div>
+        {showRegister && (
+          <div className={classes.formContainer}>
+            <span className={classes.error}>{error}</span>
+            <div className={classes.container_select}>
+              <Grid item xl={5} md={12}>
+                <Input
+                  name="Prénom"
+                  validation={firstNameValid}
+                  onChange={firstNameChange}
+                  className={classes.container_input}
+                />
+              </Grid>
+              <Grid item xl={5} md={12}>
+                <Input
+                  name="Nom"
+                  validation={lastNameValid}
+                  onChange={lastNameChange}
+                  className={classes.container_input}
+                />
+              </Grid>
+            </div>
+            <div className={classes.columnWrapper} >
+              <div className={classes.container_select} >
+                <Grid item xl={12} md={12}>
+                  <Input
+                    name="Email  "
+                    validation={emailValid}
+                    onChange={emailChange}
+                    className={classes.container_input}
+                    email
+                  />
+                </Grid>
+              </div>
+              <div className={classes.container_select} >
+                <Grid item xl={12} md={12}>
+                  <Input
+                    name="Mot de passe"
+                    validation={passwordValid}
+                    onChange={passwordChange}
+                    className={classes.container_input}
+                    type="password"
+                  />
+                </Grid>
+              </div>
+              <div className={classes.container_select} >
+                <Grid item xl={12} md={12}>
+                  <Select
+                    options={map(data, question => ({ value: question._id, label: question.title }))}
+                    open={open}
+                    onChange={onChange}
+                    value={questionValue}
+                    className={classes.container_input_select}
+                    placeholder="Questions de sécurité"
+                    selectOpen={onOpen}
+                    selectClose={onClose}
+                  />
+                </Grid>
+              </div>
+              <div className={classes.container_select} >
+                <Grid item xl={12} md={12}>
+                  <Input
+                    name="Votre réponse à la question de sécurité"
+                    validation={responseValid}
+                    onChange={responseChange}
+                    className={classes.container_input}
+                  />
+                </Grid>
+              </div>
+            </div>
 
-        <span className={classes.error}>{error}</span>
+            <div className={classes.container_button}>
+              {/*  <Button className={classes.btn} onClick={onSubmit}>
+                {' '}
+                Inscription
+              </Button> */}
+              <MultiIcon
+                type="connect"
+                withText
+                text={'S’INSCRIRE'}
+                width="35"
+                height="35"
+                textColor="#7a93bc"
+                onClick={onSubmit}
+                Iconcolor="#7a93bc"
+              />
+            </div>
 
-        <div className={classes.container_select}>
-          <Grid item xl={5} md={12}>
-            <Input
-              name="Prénom"
-              validation={firstNameValid}
-              onChange={firstNameChange}
-              className={classes.container_input}
-            />
-          </Grid>
-          <Grid item xl={5} md={12}>
-            <Input
-              name="Nom"
-              validation={lastNameValid}
-              onChange={lastNameChange}
-              className={classes.container_input}
-            />
-          </Grid>
-        </div>
-        <div className={classes.container_select}>
-          <Grid item xl={5} md={12}>
-            <Input
-              name="Email  "
-              validation={emailValid}
-              onChange={emailChange}
-              className={classes.container_input}
-              email
-            />
-          </Grid>
-
-          <Grid item xl={5} md={12}>
-            <Input
-              name="Mot de passe"
-              validation={passwordValid}
-              onChange={passwordChange}
-              className={classes.container_input}
-              type="password"
-            />
-          </Grid>
-        </div>
-        <div className={classes.container_select}>
-          <Grid item xl={5} md={12}>
-            <Select
-              options={map(data, question => ({ value: question._id, label: question.title }))}
-              open={open}
-              onChange={onChange}
-              value={questionValue}
-              className={classes.container_input_select}
-              placeholder="Questions de sécurité"
-              selectOpen={onOpen}
-              selectClose={onClose}
-            />
-          </Grid>
-          <Grid item xl={5} md={12}>
-            <Input
-              name="Votre réponse à la question de sécurité"
-              validation={responseValid}
-              onChange={responseChange}
-              className={classes.container_input}
-            />
-          </Grid>
-        </div>
-
-        <div className={classes.container_button}>
-          <Button className={classes.btn} onClick={onSubmit}> Inscription</Button>
-        </div>
-
-        <div className={classes.container_forget_Password}>
+            {/* <div className={classes.container_forget_Password}>
           <h5>Vous avez un Compte ?</h5>
           <Link to="/login">
             <h6>Se Connecter</h6>
           </Link>
-        </div>
+        </div> */}
+          </div>
+        )}
       </div>
     </div>
   );

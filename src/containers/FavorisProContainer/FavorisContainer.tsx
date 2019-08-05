@@ -134,6 +134,13 @@ const FavorisContainer = ({
     updateParcoursRequest({ families: ids });
   };
 
+  const flitredFamille = familles.filter((element: IFamille) => {
+    if (element.resources) {
+      return element.resources.length !== 0;
+    }
+    return false;
+  });
+
   return (
     <div className={classes.container}>
       <Grid container spacing={{ xl: 0 }} padding={{ xl: 0 }} style={{ flexDirection: 'row-reverse' }}>
@@ -207,24 +214,17 @@ const FavorisContainer = ({
                     infiniteLoop
                     emulateTouch
                   >
-                    {familles
-                      .filter((element: IFamille) => {
-                        if (element.resources) {
-                          return element.resources.length !== 0;
-                        }
-                        return false;
-                      })
-                      .map(famille => (
-                        <CardImage
-                          resources={famille.resources}
-                          handleClick={handleClick}
-                          id={famille._id}
-                          checked={isChecked(famille._id)}
-                          index={selectedFamily.findIndex(elem => elem._id === famille._id)}
-                          nom={famille.nom}
-                          famille={famille}
-                        />
-                      ))}
+                    {flitredFamille.map(famille => (
+                      <CardImage
+                        resources={famille.resources}
+                        handleClick={handleClick}
+                        id={famille._id}
+                        checked={isChecked(famille._id)}
+                        index={selectedFamily.findIndex(elem => elem._id === famille._id)}
+                        nom={famille.nom}
+                        famille={famille}
+                      />
+                    ))}
                   </Carousel>
                 )}
                 <button className={classes.scrollNext} onClick={() => changeDisplayedFamily(DisplayedFamily + 1)}>
@@ -249,7 +249,7 @@ const FavorisContainer = ({
                   handleClick={changeDisplayedFamily}
                   DisplayedFamily={DisplayedFamily}
                   selectedFamilys={selectedFamily}
-                  listItems={familles}
+                  listItems={flitredFamille}
                 />
               </Grid>
             </Grid>
@@ -267,7 +267,12 @@ const FavorisContainer = ({
             </div>
             <List
               onSubmit={onSubmit}
-              famileSelected={selectedFamily}
+              famileSelected={selectedFamily.filter((element: IFamille) => {
+                if (element.resources) {
+                  return element.resources.length !== 0;
+                }
+                return false;
+              })}
               onDragEnd={onDragEnd}
               renderPlaceholder={renderPlaceholder}
               disable={selectedFamily.length}

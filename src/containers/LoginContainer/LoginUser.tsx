@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { isEmpty } from 'lodash';
-import { Redirect } from 'react-router-dom';
+import { Redirect, match } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
@@ -21,6 +21,8 @@ import updateActions from '../../reducers/authUser/updatePassword';
 // components
 import ForgetForm from '../../components/form/ForgetForm/ForgetForm';
 import LoginForm from '../../components/form/LoginForm/LoginForm';
+import RegisterContainer from '../RegistreContainer/RegisterUser';
+import classes from '*.module.css';
 
 interface DispatchToProps {
   loginRequest: (email: string, password: string) => void;
@@ -47,6 +49,7 @@ const LoginUserContainer = ({
   history,
   location,
   user,
+  match,
 }: Props) => {
   const onSubmit = (email: string, password: string) => {
     loginRequest(email, password);
@@ -69,13 +72,56 @@ const LoginUserContainer = ({
 
   if (!isEmpty(user)) return <Redirect to={'/'} />;
 
+  const [showLogin, setLogin] = useState<boolean>(true);
+  const [showRegister, setRegister] = useState<boolean>(false);
+  const OpenCard = () => {
+    if (showLogin) {
+      setLogin(false);
+      setRegister(true);
+    }
+    if (showRegister) {
+      setLogin(true);
+      setRegister(false);
+    }
+  };
+  const styles = {
+    forgot: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      maxWidth: '500px',
+      margin: '10px 0',
+      cursor: 'pointer',
+      color: '#949494',
+    },
+   
+  };
+
   return (
-    <LoginForm
-      showInscription
-      error={error}
-      onSubmit={onSubmit}
-      footerComponent={<h6 onClick={onOpenModal}>Mot de passe oublié</h6>}
-    />
+    <div
+      style={{ display: 'flex', justifyContent: 'center', height: '-webkit-fill-available', flexDirection: 'column' }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <LoginForm
+          error={error}
+          onSubmitForm={onSubmit}
+          footerComponent={
+            <span style={styles.forgot} onClick={onOpenModal}>
+              Mot de passe oublié
+            </span>
+          }
+          showLogin={showLogin}
+          onClick={OpenCard}
+        />
+      </div>
+      <RegisterContainer
+        history={history}
+        location={location}
+        match={match}
+        showRegister={showRegister}
+        onClick={OpenCard}
+      />
+    </div>
   );
 };
 

@@ -102,6 +102,12 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
       if (typeof ref === 'function') ref({ onFooterClick });
       else (ref.current as any) = { onFooterClick };
     }
+    return () => {
+      if (ref) {
+        if (typeof ref === 'function') ref(null);
+        else (ref.current as any) = null;
+      }
+    };
   });
 
   function isSkillValidInputs(skillRef: ThemeRefObject) {
