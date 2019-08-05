@@ -1,12 +1,16 @@
-import { axiosGet, Response, ListResponse } from './http';
-import { IQuestion } from 'reducers'
+import { axiosGet, Response } from './http';
+
+export interface IQuestion {
+  readonly _id: string;
+  readonly title: string;
+}
+
 export interface IListQuestionParams {
   page?: number;
   perPage?: number;
   search?: string;
   type?: string;
 }
-
 
 export type ListQuestionResponse = IQuestion[];
 

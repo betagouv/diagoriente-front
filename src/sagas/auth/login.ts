@@ -6,6 +6,7 @@ import parcoursActions from '../../reducers/parcours';
 
 import loginAdvisorActions from '../../reducers/authAdvisor/login';
 import advisorActions from '../../reducers/authAdvisor/advisor';
+import expertiseActions from '../../reducers/expertises';
 
 import { IParcoursResponse, ReduxState } from 'reducers';
 import {
@@ -17,6 +18,8 @@ import {
   createParcours,
   Response,
   loginAdvisorRequest,
+  listCompetences,
+  ICompetence,
 } from '../../requests';
 import { setItem } from '../../utils/localforage';
 
@@ -32,19 +35,21 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
       const { authAdvisor }: ReduxState = yield select();
-      const [parcours]: [Response<IParcoursResponse>] = yield all([
+      const [parcours, competences]: [Response<IParcoursResponse>, Response<ICompetence[]>] = yield all([
         call(createParcours, {
           userId: response.data.user._id,
           advisorId: authAdvisor.advisor.advisor ? authAdvisor.advisor.advisor._id : undefined,
         }),
+        call(listCompetences),
         call(setItem, 'user', response.data),
       ]);
 
-      if (parcours.code < 400 && parcours.data) {
+      if (parcours.code < 400 && parcours.data && competences.code < 400 && competences.data) {
         yield all([
           put(parcoursActions.parcoursSuccess({ data: parcours.data })),
           put(loginActions.loginUserSuccess()),
           put(userActions.userChange({ user: response.data })),
+          put(expertiseActions.expertisesSuccess({ data: competences.data })),
         ]);
       } else {
         yield put(

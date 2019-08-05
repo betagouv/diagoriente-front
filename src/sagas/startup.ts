@@ -9,6 +9,7 @@ import userActions from '../reducers/authUser/user';
 import advisorActions from '../reducers/authAdvisor/advisor';
 import currentParcoursActions from '../reducers/parcours';
 import themesActions from '../reducers/themes';
+import expertisesActions from '../reducers/expertises';
 
 function* startup() {
   try {
@@ -29,6 +30,7 @@ function* startup() {
           call(setItem, 'user', newUser),
           put(userActions.userChange({ user: newUser })),
           put(advisorActions.advisorChange({ advisor: advisor || {} })),
+          put(expertisesActions.expertisesRequest()),
         ];
         if (parcours.code === 200 && parcours.data) {
           fns.push(put(currentParcoursActions.parcoursSuccess({ data: parcours.data })));

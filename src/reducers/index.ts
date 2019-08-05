@@ -8,7 +8,10 @@ import { reducer as parcours } from './parcours';
 import { reducer as themes } from './themes';
 import { reducer as listFamille } from './listFamille';
 import { reducer as activity } from './activity';
-export default combineReducers({
+import { reducer as expertises } from './expertises';
+import { ReduxState } from 'reducers';
+
+const state = combineReducers<ReduxState>({
   parcours,
   modal,
   authUser,
@@ -16,5 +19,8 @@ export default combineReducers({
   themes,
   listFamille,
   activity,
+  expertises,
   startup: startup as Reducer<boolean>,
 });
+
+export default state;

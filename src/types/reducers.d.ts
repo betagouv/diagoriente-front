@@ -105,11 +105,6 @@ declare module 'reducers' {
     readonly token: string;
   }
 
-  export interface IQuestion {
-    readonly _id: string;
-    readonly title: string;
-  }
-
   export interface IFamille {
     _id: string;
     nom: string;
@@ -133,6 +128,13 @@ declare module 'reducers' {
     };
   }
 
+  export interface IExpertise {
+    _id: string;
+    title: string;
+    rank: string;
+    niveau: [{ title: string; sub_title?: string }];
+  }
+
   export type ReduxState = {
     readonly startup: boolean;
     readonly modal: IModal;
@@ -147,10 +149,10 @@ declare module 'reducers' {
       readonly advisor: Advisor;
       readonly login: ApiReducer;
     };
-    readonly questions: IQuestion;
+    readonly expertises: ApiReducer<IExpertise[]>;
     readonly parcours: ApiReducer<IParcoursResponse>;
     readonly themes: ITheme[];
     readonly listFamille: ApiReducer<IFamille[]>;
-    readonly activity: IActivity;
+    readonly activity: ApiReducer<IActivity>;
   };
 }
