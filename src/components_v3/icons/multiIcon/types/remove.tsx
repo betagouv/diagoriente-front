@@ -32,10 +32,10 @@ const Remove = ({ color = '#7992BF', width, height }: Props) => {
         <g>
           <g>
             <text
-              transform="matrix(1 0 0 1 18.173 39.1049)"
-              fill="#7992BF"
+              transform="matrix(1 0 0 1 16.173 39.1049)"
+              fill={color}
               fontWeight="bold"
-              fontFamily="'Nunito-Bold'"
+              //fontFamily="'Nunito-Bold'"
               font-size="31.2717"
             >
               X

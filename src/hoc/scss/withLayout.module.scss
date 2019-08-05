@@ -1,0 +1,75 @@
+/** ---variables--- **/
+@import "../../styles/variables";
+
+$title_height: 40px;
+$footer_height: 60px;
+
+/** ---variables--- **/
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.title_container {
+  background-color: #fff;
+  box-shadow: $box_shadow;
+  position: fixed;
+  align-items: center;
+  display: flex;
+  left: 0;
+  top: $header_height;
+  padding-left: $sidebar_width;
+  height: $title_height;
+  width: 100vw;
+}
+
+.title {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 18px;
+  margin: 0;
+  text-align: center;
+}
+
+.title_placeholder {
+  padding-top: $title_height;
+}
+
+.footer_placeholder {
+  padding-bottom: $footer_height;
+}
+
+.title_content {
+  padding-top: $title_height;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  height: $title_height;
+  width: 100%;
+}
+
+.footer_container {
+  position: fixed;
+  bottom: 0;
+  height: $footer_height;
+  justify-content: flex-end;
+  padding-right: 40px;
+  text-transform: uppercase;
+  background-color: #fff;
+  box-shadow: $box_shadow;
+  align-items: center;
+  display: flex;
+  left: 0;
+  width: 100vw;
+  padding-left: $sidebar_width;
+}
+
+.footer_button {
+  font-size: 18px;
+}

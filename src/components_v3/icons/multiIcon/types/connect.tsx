@@ -17,6 +17,7 @@ const Connect = ({ color = '#FAB82D', width, height }: Props) => {
       height={height}
       viewBox="0 0 54 54"
       enableBackground="new 0 0 54 54"
+      onMouseOver={() => console.log('object')}
     >
       <g>
         <circle fill="#FFFFFF" cx="27" cy="27" r="24.8" />

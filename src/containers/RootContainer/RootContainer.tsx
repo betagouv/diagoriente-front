@@ -89,10 +89,10 @@ const RootContainer = ({ modal, startup, startupEnd, location, user, history, lo
           <Route path={'/'} exact component={HomeContainer} />
           <Route path={'/login'} component={LoginUserContainer} />
           <Route path={'/register'} component={RegisterUserContainer} />
-          <ProtectedRoute path={'/profile'} exact component={ProfileContainer} />
+          <ProtectedRoute path={'/profile'} component={ProfileContainer} />
           <ProtectedRoute path={'/carte'} exact component={CarteContainer} />
-          <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
-          <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} />
+          {/*  <ProtectedRoute path={'/themes'} exact component={ThemesContainer} />
+          <ProtectedRoute path={'/theme/:id'} component={ThemeContainer} /> */}
           <ProtectedRoute path={'/favoris'} exact component={FavorisContainer} />
           <Route path={'/game'} exact component={GameContainer} />
           <ProtectedRoute path={'/jobs'} exact component={JobsContainer} />

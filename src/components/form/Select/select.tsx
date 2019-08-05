@@ -1,8 +1,7 @@
 import React, { MouseEvent } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import { isEmpty } from 'lodash';
-// reducers
-import { IQuestion } from 'reducers';
+
 // style
 import style from './select.module.scss';
 // image

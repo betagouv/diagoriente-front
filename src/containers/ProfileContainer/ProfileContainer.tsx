@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
+
+import SideBar from '../../components_v3/ui/SideBar/SideBar';
+
+// containers
+
+import ThemesContainer from '../ThemesContainer/ThemesContainer';
 
 // components
 import Grid from '../../components/ui/Grid/Grid';
@@ -39,11 +45,9 @@ import JobCard from '../../components/cards/JobCard/JobCard';
 import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 
 import { pdf } from '../../utils/pdf';
-import ThemeIcon from '../../components_v3/icons/themeIcon/themeIcon';
-import Idea from '../../assets_v3/icons/idea.svg';
+import SkillsContainer from '../SkillsContainer/SkillsContainer';
 
-
-interface ParcourParmas {
+interface ParcoursParams {
   completed?: boolean;
   createdAt?: string;
   families?: [];
@@ -54,19 +58,23 @@ interface ParcourParmas {
   played: boolean;
 }
 
-interface MapToProps {
-  parcours: ApiReducer<IParcoursResponse>;
-  parcoursRequest: (payload: ParcourParmas) => void;
-  authUser: any;
+interface DispatchToProps {
+  parcoursRequest: (payload: ParcoursParams) => void;
 }
 
-type Props = RouteComponentProps &
-  ApiComponentProps<{
-    getParcours: typeof getParcours;
-    getFavorites: typeof getFavorites;
-    addFavorites: typeof createFavorites;
-  }> &
-  MapToProps;
+interface MapToProps {
+  parcours: ApiReducer<IParcoursResponse>;
+}
+
+interface Props
+  extends RouteComponentProps,
+    ApiComponentProps<{
+      getParcours: typeof getParcours;
+      getFavorites: typeof getFavorites;
+      addFavorites: typeof createFavorites;
+    }>,
+    MapToProps,
+    DispatchToProps {}
 
 const ProfileContainer = ({
   history,
@@ -74,288 +82,57 @@ const ProfileContainer = ({
   parcours,
   parcoursRequest,
   getFavorites,
-  authUser,
   addFavorites,
+  match,
 }: Props) => {
-  const navigate = (path: string) => () => {
-    history.push(path);
-  };
-
-  useDidMount(() => {
-    if (parcours.data._id) {
-      getParcours.call(parcours.data._id);
-    }
-    getFavorites.call();
-  });
-  useEffect(() => {
-    if (!addFavorites.fetching && !addFavorites.error) {
-      getFavorites.call();
-    }
-  },        [addFavorites.fetching]);
-
-  const gameHandler = () => {
-    parcoursRequest({ played: true });
-    navigate('/game')();
-  };
-  const onNavigateToJobs = () => {
-    navigate('/jobs')();
-  };
-
-  const persoSkills = parcours.data.skills.filter(skill => skill.theme.type === 'personal');
-  const proSkills = parcours.data.skills.filter(skill => skill.theme.type === 'professional');
-
-  const isPersoCompleted =
-    persoSkills.length > 0 && !persoSkills.find(skill => !(skill.activities.length && skill.competences.length));
-  const isProCompleted =
-    proSkills.length > 0 && !proSkills.find(skill => !(skill.activities.length && skill.competences.length));
-
-  let niveau = 0;
-  if (parcours.data.played) niveau = 1;
-  if (niveau === 1 && isPersoCompleted) niveau = 2;
-  if (niveau === 2 && isProCompleted) niveau = 3;
-  if (niveau === 3 && parcours.data.families.length) niveau = 4;
-
-  const onCompleteProfile = () => {
-    let action = navigate('/jobs');
-    switch (niveau) {
-      case 0:
-        action = gameHandler;
-        break;
-      case 1:
-        action = navigate('/themes');
-        break;
-      case 2:
-        action = navigate('/themes?type=professional');
-        break;
-      case 3:
-        action = navigate('/favoris');
-        break;
-    }
-    action();
-  };
-
-  const steps = [
-    {
-      headerComponent: <QuestionMarks />,
-      circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
-      title: 'Mini-jeu',
-      description: 'Apprends une méthode simple pour identifier des compétences',
-      footerComponent:
-        niveau < 1 ? (
-          <div className={classes.step_footer}>
-            <RoundButton onClick={gameHandler} className={`${classes.round_button} ${classes.step1_round_button}`}>
-              Jouer
-            </RoundButton>
-          </div>
-        ) : (
-          <div className={classes.step_footer}>
-            <button className={classes.step_card_footer_text} onClick={navigate('/game')}>
-              Rejouer
-            </button>
-          </div>
-        ),
-    },
-    {
-      disabled: niveau === 0,
-      headerComponent: <Circles />,
-      circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
-      title: 'Ma carte de compétences',
-      description: 'Liste toutes tes expériences et rèvèle tes compétences',
-      footerComponent:
-        niveau <= 1 ? (
-          <div className={classes.step_footer}>
-            <RoundButton
-              onClick={navigate('/themes')}
-              className={`${classes.round_button} ${classes.step2_round_button}`}
-            >
-              {niveau < 1 ? 'Bientôt' : 'Commencer'}
-            </RoundButton>
-          </div>
-        ) : (
-          <div className={classes.step_footer}>
-            <button onClick={navigate('/themes')} className={classes.step_card_footer_text}>
-              Mettre à jour
-            </button>
-          </div>
-        ),
-    },
-    {
-      disabled: niveau <= 1,
-      headerComponent: <Triangles />,
-      circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
-      title: 'Mes expériences professionnelles',
-      description: 'Liste toutes tes expériences et rèvèle tes compétences',
-      footerComponent:
-        niveau <= 2 ? (
-          <div className={classes.step_footer}>
-            <RoundButton
-              onClick={navigate('/themes?type=professional')}
-              className={`${classes.round_button} ${classes.step3_round_button}`}
-            >
-              {niveau < 2 ? 'Bientôt' : 'Commencer'}
-            </RoundButton>
-          </div>
-        ) : (
-          <div className={classes.step_footer}>
-            <button onClick={navigate('/themes?type=professional')} className={classes.step_card_footer_text}>
-              Mettre à jour
-            </button>
-          </div>
-        ),
-    },
-    {
-      headerComponent: <Stars />,
-      disabled: niveau <= 2,
-      circleComponent: <span className={`${classes.step} ${classes.step_4}`}>{4}</span>,
-      title: 'Mes thèmes favoris',
-      description: 'Trouve des pistes d’orientation',
-      footerComponent:
-        niveau <= 3 ? (
-          <div className={classes.step_footer}>
-            <RoundButton
-              onClick={navigate('/favoris')}
-              className={`${classes.round_button} ${classes.step4_round_button}`}
-            >
-              {niveau < 3 ? 'Bientôt' : 'Commencer'}
-            </RoundButton>
-          </div>
-        ) : (
-          <div className={classes.step_footer}>
-            <button onClick={navigate('/favoris')} className={classes.step_card_footer_text}>
-              Mettre à jour
-            </button>
-          </div>
-        ),
-    },
-  ];
-
-  const onDislikeClick = (favoris: any) => {
-    addFavorites.call({
-      interested: false,
-      job: favoris.job._id,
-      parcour: favoris.parcour,
-    });
-  };
+  if (match.isExact) return <Redirect to={'/profile/skills'} />;
 
   return (
-    <div className={classes.container}>
-      <Header pathTo={'/'} />
-      {addFavorites.fetching && (
-        <div className={`fixed_fill flex_center ${classes.loading_container}`}>
-          <Spinner />
-        </div>
-      )}
-      <Grid container className={'flex_center'}>
-        <Grid item xl={12} className={classes.title}>
-          Bienvenue sur Diagoriente
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xl={12}>
-          <Info>
-            <span className={classes.step_1}>
-              Complète les différentes rubriques pour enrichir ton profil de compétences
-            </span>
-          </Info>
-        {/*   <ThemeIcon icon={Idea} title="CUISINE" color={'#000'} /> */}
-        </Grid>
-      </Grid>
-      <Grid className={classes.steps_container} container>
-        <Grid item xl={8} lg={6} md={12}>
-          <Grid className={classes.cards_container} padding={{ xl: 0 }} container>
-            {steps.map((step, i) => (
-              <Grid className={classes.card} key={i} item xl={6} lg={12}>
-                <StepCard
-                  classes={{
-                    content: classes.step_card_content,
-                    title: `${classes.card_title} ${classes[`step${i + 1}_card_title`]}`,
-                    description: classes.card_description,
-                  }}
-                  {...step}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-        <Grid item xl={4} lg={6} md={12}>
-          <CardProgress progress={niveau} />
-          <CardCompetence
-            parcours={getParcours.data.globalCopmetences}
-            pdfDownload={() => pdf(parcours, getParcours, authUser)}
-          />
-        </Grid>
-      </Grid>
-      <Grid container className={'flex_center'}>
-        <Grid item xl={12} className={classes.title}>
-          Mes pistes d’orientation
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xl={12}>
-          <Info>
-            <span className={classes.step_1}>
-              Grâce à tes réponses, voici des suggestions de métiers qui pourraient te convenir
-            </span>
-          </Info>
-        </Grid>
-      </Grid>
-      {!(getFavorites.data.data && getFavorites.data.data.length) ? (
-        <CompleteProfile onClick={onCompleteProfile} />
-      ) : (
-        <Grid className={classes.favoris_container} container>
-          {getFavorites.data.data
-            .filter((favoris: any) => favoris.interested)
-            .map((favoris: any) => {
-              return (
-                <Grid key={favoris._id} item xl={4} lg={6} md={12} smd={12}>
-                  {/* <JobCard
-                    showButtons={true}
-                    interested={favoris.interested}
-                    title={favoris.job.title}
-                    job={favoris.job}
-                    onDislikeClick={() => onDislikeClick(favoris)}
-                  /> */}
-                  <div className={classes.cardWrapper}>
-                    <Card
-                      className={classes.cardJob}
-                      checked={favoris.interested}
-                      onClick={() => onDislikeClick(favoris)}
-                    >
-                      <span className={classes.jobSecteur}>
-                        {!isEmpty(favoris.job.secteur) ? favoris.job.secteur[0].title : ''}
-                      </span>
-                      <span className={classes.jobTitle}>{favoris.job.title}</span>
-                      <span data-tip data-for={favoris.job._id} className={classes.jobinfo}>
-                        {favoris.job.description}
-                      </span>
-                      <span className={classes.jobEntry}>
-                      Niveau d’accès au métier :{favoris.job.accessibility}
-                      </span>
-                      <ReactTooltip id={favoris.job._id} place="top" type="light" className={classes.tooltip}>
-                        {favoris.job.description}
-                      </ReactTooltip>
-                    </Card>
-                  </div>
-                </Grid>
-              );
-            })}
+    <>
+      <div className={classes.header}>header</div>
 
-          <div className={classes.btn_container_jobs}>
-            <ContinueButton className={classes.btn_jobs} onClick={onNavigateToJobs} label="Modifier" />
-          </div>
-        </Grid>
-      )}
-    </div>
+      <div className={classes.sidebar_container}>
+        <SideBar />
+      </div>
+      <div className={classes.content}>
+        <Switch>
+          <Route path={'/profile/skills'} exact component={SkillsContainer} />
+          <Route
+            path={'/profile/perso'}
+            exact
+            render={props => (
+              <ThemesContainer
+                {...props}
+                title={'AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PERSONNELLES'}
+                type={'personal'}
+                footerButtons={['valider']}
+              />
+            )}
+          />
+          <Route
+            path={'/profile/pro'}
+            exact
+            render={props => (
+              <ThemesContainer
+                title={'AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES'}
+                {...props}
+                type={'professional'}
+                footerButtons={['valider']}
+              />
+            )}
+          />
+        </Switch>
+      </div>
+    </>
   );
 };
 
-const mapStateToProps = ({ parcours, authUser }: ReduxState) => ({
+const mapStateToProps = ({ parcours }: ReduxState): MapToProps => ({
   parcours,
-  authUser,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
-  parcoursRequest: (payload: ParcourParmas) => dispatch(ParcoursActions.parcoursRequest(payload)),
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
+  parcoursRequest: (payload: ParcoursParams) => dispatch(ParcoursActions.parcoursRequest(payload)),
 });
 
 export default connect(

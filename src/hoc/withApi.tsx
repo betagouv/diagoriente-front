@@ -1,5 +1,15 @@
-import React, { useReducer } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, {
+  useReducer,
+  forwardRef,
+  Ref,
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+  ComponentType,
+  useRef,
+  useEffect,
+} from 'react';
+
 import { pickBy } from 'lodash';
 import { Response, ReturnPromiseType } from '../requests';
 
@@ -51,7 +61,7 @@ function useApiState<Fn extends (...args: any[]) => Promise<Response<any>>, T = 
       if (response.code >= 200 && response.code < 400 && response.data) {
         await dispatch(actions.success({ data: response.data }));
       } else if (response.code === 401) {
-        // should show not authorized alert
+        await dispatch(actions.failure({ error: 'UNAUTHORIZED' }));
       } else {
         const errors: { error?: string; errors?: any[] } = {};
         if (response.message) errors.error = response.message;
@@ -71,10 +81,10 @@ function useApiState<Fn extends (...args: any[]) => Promise<Response<any>>, T = 
 }
 
 function withApis<R extends { [key: string]: (...args: any[]) => Promise<Response<any>> }>(requests: R) {
-  return function<A>(
-    WrappedComponent: React.ComponentType<ApiComponentProps<R> & RouteComponentProps & A>,
-  ): React.ComponentType<RouteComponentProps & A> {
-    return (props: RouteComponentProps & A) => {
+  return function<P extends ApiComponentProps<R>>(
+    WrappedComponent: React.ComponentType<P>,
+  ): ForwardRefExoticComponent<PropsWithoutRef<Pick<P, Exclude<keyof P, keyof R>>> & RefAttributes<ComponentType<P>>> {
+    return forwardRef((props: Omit<P, keyof ApiComponentProps<R>>, ref: Ref<React.ComponentType<P>>) => {
       const injectedProps: any = {};
       const keys = Object.keys(requests);
       const length = keys.length;
@@ -83,8 +93,9 @@ function withApis<R extends { [key: string]: (...args: any[]) => Promise<Respons
         const key = keys[i];
         injectedProps[key] = useApiState(requests[key]);
       }
-      return <WrappedComponent {...injectedProps} {...props} />;
-    };
+
+      return <WrappedComponent ref={ref} {...injectedProps} {...props} />;
+    });
   };
 }
 

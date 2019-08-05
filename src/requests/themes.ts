@@ -5,7 +5,7 @@ export interface IListThemesParams {
   page?: number;
   perPage?: number;
   search?: string;
-  type?: string;
+  type?: 'professional' | 'personal';
 }
 
 export type ListThemesResponse = ListResponse<ITheme>;

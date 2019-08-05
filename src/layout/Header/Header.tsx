@@ -40,7 +40,7 @@ const Header = ({ logout, user, showLogout, openModal, closeModal, pathTo }: Pro
   const onLogout = () => {
     openModal(<LogoutModal onLogout={logout} onClose={closeModal} />);
   };
-
+  logout()
   return (
     <Grid className={classes.headerContainer} container>
       <Grid item xl={6}>
