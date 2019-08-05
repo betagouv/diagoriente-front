@@ -18,33 +18,33 @@ import ColoredLine from '../../components_v3/ColoredLine/ColoredLine';
 import Header from '../../components_v3/Header/Header';
 import playIcon from '../../assets/homeasset/play.svg';
 import Progress from '../../components/ui/progressBars/ProgressBarCompetence/ProgressCompetence';
-import HomeLogo from '../../assets/homeasset/im-undraw-career-progress-ivdb-1.png';
+import Illu_Miroir from '../../assets_v3/Home/Illu_Miroir.svg';
 import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
-import start_arrow from '../../assets/icons/start-arrow.png';
+import Arrow_SeConnect from '../../assets_v3/Home/Arrow_SeConnect.svg';
 import O from '../../assets/icons/svg/Ocolor.svg';
 import loginIcon from '../../assets/icons/svg/login.svg';
 import logoutIcon from '../../assets/icons/svg/logout.svg';
 
 import CardHome from '../..//components_v3/CardHome';
 import advisorActions from '../../reducers/authAdvisor/login';
-
+import Picto_PlayButton from '../../assets_v3/Home/Picto_PlayButton.svg';
+import Picto_Modifier from '../../assets_v3/Home/Picto_Modifier.svg';
+import Picto_Valider from '../../assets_v3/Home/Picto_Valider.svg';
+import Picto_Fleche from '../../assets_v3/Home/Picto_Fleche.svg';
 import classNames from '../../utils/classNames';
 import classes from './home.module.scss';
 
 const steps = [
   {
-    headerComponent: <QuestionMarks />,
-    circleComponent: <span className={`${classes.step} ${classes.step_1}`}>{1}</span>,
+    icon: Picto_PlayButton,
     description: 'Découvre comment identifier tes compétences en jouant',
   },
   {
-    headerComponent: <Circles />,
-    circleComponent: <span className={`${classes.step} ${classes.step_2}`}>{2}</span>,
+    icon: Picto_Modifier,
     description: 'Complète ton profil et découvre ta carte de compétences',
   },
   {
-    headerComponent: <Triangles />,
-    circleComponent: <span className={`${classes.step} ${classes.step_3}`}>{3}</span>,
+    icon: Picto_Valider,
     description: 'Diagoriente te propose des pistes pour ton orientation',
   },
 ];
@@ -67,7 +67,7 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
     <div className={classes.home}>
       <Header />
       <div className={classes.contentContainer}>
-        <Grid container>
+        <Grid container style={{ padding: '0 10px' }}>
           <Grid className={classes.headerContainer} item xl={12}>
             <button className={classes.logout} onClick={advisor.advisor ? logoutAdvisor : loginAdvisor}>
               <span className={classes.logout_text}>
@@ -75,14 +75,14 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
                   ? 'Connexion Pro'
                   : `${advisor.advisor.profile.firstName} ${advisor.advisor.profile.lastName}`}
               </span>
-              <div className={classes.logout_icon_container}>
+              {/*  <div className={classes.logout_icon_container}>
                 <img className={classes.logout_icon} src={advisor.advisor ? logoutIcon : loginIcon} />
-              </div>
+              </div> */}
             </button>
           </Grid>
         </Grid>
         <div className={classes.content}>
-          <img src={HomeLogo} alt={'homeLogo'} className={classes.logoHome} />
+          <img src={Illu_Miroir} alt={'homeLogo'} className={classes.logoHome} />
           <WithSub
             className={classes.WithSub}
             title1={'Trouve ta voie'}
@@ -90,11 +90,14 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
           />
           <div className={classes.groupBotton}>
             <div onClick={navigate} className={classes.commencerBtn}>
-              <span className={classes.btn_text}>Commencer</span>
-              <img src={start_arrow} alt="start" />
+              <img src={Arrow_SeConnect} alt="start" className={classes.buttonArrow} />
+
+              <span className={classes.btn_text}>S'inscrire</span>
             </div>
             <div onClick={navigate} className={classes.commencerBtn}>
-              <span className={classes.btn_text}>Commencer</span>
+              <img src={Arrow_SeConnect} alt="start" className={classes.buttonArrow} />
+
+              <span className={classes.btn_text}>Se connecter</span>
             </div>
           </div>
         </div>
@@ -103,7 +106,9 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
       <Grid container className={classes.cardContainer}>
         {steps.map((step, i) => (
           <Grid key={i} className={classes.step_card} item xl={3} md={6} smd={12}>
-            <CardHome icon={playIcon} description={'Découvre comment identifier '} />
+            <CardHome icon={step.icon} description={step.description} />
+            {/*             {i !== 2 && <img className={classes.arrow} src={Picto_Fleche} alt={'fleche'} />}
+             */}{' '}
           </Grid>
         ))}
       </Grid>
