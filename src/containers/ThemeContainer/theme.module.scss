@@ -1,39 +1,43 @@
 @import "../../styles/variables.scss";
-.container_themes {
+.new_theme {
   display: flex;
+  align-items: stretch;
+  position: relative;
   width: 100%;
-  align-self: stretch;
-
-  .content_themes {
-    padding-left: 0px;
-    width: calc(100% - 250px);
-    @media (max-width: map-get($breakpoints, "md" )) {
-      width: 100%;
-      padding-left: 60px;
-    }
-    .grid_padding {
-      padding-bottom: 15px;
-      padding-top: 38px;
-    }
-  }
-}
-.theme {
-  width: 100%;
-  height: 50px;
-  padding: 0 15px;
-  text-align: left;
-}
-.bar_color {
-  background-image: linear-gradient(to left, $rose, $purple 51%, $cyan);
 }
 
-/* .backdrop {
-  background-image: url("../../assets/icons/svg/rectangle.svg");
-  object-fit: contain;
-  opacity: 1 !important;
-  background-color: #5726bf !important;
-} */
+.new_theme_title {
+  width: 15%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  padding-left: 0;
+  min-height: 120px;
+}
 
-.spinner_container {
-  background-color: rgba(0, 0, 0, 0.5);
+.new_theme_activities {
+  width: 42.5%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.new_theme_skills {
+  width: 42.5%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.activities {
+  color: #000;
+  padding: 5px 0;
+}
+
+.activities_selected {
+  color: red;
 }

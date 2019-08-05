@@ -1,9 +1,9 @@
-import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
-import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
+import React, { useRef, useState, forwardRef, useEffect, Ref } from 'react';
+import { Route, Switch, Redirect, RouteComponentProps, Prompt } from 'react-router-dom';
 import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { ReduxState, ITheme, ISkillPopulated } from 'reducers';
-import { isEmpty } from 'lodash';
+import { ReduxState, ITheme, ISkillPopulated, IExpertise, IActivity } from 'reducers';
+import { isEmpty, map, isEqual } from 'lodash';
 
 // containers
 import ActivitiesContainer from '../ActivitiesContainer/ActivitiesContainer';
@@ -32,201 +32,170 @@ import parcoursActions from '../../reducers/parcours';
 // styles
 import classes from './theme.module.scss';
 import Spinner from '../../components/ui/Spinner/Spinner';
+import { useDidMount } from '../../hooks';
 
 interface IMapToProps {
-  themes: ITheme[];
-  skills: ISkillPopulated[];
-  parcoursFetching: boolean;
+  expertises: IExpertise[];
 }
 
-interface IDispatchToProps {
-  openModal: (children: JSX.Element, backdropClassName?: string) => void;
-  closeModal: () => void;
-  parcoursRequest: (args: IUpdateParcoursParams) => void;
+export type Step = 'activities_edit' | 'show' | 'expertise_edit' | 'edit_all';
+
+interface Props extends IMapToProps, ApiComponentProps<{ get: typeof getTheme }> {
+  id: string;
+  step: Step;
+  skill?: ISkillPopulated;
 }
 
-type Props = RouteComponentProps<{ id: string }> &
-  IDispatchToProps &
-  IMapToProps &
-  ApiComponentProps<{ get: typeof getTheme }>;
+export interface ThemeRefObject {
+  activities: IActivity[];
+  competences: { _id: string; value: number }[];
+}
 
-const ThemeContainer = ({
-  match,
-  themes,
-  history,
-  get,
-  skills,
-  openModal,
-  closeModal,
-  parcoursRequest,
-  parcoursFetching,
-}: Props) => {
-  const { id } = match.params;
-  const currentIndex = themes.findIndex(theme => theme._id === id); // index in all themes
-  const currentTheme = themes[currentIndex];
-  const successContinueClick = () => {
-    history.push('/carte');
-    closeModal();
-  };
-  const oldSuccessContinueClick = () => {
-    history.push('/profile');
-    closeModal();
-  };
+const ThemeContainer = forwardRef(({ id, get, skill, step, expertises }: Props, ref?: Ref<ThemeRefObject>) => {
+  const [activities, activitiesChange] = useState<IActivity[]>([]);
+  const [competences, competencesChange] = useState<IExpertise[]>([]);
 
-  /*--- get Next phase ---*/
-  let nextUrl: string | null = null;
-  const currentSkillsType = skills.filter(skill => currentTheme && skill.theme.type === currentTheme.type);
-  const currentThemes = themes.filter(theme => currentTheme && theme.type === currentTheme.type);
-  const indexInCurrent = currentThemes.findIndex(theme => theme._id === id); // index after filter with type
-  const { length } = currentSkillsType;
-  let i = 0;
-  let nextTheme = null;
-  while (i < length && !nextTheme) {
-    const currentTheme = currentSkillsType[i];
-    if (!(currentTheme.activities.length && currentTheme.competences.length)) {
-      nextTheme = currentTheme;
-    } else {
-      i += 1;
-    }
-  }
-
-  if (nextTheme) {
-    nextUrl =
-      currentSkillsType[i].activities.length === 0
-        ? `/theme/${nextTheme.theme._id}/activities`
-        : `/theme/${nextTheme.theme._id}/skills`;
-  } else if (indexInCurrent < currentThemes.length - 1) {
-    nextUrl = `/theme/${currentThemes[indexInCurrent + 1]._id}/activities`;
-  }
-  /*--- get Next phase ---*/
-
-  const goNext = () => {
-    if (nextUrl) {
-      history.replace(nextUrl);
-    } else {
-      openModal(<SuccessModal type={currentTheme.type} onClick={successContinueClick} />, classes.backdrop);
-    }
-  };
-
-  const onThemeRemove = (theme: any) => {
-    if (theme._id === id) {
-      const nextIndex = currentIndex === themes.length - 1 ? 0 : currentIndex + 1;
-      history.replace(`/theme/${themes[nextIndex]._id}/activities`);
-    }
-    const newSkills = skills.filter(skill => skill.theme._id !== theme._id);
-    parcoursRequest({
-      skills: newSkills.map(skill => ({
-        theme: skill.theme._id,
-        activities: skill.activities.map(({ _id }) => _id),
-        competences: skill.competences,
-      })),
-    });
-  };
-
-  const mounted = useRef(false);
-  const [open, setOpen] = useState(false);
-  const toggleOpen = () => setOpen(!open);
-
-  useLayoutEffect(() => {
-    if (!mounted.current) mounted.current = true;
-    get.call(id);
-  },              [match.params.id]);
-
-  if (currentIndex === -1) return <NotFound />;
-  if (match.isExact) return <Redirect to={`/theme/${id}/activities`} />;
-  const { data, fetching, error } = get;
-
-  const fetchingComponent = (
-    <div style={{ background: '#fff' }} className={'absolute_fill flex_center'}>
-      <LazyLoader />
-    </div>
+  const initialActivities = useRef(skill ? skill.activities.map(activity => activity) : []);
+  const initialCompetences = useRef(
+    skill ? expertises.filter(expertise => skill.competences.find(({ _id }) => expertise._id === _id)) : [],
   );
 
-  // should be the same loader used in competence page
-  if ((fetching && isEmpty(data)) || !mounted.current) return fetchingComponent;
-  if (error) return <div>{error}</div>;
-  if (isEmpty(data)) return <NotFound />;
+  const isEditRef = useRef(false);
 
-  const stepperOptions = ['Ma carte de compétences'];
-  if (currentTheme) {
-    stepperOptions.push(currentTheme.title);
+  const isEdit = step !== 'show';
+
+  function resetActivities() {
+    initialActivities.current = skill ? skill.activities.map(activity => activity) : [];
+    activitiesChange(initialActivities.current);
   }
-  const onNavigate = (index: number, p: string) => {
-    if (index === 0) {
-      history.push('/profile');
-    }
-    if (index === 1) {
-      history.push(`/themes?type=${currentTheme.type}`);
-    }
-  };
 
-  const listThemes = themes.filter(theme => currentTheme && theme.type === currentTheme.type);
+  function resetCompetences() {
+    initialCompetences.current = skill
+      ? expertises.filter(expertise => skill.competences.find(({ _id }) => expertise._id === _id))
+      : [];
+
+    competencesChange(initialCompetences.current);
+  }
+
+  useEffect(() => {
+    if (step === 'show') {
+      isEditRef.current = false;
+      resetActivities();
+      resetCompetences();
+    } else if (!isEditRef.current) {
+      isEditRef.current = true;
+      get.call(id);
+    }
+  },        [step]);
+
+  useEffect(() => {
+    if (ref) {
+      if (typeof ref === 'function') {
+        ref({ activities, competences: competences.map(({ _id }) => ({ _id, value: 5 })) });
+      } else {
+        (ref.current as any) = { activities, competences: competences.map(({ _id }) => ({ _id, value: 5 })) };
+      }
+      return () => {
+        if (typeof ref === 'function') {
+          ref(null);
+        } else {
+          (ref.current as any) = null;
+        }
+      };
+    }
+  });
+
+  function getSelected<T>(
+    array: T[],
+    callback: (row: T, index: number, array: T[]) => boolean,
+  ): { index: number; selected: boolean } {
+    if (!isEdit) return { index: -1, selected: false };
+    const index = array.findIndex(callback);
+    const selected = index !== -1;
+    return { index, selected };
+  }
+
+  const activitiesArray = step === 'activities_edit' || step === 'edit_all' ? get.data.activities : activities;
+  const expertisesArray = step === 'expertise_edit' || step === 'edit_all' ? expertises : competences;
 
   return (
-    <div className={classes.container_themes}>
-      <SideBar
-        options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))}
-        type={currentTheme && currentTheme.type}
-        onItemRemove={listThemes.length === 1 ? undefined : onThemeRemove}
+    <>
+      <Prompt
+        when={!isEqual(initialActivities.current, activities) || !isEqual(initialCompetences.current, competences)}
+        message={'modif will be lost'}
       />
-      <SideBarMobile
-        toggleOpen={toggleOpen}
-        open={open}
-        options={listThemes.map(theme => ({ ...theme, isSelected: id === theme._id }))}
-        type={currentTheme && currentTheme.type}
-      />
-      <div className={classes.content_themes}>
-        <Grid container padding={{ xl: 50, md: 30 }} spacing={{ xl: 0 }}>
-          <Grid item xl={12}>
-            <PathStepper options={stepperOptions} onClick={onNavigate} type={currentTheme && currentTheme.type} />
-          </Grid>
-          <Grid item xl={12} className={classes.grid_padding}>
-            {currentTheme && (
-              <Title
-                title={currentTheme.title}
-                logo={currentTheme.resources ? currentTheme.resources.icon : undefined}
-                type={currentTheme.type}
-              />
-            )}
-          </Grid>
-          <Switch>
-            <Route
-              path={'/theme/:id/activities'}
-              render={props => <ActivitiesContainer {...props} theme={data} />}
-              exact
-            />
-            <Route
-              path={'/theme/:id/skills'}
-              exact
-              render={props => <CompetenceContainer {...props} theme={data} goNext={goNext} nextUrl={nextUrl} />}
-            />
-            <Route component={NotFound} />
-          </Switch>
-          {fetching && fetchingComponent}
-        </Grid>
-      </div>
-      {parcoursFetching && (
-        <div className={`fixed_fill flex_center ${classes.spinner_container}`}>
-          <Spinner />
-        </div>
-      )}
-    </div>
-  );
-};
+      <div className={classes.new_theme}>
+        <div className={classes.new_theme_title}>{skill ? skill.theme.title : get.data.title}</div>
+        <div className={classes.new_theme_activities}>
+          {map(activitiesArray, activity => {
+            const { index, selected } = getSelected(activities, ({ _id }) => activity._id === _id);
 
-const mapStateToProps = ({ themes, parcours }: ReduxState): IMapToProps => ({
-  themes,
-  skills: parcours.data.skills,
-  parcoursFetching: parcours.fetching,
+            const onClick = () => {
+              if (isEdit) {
+                const nextActivities = [...activities];
+                if (selected) {
+                  nextActivities.splice(index, 1);
+                } else {
+                  nextActivities.push(activity);
+                }
+                activitiesChange(nextActivities);
+              }
+            };
+
+            return (
+              <div
+                onClick={onClick}
+                className={classNames(classes.activities, selected && classes.activities_selected)}
+                key={activity._id}
+              >
+                {activity.title}
+              </div>
+            );
+          })}
+        </div>
+        <div className={classes.new_theme_skills}>
+          {step !== 'activities_edit' &&
+            map(expertisesArray, expertise => {
+              const { index, selected } = getSelected(competences, ({ _id }) => _id === expertise._id);
+              function onClick() {
+                if (isEdit) {
+                  const newCompetences = [...competences];
+
+                  if (selected) {
+                    newCompetences.splice(index, 1);
+                  } else {
+                    newCompetences.push(expertise);
+                    if (newCompetences.length > 4) {
+                      newCompetences.shift();
+                    }
+                  }
+                  competencesChange(newCompetences);
+                }
+              }
+
+              return (
+                <div
+                  className={selected ? classes.activities_selected : undefined}
+                  key={expertise._id}
+                  onClick={onClick}
+                >
+                  {expertise.title}
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    </>
+  );
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
-  openModal: (children, backdropClassName) => dispatch(modalActions.openModal({ children, backdropClassName })),
-  closeModal: () => dispatch(modalActions.closeModal()),
-  parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
+const mapStateToProps = ({ parcours, expertises }: ReduxState, { id }: { id: string }): IMapToProps => ({
+  expertises: expertises.data,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
+  null,
+  { forwardRef: true },
 )(withApis({ get: getTheme })(ThemeContainer));

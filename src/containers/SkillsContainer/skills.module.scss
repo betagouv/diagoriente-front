@@ -1,0 +1,66 @@
+@import "../../styles/variables.scss";
+
+.fill {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  @extend .fill;
+  padding: 30px $profile_horizontal_padding;
+}
+
+.card {
+  @extend .fill;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 80px;
+  width: 100%;
+  box-shadow: inset 0px -1px 3px -1px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+  flex: 1 1 auto;
+  background-color: #f1f1f1;
+  padding: 20px 0;
+  display: flex;
+}
+
+.side {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.left {
+  @extend .side;
+}
+
+.right {
+  @extend .side;
+  padding: 20px 10px;
+}
+
+.item {
+  height: calc(50% - 5px);
+  width: 100%;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.skill {
+  padding: 5px 0;
+  white-space: nowrap;
+}
+
+.footer {
+  height: 40px;
+  width: 100%;
+  box-shadow: inset 0px 1px 3px -1px rgba(0, 0, 0, 0.2);
+}

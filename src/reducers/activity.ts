@@ -6,7 +6,7 @@ export const INITIAL_DATA: IActivity = {
   _id: '',
   title: '',
   type: '',
-  description:'',
+  description: '',
   verified: false,
   interests: [],
 };
