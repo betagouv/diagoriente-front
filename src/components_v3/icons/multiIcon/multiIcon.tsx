@@ -38,6 +38,7 @@ interface Props {
   textColor?: string;
   Iconcolor?: string;
   bottom?: boolean;
+  withBorder?: boolean;
 }
 
 const MultiIcon = ({
@@ -51,6 +52,7 @@ const MultiIcon = ({
   textColor,
   Iconcolor,
   bottom,
+  withBorder,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
@@ -79,11 +81,11 @@ const MultiIcon = ({
       {type === 'help' && <Help width={width} height={height} color={Iconcolor} />}
       {type === 'download' && <Download width={width} height={height} color={Iconcolor} />}
       {type === 'print' && <Print width={width} height={height} color={Iconcolor} />}
-      {type === 'prev' && <Prev width={width} height={height} color={Iconcolor} />}
-      {type === 'next' && <Next width={width} height={height} color={Iconcolor} />}
+      {type === 'prev' && <Prev width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
+      {type === 'next' && <Next width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
       {type === 'remove' && <Remove width={width} height={height} color={Iconcolor} />}
       {type === 'connect' && <Connect width={width} height={height} color={Iconcolor} />}
-      {type === 'warning' && <Warning width={width} height={height} color={Iconcolor} />}
+      {type === 'warning' && <Warning width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
       {type === 'border' && <Border width={width} height={height} color={Iconcolor} />}
     </div>
   );
