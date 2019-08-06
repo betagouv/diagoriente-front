@@ -22,6 +22,7 @@ const ApparationCard = ({ color, taux, title, favori, withProgressBar, withCheck
         <div
           className={classNames(classes.Triangle, state ? classes.RotateTriangleTop : classes.RotateTriangleBottom)}
           onClick={() => clickHandler(!state)}
+          style={{borderColor: `transparent transparent transparent ${color}`}}
         />
       )}{' '}
       {withCheckBox && clickHandler && <input type="checkbox" checked={state} onChange={() => clickHandler(!state)} />}

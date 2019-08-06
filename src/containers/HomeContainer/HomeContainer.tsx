@@ -100,7 +100,7 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
               <img src={Arrow_SeConnect} alt="start" className={classes.buttonArrow} />
               <span className={classes.btn_text}>Se connecter</span>
             </div>
-     
+       
           </div>
         </div>
       </div>
