@@ -27,7 +27,7 @@
     width: 80px;
     //height: 120px;
     transition: .5s all linear;
-    &:hover {
+   /*  &:hover {
         .title {
            // font-weight: 600;
             letter-spacing: 1px;
@@ -36,11 +36,11 @@
         .iconWrapper {
             transform: scale(1.1)
         }
-    }
+    } */
 
     .title {
         text-transform: uppercase;
-        font-size: 16px;
+        font-size: 12px;
         text-align: center;
         color: rebeccapurple;
         font-weight: 600;

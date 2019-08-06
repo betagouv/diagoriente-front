@@ -31,12 +31,21 @@
 }
 
 .theme_title {
-  width: 25%;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 15px;
+ // padding-right: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
   cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+.wrapper {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
 }

@@ -54,6 +54,8 @@ import classes from './themesContainer.module.scss';
 import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
 import { func } from 'prop-types';
 import withLayout from '../../hoc/withLayout';
+import ThemeIcon from '../../components_v3/icons/themeIcon/themeIcon';
+import idea from '../../assets_v3/icons/idea.svg';
 
 interface IMapToProps {
   parcours: IParcoursResponse;
@@ -205,11 +207,16 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
               function onClick() {
                 selectedThemeChange(theme._id);
               }
-
               return (
-                <span className={classes.theme_title} key={theme._id} onClick={onClick}>
-                  {theme.title}
-                </span>
+                <div className={classes.wrapper}>
+                  <ThemeIcon icon={idea} key={theme._id} onClick={onClick} />
+                  <span
+                    className={classes.theme_title}
+                    style={{ color: theme.resources && theme.resources.backgroundColor }}
+                  >
+                    {theme.title}
+                  </span>
+                </div>
               );
             })
         ) : (
