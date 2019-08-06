@@ -11,20 +11,20 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElem
   favori?: boolean;
   withProgressBar?: boolean;
   withCheckBox?: boolean;
-  state: boolean;
-  clickHandler: React.Dispatch<React.SetStateAction<boolean>>;
+  state?: boolean;
+  clickHandler?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ApparationCard = ({ color, taux, title, favori, withProgressBar, withCheckBox, state, clickHandler }: Props) => {
   return (
     <div className={classes.CardContainer}>
-      {withProgressBar && (
+      {withProgressBar && clickHandler && (
         <div
           className={classNames(classes.Triangle, state ? classes.RotateTriangleTop : classes.RotateTriangleBottom)}
           onClick={() => clickHandler(!state)}
         />
       )}{' '}
-      {withCheckBox && <input type="checkbox" checked={state} onChange={() => clickHandler(!state)} />}
+      {withCheckBox && clickHandler && <input type="checkbox" checked={state} onChange={() => clickHandler(!state)} />}
       <div className={classes.CardApp}>
         <div className={classes.etiquette} style={{ backgroundColor: color }} />
         <div className={classes.restCard}>
