@@ -1,21 +1,31 @@
 import React from 'react';
 import classes from './card.module.scss';
 import classNames from '../../../utils/classNames';
+import MultiIcon from '../../icons/multiIcon/multiIcon';
 
-interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface Props
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   edit: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   close: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+  selected?: any;
 }
 
-const Card = ({ edit, close, className, children, ...rest }: Props) => {
-  return (
-    <div {...rest} className={classNames(classes.container, className)}>
-      {children}
-      <div {...close} className={classNames(classes.delete, close.className)} />
-      <div {...edit} className={classNames(classes.edit, edit.className)} />
+const Card = ({
+ edit, close, className, selected, children, ...rest
+}: Props) => (
+  <div {...rest} className={classNames(classes.container, className)}>
+    {children}
+    <div {...close} className={classNames(classes.delete)}>
+      <MultiIcon type="remove" width="40" height="40" Iconcolor="#ff001f" />
     </div>
-  );
-};
+    <div {...edit} className={selected === null ? classes.edit: classes.hideButton }>
+      <MultiIcon type="edit" width="40" height="40" Iconcolor="#7992BF" />
+    </div>
+    <div {...edit} className={selected !== null ? classes.editAdd : classes.hideButton}>
+      <MultiIcon type="validate" width="40" height="40" Iconcolor="#ffc107" />
+    </div>
+  </div>
+);
 
 Card.defaultProps = {
   edit: {},

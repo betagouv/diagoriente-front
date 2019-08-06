@@ -36,7 +36,7 @@ const Remove = ({ color = '#7992BF', width, height }: Props) => {
               fill={color}
               fontWeight="bold"
               //fontFamily="'Nunito-Bold'"
-              font-size="31.2717"
+              fontSize="31.2717"
             >
               X
             </text>
