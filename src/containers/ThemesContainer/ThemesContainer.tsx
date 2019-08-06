@@ -18,6 +18,7 @@ import ThemeContainer, { Step, ThemeRefObject } from 'containers/ThemeContainer/
 
 // components
 import Card from 'components_v3/ui/Card/Card';
+import ThemeIcon from 'components_v3/icons/themeIcon/themeIcon';
 
 // hooks
 import { useDidUpdate, useCaptureRef } from 'hooks';
@@ -28,11 +29,14 @@ import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
 
+// assets
+import idea from 'assets_v3/icons/idea.svg';
+
+// utils
+import classNames from 'utils/classNames';
+
 // styles
-// import classNames from 'utils/classNames';
 import classes from './themesContainer.module.scss';
-import idea from '../../assets_v3/icons/idea.svg';
-import ThemeIcon from '../../components_v3/icons/themeIcon/themeIcon';
 
 interface IMapToProps {
   parcours: IParcoursResponse;
@@ -218,13 +222,16 @@ const ThemesContainer = forwardRef(
                 }
 
                 return (
-                  <div className={classes.wrapper}>
-                    <ThemeIcon icon={idea} key={theme._id} onClick={onClick} />
+                  <div onClick={onClick} className={classes.wrapper}>
+                    <ThemeIcon title={theme.title} icon={idea} key={theme._id} />
                     <span
-                      className={classes.theme_title}
-                      style={{
+                      className={classNames(
+                        classes.theme_title,
+                        selected && classes.theme_selected_title,
+                      )}
+                      /* style={{
                         color: theme.resources && theme.resources.backgroundColor,
-                      }}
+                      }} */
                     >
                       {theme.title}
                     </span>

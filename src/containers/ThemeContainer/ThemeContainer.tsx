@@ -92,8 +92,10 @@ const ThemeContainer = forwardRef(
       return { index, selected };
     }
 
-    const activitiesArray = step === 'activities_edit' || step === 'edit_all' ? get.data.activities : activities;
-    const expertisesArray = step === 'expertise_edit' || step === 'edit_all' ? expertises : competences;
+    const isActivityEdit = step === 'activities_edit' || step === 'edit_all';
+    const isExpertiseEdit = step === 'expertise_edit' || step === 'edit_all';
+    const activitiesArray = isActivityEdit ? get.data.activities : activities;
+    const expertisesArray = isExpertiseEdit ? expertises : competences;
 
     return (
       <Fragment>
@@ -109,7 +111,7 @@ const ThemeContainer = forwardRef(
               );
 
               const onClick = () => {
-                if (isEdit) {
+                if (isActivityEdit) {
                   const nextActivities = [...activities];
                   if (selected) {
                     nextActivities.splice(index, 1);
@@ -142,7 +144,7 @@ const ThemeContainer = forwardRef(
                   ({ _id }) => _id === expertise._id,
                 );
                 function onClick() {
-                  if (isEdit) {
+                  if (isExpertiseEdit) {
                     const newCompetences = [...competences];
 
                     if (selected) {
