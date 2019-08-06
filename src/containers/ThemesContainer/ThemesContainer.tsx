@@ -1,23 +1,14 @@
 import React, {
-  Dispatch,
-  useState,
-  useRef,
-  useEffect,
-  Ref,
-  RefObject,
-  MutableRefObject,
-  RefAttributes,
-  forwardRef,
+ Dispatch, useState, useRef, useEffect, Ref, forwardRef,
 } from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
-import { RouteComponentProps, Redirect, Prompt } from 'react-router-dom';
-import { filter } from 'lodash';
+import { RouteComponentProps } from 'react-router-dom';
 
 // types
-import { ReduxState, ITheme, IParcoursResponse, IActivity } from 'reducers';
+import { ReduxState, ITheme, IParcoursResponse } from 'reducers';
 import { AnyAction } from 'redux';
-import { IUpdateParcoursParams, ISkill } from '../../requests';
+import { useCaptureRef } from 'hooks/useCaptureRef';
+import { IUpdateParcoursParams } from '../../requests';
 
 // Api
 import withApi, { ApiComponentProps } from '../../hoc/withApi';
@@ -30,29 +21,15 @@ import ThemeContainer, { Step, ThemeRefObject } from '../ThemeContainer/ThemeCon
 
 import Card from '../../components_v3/ui/Card/Card';
 
-import SideBar from '../../components/sideBar/SideBar/SideBar';
-import SideBarMobile from '../../components/sideBar/SidebarMobile/SideBarMobile';
-import PathStepper from '../../components/PathStepper/Path';
-import Info from '../../components/ui/Info/Info';
-import Grid from '../../components/ui/Grid/Grid';
-import CardTheme from '../../components/cards/Card/Card';
-import Title from '../../components/Title/Title';
-import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
-import classNames from '../../utils/classNames';
-
 // utils
-import { decodeUri } from '../../utils/url';
 
 // hooks
-import { useDidMount, useDidUpdate, useWillUnmount } from '../../hooks';
 import themesActions from '../../reducers/themes';
 import parcoursActions from '../../reducers/parcours';
 import activityActions from '../../reducers/activity';
 import modalActions from '../../reducers/modal';
 // styles
 import classes from './themesContainer.module.scss';
-import LazyLoader from '../../components/ui/LazyLoader/LazyLoader';
-import { func } from 'prop-types';
 import withLayout from '../../hoc/withLayout';
 
 interface IMapToProps {
@@ -69,7 +46,10 @@ interface IDispatchToProps {
   closeModal: () => void;
 }
 
-interface Props extends RouteComponentProps, ApiComponentProps<{ list: typeof listThemes }>, IMapToProps {
+interface Props
+  extends RouteComponentProps,
+    ApiComponentProps<{ list: typeof listThemes }>,
+    IMapToProps {
   type: 'personal' | 'professional';
 }
 
@@ -78,7 +58,9 @@ interface RefProp {
 }
 
 const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<RefProp>) => {
-  const [step, stepChange] = useState<Step | null>(!parcours.skills.length ? 'activities_edit' : null);
+  const [step, stepChange] = useState<Step | null>(
+    !parcours.skills.length ? 'activities_edit' : null,
+  );
   const [selectedTheme, selectedThemeChange] = useState<string | null>(null);
   const [skills, skillsChange] = useState(parcours.skills);
 
@@ -87,28 +69,20 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
 
   function onFooterClick(button: string) {
     if (button === 'valider') {
+      console.log('button', button);
     }
   }
 
   useEffect(() => {
     list.call({ type });
-    stepChange(!parcours.skills.filter(skill => skill.theme.type === type).length ? 'activities_edit' : null);
+    stepChange(
+      !parcours.skills.filter(skill => skill.theme.type === type).length ? 'activities_edit' : null,
+    );
     selectedThemeChange(null);
     skillsChange(parcours.skills);
-  },        [type]);
+  }, [type]);
 
-  useEffect(() => {
-    if (ref) {
-      if (typeof ref === 'function') ref({ onFooterClick });
-      else (ref.current as any) = { onFooterClick };
-    }
-    return () => {
-      if (ref) {
-        if (typeof ref === 'function') ref(null);
-        else (ref.current as any) = null;
-      }
-    };
-  });
+  useCaptureRef({ onFooterClick }, ref);
 
   function isSkillValidInputs(skillRef: ThemeRefObject) {
     return skillRef.activities.length > 0 && skillRef.competences.length === 4;
@@ -196,10 +170,14 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
     }
 
     return (
-      <Card close={{ onClick: onCloseClick }} edit={{ onClick: onEditClick }} className={classes.themes}>
+      <Card
+        close={{ onClick: onCloseClick }}
+        edit={{ onClick: onEditClick }}
+        className={classes.themes}
+      >
         {!selectedTheme ? (
-          list.data.data &&
           list.data.data
+          && list.data.data
             .filter(theme => !skills.find(skill => skill.theme._id === theme._id))
             .map(theme => {
               function onClick() {
@@ -213,7 +191,12 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
               );
             })
         ) : (
-          <ThemeContainer ref={newSkillRef as any} key={selectedTheme} step={step} id={selectedTheme} />
+          <ThemeContainer
+            ref={newSkillRef as any}
+            key={selectedTheme}
+            step={step}
+            id={selectedTheme}
+          />
         )}
       </Card>
     );
@@ -226,7 +209,10 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
         {skills.map(({ theme }, index) => {
           const selected = theme._id === selectedTheme;
           function onEdit() {
-            if (selected) return updateSkill();
+            if (selected) {
+              updateSkill();
+              return;
+            }
             selectedThemeChange(theme._id);
             stepChange('edit_all');
           }
@@ -235,14 +221,19 @@ const ThemesContainer = forwardRef(({ list, parcours, type }: Props, ref: Ref<Re
             skillsChange(skills.filter(skill => skill.theme._id !== theme._id));
           }
 
-          function captureRef(ref: ThemeRefObject | null) {
+          function captureRef(editRef: ThemeRefObject | null) {
             const editSkills = editSkillsRefs.current;
-            editSkills[index] = ref;
+            editSkills[index] = editRef;
             editSkillsRefs.current = editSkills;
           }
 
           return (
-            <Card close={{ onClick: onClose }} edit={{ onClick: onEdit }} key={theme._id} className={classes.themes}>
+            <Card
+              close={{ onClick: onClose }}
+              edit={{ onClick: onEdit }}
+              key={theme._id}
+              className={classes.themes}
+            >
               <ThemeContainer
                 skill={skills.find(skill => skill.theme._id === theme._id)}
                 key={theme._id}
@@ -268,11 +259,14 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
   updateThemes: themes => dispatch(themesActions.updateThemes({ themes })),
   getActivity: (id: any) => dispatch(activityActions.getActivityRequest(id)),
-  openModal: (children, backdropClassName) => dispatch(modalActions.openModal({ children, backdropClassName })),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
   closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  null,
+  { forwardRef: true },
 )(withApi({ list: listThemes })(withLayout(ThemesContainer)));
