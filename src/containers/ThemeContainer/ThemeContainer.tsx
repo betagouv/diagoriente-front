@@ -188,10 +188,7 @@ const ThemeContainer = forwardRef(
   },
 );
 
-const mapStateToProps = (
-  { parcours, expertises }: ReduxState,
-  { id }: { id: string },
-): IMapToProps => ({
+const mapStateToProps = ({ expertises }: ReduxState): IMapToProps => ({
   expertises: expertises.data,
 });
 
