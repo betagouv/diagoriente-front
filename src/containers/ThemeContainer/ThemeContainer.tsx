@@ -1,13 +1,12 @@
 import React, {
  useRef, useState, forwardRef, useEffect, Ref, Fragment,
 } from 'react';
-import { Prompt } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { map } from 'lodash';
 import {
  ReduxState, ISkillPopulated, IExpertise, IActivity,
 } from 'reducers';
-import { map, isEqual } from 'lodash';
 
 // containers
 import { useCaptureRef } from 'hooks/useCaptureRef';
@@ -15,8 +14,10 @@ import { useCaptureRef } from 'hooks/useCaptureRef';
 // components
 import classNames from 'utils/classNames';
 
-// api
+// hoc
 import withApis, { ApiComponentProps } from 'hoc/withApi';
+
+// api
 import { getTheme } from 'requests';
 
 // styles
@@ -32,6 +33,7 @@ interface Props extends IMapToProps, ApiComponentProps<{ get: typeof getTheme }>
   id: string;
   step: Step;
   skill?: ISkillPopulated;
+  type: 'personal' | 'professional';
 }
 
 export interface ThemeRefObject {
@@ -43,38 +45,29 @@ const ThemeContainer = forwardRef(
   ({
  id, get, skill, step, expertises,
 }: Props, ref?: Ref<ThemeRefObject>) => {
-    const [activities, activitiesChange] = useState<IActivity[]>([]);
-    const [competences, competencesChange] = useState<IExpertise[]>([]);
+    function getActivities(): IActivity[] {
+      if (!skill) return [];
+      return skill.activities.map(activity => activity);
+    }
 
-    const initialActivities = useRef(skill ? skill.activities.map(activity => activity) : []);
-    const initialCompetences = useRef(
-      skill
-        ? expertises.filter(expertise => skill.competences.find(({ _id }) => expertise._id === _id))
-        : [],
-    );
+    function getExpertises() {
+      if (!skill) return [];
+      return expertises.filter(expertise =>
+        skill.competences.find(({ _id }) => expertise._id === _id));
+    }
+
+    const [activities, activitiesChange] = useState(getActivities());
+    const [competences, competencesChange] = useState(getExpertises());
 
     const isEditRef = useRef(false);
 
     const isEdit = step !== 'show';
 
-    function resetActivities() {
-      initialActivities.current = skill ? skill.activities.map(activity => activity) : [];
-      activitiesChange(initialActivities.current);
-    }
-
-    function resetCompetences() {
-      initialCompetences.current = skill
-        ? expertises.filter(expertise => skill.competences.find(({ _id }) => expertise._id === _id))
-        : [];
-
-      competencesChange(initialCompetences.current);
-    }
-
     useEffect(() => {
       if (step === 'show') {
         isEditRef.current = false;
-        resetActivities();
-        resetCompetences();
+        activitiesChange(getActivities());
+        competencesChange(getExpertises());
       } else if (!isEditRef.current) {
         isEditRef.current = true;
         get.call(id);
@@ -104,13 +97,6 @@ const ThemeContainer = forwardRef(
 
     return (
       <Fragment>
-        <Prompt
-          when={
-            !isEqual(initialActivities.current, activities)
-            || !isEqual(initialCompetences.current, competences)
-          }
-          message="modif will be lost"
-        />
         <div className={classes.new_theme}>
           <div className={classes.new_theme_title}>
             {skill ? skill.theme.title : get.data.title}

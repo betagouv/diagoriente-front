@@ -5,7 +5,7 @@ export function useCaptureRef<T>(value: T | null, ref?: Ref<T | null>) {
     if (ref) {
       if (typeof ref === 'function') ref(value);
       // eslint-disable-next-line
-      else (ref.current as any) = ref;
+      else (ref.current as any) = value;
     }
     return () => {
       if (ref) {

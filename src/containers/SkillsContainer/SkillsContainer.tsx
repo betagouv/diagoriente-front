@@ -1,14 +1,17 @@
-import React, { useEffect, Ref, forwardRef } from 'react';
+import React, { Ref, forwardRef } from 'react';
 import { connect } from 'react-redux';
 import { find } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import { ReduxState, IParcoursResponse, IExpertise } from 'reducers';
-import withLayout from '../../hoc/withLayout';
 
+import withLayout from 'hoc/withLayout';
+import withApis, { ApiComponentProps } from 'hoc/withApi';
+
+import { getParcours } from 'requests';
+import { useDidMount } from 'hooks';
+
+import { useCaptureRef } from 'hooks/useCaptureRef';
 import classes from './skills.module.scss';
-import withApis, { ApiComponentProps } from '../../hoc/withApi';
-import { getParcours } from '../../requests';
-import { useDidMount } from '../../hooks';
 
 interface MapToProps {
   parcours: IParcoursResponse;
@@ -18,57 +21,53 @@ interface MapToProps {
 interface Props
   extends RouteComponentProps,
     MapToProps,
-    ApiComponentProps<{ getParcours: typeof getParcours }> {}
+    ApiComponentProps<{ get: typeof getParcours }> {}
 
 interface RefProp {
   onFooterClick(button: string): void;
 }
 const SkillsContainer = forwardRef(
   ({
- parcours, getParcours, expertises, history,
+ parcours, get, expertises, history,
 }: Props, ref: Ref<RefProp>) => {
     useDidMount(() => {
-      getParcours.call(parcours._id);
+      get.call(parcours._id);
     });
     function onFooterClick(button: string) {
       if (button === 'download') {
-        console.log('button', button);
+        // download pdf
       }
       if (button === 'print') {
-        console.log('button', button);
+        // print
       }
     }
-    useEffect(() => {
-      if (ref) {
-        if (typeof ref === 'function') ref({ onFooterClick });
-        else (ref.current as any) = { onFooterClick };
-      }
-      return () => {
-        if (ref) {
-          if (typeof ref === 'function') ref(null);
-          else (ref.current as any) = null;
-        }
+
+    useCaptureRef({ onFooterClick }, ref);
+
+    function pushRoute(route: string) {
+      return function () {
+        history.push(route);
       };
-    });
+    }
+
     return (
       <div className={classes.container}>
         <div className={classes.card}>
           <div className={classes.header} />
           <div className={classes.content}>
             <div className={classes.left}>
-              <div onClick={() => history.push('/profile/perso')} className={classes.item} />
-              <div onClick={() => history.push('/profile/pro')} className={classes.item} />
+              <div onClick={pushRoute('/profile/perso')} className={classes.item} />
+              <div onClick={pushRoute('/profile/pro')} className={classes.item} />
             </div>
             <div className={classes.right}>
               {expertises.map(expertise => {
                 const currentSkill = find(
-                  getParcours.data.globalCopmetences,
+                  get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
                 );
                 return (
                   <span className={classes.skill} key={expertise._id}>
                     {expertise.title}
-                    {' '}
                     {currentSkill ? currentSkill.value : 0}
                   </span>
                 );
@@ -87,4 +86,6 @@ const mapStateToProps = ({ parcours, expertises }: ReduxState): MapToProps => ({
   expertises: expertises.data,
 });
 
-export default connect(mapStateToProps)(withApis({ getParcours })(withLayout(SkillsContainer)));
+export default connect(mapStateToProps)(
+  withApis({ get: getParcours })(withLayout(SkillsContainer)),
+);

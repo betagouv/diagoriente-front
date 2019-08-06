@@ -39,7 +39,7 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
                   wrapped.onFooterClick(button.key, i);
                 }
               };
-              return React.cloneElement(button.component, { onClick });
+              return React.cloneElement(button.component, { onClick, key: button.key });
             })}
           </div>
         )}
