@@ -1,9 +1,11 @@
-import { call, put, take, race } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
-import updateActions from '../../reducers/authUser/updatePassword';
-import { getItem, setItem } from '../../utils/localforage';
+import updateActions from 'reducers/authUser/updatePassword';
+import { getItem } from 'utils/localforage';
 
-import { wrapApiCall, UpdateRequest, WrappedResponse, IUser } from '../../requests';
+import {
+ wrapApiCall, UpdateRequest, WrappedResponse, IUser,
+} from 'requests';
 
 interface updateAction {
   type: 'UPDATE_REQUEST';

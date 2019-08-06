@@ -1,8 +1,8 @@
 import { call, put } from 'redux-saga/effects';
-import userActions from '../../reducers/authUser/user';
-import advisorActions from '../../reducers/authAdvisor/advisor';
-import { setItem } from '../../utils/localforage';
-import { setAuthorizationBearer } from '../../requests';
+import userActions from 'reducers/authUser/user';
+import advisorActions from 'reducers/authAdvisor/advisor';
+import { setItem } from 'utils/localforage';
+import { setAuthorizationBearer } from 'requests';
 
 export function* logoutUser() {
   try {

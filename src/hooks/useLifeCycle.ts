@@ -5,7 +5,7 @@ export function useDidMount(fn: EffectCallback) {
   useEffect(() => {
     mounted.current = true;
     fn();
-  },        []);
+  }, []);
   return mounted.current;
 }
 
@@ -17,12 +17,10 @@ export function useDidUpdate(fn: EffectCallback, deps?: any[]) {
     } else {
       fn();
     }
-  },        deps);
+  }, deps);
   return mounted.current;
 }
 
 export function useWillUnmount(fn: EffectCallback) {
-  useEffect(() => {
-    return fn();
-  },        []);
+  useEffect(() => fn(), []);
 }

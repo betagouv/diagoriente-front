@@ -9,6 +9,7 @@ export function useSelectInput<T>(
   const onOpen = () => openChange(true);
   const onClose = () => openChange(false);
 
+  // eslint-disable-next-line
   function onChange(value: T) {
     valueChange(value);
     onClose();

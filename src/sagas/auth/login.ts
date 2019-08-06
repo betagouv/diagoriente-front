@@ -1,14 +1,15 @@
-import { call, all, put, select } from 'redux-saga/effects';
-
-import userActions from '../../reducers/authUser/user';
-import loginActions from '../../reducers/authUser/login';
-import parcoursActions from '../../reducers/parcours';
-
-import loginAdvisorActions from '../../reducers/authAdvisor/login';
-import advisorActions from '../../reducers/authAdvisor/advisor';
-import expertiseActions from '../../reducers/expertises';
-
+import {
+ call, all, put, select,
+} from 'redux-saga/effects';
 import { IParcoursResponse, ReduxState } from 'reducers';
+import userActions from 'reducers/authUser/user';
+import loginActions from 'reducers/authUser/login';
+import parcoursActions from 'reducers/parcours';
+
+import loginAdvisorActions from 'reducers/authAdvisor/login';
+import advisorActions from 'reducers/authAdvisor/advisor';
+import expertiseActions from 'reducers/expertises';
+
 import {
   wrapApiCall,
   loginUserRequest,
@@ -20,8 +21,9 @@ import {
   loginAdvisorRequest,
   listCompetences,
   ICompetence,
-} from '../../requests';
-import { setItem } from '../../utils/localforage';
+} from 'requests';
+
+import { setItem } from 'utils/localforage';
 
 interface ILoginRequestAction {
   type: string;
@@ -31,11 +33,17 @@ interface ILoginRequestAction {
 
 export function* loginUser({ email, password }: ILoginRequestAction) {
   try {
-    const response: WrappedResponse<IUser> = yield call(wrapApiCall, loginUserRequest, { email, password });
+    const response: WrappedResponse<IUser> = yield call(wrapApiCall, loginUserRequest, {
+      email,
+      password,
+    });
     if (response.success) {
       setAuthorizationBearer(response.data.token.accessToken);
       const { authAdvisor }: ReduxState = yield select();
-      const [parcours, competences]: [Response<IParcoursResponse>, Response<ICompetence[]>] = yield all([
+      const [parcours, competences]: [
+        Response<IParcoursResponse>,
+        Response<ICompetence[]>,
+      ] = yield all([
         call(createParcours, {
           userId: response.data.user._id,
           advisorId: authAdvisor.advisor.advisor ? authAdvisor.advisor.advisor._id : undefined,
@@ -54,7 +62,8 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
       } else {
         yield put(
           loginActions.loginUserFailure({
-            error: "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
+            error:
+              "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
           }),
         );
       }
@@ -64,7 +73,8 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
   } catch (e) {
     yield put(
       loginActions.loginUserFailure({
-        error: "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
+        error:
+          "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
       }),
     );
   }
@@ -72,7 +82,10 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
 
 export function* loginAdvisor({ email, password }: ILoginRequestAction) {
   try {
-    const response: WrappedResponse<any> = yield call(wrapApiCall, loginAdvisorRequest, { email, password });
+    const response: WrappedResponse<any> = yield call(wrapApiCall, loginAdvisorRequest, {
+      email,
+      password,
+    });
 
     if (response.success) {
       yield all([

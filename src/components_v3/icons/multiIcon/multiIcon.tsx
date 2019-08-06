@@ -39,6 +39,8 @@ interface Props {
   Iconcolor?: string;
   bottom?: boolean;
   withBorder?: boolean;
+  sideBar?: boolean;
+  footer?: boolean;
 }
 
 const MultiIcon = ({
@@ -53,6 +55,8 @@ const MultiIcon = ({
   Iconcolor,
   bottom,
   withBorder,
+  sideBar,
+  footer,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
@@ -70,7 +74,10 @@ const MultiIcon = ({
       {...other}
     >
       {withText && (
-        <span className={classes.text} style={{ color: textColor }}>
+        <span
+          className={classNames(classes.text, sideBar ? classes.textFont : footer ? classes.textFooter : '')}
+          style={{ color: textColor }}
+        >
           {text}
         </span>
       )}

@@ -1,6 +1,10 @@
-import { takeLatest, call, all, put } from 'redux-saga/effects';
+import {
+ takeLatest, call, all, put,
+} from 'redux-saga/effects';
 
-import listFamilleActions, { listFamilleTypes } from '../reducers/listFamille';
+import { IFamille } from 'reducers';
+import listFamilleActions, { listFamilleTypes } from 'reducers/listFamille';
+
 import {
   getListFamille,
   ListFamilleParams,
@@ -10,11 +14,14 @@ import {
   WrappedResponse,
   ListResponse,
   Response,
-} from '../requests';
-import { IFamille } from 'reducers';
+} from 'requests';
 
 function* listFamilleRequest({ payload }: { type: string; payload: ListFamilleParams }) {
-  const list: WrappedResponse<ListResponse<FamilleList>> = yield call(wrapApiCall, getListFamille, payload);
+  const list: WrappedResponse<ListResponse<FamilleList>> = yield call(
+    wrapApiCall,
+    getListFamille,
+    payload,
+  );
   if (list.success) {
     yield put(
       listFamilleActions.listFamilleSuccess({
@@ -22,9 +29,7 @@ function* listFamilleRequest({ payload }: { type: string; payload: ListFamillePa
       }),
     );
 
-    const promise = list.data.data.map(item => {
-      return call(getFamilleDetails, item._id);
-    });
+    const promise = list.data.data.map(item => call(getFamilleDetails, item._id));
     const results: Response<IFamille>[] = yield all(promise);
     const error = results.find(response => response && response.code !== 200);
     if (!error) {

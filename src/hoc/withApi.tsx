@@ -6,15 +6,13 @@ import React, {
   PropsWithoutRef,
   RefAttributes,
   ComponentType,
-  useRef,
-  useEffect,
 } from 'react';
 
 import { pickBy } from 'lodash';
+import { AnyAction } from 'redux';
 import { Response, ReturnPromiseType } from '../requests';
 
 import createRedux from '../utils/createRedux';
-import { AnyAction } from 'redux';
 
 interface IApiState<T> {
   fetching: boolean;
@@ -23,24 +21,41 @@ interface IApiState<T> {
   errors: any[];
 }
 
-export type ApiComponentProps<R extends { [key: string]: (...args: any[]) => Promise<Response<any>> }> = {
+export type ApiComponentProps
+  <R extends { [key: string]: (...args: any[]) => Promise<Response<any>> }
+> = {
   [K in keyof R]: {
     fetching: boolean;
     error: string;
     data: ReturnPromiseType<R[K]>;
     errors: any[];
     call: R[K];
-  }
+  };
 };
 
-function useApiState<Fn extends (...args: any[]) => Promise<Response<any>>, T = ReturnPromiseType<Fn>>(
-  fn: Fn,
-): IApiState<T> & { call: (...params: Parameters<Fn>) => Promise<void> } {
-  const INITIAL_STATE: IApiState<T> = { fetching: false, error: '', data: {}, errors: [] } as any;
+function useApiState<
+  Fn extends(...args: any[]) => Promise<Response<any>>,
+  T = ReturnPromiseType<Fn>
+>(fn: Fn): IApiState<T> & { call: (...params: Parameters<Fn>) => Promise<void> } {
+  const INITIAL_STATE: IApiState<T> = {
+    fetching: false,
+    error: '',
+    data: {},
+    errors: [],
+  } as any;
 
   const fetching = (state: IApiState<T>) => ({ ...state, fetching: true, error: '' });
-  const success = (state: IApiState<T>, { data }: AnyAction) => ({ ...state, data, fetching: false });
-  const failure = (state: IApiState<T>, { error, errors }: AnyAction) => ({ ...state, error, errors, fetching: false });
+  const success = (state: IApiState<T>, { data }: AnyAction) => ({
+    ...state,
+    data,
+    fetching: false,
+  });
+  const failure = (state: IApiState<T>, { error, errors }: AnyAction) => ({
+    ...state,
+    error,
+    errors,
+    fetching: false,
+  });
 
   const { actions, reducer } = createRedux(INITIAL_STATE, { fetching, success, failure });
 
@@ -71,7 +86,8 @@ function useApiState<Fn extends (...args: any[]) => Promise<Response<any>>, T = 
     } catch (e) {
       await dispatch(
         actions.failure({
-          error: "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
+          error:
+            "Erreur inconnue, vérifiez votre connexion Internet ou essayez d'actualiser la page.",
         }),
       );
     }
@@ -80,22 +96,28 @@ function useApiState<Fn extends (...args: any[]) => Promise<Response<any>>, T = 
   return { ...state, call };
 }
 
-function withApis<R extends { [key: string]: (...args: any[]) => Promise<Response<any>> }>(requests: R) {
-  return function<P extends ApiComponentProps<R>>(
+function withApis<R extends { [key: string]:(...args: any[]) => Promise<Response<any>> }>(
+  requests: R) {
+  return function<P extends ApiComponentProps<R>> (
     WrappedComponent: React.ComponentType<P>,
-  ): ForwardRefExoticComponent<PropsWithoutRef<Pick<P, Exclude<keyof P, keyof R>>> & RefAttributes<ComponentType<P>>> {
-    return forwardRef((props: Omit<P, keyof ApiComponentProps<R>>, ref: Ref<React.ComponentType<P>>) => {
-      const injectedProps: any = {};
-      const keys = Object.keys(requests);
-      const length = keys.length;
+  ): ForwardRefExoticComponent<
+    PropsWithoutRef<Pick<P, Exclude<keyof P, keyof R>>> & RefAttributes<ComponentType<P>>
+  > {
+    return forwardRef(
+      (props: Omit<P, keyof ApiComponentProps<R>>, ref: Ref<React.ComponentType<P>>) => {
+        const injectedProps: any = {};
+        const keys = Object.keys(requests);
+        const { length } = keys;
 
-      for (let i = 0; i < length; i += 1) {
-        const key = keys[i];
-        injectedProps[key] = useApiState(requests[key]);
-      }
+        for (let i = 0; i < length; i += 1) {
+          const key = keys[i];
+          // eslint-disable-next-line
+          injectedProps[key] = useApiState(requests[key]);
+        }
 
-      return <WrappedComponent ref={ref} {...injectedProps} {...props} />;
-    });
+        return <WrappedComponent ref={ref} {...injectedProps} {...props} />;
+      },
+    );
   };
 }
 

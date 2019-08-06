@@ -51,6 +51,9 @@ const LoginUserContainer = ({
   user,
   match,
 }: Props) => {
+  const [showLogin, setLogin] = useState<boolean>(true);
+  const [showRegister, setRegister] = useState<boolean>(false);
+
   const onSubmit = (email: string, password: string) => {
     loginRequest(email, password);
   };
@@ -61,19 +64,18 @@ const LoginUserContainer = ({
 
       history.push(path);
     }
-  },           [fetching]);
+  }, [fetching]);
 
-  const onOpenModal = () => {
-    openModal(<ForgetForm onCloseModal={modalClose} />);
-  };
   const modalClose = () => {
     closeModal();
   };
 
-  if (!isEmpty(user)) return <Redirect to={'/'} />;
+  const onOpenModal = () => {
+    openModal(<ForgetForm onCloseModal={modalClose} />);
+  };
 
-  const [showLogin, setLogin] = useState<boolean>(true);
-  const [showRegister, setRegister] = useState<boolean>(false);
+  if (!isEmpty(user)) return <Redirect to="/" />;
+
   const OpenCard = () => {
     if (showLogin) {
       setLogin(false);
@@ -94,22 +96,26 @@ const LoginUserContainer = ({
       cursor: 'pointer',
       color: '#949494',
     },
-   
   };
 
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'center', height: '-webkit-fill-available', flexDirection: 'column' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        height: '-webkit-fill-available',
+        flexDirection: 'column',
+      }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <LoginForm
           error={error}
           onSubmitForm={onSubmit}
-          footerComponent={
+          footerComponent={(
             <span style={styles.forgot} onClick={onOpenModal}>
               Mot de passe oublié
             </span>
-          }
+)}
           showLogin={showLogin}
           onClick={OpenCard}
         />
@@ -133,7 +139,8 @@ const mapStateToProps = ({ authUser, modal }: ReduxState): MapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
-  loginRequest: (email, password) => dispatch(loginUserActions.loginUserRequest({ email, password })),
+  loginRequest: (email, password) =>
+    dispatch(loginUserActions.loginUserRequest({ email, password })),
   openModal: (children: any) => dispatch(modalAction.openModal({ children })),
   closeModal: () => dispatch(modalAction.closeModal()),
   toggleUpdated: () => dispatch(updateActions.toggleUpdated()),

@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, useRef } from 'react';
 
-export function useTextInput(initialValue: string): [string, (e: ChangeEvent<HTMLInputElement>) => void, boolean] {
+export function useTextInput(
+  initialValue: string,
+): [string, (e: ChangeEvent<HTMLInputElement>) => void, boolean] {
   const [value, valueChange] = useState(initialValue);
   const touched = useRef(false);
   function onChange(e: ChangeEvent<HTMLInputElement>) {
