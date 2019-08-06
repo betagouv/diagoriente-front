@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { map, forEach, filter, isEmpty } from 'lodash';
+import {
+ map, forEach, filter, isEmpty,
+} from 'lodash';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
-import withApis, { ApiComponentProps } from '../../hoc/withApi';
-import { getMyJob, createFavorites, getParcours, IJob, ISecteur, deleteFavorites } from '../../requests';
-import { useDidMount, useDidUpdate } from '../../hooks';
 import { ReduxState } from 'reducers';
+import withApis, { ApiComponentProps } from '../../hoc/withApi';
+import {
+  getMyJob,
+  createFavorites,
+  getParcours,
+  IJob,
+  ISecteur,
+  deleteFavorites,
+} from '../../requests';
+import { useDidMount, useDidUpdate } from '../../hooks';
 import Grid from '../../components/ui/Grid/Grid';
 import JobCard from '../../components/cards/JobCard/JobCard';
 import Spinner from '../../components/ui/Spinner/Spinner';
@@ -25,11 +34,11 @@ interface IMapToProps {
 
 interface Props
   extends ApiComponentProps<{
-    listJobs: typeof getMyJob;
-    addFavorites: typeof createFavorites;
-    getParcours: typeof getParcours;
-    deleteFavorites: typeof deleteFavorites;
-  }>,
+      listJobs: typeof getMyJob;
+      addFavorites: typeof createFavorites;
+      getParcours: typeof getParcours;
+      deleteFavorites: typeof deleteFavorites;
+    }>,
     IMapToProps {}
 
 const JobsContainer = ({
@@ -44,8 +53,6 @@ const JobsContainer = ({
   const [fetching, fetchingChange] = useState(false);
   const [selectedSecteurs, selectedSecteursChange] = useState([] as string[]);
 
-  if (!families.length) return <Redirect to={'/profile'} />;
-
   const onSecteurClick = (secteur: { _id: string; title: string; isSelected?: boolean }) => {
     /*   if (!secteur.isSelected) selectedSecteursChange([...selectedSecteurs, secteur._id]);
     else selectedSecteursChange(selectedSecteurs.filter(id => id !== secteur._id)); */
@@ -59,17 +66,19 @@ const JobsContainer = ({
     if (!addFavorites.fetching && !addFavorites.error) {
       listJobs.call(parcoursId);
     }
-  },        [addFavorites.fetching]);
+  }, [addFavorites.fetching]);
 
   useEffect(() => {
     if (!deleteFavorites.fetching && !deleteFavorites.error) {
       listJobs.call(parcoursId);
     }
-  },        [deleteFavorites.fetching]);
+  }, [deleteFavorites.fetching]);
 
   useDidUpdate(() => {
     fetchingChange(listJobs.fetching);
-  },           [listJobs.fetching]);
+  }, [listJobs.fetching]);
+
+  if (!families.length) return <Redirect to="/profile" />;
 
   const onJobRemove = (job: any) => {
     deleteFavorites.call(job.favoriteId);
@@ -113,7 +122,10 @@ const JobsContainer = ({
     isSelected: !!selectedSecteurs.find(id => id === job.secteur._id),
   }));
   if (autres.jobs.length) {
-    secteurs.push({ ...autres.secteur, isSelected: !!selectedSecteurs.find(id => id === autres.secteur._id) });
+    secteurs.push({
+      ...autres.secteur,
+      isSelected: !!selectedSecteurs.find(id => id === autres.secteur._id),
+    });
   }
 
   const renderJob = (job: IJob) => {
@@ -135,12 +147,16 @@ const JobsContainer = ({
     return (
       <div className={classes.cardWrapper}>
         <Card className={classes.cardJob} checked={job.interested} onClick={onClickJob}>
-          <span className={classes.jobSecteur}>{!isEmpty(job.secteur) ? job.secteur[0].title : ''}</span>
+          <span className={classes.jobSecteur}>
+            {!isEmpty(job.secteur) ? job.secteur[0].title : ''}
+          </span>
           <span className={classes.jobTitle}>{job.title}</span>
           <span data-tip data-for={job._id} className={classes.jobinfo}>
             {job.description}
           </span>
-          <span className={classes.jobEntry}>Niveau d’accès au métier :{job.accessibility} </span>
+          <span className={classes.jobEntry}>
+            {`Niveau d’accès au métier: ${job.accessibility}`}
+          </span>
           <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
             {job.description}
           </ReactTooltip>
@@ -166,7 +182,7 @@ const JobsContainer = ({
       )}
       <SideBar
         onItemClick={onSecteurClick}
-        title={'Mes pistes métiers préférés'}
+        title="Mes pistes métiers préférés"
         options={filter(listJobs.data, job => !!job.interested)}
         numberOfLine={2}
         onItemRemove={onJobRemove}
@@ -177,11 +193,14 @@ const JobsContainer = ({
             Mes pistes métiers
           </Grid>
           <Grid item xl={12}>
-            <Info backgroundColor={'#f9f3f3'}>
-              <span className={classes.info}>Sélectionne des métiers que tu aimerais découvrir</span>
+            <Info backgroundColor="#f9f3f3">
+              <span className={classes.info}>
+                Sélectionne des métiers que tu aimerais découvrir
+              </span>
               <br />
               <span className={classes.italic_text}>
-                Tu peux filtrer les différents secteurs en les sélectionnant dans la colonne de gauche
+                Tu peux filtrer les différents secteurs en les sélectionnant dans la colonne de
+                gauche
               </span>
             </Info>
           </Grid>
@@ -218,5 +237,10 @@ const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
 });
 
 export default connect(mapStateToProps)(
-  withApis({ getParcours, deleteFavorites, listJobs: getMyJob, addFavorites: createFavorites })(JobsContainer),
+  withApis({
+    getParcours,
+    deleteFavorites,
+    listJobs: getMyJob,
+    addFavorites: createFavorites,
+  })(JobsContainer),
 );

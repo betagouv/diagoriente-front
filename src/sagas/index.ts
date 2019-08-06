@@ -1,11 +1,11 @@
 import { fork, all } from 'redux-saga/effects';
 
-import authSaga from './auth';
-import startup from './startup';
-import currentParcours from './parcours';
-import listFamille from './listFamille';
-import activity from './activity';
-import expertises from './expertises';
+import authSaga from 'sagas/auth';
+import startup from 'sagas/startup';
+import currentParcours from 'sagas/parcours';
+import listFamille from 'sagas/listFamille';
+import activity from 'sagas/activity';
+import expertises from 'sagas/expertises';
 
 const sagas = [startup, authSaga, currentParcours, listFamille, activity, expertises];
 
