@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { RouteComponentProps } from 'react-router';
@@ -33,7 +33,6 @@ import Picto_Valider from '../../assets_v3/Home/Picto_Valider.svg';
 import Picto_Fleche from '../../assets_v3/Home/Picto_Fleche.svg';
 import classNames from '../../utils/classNames';
 import classes from './home.module.scss';
-
 const steps = [
   {
     icon: Picto_PlayButton,
@@ -55,6 +54,8 @@ interface Props extends RouteComponentProps {
 }
 
 const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
+  const [progressActive, changeProgress] = useState(false);
+
   const navigate = () => {
     history.push('/profile');
   };
@@ -63,6 +64,7 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
     history.push('/login/advisor');
   };
 
+  console.log('progressActive', progressActive);
   return (
     <div className={classes.home}>
       <Header />
@@ -96,9 +98,17 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
             </div>
             <div onClick={navigate} className={classes.commencerBtn}>
               <img src={Arrow_SeConnect} alt="start" className={classes.buttonArrow} />
-
               <span className={classes.btn_text}>Se connecter</span>
             </div>
+            <ApparationCard
+              color={'red'}
+              taux={75}
+              title={'manger de salade'}
+              /* favori */
+              withProgressBar
+              state={progressActive}
+              clickHandler={changeProgress}
+            />
           </div>
         </div>
       </div>
@@ -108,7 +118,7 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
           <Grid key={i} className={classes.step_card} item xl={3} md={6} smd={12}>
             <CardHome icon={step.icon} description={step.description} />
             {/*             {i !== 2 && <img className={classes.arrow} src={Picto_Fleche} alt={'fleche'} />}
-             */}{' '}
+             */}
           </Grid>
         ))}
       </Grid>
