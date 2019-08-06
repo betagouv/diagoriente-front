@@ -20,7 +20,7 @@
       position: absolute;
       border-radius: 50%;
       border: 1px solid #2f2f2f40;
-      animation: animate .5s infinite;
+      animation: animate 0.5s infinite;
     }
   }
 }
@@ -29,6 +29,15 @@
 }
 .text {
   margin: 0 10px;
+}
+.textFooter {
+  margin: 0 10px;
+  font-size: 14px;
+}
+.textFont {
+  font-size: 14px;
+  margin-left: 20px;
+  width: 130px
 }
 
 .validateContainer {

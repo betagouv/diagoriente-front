@@ -1,7 +1,11 @@
-import { isEmpty, map, forEach, findKey, keys, isArray } from 'lodash';
+import {
+ isEmpty, map, forEach, findKey, keys, isArray,
+} from 'lodash';
 import { AnyAction } from 'redux';
 
-type Action<T extends object> = { [key in keyof T]: (...args: object[]) => { type: string; [key: string]: any } };
+type Action<T extends object> = {
+  [key in keyof T]: (...args: object[]) => { type: string; [key: string]: any }
+};
 
 type Types<T extends object> = { [key in keyof T]: string };
 
@@ -29,7 +33,7 @@ function createAction(type: string) {
         throw new Error('Action arguments is expected be an object but got array');
       }
       return { ...result, ...arg };
-    },                          {});
+    }, {});
 
     return {
       type,
@@ -38,7 +42,9 @@ function createAction(type: string) {
   };
 }
 
-function createActions<T extends object>(...params: string[]): { actions: Action<T>; types: Types<T> } {
+function createActions<T extends object>(
+  ...params: string[]
+): { actions: Action<T>; types: Types<T> } {
   const actions: any = {};
   const types: any = {};
   forEach(params, action => {
@@ -49,11 +55,11 @@ function createActions<T extends object>(...params: string[]): { actions: Action
   return { actions, types };
 }
 
-function createReducer<T, P extends { [key: string]: (state: T, action: AnyAction) => T }, K extends Types<P>>(
-  INITIAL_STATE: T,
-  actions: P,
-  types: K,
-) {
+function createReducer<
+  T,
+  P extends { [key: string]:(state: T, action: AnyAction) => T },
+  K extends Types<P>
+>(INITIAL_STATE: T, actions: P, types: K) {
   return (state = INITIAL_STATE, action: AnyAction) => {
     const checkAction = findKey(types, type => type === action.type);
     if (checkAction) {
@@ -63,18 +69,21 @@ function createReducer<T, P extends { [key: string]: (state: T, action: AnyActio
   };
 }
 
-type CreateReduxReturn<T, P extends { [key: string]: (state: T, action: AnyAction) => T }> = T extends undefined
+type CreateReduxReturn
+  <T,
+  P extends { [key: string]: (state: T, action: AnyAction) => T }
+> = T extends undefined
   ? { actions: Action<P>; types: Types<P> }
   : {
-    actions: Action<P>;
-    types: Types<P>;
-    reducer: (state: T | undefined, action: AnyAction) => T;
-  };
+      actions: Action<P>;
+      types: Types<P>;
+      reducer: (state: T | undefined, action: AnyAction) => T;
+    };
 
-export default function createRedux<T, P extends { [key: string]: (state: T, action: AnyAction) => T }>(
-  INITIAL_STATE: T,
-  reqActions: P,
-): CreateReduxReturn<T, P> {
+export default function createRedux<
+  T,
+  P extends { [key: string]:(state: T, action: AnyAction) => T }
+>(INITIAL_STATE: T, reqActions: P): CreateReduxReturn<T, P> {
   const actionsNames = keys(reqActions);
   if (actionsNames.length === 0) {
     return { actions: {}, types: {} } as any;

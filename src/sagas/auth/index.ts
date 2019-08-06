@@ -1,18 +1,16 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
-import { loginTypes as loginUserTypes } from '../../reducers/authUser/login';
-import { registerTypes } from '../../reducers/authUser/register';
-import { loginTypes as loginAdvisorTypes } from '../../reducers/authAdvisor/login';
+import { loginTypes as loginUserTypes } from 'reducers/authUser/login';
+import { registerTypes } from 'reducers/authUser/register';
+import { loginTypes as loginAdvisorTypes } from 'reducers/authAdvisor/login';
+import { resetTypes } from 'reducers/authUser/resetPassword';
+import { updateTypes } from 'reducers/authUser/updatePassword';
 
-import resetRequest from './resetPassword';
-import { resetTypes } from '../../reducers/authUser/resetPassword';
-
-import updateRequest from './updatePassword';
-import { updateTypes } from '../../reducers/authUser/updatePassword';
-import { loginUser, loginAdvisor } from './login';
-import { logoutUser, logoutAdvisor } from './logout';
-
-import { registerUser } from './register';
+import resetRequest from 'sagas/auth/resetPassword';
+import updateRequest from 'sagas/auth/updatePassword';
+import { loginUser, loginAdvisor } from 'sagas/auth/login';
+import { logoutUser, logoutAdvisor } from 'sagas/auth/logout';
+import { registerUser } from 'sagas/auth/register';
 
 export default function* () {
   yield all([

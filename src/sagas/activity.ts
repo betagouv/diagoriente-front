@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import getActivityActions, { getActivitTypes } from '../reducers/activity';
-
-import { wrapApiCall, getActivity, WrappedResponse } from '../requests';
 import { IActivity } from 'reducers';
+import getActivityActions, { getActivitTypes } from 'reducers/activity';
+
+import { wrapApiCall, getActivity, WrappedResponse } from 'requests';
 
 interface IActivityRequestAction {
   type: 'Activity_REQUEST';
@@ -16,7 +16,7 @@ export function* Activity({ id }: IActivityRequestAction) {
       id,
     });
     if (response) {
-      yield put(getActivityActions.getActivitySuccess( response));
+      yield put(getActivityActions.getActivitySuccess(response));
     } else {
       throw response;
     }

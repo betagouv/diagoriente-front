@@ -3,9 +3,10 @@ import { createLogger } from 'redux-logger';
 import { persistReducer, persistStore } from 'redux-persist';
 import createSagaMiddleware, { SagaIterator, SagaMiddleware } from 'redux-saga';
 
+import globalReducer from 'reducers/globalReducer';
+import globalSaga from 'sagas';
+
 import persistConfig from './persist';
-import globalReducer from '../reducers';
-import globalSaga from '../sagas';
 
 /* ------------- Saga Middleware ------------- */
 const sagaMiddleware: SagaMiddleware<SagaIterator> = createSagaMiddleware();

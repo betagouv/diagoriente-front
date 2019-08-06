@@ -1,29 +1,30 @@
 import React, { forwardRef, Ref, useRef } from 'react';
 
-import classes from './scss/withLayout.module.scss';
-import classNames from '../utils/classNames';
+import classes from 'hoc/scss/withLayout.module.scss';
+import classNames from 'utils/classNames';
+import { useCaptureRef } from 'hooks/useCaptureRef';
 
 type Props<P> = P & {
   title?: string;
-  footerButtons?: string[];
+  footerButtons?: { component: JSX.Element; key: string }[];
   onFooterClick?: (button: string) => void;
 };
 
 function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
-  /*tslint:disable:ter-prefer-arrow-callback */
   return forwardRef(function ({ title, footerButtons, ...other }: Props<P>, ref: Ref<any>) {
     const wrappedRef = useRef<any>(null);
-    const captureRef = (localRef: any) => {
-      wrappedRef.current = localRef;
-      if (ref) {
-        if (typeof ref === 'function') ref(localRef);
-        else (ref.current as any) = ref;
-      }
-    };
+
+    useCaptureRef(wrappedRef.current, ref);
 
     return (
-      <div className={classNames(classes.container, title && classes.title_placeholder, classes.footer_placeholder)}>
-        <WrappedComponent {...other as P} ref={captureRef} />
+      <div
+        className={classNames(
+          classes.container,
+          title && classes.title_placeholder,
+          classes.footer_placeholder,
+        )}
+      >
+        <WrappedComponent {...(other as P)} ref={wrappedRef} />
         {title && (
           <div className={classes.title_container}>
             <h1 className={classes.title}>{title}</h1>
@@ -31,18 +32,14 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
         )}
         {footerButtons && (
           <div className={classes.footer_container}>
-            {footerButtons.map(button => {
+            {footerButtons.map((button, i) => {
               const onClick = () => {
                 const wrapped = wrappedRef.current as any;
                 if (wrapped && wrapped.onFooterClick) {
-                  wrapped.onFooterClick(button);
+                  wrapped.onFooterClick(button.key, i);
                 }
               };
-              return (
-                <button className={classes.footer_button} key={button} onClick={onClick}>
-                  {button}
-                </button>
-              );
+              return React.cloneElement(button.component, { onClick, key: button.key });
             })}
           </div>
         )}
