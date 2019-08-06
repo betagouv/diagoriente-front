@@ -1,5 +1,5 @@
-import { axiosPost, axiosGet, Response } from './http';
 import { IParcoursResponse } from 'reducers';
+import { axiosPost, axiosGet, Response } from './http';
 
 export interface ICreateParcoursParams {
   userId?: string;
@@ -23,5 +23,7 @@ export interface IUpdateParcoursParams {
   played?: boolean;
 }
 
-export const updateParcours = (id: string, data: IUpdateParcoursParams): Promise<Response<IParcoursResponse>> =>
-  axiosPost(`v1/parcours/${id}`, { data });
+export const updateParcours = (
+  id: string,
+  data: IUpdateParcoursParams,
+): Promise<Response<IParcoursResponse>> => axiosPost(`v1/parcours/${id}`, { data });
