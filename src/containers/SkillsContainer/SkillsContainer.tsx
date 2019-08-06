@@ -1,6 +1,6 @@
 import React, { Ref, forwardRef, Fragment } from 'react';
 import { connect } from 'react-redux';
-// import { find } from 'lodash';
+import { find } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import {
  ReduxState, IParcoursResponse, IExpertise, IUser,
@@ -13,10 +13,10 @@ import { getParcours } from 'requests';
 import { useDidMount } from 'hooks';
 
 import { useCaptureRef } from 'hooks/useCaptureRef';
+import { beta1x } from 'assets/icons/logobeta/index';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import classes from './skills.module.scss';
-import { beta1x } from '../../assets/icons/logobeta/index';
-import MultiIcon from '../../components_v3/icons/multiIcon/multiIcon';
-import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
 
 interface MapToProps {
   parcours: IParcoursResponse;
@@ -34,7 +34,7 @@ interface RefProp {
 }
 const SkillsContainer = forwardRef(
   ({
- parcours, get, history, user,
+ parcours, get, history, expertises, user,
 }: Props, ref: Ref<RefProp>) => {
     useDidMount(() => {
       get.call(parcours._id);
@@ -54,6 +54,7 @@ const SkillsContainer = forwardRef(
         history.push(route);
       };
     }
+
     return (
       <div className={classes.container}>
         <div className={classes.card}>
@@ -62,11 +63,7 @@ const SkillsContainer = forwardRef(
               <span className={classes.headerTitle}>Carte de Competence</span>
               {user && (
                 <span className={classes.userName}>
-                  de
-                  {' '}
-                  {user.profile.firstName}
-                  {' '}
-                  {user.profile.lastName}
+                  {`de ${user.profile.firstName} ${user.profile.lastName}`}
                 </span>
               )}
             </div>
@@ -95,8 +92,8 @@ const SkillsContainer = forwardRef(
                     <div className={classes.themesContainer}>
                       {parcours.skills
                         .filter(type => type.theme.type === 'personal')
-                        .map((skill, index) => (
-                          <div className={classes.mapContainer} key={index}>
+                        .map(skill => (
+                          <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
                             <span>{skill.theme.title}</span>
                           </div>
@@ -133,8 +130,8 @@ const SkillsContainer = forwardRef(
                     <div className={classes.themesContainer}>
                       {parcours.skills
                         .filter(type => type.theme.type === 'professional')
-                        .map((skill, index) => (
-                          <div className={classes.mapContainer} key={index}>
+                        .map(skill => (
+                          <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
                             <span>{skill.theme.activities}</span>
                           </div>
@@ -152,6 +149,20 @@ const SkillsContainer = forwardRef(
                   </Fragment>
                 )}
               </div>
+            </div>
+            <div className={classes.right}>
+              {expertises.map(expertise => {
+                const currentSkill = find(
+                  get.data.globalCopmetences,
+                  ({ _id }) => expertise._id === _id,
+                );
+                return (
+                  <span className={classes.skill} key={expertise._id}>
+                    {expertise.title}
+                    {currentSkill ? currentSkill.value : 0}
+                  </span>
+                );
+              })}
             </div>
           </div>
           <div className={classes.footer}>

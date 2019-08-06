@@ -28,6 +28,9 @@
   display: flex;
   flex-wrap: wrap;
   margin: 10px 0;
+  @media (max-width: map-get($breakpoints , 'md' )) {
+    justify-content: center;
+  }
 }
 
 .theme_title {
@@ -40,7 +43,7 @@
   padding-bottom: 5px;
   cursor: pointer;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .wrapper {
@@ -48,8 +51,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 12.5%;
   padding: 10px;
+  min-width: 90px;
 }
 
 .theme_selected_title {
