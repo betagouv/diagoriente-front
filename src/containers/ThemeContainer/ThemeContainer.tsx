@@ -7,7 +7,7 @@ import { map } from 'lodash';
 import {
  ReduxState, ISkillPopulated, IExpertise, IActivity,
 } from 'reducers';
-
+import ReactTooltip from 'react-tooltip';
 // containers
 import { useCaptureRef } from 'hooks/useCaptureRef';
 
@@ -19,6 +19,7 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 
 // api
 import { getTheme } from 'requests';
+import ApparationCard from '../../components_v3/ApparationCard/index';
 
 // styles
 import classes from './theme.module.scss';
@@ -58,7 +59,6 @@ const ThemeContainer = forwardRef(
 
     const [activities, activitiesChange] = useState(getActivities());
     const [competences, competencesChange] = useState(getExpertises());
-
     const isEditRef = useRef(false);
 
     const isEdit = step !== 'show';
@@ -101,6 +101,11 @@ const ThemeContainer = forwardRef(
       <Fragment>
         <div className={classes.new_theme}>
           <div className={classes.new_theme_title}>
+            {skill && skill.theme.resources && (
+              <div style={{ backgroundColor: skill.theme.resources.backgroundColor }}>
+                <img src={skill.theme.resources.icon} alt="logo" className={classes.logo} />
+              </div>
+            )}
             {skill ? skill.theme.title : get.data.title}
           </div>
           <div className={classes.new_theme_activities}>
@@ -131,7 +136,28 @@ const ThemeContainer = forwardRef(
                   )}
                   key={activity._id}
                 >
-                  {activity.title}
+                  {!isActivityEdit ? (
+                    <li className={classes.title_activity}>
+                      <span data-tip data-for={activity._id}>
+                        {activity.title}
+                      </span>
+                    </li>
+                  ) : (
+                    <div className={classes.activityCheck}>
+                      <input type="checkbox" checked={selected} className={classes.chekboxAct} />
+                      <span data-tip data-for={activity._id}>
+                        {activity.title}
+                      </span>
+                    </div>
+                  )}
+                  <ReactTooltip
+                    id={activity._id}
+                    place="right"
+                    type="light"
+                    className={classes.tooltip}
+                  >
+                    {activity.title}
+                  </ReactTooltip>
                 </div>
               );
             })}
@@ -161,11 +187,20 @@ const ThemeContainer = forwardRef(
 
                 return (
                   <div
-                    className={selected ? classes.activities_selected : undefined}
+                    className={classNames(
+                      classes.competence,
+                      selected ? classes.activities_selected : undefined,
+                    )}
                     key={expertise._id}
                     onClick={onClick}
                   >
-                    {expertise.title}
+                    <ApparationCard
+                      color="blue"
+                      withCheckBox={isExpertiseEdit}
+                      title={expertise.title}
+                      state={selected}
+                      clickHandler={onClick}
+                    />
                   </div>
                 );
               })}

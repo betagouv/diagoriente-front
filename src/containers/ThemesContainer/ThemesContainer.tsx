@@ -281,11 +281,11 @@ const ThemesContainer = forwardRef(
                 editSkills[index] = editRef;
                 editSkillsRefs.current = editSkills;
               }
-
               return (
                 <Card
                   close={{ onClick: onClose }}
                   edit={{ onClick: onEdit }}
+                  selected={step}
                   key={theme._id}
                   className={classes.themes}
                 >

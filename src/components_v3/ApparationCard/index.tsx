@@ -37,7 +37,6 @@ const ApparationCard = ({
       style={{ borderColor: `transparent transparent transparent ${color}` }}
     />
       )}
-    {' '}
     {withCheckBox && clickHandler && (
     <input type="checkbox" checked={state} onChange={() => clickHandler(!state)} />
       )}
@@ -58,8 +57,13 @@ const ApparationCard = ({
         </span>
           )}
       </div>
+      {withProgressBar && (
+      <span className={classes.taux} style={{ color }}>
+        <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
+%
+      </span>
+        )}
     </div>
   </div>
   );
-
 export default ApparationCard;

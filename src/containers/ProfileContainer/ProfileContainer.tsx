@@ -122,7 +122,7 @@ const ProfileContainer = ({ match }: Props) => {
                         type="validate"
                         withText
                         footer
-                        text="valider"
+                        text="VALIDER"
                         width="35"
                         height="35"
                         textColor="#7992BF"
@@ -149,7 +149,7 @@ const ProfileContainer = ({ match }: Props) => {
                       <MultiIcon
                         type="validate"
                         withText
-                        text="valider"
+                        text="VALIDER"
                         width="35"
                         footer
                         height="35"
