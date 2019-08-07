@@ -95,7 +95,10 @@ const ThemesContainer = forwardRef(
     function onFooterClick(button: string) {
       if (button === 'valider') {
         parcoursRequest({
-          skills: skills.map(skillWithoutId),
+          skills: [
+            ...skills.map(skillWithoutId),
+            ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
+          ],
         });
       }
     }
@@ -285,7 +288,7 @@ const ThemesContainer = forwardRef(
                 <Card
                   close={{ onClick: onClose }}
                   edit={{ onClick: onEdit }}
-                  selected={step}
+                  selected={step === null}
                   key={theme._id}
                   className={classes.themes}
                 >

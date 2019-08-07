@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 const BaseURL = process.env.REACT_APP_API_URL || 'https://api3.projetttv.org';
 
+// eslint-disable-next-line
 export let authorizationBearer: string | null = null;
 
 export const setAuthorizationBearer = (token: string | null) => {
@@ -68,7 +69,11 @@ function axiosRequest<T, P>(
 }
 
 /* ------ Request POST ------ */
-export function axiosPost<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
+export function axiosPost<T, P extends object>(
+  url: string,
+  params?: P,
+  timeout = null,
+): Promise<Response<T>> {
   let p: any = {
     sendToken: true,
     data: {},
@@ -92,7 +97,11 @@ export function axiosPost<T, P extends object>(url: string, params?: P, timeout 
 }
 
 /* ------ Request PUT ------ */
-export function axiosPut<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
+export function axiosPut<T, P extends object>(
+  url: string,
+  params?: P,
+  timeout = null,
+): Promise<Response<T>> {
   let p: any = { sendToken: true, data: {}, headers: {} };
   if (params) {
     p = { ...p, ...params };
@@ -109,7 +118,11 @@ export function axiosPut<T, P extends object>(url: string, params?: P, timeout =
 }
 
 /* ------ Request PATCH ------ */
-export function axiosPatch<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
+export function axiosPatch<T, P extends object>(
+  url: string,
+  params?: P,
+  timeout = null,
+): Promise<Response<T>> {
   let p: any = { sendToken: true, data: {}, headers: {} };
   if (params) {
     p = { ...p, ...params };
@@ -126,7 +139,11 @@ export function axiosPatch<T, P extends object>(url: string, params?: P, timeout
 }
 
 /* ------ Request GET ------ */
-export function axiosGet<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
+export function axiosGet<T, P extends object>(
+  url: string,
+  params?: P,
+  timeout = null,
+): Promise<Response<T>> {
   let p: any = { sendToken: true, params: {}, headers: {} };
   if (params) {
     p = { ...p, ...params };
@@ -145,7 +162,11 @@ export function axiosGet<T, P extends object>(url: string, params?: P, timeout =
 }
 
 /* ------ Request DELETE ------ */
-export function axiosDelete<T, P extends object>(url: string, params?: P, timeout = null): Promise<Response<T>> {
+export function axiosDelete<T, P extends object>(
+  url: string,
+  params?: P,
+  timeout = null,
+): Promise<Response<T>> {
   let p: any = { sendToken: true, headers: {}, ...params };
   if (params) {
     p = { ...p, ...params };

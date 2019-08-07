@@ -12,6 +12,9 @@ import ReactTooltip from 'react-tooltip';
 import { useCaptureRef } from 'hooks/useCaptureRef';
 
 // components
+import ApparationCard from 'components_v3/ApparationCard/index';
+
+// utils
 import classNames from 'utils/classNames';
 
 // hoc
@@ -19,7 +22,6 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 
 // api
 import { getTheme } from 'requests';
-import ApparationCard from '../../components_v3/ApparationCard/index';
 
 // styles
 import classes from './theme.module.scss';
@@ -44,7 +46,7 @@ export interface ThemeRefObject {
 
 const ThemeContainer = forwardRef(
   ({
- id, get, skill, step, expertises,
+ id, get, skill, step, expertises, type,
 }: Props, ref?: Ref<ThemeRefObject>) => {
     function getActivities(): IActivity[] {
       if (!skill) return [];
@@ -52,9 +54,16 @@ const ThemeContainer = forwardRef(
     }
 
     function getExpertises() {
-      if (!skill) return [];
-      return expertises.filter(expertise =>
-        skill.competences.find(({ _id }) => expertise._id === _id));
+      const result: (IExpertise & { value: number })[] = [];
+      if (skill) {
+        expertises.forEach(expertise => {
+          const index = skill.competences.findIndex(({ _id }) => expertise._id === _id);
+          if (index !== -1) {
+            result.push({ ...expertise, value: skill.competences[index].value });
+          }
+        });
+      }
+      return result;
     }
 
     const [activities, activitiesChange] = useState(getActivities());
@@ -77,7 +86,7 @@ const ThemeContainer = forwardRef(
     useCaptureRef(
       {
         activities,
-        competences: competences.map(({ _id }) => ({ _id, value: 5 })),
+        competences: competences.map(({ _id, value }) => ({ _id, value })),
       },
       ref,
     );
@@ -169,17 +178,19 @@ const ThemeContainer = forwardRef(
                   competences,
                   ({ _id }) => _id === expertise._id,
                 );
-                function onClick() {
+
+                function onChange(value: number) {
                   if (isExpertiseEdit) {
                     const newCompetences = [...competences];
 
-                    if (selected) {
+                    if (!value) {
                       newCompetences.splice(index, 1);
+                    } else if (selected) {
+                      newCompetences[index] = { ...competences[index], value };
+                    } else if (competences.length < 4) {
+                      newCompetences.push({ ...expertise, value });
                     } else {
-                      newCompetences.push(expertise);
-                      if (newCompetences.length > 4) {
-                        newCompetences.shift();
-                      }
+                      // show max 4 competences pop up
                     }
                     competencesChange(newCompetences);
                   }
@@ -192,14 +203,14 @@ const ThemeContainer = forwardRef(
                       selected ? classes.activities_selected : undefined,
                     )}
                     key={expertise._id}
-                    onClick={onClick}
                   >
                     <ApparationCard
                       color="blue"
-                      withCheckBox={isExpertiseEdit}
+                      withCheckBox={type === 'personal' && isExpertiseEdit}
+                      withDots={type === 'professional' && isExpertiseEdit}
                       title={expertise.title}
-                      state={selected}
-                      clickHandler={onClick}
+                      state={selected ? competences[index].value : 0}
+                      clickHandler={onChange}
                     />
                   </div>
                 );
