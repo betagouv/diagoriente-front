@@ -29,9 +29,6 @@ import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
 
-// assets
-import idea from 'assets_v3/icons/idea.svg';
-
 // utils
 import classNames from 'utils/classNames';
 
@@ -223,21 +220,22 @@ const ThemesContainer = forwardRef(
                 function onClick() {
                   selectedThemeChange(selected ? null : theme._id);
                 }
-
                 return (
                   <div onClick={onClick} className={classes.wrapper}>
-                    <ThemeIcon title={theme.title} icon={idea} key={theme._id} />
-                    <span
-                      className={classNames(
-                        classes.theme_title,
-                        selected && classes.theme_selected_title,
-                      )}
-                      /* style={{
-                        color: theme.resources && theme.resources.backgroundColor,
-                      }} */
-                    >
-                      {theme.title}
-                    </span>
+                    {theme && theme.resources && (
+                      <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
+                    )}
+                    {theme && theme.resources && (
+                      <span
+                        className={classNames(
+                          classes.theme_title,
+                          selected && classes.theme_selected_title,
+                        )}
+                        style={{ color: theme.resources.backgroundColor }}
+                      >
+                        {theme.title}
+                      </span>
+                    )}
                   </div>
                 );
               })

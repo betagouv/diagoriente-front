@@ -105,17 +105,25 @@ const ThemeContainer = forwardRef(
     const isExpertiseEdit = step === 'expertise_edit' || step === 'edit_all';
     const activitiesArray = isActivityEdit ? get.data.activities : activities;
     const expertisesArray = isExpertiseEdit ? expertises : competences;
-
+    const iconData = get && get.data.resources ? get.data.resources.icon : '';
+    const iconSkill = skill && skill.theme.resources ? skill.theme.resources.icon : '';
+    const iconDataColor = get && get.data.resources ? get.data.resources.backgroundColor : '';
+    const iconSkillcolor = skill && skill.theme.resources ? skill.theme.resources.backgroundColor : '';
     return (
       <Fragment>
         <div className={classes.new_theme}>
           <div className={classes.new_theme_title}>
-            {skill && skill.theme.resources && (
-              <div style={{ backgroundColor: skill.theme.resources.backgroundColor }}>
-                <img src={skill.theme.resources.icon} alt="logo" className={classes.logo} />
-              </div>
-            )}
-            {skill ? skill.theme.title : get.data.title}
+            <div className={classes.logoContainer}>
+              <img src={iconData || iconSkill} alt="logo" className={classes.logo} />
+            </div>
+
+            <span
+              style={{
+                color: iconDataColor || iconSkillcolor,
+              }}
+            >
+              {skill ? skill.theme.title : get.data.title}
+            </span>
           </div>
           <div className={classes.new_theme_activities}>
             {map(activitiesArray, activity => {
@@ -138,6 +146,8 @@ const ThemeContainer = forwardRef(
 
               return (
                 <div
+                  data-tip
+                  data-for={activity._id}
                   onClick={onClick}
                   className={classNames(
                     classes.activities,
@@ -147,16 +157,12 @@ const ThemeContainer = forwardRef(
                 >
                   {!isActivityEdit ? (
                     <li className={classes.title_activity}>
-                      <span data-tip data-for={activity._id}>
-                        {activity.title}
-                      </span>
+                      <span>{activity.title}</span>
                     </li>
                   ) : (
                     <div className={classes.activityCheck}>
                       <input type="checkbox" checked={selected} className={classes.chekboxAct} />
-                      <span data-tip data-for={activity._id}>
-                        {activity.title}
-                      </span>
+                      <span className={classes.title_activity}>{activity.title}</span>
                     </div>
                   )}
                   <ReactTooltip
@@ -195,7 +201,6 @@ const ThemeContainer = forwardRef(
                     competencesChange(newCompetences);
                   }
                 }
-
                 return (
                   <div
                     className={classNames(
@@ -205,9 +210,9 @@ const ThemeContainer = forwardRef(
                     key={expertise._id}
                   >
                     <ApparationCard
-                      color="blue"
-                      withCheckBox={type === 'personal' && isExpertiseEdit}
                       withDots={type === 'professional' && isExpertiseEdit}
+                      withCheckBox={type === 'personal' && isExpertiseEdit}
+                      color={expertise.color}
                       title={expertise.title}
                       state={selected ? competences[index].value : 0}
                       clickHandler={onChange}
