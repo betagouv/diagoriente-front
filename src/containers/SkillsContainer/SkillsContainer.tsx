@@ -133,16 +133,18 @@ const SkillsContainer = forwardRef(
                       {parcours.skills
                         .filter(type => type.theme.type === 'professional')
                         .map(skill => (
-                          <div className={classes.mapContainer} key={skill._id}>
+                          <div className={classes.mapContainerPro} key={skill._id}>
+                            <span>{skill.theme.title}</span>
                             {skill.activities.map(activity => {
                               return (
-                                <div>
-                                  {activity.description}
+                                <div className={classes.activityContainer}>
+                                  <div className={classes.hr} />
+                                  <span className={classes.activityTitle}>{activity.title}</span>
                                 </div>
                               )
                             })}
-                            <div className={classes.hr} />
-                            <span>{skill.theme.title}</span>
+                            
+                            
                           </div>
                         ))}
                     </div>
