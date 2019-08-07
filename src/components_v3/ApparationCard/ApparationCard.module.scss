@@ -74,6 +74,8 @@
   top: 6px;
   left: 3px;
   display: flex;
+  align-items: center;
+  height: 100%;
 }
 input[type='checkbox'] {
   cursor: pointer;
@@ -136,4 +138,16 @@ input[type='checkbox']:disabled:after {
   0% {
     transform: rotate(-90deg);
   }
+}
+
+.dot {
+  border: 1px solid red;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+.dot_selected {
+  background-color: red;
 }

@@ -12,6 +12,9 @@ import ReactTooltip from 'react-tooltip';
 import { useCaptureRef } from 'hooks/useCaptureRef';
 
 // components
+import ApparationCard from 'components_v3/ApparationCard/index';
+
+// utils
 import classNames from 'utils/classNames';
 
 // hoc
@@ -19,7 +22,6 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 
 // api
 import { getTheme } from 'requests';
-import ApparationCard from '../../components_v3/ApparationCard/index';
 
 // styles
 import classes from './theme.module.scss';
@@ -44,7 +46,7 @@ export interface ThemeRefObject {
 
 const ThemeContainer = forwardRef(
   ({
- id, get, skill, step, expertises,
+ id, get, skill, step, expertises, type,
 }: Props, ref?: Ref<ThemeRefObject>) => {
     function getActivities(): IActivity[] {
       if (!skill) return [];
@@ -52,9 +54,16 @@ const ThemeContainer = forwardRef(
     }
 
     function getExpertises() {
-      if (!skill) return [];
-      return expertises.filter(expertise =>
-        skill.competences.find(({ _id }) => expertise._id === _id));
+      const result: (IExpertise & { value: number })[] = [];
+      if (skill) {
+        expertises.forEach(expertise => {
+          const index = skill.competences.findIndex(({ _id }) => expertise._id === _id);
+          if (index !== -1) {
+            result.push({ ...expertise, value: skill.competences[index].value });
+          }
+        });
+      }
+      return result;
     }
 
     const [activities, activitiesChange] = useState(getActivities());
@@ -77,7 +86,7 @@ const ThemeContainer = forwardRef(
     useCaptureRef(
       {
         activities,
-        competences: competences.map(({ _id }) => ({ _id, value: 5 })),
+        competences: competences.map(({ _id, value }) => ({ _id, value })),
       },
       ref,
     );
@@ -96,17 +105,25 @@ const ThemeContainer = forwardRef(
     const isExpertiseEdit = step === 'expertise_edit' || step === 'edit_all';
     const activitiesArray = isActivityEdit ? get.data.activities : activities;
     const expertisesArray = isExpertiseEdit ? expertises : competences;
-
+    const iconData = get && get.data.resources ? get.data.resources.icon : '';
+    const iconSkill = skill && skill.theme.resources ? skill.theme.resources.icon : '';
+    const iconDataColor = get && get.data.resources ? get.data.resources.backgroundColor : '';
+    const iconSkillcolor = skill && skill.theme.resources ? skill.theme.resources.backgroundColor : '';
     return (
       <Fragment>
         <div className={classes.new_theme}>
           <div className={classes.new_theme_title}>
-            {skill && skill.theme.resources && (
-              <div style={{ backgroundColor: skill.theme.resources.backgroundColor }}>
-                <img src={skill.theme.resources.icon} alt="logo" className={classes.logo} />
-              </div>
-            )}
-            {skill ? skill.theme.title : get.data.title}
+            <div className={classes.logoContainer}>
+              <img src={iconData || iconSkill} alt="logo" className={classes.logo} />
+            </div>
+
+            <span
+              style={{
+                color: iconDataColor || iconSkillcolor,
+              }}
+            >
+              {skill ? skill.theme.title : get.data.title}
+            </span>
           </div>
           <div className={classes.new_theme_activities}>
             {map(activitiesArray, activity => {
@@ -129,6 +146,8 @@ const ThemeContainer = forwardRef(
 
               return (
                 <div
+                  data-tip
+                  data-for={activity._id}
                   onClick={onClick}
                   className={classNames(
                     classes.activities,
@@ -138,16 +157,12 @@ const ThemeContainer = forwardRef(
                 >
                   {!isActivityEdit ? (
                     <li className={classes.title_activity}>
-                      <span data-tip data-for={activity._id}>
-                        {activity.title}
-                      </span>
+                      <span>{activity.title}</span>
                     </li>
                   ) : (
                     <div className={classes.activityCheck}>
                       <input type="checkbox" checked={selected} className={classes.chekboxAct} />
-                      <span data-tip data-for={activity._id}>
-                        {activity.title}
-                      </span>
+                      <span className={classes.title_activity}>{activity.title}</span>
                     </div>
                   )}
                   <ReactTooltip
@@ -169,22 +184,23 @@ const ThemeContainer = forwardRef(
                   competences,
                   ({ _id }) => _id === expertise._id,
                 );
-                function onClick() {
+
+                function onChange(value: number) {
                   if (isExpertiseEdit) {
                     const newCompetences = [...competences];
 
-                    if (selected) {
+                    if (!value) {
                       newCompetences.splice(index, 1);
+                    } else if (selected) {
+                      newCompetences[index] = { ...competences[index], value };
+                    } else if (competences.length < 4) {
+                      newCompetences.push({ ...expertise, value });
                     } else {
-                      newCompetences.push(expertise);
-                      if (newCompetences.length > 4) {
-                        newCompetences.shift();
-                      }
+                      // show max 4 competences pop up
                     }
                     competencesChange(newCompetences);
                   }
                 }
-
                 return (
                   <div
                     className={classNames(
@@ -192,14 +208,14 @@ const ThemeContainer = forwardRef(
                       selected ? classes.activities_selected : undefined,
                     )}
                     key={expertise._id}
-                    onClick={onClick}
                   >
                     <ApparationCard
-                      color="blue"
-                      withCheckBox={isExpertiseEdit}
+                      withDots={type === 'professional' && isExpertiseEdit}
+                      withCheckBox={type === 'personal' && isExpertiseEdit}
+                      color={expertise.color}
                       title={expertise.title}
-                      state={selected}
-                      clickHandler={onClick}
+                      state={selected ? competences[index].value : 0}
+                      clickHandler={onChange}
                     />
                   </div>
                 );
