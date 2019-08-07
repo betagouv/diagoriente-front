@@ -16,6 +16,8 @@ import { useCaptureRef } from 'hooks/useCaptureRef';
 import { beta1x } from 'assets/icons/logobeta/index';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
+import ApparationCard from 'components_v3/ApparationCard';
+import GraduationLevel from 'components_v3/GraduationLevel';
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -132,8 +134,15 @@ const SkillsContainer = forwardRef(
                         .filter(type => type.theme.type === 'professional')
                         .map(skill => (
                           <div className={classes.mapContainer} key={skill._id}>
+                            {skill.activities.map(activity => {
+                              return (
+                                <div>
+                                  {activity.description}
+                                </div>
+                              )
+                            })}
                             <div className={classes.hr} />
-                            <span>{skill.theme.activities}</span>
+                            <span>{skill.theme.title}</span>
                           </div>
                         ))}
                     </div>
@@ -156,11 +165,12 @@ const SkillsContainer = forwardRef(
                   get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
                 );
+                // console.log(get.data.globalCopmetences);
                 return (
-                  <span className={classes.skill} key={expertise._id}>
-                    {expertise.title}
-                    {currentSkill ? currentSkill.value : 0}
-                  </span>
+                  <div className={classes.competences}>
+                    <ApparationCard title={expertise.title} color={currentSkill && currentSkill.color} />
+                    <GraduationLevel level={currentSkill && currentSkill.value} />
+                  </div>
                 );
               })}
             </div>

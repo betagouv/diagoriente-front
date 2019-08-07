@@ -1,10 +1,11 @@
 import React from 'react';
+import CountUp from 'react-countup';
 import classes from './ApparationCard.module.scss';
 import classNames from '../../utils/classNames';
-import CountUp from 'react-countup';
 import star from '../../assets/icons/stars/ic_star_full.svg';
 
-interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface Props
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   color?: string;
   taux?: number;
   title: string;
@@ -15,36 +16,50 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElem
   clickHandler?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ApparationCard = ({ color, taux, title, favori, withProgressBar, withCheckBox, state, clickHandler }: Props) => {
-  return (
-    <div className={classes.CardContainer}>
-      {withProgressBar && clickHandler && (
-        <div
-          className={classNames(classes.Triangle, state ? classes.RotateTriangleTop : classes.RotateTriangleBottom)}
-          onClick={() => clickHandler(!state)}
-          style={{borderColor: `transparent transparent transparent ${color}`}}
-        />
-      )}{' '}
-      {withCheckBox && clickHandler && <input type="checkbox" checked={state} onChange={() => clickHandler(!state)} />}
-      <div className={classes.CardApp}>
-        <div className={classes.etiquette} style={{ backgroundColor: color }} />
-        <div className={classes.restCard}>
-          {withProgressBar && <div className={classes.progress} style={{ width: `${taux}%` }} />}
-          <div className={classes.contentContainer}>
-            <span className={classes.title} style={{ color: favori ? '#ffd700' : '#696b6d' }}>
-              {title}
-            </span>
-            {favori && <img src={star} alt={'star'} className={classes.star} />}
-          </div>
-          {withProgressBar && (
-            <span className={classes.taux} style={{ color }}>
-              <CountUp start={0} end={taux} duration={1.4} delay={0.1} />%
-            </span>
+const ApparationCard = ({
+  color,
+  taux,
+  title,
+  favori,
+  withProgressBar,
+  withCheckBox,
+  state,
+  clickHandler,
+}: Props) => (
+  <div className={classes.CardContainer}>
+    {withProgressBar && clickHandler && (
+    <div
+      className={classNames(
+            classes.Triangle,
+            state ? classes.RotateTriangleTop : classes.RotateTriangleBottom,
           )}
+      onClick={() => clickHandler(!state)}
+      style={{ borderColor: `transparent transparent transparent ${color}` }}
+    />
+      )}
+    {' '}
+    {withCheckBox && clickHandler && (
+    <input type="checkbox" checked={state} onChange={() => clickHandler(!state)} />
+      )}
+    <div className={classes.CardApp}>
+      <div className={classes.etiquette} style={{ backgroundColor: color }} />
+      <div className={classes.restCard}>
+        {withProgressBar && <div className={classes.progress} style={{ width: `${taux}%` }} />}
+        <div className={classes.contentContainer}>
+          <span className={classes.title} style={{ color: favori ? '#ffd700' : '#696b6d' }}>
+            {title}
+          </span>
+          {favori && <img src={star} alt="star" className={classes.star} />}
         </div>
+        {withProgressBar && (
+        <span className={classes.taux} style={{ color }}>
+          <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
+%
+        </span>
+          )}
       </div>
     </div>
+  </div>
   );
-};
 
 export default ApparationCard;
