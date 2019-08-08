@@ -97,7 +97,7 @@ const SkillsContainer = forwardRef(
                         .map(skill => (
                           <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
-                            <span>{skill.theme.title}</span>
+                            <li>{skill.theme.title}</li>
                           </div>
                         ))}
                     </div>
@@ -133,16 +133,17 @@ const SkillsContainer = forwardRef(
                       {parcours.skills
                         .filter(type => type.theme.type === 'professional')
                         .map(skill => (
-                          <div className={classes.mapContainerPro} key={skill._id}>
-                            <span>{skill.theme.title}</span>
-                            {skill.activities.map(activity => {
+                          <div className={classes.mapContainer} key={skill._id}>
+                            <div className={classes.hr} />
+                            <li>{skill.theme.title}</li>
+                            {/* skill.activities.map(activity => {
                               return (
                                 <div className={classes.activityContainer}>
                                   <div className={classes.hr} />
                                   <span className={classes.activityTitle}>{activity.title}</span>
                                 </div>
                               )
-                            })}
+                            }) */}
                             
                             
                           </div>
@@ -171,7 +172,7 @@ const SkillsContainer = forwardRef(
                 return (
                   <div className={classes.competences}>
                     <ApparationCard title={expertise.title} color={currentSkill && currentSkill.color} />
-                    <GraduationLevel level={currentSkill && currentSkill.value} />
+                    <GraduationLevel level={currentSkill && currentSkill.value} color={currentSkill && currentSkill.color} />
                   </div>
                 );
               })}

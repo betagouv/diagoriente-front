@@ -33,6 +33,7 @@ import {
 import classNames from 'utils/classNames';
 
 // styles
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import classes from './themesContainer.module.scss';
 
 interface IMapToProps {
@@ -193,14 +194,17 @@ const ThemesContainer = forwardRef(
     function renderAdd() {
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
         return (
-          <span
+          <MultiIcon
+            type="add"
+            width="45"
+            height="45"
+            withText
+            text="AJOUTER UNE EXPÉRIENCE"
             onClick={() => {
               selectedThemeChange(null);
               stepChange('select_theme');
             }}
-          >
-            {'AJOUTER UNE EXPÉRIENCE'}
-          </span>
+          />
         );
       }
 
