@@ -225,16 +225,16 @@ const ThemesContainer = forwardRef(
                   selectedThemeChange(selected ? null : theme._id);
                 }
                 return (
-                  <div onClick={onClick} className={classes.wrapper}>
+                  <div
+                    onClick={onClick}
+                    className={selected ? classes.wrapperGrey : classes.wrapper}
+                  >
                     {theme && theme.resources && (
                       <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
                     )}
                     {theme && theme.resources && (
                       <span
-                        className={classNames(
-                          classes.theme_title,
-                          selected && classes.theme_selected_title,
-                        )}
+                        className={classNames(classes.theme_title)}
                         style={{ color: theme.resources.backgroundColor }}
                       >
                         {theme.title}
