@@ -16,31 +16,31 @@ interface IProps {
   withSub?: boolean;
 }
 
-const ProgressBarCompetence = ({ level, color, title, sub_title, withSub }: IProps) => {
-  return (
-    <div className={classes.wrapper}>
-      {level >= 1 ? (
-        <div className={classes.dots} style={{ backgroundColor: 'red' }} />
+const ProgressBarCompetence = ({
+ level, color, title, sub_title, withSub,
+}: IProps) => (
+  <div className={classes.wrapper}>
+    {level >= 1 ? (
+      <div className={classes.dots} style={{ backgroundColor: color }} />
       ) : (
-        <img className={classes.dots} src={greyDot} />
+        <img className={classes.dots} src={greyDot} alt="dot" />
       )}
-      {level >= 2 ? (
-        <div className={classes.dots} style={{ backgroundColor: 'red' }} />
+    {level >= 2 ? (
+      <div className={classes.dots} style={{ backgroundColor: color }} />
       ) : (
-        <img data-for={title} className={classes.dots} src={greyDot} />
+        <img data-for={title} className={classes.dots} src={greyDot} alt="dot" />
       )}
-      {level >= 3 ? (
-        <div className={classes.dots} style={{ backgroundColor: 'red' }} />
+    {level >= 3 ? (
+      <div className={classes.dots} style={{ backgroundColor: color }} />
       ) : (
-        <img className={classes.dots} src={greyDot} />
+        <img className={classes.dots} src={greyDot} alt="dot" />
       )}
-      {level >= 4 ? (
-        <div className={classes.dots} style={{ backgroundColor: 'red' }} />
+    {level >= 4 ? (
+      <div className={classes.dots} style={{ backgroundColor: color }} />
       ) : (
-        <img className={classes.dots} src={greyDot} />
+        <img className={classes.dots} src={greyDot} alt="dot" />
       )}
-     {  withSub && <span className={classes.level}>{`NIVEAU${level}/4`}</span>}
-    </div>
+    {withSub && <span className={classes.level}>{`NIVEAU${level}/4`}</span>}
+  </div>
   );
-};
 export default ProgressBarCompetence;

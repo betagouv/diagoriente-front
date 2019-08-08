@@ -29,13 +29,11 @@ import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
 
-// assets
-import idea from 'assets_v3/icons/idea.svg';
-
 // utils
 import classNames from 'utils/classNames';
 
 // styles
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import classes from './themesContainer.module.scss';
 
 interface IMapToProps {
@@ -196,14 +194,17 @@ const ThemesContainer = forwardRef(
     function renderAdd() {
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
         return (
-          <span
+          <MultiIcon
+            type="add"
+            width="45"
+            height="45"
+            withText
+            text="AJOUTER UNE EXPÉRIENCE"
             onClick={() => {
               selectedThemeChange(null);
               stepChange('select_theme');
             }}
-          >
-            {'AJOUTER UNE EXPÉRIENCE'}
-          </span>
+          />
         );
       }
 
@@ -223,21 +224,22 @@ const ThemesContainer = forwardRef(
                 function onClick() {
                   selectedThemeChange(selected ? null : theme._id);
                 }
-
                 return (
-                  <div onClick={onClick} className={classes.wrapper}>
-                    <ThemeIcon title={theme.title} icon={idea} key={theme._id} />
-                    <span
-                      className={classNames(
-                        classes.theme_title,
-                        selected && classes.theme_selected_title,
-                      )}
-                      /* style={{
-                        color: theme.resources && theme.resources.backgroundColor,
-                      }} */
-                    >
-                      {theme.title}
-                    </span>
+                  <div
+                    onClick={onClick}
+                    className={selected ? classes.wrapperGrey : classes.wrapper}
+                  >
+                    {theme && theme.resources && (
+                      <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
+                    )}
+                    {theme && theme.resources && (
+                      <span
+                        className={classNames(classes.theme_title)}
+                        style={{ color: theme.resources.backgroundColor }}
+                      >
+                        {theme.title}
+                      </span>
+                    )}
                   </div>
                 );
               })

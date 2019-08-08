@@ -16,6 +16,8 @@ import { useCaptureRef } from 'hooks/useCaptureRef';
 import { beta1x } from 'assets/icons/logobeta/index';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
+import ApparationCard from 'components_v3/ApparationCard';
+import GraduationLevel from 'components_v3/GraduationLevel';
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -95,7 +97,7 @@ const SkillsContainer = forwardRef(
                         .map(skill => (
                           <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
-                            <span>{skill.theme.title}</span>
+                            <li>{skill.theme.title}</li>
                           </div>
                         ))}
                     </div>
@@ -133,7 +135,17 @@ const SkillsContainer = forwardRef(
                         .map(skill => (
                           <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
-                            <span>{skill.theme.activities}</span>
+                            <li>{skill.theme.title}</li>
+                            {/* skill.activities.map(activity => {
+                              return (
+                                <div className={classes.activityContainer}>
+                                  <div className={classes.hr} />
+                                  <span className={classes.activityTitle}>{activity.title}</span>
+                                </div>
+                              )
+                            }) */}
+                            
+                            
                           </div>
                         ))}
                     </div>
@@ -156,11 +168,12 @@ const SkillsContainer = forwardRef(
                   get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
                 );
+                // console.log(get.data.globalCopmetences);
                 return (
-                  <span className={classes.skill} key={expertise._id}>
-                    {expertise.title}
-                    {currentSkill ? currentSkill.value : 0}
-                  </span>
+                  <div className={classes.competences}>
+                    <ApparationCard title={expertise.title} color={currentSkill && currentSkill.color} />
+                    <GraduationLevel level={currentSkill && currentSkill.value} color={currentSkill && currentSkill.color} />
+                  </div>
                 );
               })}
             </div>
