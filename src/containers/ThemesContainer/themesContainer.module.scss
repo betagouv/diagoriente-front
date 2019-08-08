@@ -74,3 +74,32 @@
 .theme_selected_title {
   color: red !important;
 }
+.searchInputWrapper {
+  width: 100%;
+  display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.searchInput div {
+  
+    width: 100%;
+    display: flex;
+    flex-direction: unset;
+    margin: 5px 0;
+    position: relative;
+    justify-content: space-evenly;
+    align-items: baseline;
+  }
+  .searchInput div input {
+    width: 70%;
+    height: 30px !important;
+  }
+  .searchInput div span {
+   text-transform: capitalize;
+   font-size: 18px !important;
+  }
+
+  .searchInput {
+    width: 50%;
+    
+  }

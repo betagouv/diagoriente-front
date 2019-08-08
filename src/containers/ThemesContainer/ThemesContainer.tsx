@@ -34,6 +34,7 @@ import classNames from 'utils/classNames';
 
 // styles
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Input from 'components/form/Input/Input';
 import classes from './themesContainer.module.scss';
 
 interface IMapToProps {
@@ -190,6 +191,11 @@ const ThemesContainer = forwardRef(
         stepChange('activities_edit');
       }
     }
+    const [search, setSearch] = useState<string>('');
+    function onSearch(e: React.ChangeEvent<HTMLInputElement>) {
+      setSearch(e.target.value)
+      list.call({ search, type });
+    }
 
     function renderAdd() {
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
@@ -214,6 +220,20 @@ const ThemesContainer = forwardRef(
           edit={{ onClick: onEditClick }}
           className={classes.themes}
         >
+          {type === 'professional' && (
+            <div className={classes.searchInputWrapper}>
+              <Input
+                name="rechercher"
+                validation=""
+                type="text"
+                placeholder="kfc, entretien, ..."
+                className={classes.searchInput}
+                onChange={onSearch}
+                value={search}
+              />
+            </div>
+          )}
+
           {step === 'select_theme' ? (
             list.data.data
             && list.data.data
