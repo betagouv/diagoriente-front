@@ -74,7 +74,7 @@ const ThemesContainer = forwardRef(
 
     function skillWithoutId(skill: ISkillPopulated) {
       return {
-        type,
+        type: skill.theme.type,
         theme: skill.theme._id,
         activities: skill.activities.map(({ _id }) => _id),
         competences: skill.competences,
