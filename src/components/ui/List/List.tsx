@@ -1,13 +1,12 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import IndexList from 'components_v3/listIndex/indexList';
+import classNames from 'utils/classNames';
 
 import { IFamille } from 'reducers';
 import FamileSelected from './FamileSelected';
-import classNames from '../../../utils/classNames';
 import classes from './list.module.scss';
 import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
-import className from '../../../utils/classNames';
 
 interface IProps {
   renderPlaceholder: () => void;
@@ -17,20 +16,25 @@ interface IProps {
   handleDeleteClick: (famille: IFamille) => void;
   disable: number;
   fetching?: boolean;
+  fetchingFamille?: boolean;
+
+  renderAllPlaceholder: () => void;
 }
 
 const List = ({
   renderPlaceholder,
+  renderAllPlaceholder,
   onSubmit,
   onDragEnd,
   famileSelected,
   handleDeleteClick,
   disable,
   fetching,
+  fetchingFamille,
 }: IProps) => (
-  <div>
+  <div style={{ width: '100%' }}>
     <div className={classes.containerText}>
-      <span className={classes.text_selection}>MA SELECTION</span>
+      <span className={classNames(classes.text_selection,fetchingFamille && classes.textStyle )}>MA SELECTION</span>
     </div>
 
     {famileSelected && (
@@ -51,7 +55,7 @@ const List = ({
                       {...provided.dragHandleProps}
                     >
                       <div style={{ display: 'flex', width: '100%' }}>
-                        <IndexList index={index + 1} isLast={famileSelected.length} />
+                        <IndexList index={index + 1} isLast={5} />
                         <FamileSelected
                           famile={item}
                           index={index}
@@ -68,12 +72,13 @@ const List = ({
         </Droppable>
       </DragDropContext>
     )}
-    {renderPlaceholder()}
-    {!fetching && (
+    {!fetchingFamille && renderPlaceholder()}
+    {fetchingFamille && renderAllPlaceholder()}
+    {!fetchingFamille && (
       <div className={classes.btn_container}>
         <ContinueButton
           onClick={onSubmit}
-          className={className(classes.btn, disable === 0 && classes.disabled)}
+          className={classNames(classes.btn, disable === 0 && classes.disabled)}
           disabled={disable === 0}
           isFetching={fetching}
           label="VOIR LES METIERS"
