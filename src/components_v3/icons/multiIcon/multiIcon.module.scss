@@ -1,19 +1,16 @@
 .container {
   width: 60px;
   height: 60px;
-  //background: purple;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 17px;
   cursor: pointer;
-  // transition: 0.5s all;
   border: transparent;
   position: relative;
   &:hover {
     &::before {
-      content: "";
+      content: '';
       width: 70%;
       height: 70%;
       // background: red;
@@ -30,6 +27,11 @@
 .text {
   margin: 0 10px;
 }
+.textBottom {
+  margin-top: 7px;
+  font-size: 14px;
+
+}
 .textFooter {
   margin: 0 10px;
   font-size: 14px;
@@ -37,7 +39,7 @@
 .textFont {
   font-size: 14px;
   margin-left: 20px;
-  width: 130px
+  width: 130px;
 }
 
 .validateContainer {
@@ -56,9 +58,6 @@
   transition: 0.5s all;
   cursor: pointer;
   flex-direction: row-reverse;
-  &:hover {
-    transform: scale(1.05);
-  }
 }
 
 .containerleft {
@@ -68,7 +67,6 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
-  padding: 17px;
   justify-content: space-between;
   color: #7992bf;
   font-size: 20px;
@@ -79,14 +77,9 @@
   flex-direction: row;
 }
 .containerBottom {
-  display: -webkit-flex;
   display: flex;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
-  padding: 17px;
-  justify-content: space-between;
   color: #7992bf;
   font-size: 20px;
   font-weight: bold;

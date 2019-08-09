@@ -58,44 +58,57 @@ const MultiIcon = ({
   sideBar,
   footer,
   ...other
-}: React.HTMLAttributes<HTMLElement> & Props) => {
-  return (
-    <div
-      className={classNames(
-        withText
-          ? left
-            ? classes.containerleft
-            : bottom
-            ? classes.containerBottom
-            : classes.validateContainer
-          : classes.container,
-        className,
-      )}
-      {...other}
-    >
-      {withText && (
-        <span
-          className={classNames(classes.text, sideBar ? classes.textFont : footer ? classes.textFooter : '')}
-          style={{ color: textColor }}
-        >
-          {text}
-        </span>
-      )}
-      {type === 'add' && <Add width={width} height={height} color={Iconcolor} />}
-      {type === 'edit' && <Edit width={width} height={height} color={Iconcolor} />}
-      {type === 'validate' && <Valid width={width} height={height} color={Iconcolor} />}
-      {type === 'play' && <Play width={width} height={height} color={Iconcolor} />}
-      {type === 'help' && <Help width={width} height={height} color={Iconcolor} />}
-      {type === 'download' && <Download width={width} height={height} color={Iconcolor} />}
-      {type === 'print' && <Print width={width} height={height} color={Iconcolor} />}
-      {type === 'prev' && <Prev width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
-      {type === 'next' && <Next width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
-      {type === 'remove' && <Remove width={width} height={height} color={Iconcolor} />}
-      {type === 'connect' && <Connect width={width} height={height} color={Iconcolor} />}
-      {type === 'warning' && <Warning width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
-      {type === 'border' && <Border width={width} height={height} color={Iconcolor} />}
-    </div>
-  );
-};
+}: React.HTMLAttributes<HTMLElement> & Props) => (
+  <div
+    className={classNames(
+      withText
+        ? left
+          ? classes.containerleft
+          : bottom
+          ? classes.containerBottom
+          : classes.validateContainer
+        : classes.container,
+      className,
+    )}
+    {...other}
+  >
+    {withText && (
+      <span
+        className={classNames(
+          classes.text,
+          bottom
+            ? classes.textBottom
+            : sideBar
+            ? classes.textFont
+            : footer
+            ? classes.textFooter
+            : '',
+        )}
+        style={{ color: textColor }}
+      >
+        {text}
+      </span>
+    )}
+    {type === 'add' && <Add width={width} height={height} color={Iconcolor} />}
+    {type === 'edit' && <Edit width={width} height={height} color={Iconcolor} />}
+    {type === 'validate' && <Valid width={width} height={height} color={Iconcolor} />}
+    {type === 'play' && <Play width={width} height={height} color={Iconcolor} />}
+    {type === 'help' && <Help width={width} height={height} color={Iconcolor} />}
+    {type === 'download' && <Download width={width} height={height} color={Iconcolor} />}
+    {type === 'print' && <Print width={width} height={height} color={Iconcolor} />}
+    {type === 'prev' && (
+      <Prev width={width} height={height} color={Iconcolor} withBorder={withBorder} />
+    )}
+    {type === 'next' && (
+      <Next width={width} height={height} color={Iconcolor} withBorder={withBorder} />
+    )}
+    {type === 'remove' && <Remove width={width} height={height} color={Iconcolor} />}
+    {type === 'connect' && <Connect width={width} height={height} color={Iconcolor} />}
+    {type === 'warning' && (
+      <Warning width={width} height={height} color={Iconcolor} withBorder={withBorder} />
+    )}
+    {type === 'border' && <Border width={width} height={height} color={Iconcolor} />}
+  </div>
+);
 
 export default MultiIcon;
