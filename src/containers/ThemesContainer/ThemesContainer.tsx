@@ -193,7 +193,7 @@ const ThemesContainer = forwardRef(
     }
     const [search, setSearch] = useState<string>('');
     function onSearch(e: React.ChangeEvent<HTMLInputElement>) {
-      setSearch(e.target.value)
+      setSearch(e.target.value);
       list.call({ search, type });
     }
 

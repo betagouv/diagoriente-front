@@ -41,6 +41,7 @@ interface Props {
   withBorder?: boolean;
   sideBar?: boolean;
   footer?: boolean;
+  disabled?: boolean;
 }
 
 const MultiIcon = ({
@@ -57,10 +58,11 @@ const MultiIcon = ({
   withBorder,
   sideBar,
   footer,
+  disabled,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
   return (
-    <div
+    <button
       className={classNames(
         withText
           ? left
@@ -70,7 +72,9 @@ const MultiIcon = ({
             : classes.validateContainer
           : classes.container,
         className,
+        
       )}
+      disabled={disabled}
       {...other}
     >
       {withText && (
@@ -94,7 +98,7 @@ const MultiIcon = ({
       {type === 'connect' && <Connect width={width} height={height} color={Iconcolor} />}
       {type === 'warning' && <Warning width={width} height={height} color={Iconcolor} withBorder={withBorder} />}
       {type === 'border' && <Border width={width} height={height} color={Iconcolor} />}
-    </div>
+    </button>
   );
 };
 
