@@ -7,6 +7,7 @@ import { Dispatch, AnyAction } from 'redux';
 
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
+import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
 import Header from '../../components_v3/Header/Header';
 // containers
@@ -24,7 +25,9 @@ import ParcoursActions from '../../reducers/parcours';
 // css
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
-
+import GameContainer from 'containers/GameContainer/GameContainer';
+import CarteContainer from 'containers/CarteContainer/CarteContainer';
+import JobsContainer from 'containers/JobsContainer/JobsConainer';
 interface ParcoursParams {
   completed?: boolean;
   createdAt?: string;
@@ -143,6 +146,33 @@ const ProfileContainer = ({ match }: Props) => {
                 title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
                 {...props}
                 type="professional"
+                footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="validate"
+                        withText
+                        text="VALIDER"
+                        width="35"
+                        footer
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'valider',
+                  },
+                ]}
+              />
+            )}
+          />
+          <Route
+            path="/profile/favoris"
+            exact
+            render={props => (
+              <FavorisContainer
+                title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
+                {...props}
                 footerButtons={[
                   {
                     component: (

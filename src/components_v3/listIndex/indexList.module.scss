@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+.container {
+  display: flex;
+  align-items: center;
+}
+.indexNumber {
+  font-size: 28px;
+  width: 25px;
+  color: $gray-600;
+}
+.arrowsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.arrow {
+  width: 10px;
+  height: 10px;
+}
+.arrowDown {
+  @extend .arrow;
+  transform: rotate(90deg);
+}
+.arrowUp {
+  @extend .arrow;
+  transform: rotate(-90deg);
+}

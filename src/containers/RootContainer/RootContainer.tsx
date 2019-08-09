@@ -18,14 +18,9 @@ import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import LoginUserContainer from 'containers/LoginContainer/LoginContainer';
 import ProfileContainer from 'containers/ProfileContainer/ProfileContainer';
 import RegisterUserContainer from 'containers/RegistreContainer/RegisterContainer';
-import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
-import GameContainer from 'containers/GameContainer/GameContainer';
-import CarteContainer from 'containers/CarteContainer/CarteContainer';
-import JobsContainer from 'containers/JobsContainer/JobsConainer';
 
 // components
 import Modal from 'components/ui/Modal/Modal';
-
 // hoc
 import ProtectedRoute from 'hoc/ProtectedRoute';
 
@@ -71,10 +66,10 @@ const RootContainer = ({
     }, 420000);
   };
 
-  useListener('mousemove', resetTimer);
+  /*  useListener('mousemove', resetTimer);
   useListener('keypress', resetTimer);
   useListener('wheel', resetTimer);
-  useListener('click', resetTimer);
+  useListener('click', resetTimer); */
 
   useDidMount(() => {
     startup();
@@ -95,10 +90,7 @@ const RootContainer = ({
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
-          <ProtectedRoute path="/carte" exact component={CarteContainer} />
-          <ProtectedRoute path="/favoris" exact component={FavorisContainer} />
-          <Route path="/game" exact component={GameContainer} />
-          <ProtectedRoute path="/jobs" exact component={JobsContainer} />
+
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />
