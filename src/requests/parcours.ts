@@ -1,11 +1,16 @@
 import { IParcoursResponse } from 'reducers';
-import { axiosPost, axiosGet, Response } from './http';
+import {
+ axiosPost, axiosGet, axiosPut, Response,
+} from './http';
 
 export interface ICreateParcoursParams {
   userId?: string;
   advisorId?: string;
 }
-
+export interface IUpdateParcoursCompetencesParams {
+  _id: string;
+  value: number;
+}
 export const createParcours = (data: ICreateParcoursParams): Promise<Response<any>> =>
   axiosPost('v1/parcours', { data });
 
@@ -27,3 +32,9 @@ export const updateParcours = (
   id: string,
   data: IUpdateParcoursParams,
 ): Promise<Response<IParcoursResponse>> => axiosPost(`v1/parcours/${id}`, { data });
+
+export const updateParcoursCompetences = (
+  id: string,
+  data: IUpdateParcoursCompetencesParams[],
+): Promise<Response<IParcoursResponse>> =>
+  axiosPut(`v1/parcours/${id}`, { data: { competences: data } });

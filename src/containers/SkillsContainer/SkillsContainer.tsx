@@ -144,8 +144,6 @@ const SkillsContainer = forwardRef(
                                 </div>
                               )
                             }) */}
-                            
-                            
                           </div>
                         ))}
                     </div>
@@ -171,8 +169,15 @@ const SkillsContainer = forwardRef(
                 // console.log(get.data.globalCopmetences);
                 return (
                   <div className={classes.competences}>
-                    <ApparationCard title={expertise.title} color={currentSkill && currentSkill.color} />
-                    <GraduationLevel level={currentSkill && currentSkill.value} color={currentSkill && currentSkill.color} />
+                    <ApparationCard
+                      title={expertise.title}
+                      color={currentSkill && currentSkill.color}
+                    />
+                    <GraduationLevel
+                      level={currentSkill && currentSkill.value}
+                      color={currentSkill && currentSkill.color}
+                      index={0}
+                    />
                   </div>
                 );
               })}

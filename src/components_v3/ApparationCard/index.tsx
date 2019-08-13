@@ -15,6 +15,8 @@ interface Props
   state?: number;
   clickHandler?: (value: number) => void;
   withDots?: boolean;
+  active?: boolean;
+  index?: number;
 }
 
 const ApparationCard = ({
@@ -27,7 +29,12 @@ const ApparationCard = ({
   state,
   clickHandler,
   withDots,
-}: Props) => {
+  active,
+  index,
+  className,
+  children,
+  ...other
+}: Props & React.HTMLAttributes<HTMLElement>) => {
   function onChange(value: number) {
     if (clickHandler) {
       clickHandler(value);
@@ -50,13 +57,13 @@ const ApparationCard = ({
 
   return (
     <div className={classes.CardContainer}>
-      {withProgressBar && clickHandler && (
+      {withProgressBar && clickHandler && (index || index === 0) && (
         <div
           className={classNames(
             classes.Triangle,
-            state ? classes.RotateTriangleTop : classes.RotateTriangleBottom,
+            active ? classes.RotateTriangleTop : classes.RotateTriangleBottom,
           )}
-          onClick={() => onChange(5 - (state as number))}
+          onClick={() => clickHandler(index)}
           style={{ borderColor: `transparent transparent transparent ${color}` }}
         />
       )}
@@ -67,7 +74,7 @@ const ApparationCard = ({
           onChange={() => onChange(5 - (state as number))}
         />
       )}
-      <div className={classes.CardApp}>
+      <div className={classes.CardApp} {...other}>
         <div className={classes.etiquette} style={{ backgroundColor: color }} />
         <div className={classes.restCard}>
           {withProgressBar && <div className={classes.progress} style={{ width: `${taux}%` }} />}
@@ -85,14 +92,9 @@ const ApparationCard = ({
             </span>
           )}
         </div>
-        {withProgressBar && (
-          <span className={classes.taux} style={{ color }}>
-            <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
-%
-          </span>
-        )}
       </div>
     </div>
   );
 };
+
 export default ApparationCard;

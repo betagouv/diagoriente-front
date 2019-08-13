@@ -24,6 +24,7 @@ import ParcoursActions from '../../reducers/parcours';
 // css
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
+import ExpertisesContainer from '../ExpertisesContainer';
 
 interface ParcoursParams {
   completed?: boolean;
@@ -150,6 +151,34 @@ const ProfileContainer = ({ match }: Props) => {
                         type="validate"
                         withText
                         text="VALIDER"
+                        width="35"
+                        footer
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'valider',
+                  },
+                ]}
+              />
+            )}
+          />
+          <Route
+            path="/profile/intermediate"
+            exact
+            render={props => (
+              <ExpertisesContainer
+                title="GRADUE TES COMPÉTENCES PERSONNELLES"
+                {...props}
+                type="professional"
+                footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="validate"
+                        withText
+                        text="valider"
                         width="35"
                         footer
                         height="35"
