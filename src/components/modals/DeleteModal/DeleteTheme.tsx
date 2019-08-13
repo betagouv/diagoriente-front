@@ -21,20 +21,20 @@ const DeleteModal = ({ onDelete, onCloseModal }: IProps) => {
 
         <div className={classes.btn_container}>
           <MultiIcon
-            type="prev"
+            type="remove"
             withText
-            text="annulé"
-            width="15"
+            text="annuler"
+            width="37"
             left
-            height="15"
+            height="37"
             withBorder
             style={{ padding: 0 }}
             onClick={onCloseModal}
           />
           <MultiIcon
-            type="remove"
+            type="validate"
             withText
-            text="supprimé"
+            text="supprimer"
             width="37"
             height="37"
             withBorder

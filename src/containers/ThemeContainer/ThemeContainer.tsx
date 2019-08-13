@@ -114,13 +114,19 @@ const ThemeContainer = forwardRef(
         <div className={classes.new_theme}>
           <div className={classes.new_theme_title}>
             <div className={classes.logoContainer}>
-              <img src={iconData || iconSkill} alt="logo" className={classes.logo} />
+              {type === 'personal' ? (
+                <img src={iconData || iconSkill} alt="logo" className={classes.logo} />
+              ) : null}
             </div>
 
             <span
-              style={{
-                color: iconDataColor || iconSkillcolor,
-              }}
+              style={
+                type === 'personal'
+                  ? {
+                      color: iconDataColor || iconSkillcolor,
+                    }
+                  : { color: 'black' }
+              }
             >
               {skill ? skill.theme.title : get.data.title}
             </span>

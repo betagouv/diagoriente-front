@@ -269,15 +269,27 @@ const ThemesContainer = forwardRef(
                 return (
                   <div
                     onClick={onClick}
-                    className={selected ? classes.wrapperGrey : classes.wrapper}
+                    className={
+                      selected
+                        ? type === 'professional'
+                          ? classes.wrapperPro
+                          : classes.wrapperGrey
+                        : classes.wrapper
+                    }
                   >
-                    {theme && theme.resources && (
+                    {theme && theme.resources && type === 'personal' && (
                       <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
                     )}
                     {theme && theme.resources && (
                       <span
-                        className={classNames(classes.theme_title)}
-                        style={{ color: theme.resources.backgroundColor }}
+                        className={classNames(
+                          type === 'personal' ? classes.theme_title : classes.theme_titlePro,
+                        )}
+                        style={
+                          type === 'personal'
+                            ? { color: theme.resources.backgroundColor }
+                            : { color: 'black' }
+                        }
                       >
                         {theme.title}
                       </span>
