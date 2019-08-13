@@ -332,7 +332,6 @@ const ThemesContainer = forwardRef(
               }
 
               function onClose() {
-                console.log('eeee');
                 openModal(
                   <DeleteModal
                     onDelete={() =>

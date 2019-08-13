@@ -1,8 +1,9 @@
 import React from 'react';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+
 import Grid from '../../ui/Grid/Grid';
 
 import Button from '../../buttons/RoundButton/RoundButton';
-
 import classes from './confirm.module.scss';
 
 interface Props {
@@ -37,21 +38,35 @@ const ConfirmModal = ({
             </Grid>
             <Grid item xl={12}>
               <span className={type === 'professional' ? classes.title_pro : classes.title}>
-                {text || 'Niveau max de la compétence, confirme ou réévalue'}
+                {text}
               </span>
             </Grid>
 
             {ConfirmModals ? (
               <Grid item xl={12} className={classes.container_button}>
-                <Button
+                <MultiIcon
+                  type="remove"
+                  withText
+                  text="Annuler"
+                  width="37"
+                  left
+                  height="37"
+                  withBorder
+                  style={{ padding: 0 }}
+                  onClick={onCloseModal}
+                />
+                <MultiIcon
+                  type="validate"
+                  withText
+                  text="Confirmer"
+                  width="37"
+                  height="37"
+                  withBorder
+                  Iconcolor="#ff001f"
+                  textColor="#ff001f"
+                  style={{ padding: 0 }}
                   onClick={onSubmit}
-                  className={type === 'professional' ? classes.orangeBtn : classes.red_btn}
-                >
-                  Confirmer
-                </Button>
-                <Button onClick={onAnnule} className={classes.rose_btn}>
-                  Annuler
-                </Button>
+                />
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>

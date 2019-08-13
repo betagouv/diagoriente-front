@@ -49,6 +49,7 @@ const ApparationCard = ({
             onCloseModal={closeModal}
             confirme={() => clickHandler(value)}
             value={value}
+            text="Niveau max de la compétence, confirme ou réévalue"
           />,
         );
       }
