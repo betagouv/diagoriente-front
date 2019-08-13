@@ -70,12 +70,18 @@ const ConfirmModal = ({
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>
-                <Button
-                  onClick={onAnnule}
-                  className={type === 'professional' ? classes.orangeBtn : classes.red_btn}
-                >
-                  OK
-                </Button>
+                <MultiIcon
+                  type="validate"
+                  withText
+                  text="Ok"
+                  width="37"
+                  height="37"
+                  withBorder
+                  Iconcolor="#ff001f"
+                  textColor="#ff001f"
+                  style={{ padding: 0 }}
+                  onClick={onSubmit}
+                />
               </Grid>
             )}
           </Grid>
