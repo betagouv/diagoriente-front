@@ -1,13 +1,14 @@
 import React, {
- useState, useEffect, Fragment, useRef,
+ useState, useEffect, Fragment,
 } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
+import { ReduxState, IFamille } from 'reducers';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { ReduxState, IFamille } from 'reducers';
+
 import withLayout from 'hoc/withLayout';
 
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
@@ -22,7 +23,6 @@ import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
 import Spinner from '../../components/Spinner/Spinner';
 import VerticalStepper from '../../components/VerticalStepper/VerticalStepper';
 // assets
-import scrollArrow from '../../assets/icons/svg/scrollArrow.svg';
 import { IUpdateParcoursParams } from '../../requests';
 import addPrevFamily from '../../utils/addPrevFamille';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -106,6 +106,13 @@ const FavorisContainer = ({
     }
     return array;
   };
+  const renderAllPlaceholder = () => {
+    const array: JSX.Element[] = [];
+    for (let i = 1; i <= 5; i += 1) {
+      array.push(<PlaceHolderFamile index={i} key={i} />);
+    }
+    return array;
+  };
 
   const onSubmit = () => {
     const ids: string[] = selectedFamily.map(el => el._id);
@@ -141,6 +148,8 @@ const FavorisContainer = ({
               disable={selectedFamily.length}
               handleDeleteClick={handleClick}
               fetching={parcoursFetching}
+              fetchingFamille={fetching}
+              renderAllPlaceholder={renderAllPlaceholder}
             />
           </Grid>
         </Grid>

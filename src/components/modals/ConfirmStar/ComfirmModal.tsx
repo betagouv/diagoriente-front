@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect } from 'react';
+import React from 'react';
 import Grid from '../../ui/Grid/Grid';
 
 import Button from '../../buttons/RoundButton/RoundButton';
@@ -14,16 +14,18 @@ interface Props {
 }
 type IProps = Props;
 
-const ConfirmModal = ({ onCloseModal, confirme, text, isConfirm, type }: IProps) => {
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+const ConfirmModal = ({
+ onCloseModal, confirme, text, isConfirm, type,
+}: IProps) => {
+  const onSubmit = () => {
     confirme();
     onCloseModal();
   };
-  const onAnnule = (e: MouseEvent<HTMLButtonElement>) => {
+  const onAnnule = () => {
     onCloseModal();
   };
 
-  const ConfirmModal = isConfirm !== undefined ? isConfirm : true;
+  const ConfirmModals = isConfirm !== undefined ? isConfirm : true;
   return (
     <div className={classes.wrapperModal}>
       <div className={classes.container}>
@@ -34,13 +36,16 @@ const ConfirmModal = ({ onCloseModal, confirme, text, isConfirm, type }: IProps)
             </Grid>
             <Grid item xl={12}>
               <span className={type === 'professional' ? classes.title_pro : classes.title}>
-                {text ? text : 'Niveau max de la compétence, confirme ou réévalue'}
+                {text || 'Niveau max de la compétence, confirme ou réévalue'}
               </span>
             </Grid>
 
-            {ConfirmModal ? (
+            {ConfirmModals ? (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onSubmit} className={type === 'professional' ? classes.orangeBtn : classes.red_btn}>
+                <Button
+                  onClick={onSubmit}
+                  className={type === 'professional' ? classes.orangeBtn : classes.red_btn}
+                >
                   Confirmer
                 </Button>
                 <Button onClick={onAnnule} className={classes.rose_btn}>
@@ -49,7 +54,10 @@ const ConfirmModal = ({ onCloseModal, confirme, text, isConfirm, type }: IProps)
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onAnnule} className={type === 'professional' ? classes.orangeBtn : classes.red_btn}>
+                <Button
+                  onClick={onAnnule}
+                  className={type === 'professional' ? classes.orangeBtn : classes.red_btn}
+                >
                   OK
                 </Button>
               </Grid>
