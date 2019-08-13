@@ -1,5 +1,5 @@
 .stepperCircle {
-  border: 1px solid #ffba27;
+  background-color: gray;
   border-radius: 15px;
   width: 10px;
   height: 10px;
@@ -8,7 +8,6 @@
 }
 .stepperCIRCLE {
   cursor: pointer;
-  border: 1px solid #ffba27;
   border-radius: 15px;
   width: 10px;
   height: 10px;
@@ -18,10 +17,10 @@
   align-items: center;
   justify-content: center;
   &::before {
-    content: "";
+    content: '';
     width: 80%;
     height: 80%;
-    background: #e3a928;
+    background: #7a93bc;
     position: absolute;
     border-radius: 50%;
   }

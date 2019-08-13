@@ -142,7 +142,8 @@ input[type='checkbox']:disabled:after {
 }
 
 .dot {
-  border: 1px solid red;
+  //border: 1px solid red;
+  background: #dedede;
   height: 12px;
   width: 12px;
   border-radius: 50%;
@@ -151,4 +152,7 @@ input[type='checkbox']:disabled:after {
 
 .dot_selected {
   background-color: red;
+}
+.dotsContainer {
+  display: flex;
 }

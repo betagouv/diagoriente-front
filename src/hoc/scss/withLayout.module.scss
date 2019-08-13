@@ -33,6 +33,7 @@ $footer_height: 60px;
   font-size: 18px;
   margin: 0;
   text-align: center;
+  color: #003189;
 }
 
 .title_placeholder {
@@ -72,4 +73,19 @@ $footer_height: 60px;
 
 .footer_button {
   font-size: 18px;
+}
+@media screen and (max-width: 460px) {
+  .container {
+    width: 130%;
+  }
+}
+@media screen and (max-width: 370px) {
+  .container {
+    width: 160%;
+  }
+}
+@media screen and (max-width: 800px){
+  .footer_container {
+    width: -webkit-fill-available;
+  }
 }

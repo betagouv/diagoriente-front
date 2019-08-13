@@ -25,6 +25,8 @@ import { useDidUpdate, useCaptureRef } from 'hooks';
 
 // reducers
 import parcoursActions from 'reducers/parcours';
+import modalActions from 'reducers/modal';
+
 import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
@@ -34,6 +36,9 @@ import classNames from 'utils/classNames';
 
 // styles
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Input from 'components/form/Input/Input';
+import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
+import InvalidModal from 'components/modals/InvalidModal/InvalidModal';
 import classes from './themesContainer.module.scss';
 
 interface IMapToProps {
@@ -44,6 +49,8 @@ interface IMapToProps {
 
 interface IDispatchToProps {
   parcoursRequest: (args: IUpdateParcoursParams) => void;
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
 }
 
 interface Props
@@ -61,8 +68,16 @@ interface RefProp {
 const ThemesContainer = forwardRef(
   (
     {
- list, parcours, type, parcoursRequest, parcoursFetching, parcoursError, history,
-}: Props,
+      list,
+      parcours,
+      type,
+      parcoursRequest,
+      parcoursFetching,
+      parcoursError,
+      history,
+      openModal,
+      closeModal,
+    }: Props,
     ref: Ref<RefProp>,
   ) => {
     function getSkills(skills: ISkillPopulated[]) {
@@ -73,7 +88,7 @@ const ThemesContainer = forwardRef(
 
     function skillWithoutId(skill: ISkillPopulated) {
       return {
-        type,
+        type: skill.theme.type,
         theme: skill.theme._id,
         activities: skill.activities.map(({ _id }) => _id),
         competences: skill.competences,
@@ -147,10 +162,12 @@ const ThemesContainer = forwardRef(
         stepChange(null);
         selectedThemeChange(null);
       } else {
-        alert(`invalid inputs:
-        -activities must at least select one activity
-        -must select 4 competences
-      `);
+        openModal(
+          <InvalidModal
+            onCloseModal={closeModal}
+            text="Attention, il faut sélectionner 4 compétences!"
+          />,
+        );
       }
     }
 
@@ -163,18 +180,24 @@ const ThemesContainer = forwardRef(
         const newSkill = newSkillRef.current;
 
         if (newSkill && newSkill.activities.length === 0) {
-          alert(`invalid inputs:
-        -activities must at least select one activity
-      `);
+          openModal(
+            <InvalidModal
+              onCloseModal={closeModal}
+              text="activities must at least select one activity"
+            />,
+          );
         } else {
           stepChange('expertise_edit');
         }
       } else if (step === 'expertise_edit') {
         const newSkill = newSkillRef.current;
         if (newSkill && newSkill.competences.length !== 4) {
-          alert(`invalid inputs:
-        -must select 4 competences
-      `);
+          openModal(
+            <InvalidModal
+              onCloseModal={closeModal}
+              text="Attention, il faut sélectionner 4 compétences!"
+            />,
+          );
         } else {
           updateSkill();
         }
@@ -189,6 +212,11 @@ const ThemesContainer = forwardRef(
       } else {
         stepChange('activities_edit');
       }
+    }
+    const [search, setSearch] = useState<string>('');
+    function onSearch(e: React.ChangeEvent<HTMLInputElement>) {
+      setSearch(e.target.value);
+      list.call({ search, type });
     }
 
     function renderAdd() {
@@ -214,6 +242,20 @@ const ThemesContainer = forwardRef(
           edit={{ onClick: onEditClick }}
           className={classes.themes}
         >
+          {type === 'professional' && (
+            <div className={classes.searchInputWrapper}>
+              <Input
+                name="rechercher"
+                validation=""
+                type="text"
+                placeholder="kfc, entretien, ..."
+                className={classes.searchInput}
+                onChange={onSearch}
+                value={search}
+              />
+            </div>
+          )}
+
           {step === 'select_theme' ? (
             list.data.data
             && list.data.data
@@ -227,15 +269,27 @@ const ThemesContainer = forwardRef(
                 return (
                   <div
                     onClick={onClick}
-                    className={selected ? classes.wrapperGrey : classes.wrapper}
+                    className={
+                      selected
+                        ? type === 'professional'
+                          ? classes.wrapperPro
+                          : classes.wrapperGrey
+                        : classes.wrapper
+                    }
                   >
-                    {theme && theme.resources && (
+                    {theme && theme.resources && type === 'personal' && (
                       <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
                     )}
                     {theme && theme.resources && (
                       <span
-                        className={classNames(classes.theme_title)}
-                        style={{ color: theme.resources.backgroundColor }}
+                        className={classNames(
+                          type === 'personal' ? classes.theme_title : classes.theme_titlePro,
+                        )}
+                        style={
+                          type === 'personal'
+                            ? { color: theme.resources.backgroundColor }
+                            : { color: 'black' }
+                        }
                       >
                         {theme.title}
                       </span>
@@ -278,7 +332,14 @@ const ThemesContainer = forwardRef(
               }
 
               function onClose() {
-                skillsChange(skills.filter(skill => skill.theme._id !== theme._id));
+                openModal(
+                  <DeleteModal
+                    onDelete={() =>
+                      skillsChange(skills.filter(skill => skill.theme._id !== theme._id))
+                    }
+                    onCloseModal={closeModal}
+                  />,
+                );
               }
 
               function captureRef(editRef: ThemeRefObject | null) {
@@ -320,6 +381,9 @@ const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(

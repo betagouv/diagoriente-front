@@ -39,6 +39,7 @@ $padding_left: 20px;
   &:hover {
     width: $sidebar_open_width;
   }
+  
 }
 
 .content {
@@ -46,4 +47,9 @@ $padding_left: 20px;
   width: 100%;
   padding-top: $header_height;
   padding-left: $sidebar_width;
+}
+@media screen and (max-width: 800px) {
+  .sidebar_container {
+    height: -webkit-fill-available;
+  }
 }

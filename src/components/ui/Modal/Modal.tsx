@@ -16,7 +16,7 @@ interface Props {
 const Modal = ({ open, children, animationType = 'slide_bottom', backdropClassName }: Props) => {
   useEffect(() => {
     if (open) {
-      (document.body as any).style = 'overflow:hidden;padding-right:15px';
+      (document.body as any).style = 'overflow:hidden;';
     } else {
       (document.body as any).style = undefined;
     }

@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 import CountUp from 'react-countup';
+import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
+import modalActions from 'reducers/modal';
 import classes from './ApparationCard.module.scss';
 import classNames from '../../utils/classNames';
 import star from '../../assets/icons/stars/ic_star_full.svg';
 
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
 interface Props
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    IDispatchToProps {
   color?: string;
   taux?: number;
   title: string;
@@ -33,11 +42,26 @@ const ApparationCard = ({
   index,
   className,
   children,
+  openModal,
+  closeModal,
   ...other
+  
 }: Props & React.HTMLAttributes<HTMLElement>) => {
+
   function onChange(value: number) {
     if (clickHandler) {
-      clickHandler(value);
+      if (value !== 4) {
+        clickHandler(value);
+      } else {
+        openModal(
+          <ConfirmModal
+            onCloseModal={closeModal}
+            confirme={() => clickHandler(value)}
+            value={value}
+            text="Niveau max de la compétence, confirme ou réévalue"
+          />,
+        );
+      }
     }
   }
 
@@ -50,6 +74,7 @@ const ApparationCard = ({
           onClick={() => onChange(state === i + 1 ? 0 : i + 1)}
           key={i}
           className={classNames(classes.dot, state === i + 1 && classes.dot_selected)}
+          style={state === i + 1 ? { background: color, border: 'none' } : {}}
         />,
       );
     }
@@ -83,18 +108,28 @@ const ApparationCard = ({
               {title}
             </span>
             {favori && <img src={star} alt="star" className={classes.star} />}
-            {dots}
           </div>
           {withProgressBar && (
             <span className={classes.taux} style={{ color }}>
               <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
-%
+              %
             </span>
           )}
         </div>
+     
       </div>
+      <div className={classes.dotsContainer}>{dots}</div>
     </div>
   );
 };
 
-export default ApparationCard;
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ApparationCard);

@@ -1,6 +1,7 @@
 import React, {
- useRef, useState, forwardRef, useEffect, Ref, Fragment,
+ useRef, useState, forwardRef, useEffect, Ref, Fragment, Dispatch,
 } from 'react';
+import { AnyAction } from 'redux';
 
 import { connect } from 'react-redux';
 import { map } from 'lodash';
@@ -8,12 +9,14 @@ import {
  ReduxState, ISkillPopulated, IExpertise, IActivity,
 } from 'reducers';
 import ReactTooltip from 'react-tooltip';
+import modalActions from 'reducers/modal';
+
 // containers
 import { useCaptureRef } from 'hooks/useCaptureRef';
 
 // components
 import ApparationCard from 'components_v3/ApparationCard/index';
-
+import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 // utils
 import classNames from 'utils/classNames';
 
@@ -29,10 +32,13 @@ import classes from './theme.module.scss';
 interface IMapToProps {
   expertises: IExpertise[];
 }
-
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
 export type Step = 'activities_edit' | 'show' | 'expertise_edit' | 'edit_all';
 
-interface Props extends IMapToProps, ApiComponentProps<{ get: typeof getTheme }> {
+interface Props extends IMapToProps, IDispatchToProps, ApiComponentProps<{ get: typeof getTheme }> {
   id: string;
   step: Step;
   skill?: ISkillPopulated;
@@ -45,9 +51,12 @@ export interface ThemeRefObject {
 }
 
 const ThemeContainer = forwardRef(
-  ({
- id, get, skill, step, expertises, type,
-}: Props, ref?: Ref<ThemeRefObject>) => {
+  (
+    {
+ id, get, skill, step, expertises, type, openModal, closeModal,
+}: Props,
+    ref?: Ref<ThemeRefObject>,
+  ) => {
     function getActivities(): IActivity[] {
       if (!skill) return [];
       return skill.activities.map(activity => activity);
@@ -114,13 +123,19 @@ const ThemeContainer = forwardRef(
         <div className={classes.new_theme}>
           <div className={classes.new_theme_title}>
             <div className={classes.logoContainer}>
-              <img src={iconData || iconSkill} alt="logo" className={classes.logo} />
+              {type === 'personal' ? (
+                <img src={iconData || iconSkill} alt="logo" className={classes.logo} />
+              ) : null}
             </div>
 
             <span
-              style={{
-                color: iconDataColor || iconSkillcolor,
-              }}
+              style={
+                type === 'personal'
+                  ? {
+                      color: iconDataColor || iconSkillcolor,
+                    }
+                  : { color: 'black' }
+              }
             >
               {skill ? skill.theme.title : get.data.title}
             </span>
@@ -197,6 +212,15 @@ const ThemeContainer = forwardRef(
                       newCompetences.push({ ...expertise, value });
                     } else {
                       // show max 4 competences pop up
+                      openModal(
+                        <ConfirmModal
+                          onCloseModal={closeModal}
+                          confirme={closeModal}
+                          value={value}
+                          text="vous avez déja selectionné 4 compétences"
+                          isConfirm={false}
+                        />,
+                      );
                     }
                     competencesChange(newCompetences);
                   }
@@ -230,10 +254,14 @@ const ThemeContainer = forwardRef(
 const mapStateToProps = ({ expertises }: ReduxState): IMapToProps => ({
   expertises: expertises.data,
 });
-
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
   null,
   { forwardRef: true },
 )(withApis({ get: getTheme })(ThemeContainer));

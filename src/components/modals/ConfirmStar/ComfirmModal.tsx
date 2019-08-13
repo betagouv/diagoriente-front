@@ -1,29 +1,33 @@
-import React, { MouseEvent, useEffect } from 'react';
+import React from 'react';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+
 import Grid from '../../ui/Grid/Grid';
 
 import Button from '../../buttons/RoundButton/RoundButton';
-
 import classes from './confirm.module.scss';
 
 interface Props {
   onCloseModal: () => void;
-  confirme: () => void;
+  confirme: (value: number) => void;
   text?: string;
   isConfirm?: boolean;
   type?: string;
+  value: number;
 }
 type IProps = Props;
 
-const ConfirmModal = ({ onCloseModal, confirme, text, isConfirm, type }: IProps) => {
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
-    confirme();
+const ConfirmModal = ({
+ onCloseModal, confirme, text, isConfirm, type, value,
+}: IProps) => {
+  const onSubmit = () => {
+    confirme(value);
     onCloseModal();
   };
-  const onAnnule = (e: MouseEvent<HTMLButtonElement>) => {
+  const onAnnule = () => {
     onCloseModal();
   };
 
-  const ConfirmModal = isConfirm !== undefined ? isConfirm : true;
+  const ConfirmModals = isConfirm !== undefined ? isConfirm : true;
   return (
     <div className={classes.wrapperModal}>
       <div className={classes.container}>
@@ -34,22 +38,42 @@ const ConfirmModal = ({ onCloseModal, confirme, text, isConfirm, type }: IProps)
             </Grid>
             <Grid item xl={12}>
               <span className={type === 'professional' ? classes.title_pro : classes.title}>
-                {text ? text : 'Niveau max de la compétence, confirme ou réévalue'}
+                {text}
               </span>
             </Grid>
 
-            {ConfirmModal ? (
+            {ConfirmModals ? (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onSubmit} className={type === 'professional' ? classes.orangeBtn : classes.red_btn}>
-                  Confirmer
-                </Button>
-                <Button onClick={onAnnule} className={classes.rose_btn}>
-                  Annuler
-                </Button>
+                <MultiIcon
+                  type="remove"
+                  withText
+                  text="Annuler"
+                  width="37"
+                  left
+                  height="37"
+                  withBorder
+                  style={{ padding: 0 }}
+                  onClick={onCloseModal}
+                />
+                <MultiIcon
+                  type="validate"
+                  withText
+                  text="Confirmer"
+                  width="37"
+                  height="37"
+                  withBorder
+                  Iconcolor="#ff001f"
+                  textColor="#ff001f"
+                  style={{ padding: 0 }}
+                  onClick={onSubmit}
+                />
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onAnnule} className={type === 'professional' ? classes.orangeBtn : classes.red_btn}>
+                <Button
+                  onClick={onAnnule}
+                  className={type === 'professional' ? classes.orangeBtn : classes.red_btn}
+                >
                   OK
                 </Button>
               </Grid>

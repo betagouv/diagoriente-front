@@ -64,7 +64,7 @@ const CompetenceContainer = ({
   error,
   openModal,
   closeModal,
-  theme, /// check theme.type and change style if it's professional
+  theme, // / check theme.type and change style if it's professional
 }: Props) => {
   const [competences, competenceChange] = useState(currentThemeSkill.competences);
   const initialLength = useRef(skills.length);
@@ -73,9 +73,11 @@ const CompetenceContainer = ({
     list.call();
   });
 
-  const lastCompetence: React.MutableRefObject<null | { _id: string; currentIndex: number; value: number }> = useRef(
-    null,
-  );
+  const lastCompetence: React.MutableRefObject<null | {
+    _id: string;
+    currentIndex: number;
+    value: number;
+  }> = useRef(null);
 
   const onContinueClick = () => {
     parcoursRequest({
@@ -98,11 +100,11 @@ const CompetenceContainer = ({
       }
       initialLength.current = skills.length;
     }
-  },           [parcoursFetching]);
+  }, [parcoursFetching]);
 
   useDidUpdate(() => {
     competenceChange(currentThemeSkill.competences);
-  },           [match.params.id]);
+  }, [match.params.id]);
 
   const goBack = () => {
     history.replace({
@@ -158,14 +160,21 @@ const CompetenceContainer = ({
       const selected = current && current.value >= i;
       const onClick = () => {
         if (
-          !checkSlectedNumberCompetence(competences) ||
-          (competences[currentIndex] != undefined && competences[currentIndex].value > 0)
+          !checkSlectedNumberCompetence(competences)
+          || (competences[currentIndex] != undefined && competences[currentIndex].value > 0)
         ) {
           if (i === 4 && !selected) {
             // save last id
             lastCompetence.current = { currentIndex, _id: competence._id, value: i };
             // open modal
-            openModal(<ConfirmModal confirme={onConfirm} onCloseModal={closeModal} type={theme.type} />);
+            openModal(
+              <ConfirmModal
+                confirme={onConfirm}
+                onCloseModal={closeModal}
+                type={theme.type}
+                value={i}
+              />,
+            );
             return;
           }
 
@@ -186,13 +195,13 @@ const CompetenceContainer = ({
           openModal(
             <ConfirmModal
               confirme={onConfirm}
-              text={'Tu as déjà sélectionné 4 compétences pour cette expérience'}
+              text="Tu as déjà sélectionné 4 compétences pour cette expérience"
               onCloseModal={closeModal}
               isConfirm={false}
               type={theme.type}
+              value={i}
             />,
           );
-          return;
         }
       };
       buttons.push(
@@ -230,12 +239,18 @@ const CompetenceContainer = ({
   return (
     <Grid container padding={{ xl: 0 }} spacing={{ xl: 40, lg: 0 }} className={classes.container}>
       <Prompt
-        when={!isEqual(currentThemeSkill.competences, competences.filter(({ value }) => value !== 0))}
+        when={
+          !isEqual(currentThemeSkill.competences, competences.filter(({ value }) => value !== 0))
+        }
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
       <div className={classNames('colorful_bar', classes.bar_color)} />
       <Grid item xl={4} className={classes.experiences}>
-        <Experiences title="Mes activités" experience={currentThemeSkill.activities} OnClick={goBack} />
+        <Experiences
+          title="Mes activités"
+          experience={currentThemeSkill.activities}
+          OnClick={goBack}
+        />
       </Grid>
 
       <Grid item xl={8} lg={12} className={classes.list_stars}>
@@ -258,7 +273,7 @@ const CompetenceContainer = ({
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xl={12} className={'flex_center'}>
+      <Grid item xl={12} className="flex_center">
         <ContinueButton
           disabled={competences.filter(({ value }) => value !== 0).length === 0}
           onClick={onContinueClick}
@@ -271,7 +286,10 @@ const CompetenceContainer = ({
   );
 };
 
-const mapStateToProps = (state: ReduxState, { match }: RouteComponentProps<{ id: string }>): IMapToProps => ({
+const mapStateToProps = (
+  state: ReduxState,
+  { match }: RouteComponentProps<{ id: string }>,
+): IMapToProps => ({
   currentThemeSkill: currentThemeSelector(match.params.id)(state),
   skills: state.parcours.data.skills,
   parcoursFetching: state.parcours.fetching,

@@ -1,0 +1,53 @@
+@import "../../../styles/variables.scss";
+.container {
+  height: 200px;
+  background-color: $white;
+  border-radius: 10px;
+}
+.btn_container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+.btn {
+  padding: 10px 30px;
+  background-color:#808080;
+}
+.btnOut {
+  padding: 10px 30px;
+  background-color: #b82635;
+}
+.wrapperModal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.title_container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px; span {
+    color:  $darkblue;
+    text-align: center;
+  }
+}
+@media (max-width: map-get($breakpoints, "md" )) {
+  
+  .title_container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+
+    h3 {
+      color: $darkblue;
+      text-align: center;
+    }
+  }
+}

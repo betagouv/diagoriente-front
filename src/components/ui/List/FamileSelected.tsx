@@ -1,9 +1,8 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
 
-import classes from './famile.module.scss';
-import { useHover } from '../../../hooks';
-import classNames from '../../../utils/classNames';
 import { IFamille } from 'reducers';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import classes from './famile.module.scss';
 
 interface IProps {
   famile: {
@@ -22,52 +21,25 @@ interface IProps {
   handleDeleteClick: (famille: IFamille) => void;
 }
 
-const FamileSelected = ({ famile, index, handleDeleteClick }: any) => {
-  const [hover, onMouseOver, onMouseOut] = useHover(false);
-  const [hoverBtn, onMouseOverBtn, onMouseOutBtn] = useHover(false);
-
-  const deleteFamile = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-  };
+const FamileSelected = ({ famile, handleDeleteClick }: any) => {
   const clicKed = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     handleDeleteClick(famile);
   };
+  const familleTitle = famile.nom.split('/');
   return (
-    <div
-      className={classNames(classes.container, hoverBtn && classes.deleteHover)}
-      onMouseEnter={onMouseOver}
-      onMouseLeave={onMouseOut}
-    >
-      <div className={classes.logo_container}>
-        <div className={classes.logo_content}>
-          {famile.resources && (
-            <img
-              className={classes.logo}
-              src={`data:image/${famile.resources[0].mimetype};base64,${famile.resources[0].base64}`}
-            />
-          )}
-        </div>
-        <div className={classes.badge_container}>
-          <div className={classes.badge}>{index + 1}</div>
-        </div>
-      </div>
+    <div className={classes.container}>
       <div className={classes.description_container}>
-        <span>{famile.nom}</span>
+        {familleTitle.map((title: string) => (
+          <span style={{ display: 'inherit' }}>{title}</span>
+        ))}
       </div>
-      {hover && (
-        <div className={classes.delete_container} onMouseEnter={onMouseOverBtn} onMouseLeave={onMouseOutBtn}>
-          {hoverBtn ? (
-            <button className={classes.delete} onClick={clicKed}>
-              Je n’aime plus X
-            </button>
-          ) : (
-            <button className={classes.delete} onClick={deleteFamile}>
-              X
-            </button>
-          )}
-        </div>
-      )}
+
+      <div className={classes.delete_container}>
+        <button className={classes.delete} onClick={clicKed}>
+          <MultiIcon type="remove" width="20" height="20" Iconcolor="#ff001f" />
+        </button>
+      </div>
     </div>
   );
 };

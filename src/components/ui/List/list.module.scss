@@ -1,26 +1,25 @@
-@import "../../../styles/variables.scss";
+@import '../../../styles/variables.scss';
 
 .drag {
-  height: 110px;
+  height: 90px;
   border-radius: 10px;
-  margin: 5px;
+  margin: 35px 15px;
+
   &:focus {
     outline: none;
-  }
-  &:hover {
-    background: $white;
   }
 }
 .drag_on_drag {
   transform: scale(1.1);
-  background: $white;
   transition: transform 0.25s linear;
   width: 245px;
   height: 110px;
   border-radius: 10px;
   margin: 5px;
   cursor: pointer;
-  border: 5px solid $hover-badge;
+  &:focus {
+    outline: none;
+  }
 }
 .btn_container {
   display: flex;
@@ -29,12 +28,12 @@
 }
 .btn {
   background-image: none;
-  background:#ffba27 !important;
-  background-color:#ffba27 !important;
+  background: #ffba27 !important;
+  background-color: #ffba27 !important;
   padding: 10px 30px !important;
   &:hover {
     background-image: none;
-  background-color: #e3a928 !important;
+    background-color: #e3a928 !important;
   }
 }
 .disabled {
@@ -43,11 +42,23 @@
     background-color: $footer_color !important;
   }
 }
+.containerText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 30px;
+  margin-top: 30px;
+}
+
 .text_selection {
   font-family: Lato;
   font-size: 11px;
   font-weight: bold;
   line-height: 1.36;
   letter-spacing: 2.2px;
-  color: $footer_color;
+  color: $grey-blue;
+  margin-bottom: 5px;
+}
+.textStyle {
+  margin-bottom: 35px;
 }
