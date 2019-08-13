@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 import CountUp from 'react-countup';
+import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
+import modalActions from 'reducers/modal';
 import classes from './ApparationCard.module.scss';
 import classNames from '../../utils/classNames';
 import star from '../../assets/icons/stars/ic_star_full.svg';
 
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
 interface Props
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    IDispatchToProps {
   color?: string;
   taux?: number;
   title: string;
@@ -27,10 +36,22 @@ const ApparationCard = ({
   state,
   clickHandler,
   withDots,
+  openModal,
+  closeModal,
 }: Props) => {
   function onChange(value: number) {
     if (clickHandler) {
-      clickHandler(value);
+      if (value !== 4) {
+        clickHandler(value);
+      } else {
+        openModal(
+          <ConfirmModal
+            onCloseModal={closeModal}
+            confirme={() => clickHandler(value)}
+            value={value}
+          />,
+        );
+      }
     }
   }
 
@@ -94,4 +115,13 @@ const ApparationCard = ({
     </div>
   );
 };
-export default ApparationCard;
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ApparationCard);

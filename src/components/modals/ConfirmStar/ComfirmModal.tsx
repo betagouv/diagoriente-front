@@ -7,18 +7,19 @@ import classes from './confirm.module.scss';
 
 interface Props {
   onCloseModal: () => void;
-  confirme: () => void;
+  confirme: (value: number) => void;
   text?: string;
   isConfirm?: boolean;
   type?: string;
+  value: number;
 }
 type IProps = Props;
 
 const ConfirmModal = ({
- onCloseModal, confirme, text, isConfirm, type,
+ onCloseModal, confirme, text, isConfirm, type, value,
 }: IProps) => {
   const onSubmit = () => {
-    confirme();
+    confirme(value);
     onCloseModal();
   };
   const onAnnule = () => {
