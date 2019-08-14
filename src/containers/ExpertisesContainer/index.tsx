@@ -102,8 +102,26 @@ const ExpertisesContainer = forwardRef(
       CompetencesCopy[index].value = value;
       setCompetences(CompetencesCopy);
     }
-    function DoNothing(value: number, index: number) {}
-
+    function DoNothing() {}
+    function RenderDescription(item: any, index:number):any {
+      if (item.value > 0) {
+       return (
+         <span className={classes.info}>
+           {expertises[index].niveau[item.value - 1].title}
+         </span>
+      )
+      } if (item.taux > 0) {
+return (
+  <div className={classes.info}>
+    <img src={warning} alt="warning" className={classes.warningIcon} />
+    <span style={{ color: 'red' }}>La competences n'est pas encore graduée</span>
+  </div>
+)
+      }
+return (
+     <div className={classes.info} />
+   );
+      }
     return (
       <div className={classes.Container}>
         <div className={classes.Header}>
@@ -132,7 +150,7 @@ const ExpertisesContainer = forwardRef(
                   taux={item.taux}
                   title={item.title}
                   withProgressBar
-                  clickHandler={handleOpen}
+                  clickHandler={item.taux ? handleOpen : DoNothing}
                   active={progressActive[index]}
                   index={index}
                   style={{ width: '300px' }}
@@ -146,18 +164,7 @@ const ExpertisesContainer = forwardRef(
                   index={index}
                   handleChangeValue={item.taux ? handleChangeValue : DoNothing}
                 />
-                {item.value > 0 ? (
-                  <span className={classes.info}>
-                    {expertises[index].niveau[item.value - 1].title}
-                  </span>
-                ) : item.taux > 0 ? (
-                  <div className={classes.info}>
-                    <img src={warning} alt="warning" className={classes.warningIcon} />
-                    <span style={{ color: 'red' }}>La competences n'est pas encore graduée</span>
-                  </div>
-                ) : (
-                  <div className={classes.info} />
-                )}
+                {RenderDescription(item, index)}
               </div>
               {progressActive[index] && expertises && (
                 <div className={classes.themesGroupe}>
