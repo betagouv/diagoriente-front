@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 .progress_competence {
   display: flex;
   height: 10px;
@@ -24,6 +24,7 @@
 .wrapper {
   position: relative;
   display: flex;
+  /* align-self: self-start; */
 }
 
 .dots {

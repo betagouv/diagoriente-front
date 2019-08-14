@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 import CountUp from 'react-countup';
+import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
+import modalActions from 'reducers/modal';
 import classes from './ApparationCard.module.scss';
 import classNames from '../../utils/classNames';
 import star from '../../assets/icons/stars/ic_star_full.svg';
 
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
 interface Props
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    IDispatchToProps {
   color?: string;
   taux?: number;
   title: string;
@@ -15,6 +24,8 @@ interface Props
   state?: number;
   clickHandler?: (value: number) => void;
   withDots?: boolean;
+  active?: boolean;
+  index?: number;
 }
 
 const ApparationCard = ({
@@ -27,10 +38,30 @@ const ApparationCard = ({
   state,
   clickHandler,
   withDots,
-}: Props) => {
+  active,
+  index,
+  className,
+  children,
+  openModal,
+  closeModal,
+  ...other
+  
+}: Props & React.HTMLAttributes<HTMLElement>) => {
+
   function onChange(value: number) {
     if (clickHandler) {
-      clickHandler(value);
+      if (value !== 4) {
+        clickHandler(value);
+      } else {
+        openModal(
+          <ConfirmModal
+            onCloseModal={closeModal}
+            confirme={() => clickHandler(value)}
+            value={value}
+            text="Niveau max de la compétence, confirme ou réévalue"
+          />,
+        );
+      }
     }
   }
 
@@ -51,13 +82,13 @@ const ApparationCard = ({
 
   return (
     <div className={classes.CardContainer}>
-      {withProgressBar && clickHandler && (
+      {withProgressBar && clickHandler && (index || index === 0) && (
         <div
           className={classNames(
             classes.Triangle,
-            state ? classes.RotateTriangleTop : classes.RotateTriangleBottom,
+            active ? classes.RotateTriangleTop : classes.RotateTriangleBottom,
           )}
-          onClick={() => onChange(5 - (state as number))}
+          onClick={() => clickHandler(index)}
           style={{ borderColor: `transparent transparent transparent ${color}` }}
         />
       )}
@@ -68,7 +99,7 @@ const ApparationCard = ({
           onChange={() => onChange(5 - (state as number))}
         />
       )}
-      <div className={classes.CardApp}>
+      <div className={classes.CardApp} {...other}>
         <div className={classes.etiquette} style={{ backgroundColor: color }} />
         <div className={classes.restCard}>
           {withProgressBar && <div className={classes.progress} style={{ width: `${taux}%` }} />}
@@ -81,17 +112,24 @@ const ApparationCard = ({
           {withProgressBar && (
             <span className={classes.taux} style={{ color }}>
               <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
+              %
             </span>
           )}
         </div>
-        {withProgressBar && (
-          <span className={classes.taux} style={{ color }}>
-            <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
-          </span>
-        )}
+     
       </div>
       <div className={classes.dotsContainer}>{dots}</div>
     </div>
   );
 };
-export default ApparationCard;
+
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ApparationCard);

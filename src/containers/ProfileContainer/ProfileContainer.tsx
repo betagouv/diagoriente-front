@@ -28,6 +28,8 @@ import SkillsContainer from '../SkillsContainer/SkillsContainer';
 import GameContainer from 'containers/GameContainer/GameContainer';
 import CarteContainer from 'containers/CarteContainer/CarteContainer';
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
+import ExpertisesContainer from '../ExpertisesContainer';
+
 interface ParcoursParams {
   completed?: boolean;
   createdAt?: string;
@@ -153,6 +155,34 @@ const ProfileContainer = ({ match }: Props) => {
                         type="validate"
                         withText
                         text="VALIDER"
+                        width="35"
+                        footer
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'valider',
+                  },
+                ]}
+              />
+            )}
+          />
+          <Route
+            path="/profile/intermediate"
+            exact
+            render={props => (
+              <ExpertisesContainer
+                title="GRADUE TES COMPÉTENCES PERSONNELLES"
+                {...props}
+                type="professional"
+                footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="validate"
+                        withText
+                        text="valider"
                         width="35"
                         footer
                         height="35"

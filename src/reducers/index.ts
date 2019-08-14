@@ -132,7 +132,8 @@ export interface IExpertise {
   title: string;
   rank: string;
   niveau: [{ title: string; sub_title?: string }];
-  color: string
+  color: string;
+  themes: string[];
 }
 
 export type ReduxState = {
