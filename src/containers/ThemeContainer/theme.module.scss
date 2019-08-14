@@ -76,6 +76,7 @@
   color: #003189 !important;
   background-color: $white !important;
   box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  width: 250px;
   &.place-right {
     &:after {
       border-right-color: $white !important;
@@ -83,4 +84,11 @@
       border-right-width: 6px !important;
     }
   }
+}
+.containerSpinner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center
 }

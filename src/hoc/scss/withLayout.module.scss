@@ -2,7 +2,7 @@
 @import "../../styles/variables";
 
 $title_height: 40px;
-$footer_height: 60px;
+$footer_height: 55px;
 
 /** ---variables--- **/
 
@@ -69,6 +69,7 @@ $footer_height: 60px;
   left: 0;
   width: 100vw;
   padding-left: $sidebar_width;
+  z-index: 9999;
 }
 
 .footer_button {
