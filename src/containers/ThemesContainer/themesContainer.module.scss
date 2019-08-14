@@ -27,7 +27,7 @@
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 0;
+  margin: 25px 0;
   @media (max-width: map-get($breakpoints , 'md' )) {
     justify-content: center;
   }
