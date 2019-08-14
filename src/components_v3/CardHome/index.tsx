@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './CardHome.module.scss';
+
 interface Props {
   icon: string;
   description: string;

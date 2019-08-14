@@ -9,7 +9,7 @@ import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
-import Header from '../../components_v3/Header/Header';
+import Header from '../../components_v3/Header/Header'
 // containers
 
 import ThemesContainer from '../ThemesContainer/ThemesContainer';
@@ -25,9 +25,6 @@ import ParcoursActions from '../../reducers/parcours';
 // css
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
-import GameContainer from 'containers/GameContainer/GameContainer';
-import CarteContainer from 'containers/CarteContainer/CarteContainer';
-import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import ExpertisesContainer from '../ExpertisesContainer';
 
 interface ParcoursParams {

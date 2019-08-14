@@ -177,7 +177,7 @@ const SkillsContainer = forwardRef(
                     <GraduationLevel
                       level={currentSkill && currentSkill.value}
                       color={currentSkill && currentSkill.color}
-                      index={0}
+                      index={1}
                     />
                   </div>
                 );
