@@ -6,14 +6,12 @@ import classNames from 'utils/classNames';
 import { IFamille } from 'reducers';
 import FamileSelected from './FamileSelected';
 import classes from './list.module.scss';
-import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
 
 interface IProps {
   renderPlaceholder: () => void;
-  onSubmit?: () => void;
   onDragEnd: (result: any) => void;
   famileSelected: IFamille[];
-  handleDeleteClick: (famille: IFamille) => void;
+  handleDeleteClick: (id: number) => void;
   disable: number;
   fetching?: boolean;
   fetchingFamille?: boolean;
@@ -24,17 +22,16 @@ interface IProps {
 const List = ({
   renderPlaceholder,
   renderAllPlaceholder,
-  onSubmit,
   onDragEnd,
   famileSelected,
   handleDeleteClick,
-  disable,
-  fetching,
   fetchingFamille,
 }: IProps) => (
   <div style={{ width: '100%' }}>
     <div className={classes.containerText}>
-      <span className={classNames(classes.text_selection,fetchingFamille && classes.textStyle )}>MA SELECTION</span>
+      <span className={classNames(classes.text_selection, fetchingFamille && classes.textStyle)}>
+        MA SELECTION
+      </span>
     </div>
 
     {famileSelected && (
@@ -59,7 +56,7 @@ const List = ({
                         <FamileSelected
                           famile={item}
                           index={index}
-                          handleDeleteClick={handleDeleteClick}
+                          handleDeleteClick={() => handleDeleteClick(index)}
                         />
                       </div>
                     </div>
@@ -74,17 +71,6 @@ const List = ({
     )}
     {!fetchingFamille && renderPlaceholder()}
     {fetchingFamille && renderAllPlaceholder()}
-    {!fetchingFamille && (
-      <div className={classes.btn_container}>
-        <ContinueButton
-          onClick={onSubmit}
-          className={classNames(classes.btn, disable === 0 && classes.disabled)}
-          disabled={disable === 0}
-          isFetching={fetching}
-          label="VOIR LES METIERS"
-        />
-      </div>
-    )}
   </div>
 );
 

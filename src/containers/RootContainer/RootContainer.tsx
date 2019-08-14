@@ -90,7 +90,6 @@ const RootContainer = ({
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
-
           <Route component={NotFound} />
         </Switch>
         <Modal {...modal} />

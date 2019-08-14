@@ -15,7 +15,6 @@ import ApparationCard from '../../components_v3/ApparationCard';
 import warning from '../../assets/icons/warning.svg';
 import GraduationLevel from '../../components_v3/GraduationLevel';
 
-
 interface CompetencesValue {
   _id: string;
   value: number;
@@ -62,7 +61,7 @@ const ExpertisesContainer = forwardRef(
       return function () {
         history.push(route);
       };
-    }  
+    }
     function HandleSubmit() {
       const CompetencesValue: CompetencesValue[] = [];
       let validateSubmit: boolean = true;
@@ -79,11 +78,8 @@ const ExpertisesContainer = forwardRef(
         });
         updateParcoursCompetences(parcours._id, CompetencesValue);
         history.push('/profile/pro');
-
       }
-  
     }
-  
 
     function onFooterClick(button: string) {
       if (button === 'valider') {
@@ -92,7 +88,7 @@ const ExpertisesContainer = forwardRef(
       }
     }
     useCaptureRef({ onFooterClick }, ref);
-  
+
     function handleOpen(index: number) {
       const progress = [false, false, false, false, false, false, false, false, false, false];
       if (!progressActive[index]) {

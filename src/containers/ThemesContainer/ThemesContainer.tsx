@@ -183,7 +183,7 @@ const ThemesContainer = forwardRef(
           openModal(
             <InvalidModal
               onCloseModal={closeModal}
-              text="activities must at least select one activity"
+              text="Il faut au moins choisir une activité"
             />,
           );
         } else {
@@ -314,7 +314,7 @@ const ThemesContainer = forwardRef(
       <Fragment>
         <Prompt
           when={!isEqual(skills.map(skillWithoutId), currentSkills.map(skillWithoutId))}
-          message="changes will be lost"
+          message="les changements seront perdus"
         />
 
         <div className={classes.container}>
