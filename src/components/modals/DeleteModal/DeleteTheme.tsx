@@ -25,7 +25,6 @@ const DeleteModal = ({ onDelete, onCloseModal }: IProps) => {
             withText
             text="annuler"
             width="37"
-            left
             height="37"
             withBorder
             style={{ padding: 0 }}
