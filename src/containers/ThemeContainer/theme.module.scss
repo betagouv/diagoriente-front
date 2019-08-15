@@ -37,6 +37,14 @@
   justify-content: center;
   padding-left: 30px;
 }
+.fullNewThemeActivities {
+  width: 85%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 30px;
+}
 
 .new_theme_skills {
   width: 42.5%;
@@ -59,6 +67,9 @@
   padding-left: 5px;
     text-indent: -15px;
 
+}
+.titleFont {
+  font-size: 13px;
 }
 
 .activities_selected {

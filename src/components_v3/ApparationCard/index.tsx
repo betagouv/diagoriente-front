@@ -45,9 +45,7 @@ const ApparationCard = ({
   openModal,
   closeModal,
   ...other
-  
 }: Props & React.HTMLAttributes<HTMLElement>) => {
-
   function onChange(value: number) {
     if (clickHandler) {
       if (value !== 4) {
@@ -74,7 +72,7 @@ const ApparationCard = ({
           onClick={() => onChange(state === i + 1 ? 0 : i + 1)}
           key={i}
           className={classNames(classes.dot, state === i + 1 && classes.dot_selected)}
-          style={state === i + 1 ? { background: color, border: 'none' } : {}}
+          style={state && state >= i + 1 ? { background: color, border: 'none' } : {}}
         />,
       );
     }
@@ -104,7 +102,10 @@ const ApparationCard = ({
         <div className={classes.restCard}>
           {withProgressBar && <div className={classes.progress} style={{ width: `${taux}%` }} />}
           <div className={classes.contentContainer}>
-            <span className={classes.title} style={{ color: favori ? '#ffd700' : '#696b6d' }}>
+            <span
+              className={classNames(classes.title, className)}
+              style={{ color: favori ? '#ffd700' : '#696b6d' }}
+            >
               {title}
             </span>
             {favori && <img src={star} alt="star" className={classes.star} />}
@@ -112,17 +113,15 @@ const ApparationCard = ({
           {withProgressBar && (
             <span className={classes.taux} style={{ color }}>
               <CountUp start={0} end={taux} duration={1.4} delay={0.1} />
-              %
+%
             </span>
           )}
         </div>
-     
       </div>
       <div className={classes.dotsContainer}>{dots}</div>
     </div>
   );
 };
-
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   openModal: (children, backdropClassName) =>

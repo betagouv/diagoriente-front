@@ -141,7 +141,15 @@ const ThemeContainer = forwardRef(
               {skill ? skill.theme.title : get.data.title}
             </span>
           </div>
-          <div className={classes.new_theme_activities}>
+          <div
+            className={
+              isActivityEdit && isExpertiseEdit
+                ? classes.new_theme_activities
+                : isActivityEdit
+                ? classes.fullNewThemeActivities
+                : classes.new_theme_activities
+            }
+          >
             {!activitiesArray ? (
               <div className={classes.containerSpinner}>
                 <Spinner />
@@ -247,6 +255,7 @@ const ThemeContainer = forwardRef(
                       title={expertise.title}
                       state={selected ? competences[index].value : 0}
                       clickHandler={onChange}
+                      className={classes.titleFont}
                     />
                   </div>
                 );
