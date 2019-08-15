@@ -181,10 +181,7 @@ const ThemesContainer = forwardRef(
 
         if (newSkill && newSkill.activities.length === 0) {
           openModal(
-            <InvalidModal
-              onCloseModal={closeModal}
-              text="Il faut au moins choisir une activité"
-            />,
+            <InvalidModal onCloseModal={closeModal} text="Il faut au moins choisir une activité" />,
           );
         } else {
           stepChange('expertise_edit');
@@ -351,7 +348,7 @@ const ThemesContainer = forwardRef(
                 <Card
                   close={{ onClick: onClose }}
                   edit={{ onClick: onEdit }}
-                  selected={step === null}
+                  selected={selectedTheme === theme._id}
                   key={theme._id}
                   className={classes.themes}
                 >
