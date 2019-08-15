@@ -25,6 +25,7 @@ import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
 import classes from './skills.module.scss';
+import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 
 interface MapToProps {
   parcours: IParcoursResponse;
@@ -184,7 +185,7 @@ const SkillsContainer = forwardRef(
                     <GraduationLevel
                       level={currentSkill && currentSkill.value}
                       color={currentSkill && currentSkill.color}
-                      index={0}
+                      index={1}
                     />
                   </div>
                 );

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {
- map, forEach, filter, isEmpty,
-} from 'lodash';
+import { forEach, filter, isEmpty } from 'lodash';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import { ReduxState } from 'reducers';
+import withLayout from 'hoc/withLayout';
+
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
   getMyJob,
@@ -18,7 +18,6 @@ import {
 } from '../../requests';
 import { useDidMount, useDidUpdate } from '../../hooks';
 import Grid from '../../components/ui/Grid/Grid';
-import JobCard from '../../components/cards/JobCard/JobCard';
 import Spinner from '../../components/ui/Spinner/Spinner';
 import Info from '../../components/ui/Info/Info';
 import classes from './jobsContainer.module.scss';
@@ -242,5 +241,5 @@ export default connect(mapStateToProps)(
     deleteFavorites,
     listJobs: getMyJob,
     addFavorites: createFavorites,
-  })(JobsContainer),
+  })(withLayout(JobsContainer)),
 );

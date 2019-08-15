@@ -15,11 +15,11 @@
   background-color: #f1f1f1;
   width: 100%;
   color: blue;
-  padding: 20px calc(#{$profile_horizontal_padding} * 1.2);
+  padding: 20px 7vw;
 }
 
 .themes_container {
-  padding: 20px calc(#{$profile_horizontal_padding} * 1.2);
+  padding: 20px 7vw;
   width: 100%;
 }
 
@@ -27,7 +27,7 @@
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 0;
+  margin: 25px 0;
   @media (max-width: map-get($breakpoints , 'md' )) {
     justify-content: center;
   }

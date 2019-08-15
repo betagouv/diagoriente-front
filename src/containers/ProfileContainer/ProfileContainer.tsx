@@ -8,8 +8,11 @@ import { Dispatch, AnyAction } from 'redux';
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
+import GameContainer from 'containers/GameContainer/GameContainer';
+import CarteContainer from 'containers/CarteContainer/CarteContainer';
+import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
-import Header from '../../components_v3/Header/Header';
+import Header from '../../components_v3/Header/Header'
 // containers
 
 import ThemesContainer from '../ThemesContainer/ThemesContainer';
@@ -25,9 +28,6 @@ import ParcoursActions from '../../reducers/parcours';
 // css
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
-import GameContainer from 'containers/GameContainer/GameContainer';
-import CarteContainer from 'containers/CarteContainer/CarteContainer';
-import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import ExpertisesContainer from '../ExpertisesContainer';
 
 interface ParcoursParams {
@@ -64,7 +64,7 @@ const ProfileContainer = ({ match }: Props) => {
 
   return (
     <Fragment>
-      <Header HeaderProfile />
+      <Header HeaderProfile showLogout />
 
       <div className={classes.sidebar_container}>
         <SideBar />
@@ -130,8 +130,8 @@ const ProfileContainer = ({ match }: Props) => {
                         text="VALIDER"
                         width="35"
                         height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
+                        textColor="#ffba27"
+                        Iconcolor="#ffba27"
                       />
                     ),
                     key: 'valider',
@@ -158,8 +158,8 @@ const ProfileContainer = ({ match }: Props) => {
                         width="35"
                         footer
                         height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
+                        textColor="#ffba27"
+                        Iconcolor="#ffba27"
                       />
                     ),
                     key: 'valider',
@@ -186,8 +186,8 @@ const ProfileContainer = ({ match }: Props) => {
                         width="35"
                         footer
                         height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
+                        textColor="#ffba27"
+                        Iconcolor="#ffba27"
                       />
                     ),
                     key: 'valider',
@@ -201,7 +201,34 @@ const ProfileContainer = ({ match }: Props) => {
             exact
             render={props => (
               <FavorisContainer
+                {...props}
                 title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
+                footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="validate"
+                        withText
+                        text="VALIDER"
+                        width="35"
+                        footer
+                        height="35"
+                        textColor="#ffba27"
+                        Iconcolor="#ffba27"
+                      />
+                    ),
+                    key: 'valider',
+                  },
+                ]}
+              />
+            )}
+          />
+          <Route
+            path="/profile/jobs"
+            exact
+            render={props => (
+              <JobsContainer
+                title="DÉCOUVRE ET AJOUTE LES MÉTIERS QUI T’INTÉRESSENT"
                 {...props}
                 footerButtons={[
                   {
@@ -213,8 +240,8 @@ const ProfileContainer = ({ match }: Props) => {
                         width="35"
                         footer
                         height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
+                        textColor="#ffba27"
+                        Iconcolor="#ffba27"
                       />
                     ),
                     key: 'valider',

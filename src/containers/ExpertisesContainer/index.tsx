@@ -15,7 +15,6 @@ import ApparationCard from '../../components_v3/ApparationCard';
 import warning from '../../assets/icons/warning.svg';
 import GraduationLevel from '../../components_v3/GraduationLevel';
 
-
 interface CompetencesValue {
   _id: string;
   value: number;
@@ -62,7 +61,7 @@ const ExpertisesContainer = forwardRef(
       return function () {
         history.push(route);
       };
-    }  
+    }
     function HandleSubmit() {
       const CompetencesValue: CompetencesValue[] = [];
       let validateSubmit: boolean = true;
@@ -79,11 +78,8 @@ const ExpertisesContainer = forwardRef(
         });
         updateParcoursCompetences(parcours._id, CompetencesValue);
         history.push('/profile/pro');
-
       }
-  
     }
-  
 
     function onFooterClick(button: string) {
       if (button === 'valider') {
@@ -92,7 +88,7 @@ const ExpertisesContainer = forwardRef(
       }
     }
     useCaptureRef({ onFooterClick }, ref);
-  
+
     function handleOpen(index: number) {
       const progress = [false, false, false, false, false, false, false, false, false, false];
       if (!progressActive[index]) {
@@ -106,8 +102,26 @@ const ExpertisesContainer = forwardRef(
       CompetencesCopy[index].value = value;
       setCompetences(CompetencesCopy);
     }
-    function DoNothing(value: number, index: number) {}
-
+    function DoNothing() {}
+    function RenderDescription(item: any, index:number):any {
+      if (item.value > 0) {
+       return (
+         <span className={classes.info}>
+           {expertises[index].niveau[item.value - 1].title}
+         </span>
+      )
+      } if (item.taux > 0) {
+return (
+  <div className={classes.info}>
+    <img src={warning} alt="warning" className={classes.warningIcon} />
+    <span style={{ color: 'red' }}>La competences n'est pas encore graduée</span>
+  </div>
+)
+      }
+return (
+     <div className={classes.info} />
+   );
+      }
     return (
       <div className={classes.Container}>
         <div className={classes.Header}>
@@ -136,7 +150,7 @@ const ExpertisesContainer = forwardRef(
                   taux={item.taux}
                   title={item.title}
                   withProgressBar
-                  clickHandler={handleOpen}
+                  clickHandler={item.taux ? handleOpen : DoNothing}
                   active={progressActive[index]}
                   index={index}
                   style={{ width: '300px' }}
@@ -150,18 +164,7 @@ const ExpertisesContainer = forwardRef(
                   index={index}
                   handleChangeValue={item.taux ? handleChangeValue : DoNothing}
                 />
-                {item.value > 0 ? (
-                  <span className={classes.info}>
-                    {expertises[index].niveau[item.value - 1].title}
-                  </span>
-                ) : item.taux > 0 ? (
-                  <div className={classes.info}>
-                    <img src={warning} alt="warning" className={classes.warningIcon} />
-                    <span style={{ color: 'red' }}>La competences n'est pas encore graduée</span>
-                  </div>
-                ) : (
-                  <div className={classes.info} />
-                )}
+                {RenderDescription(item, index)}
               </div>
               {progressActive[index] && expertises && (
                 <div className={classes.themesGroupe}>

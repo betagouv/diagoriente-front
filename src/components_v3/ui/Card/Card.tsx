@@ -18,10 +18,10 @@ const Card = ({
     <div {...close} className={classNames(classes.delete)}>
       <MultiIcon type="remove" width="40" height="40" Iconcolor="#ff001f" />
     </div>
-    <div {...edit} className={selected ? classes.edit : classes.hideButton}>
+    <div {...edit} className={!selected ? classes.edit : classes.hideButton}>
       <MultiIcon type="edit" width="40" height="40" Iconcolor="#7992BF" />
     </div>
-    <div {...edit} className={!selected ? classes.editAdd : classes.hideButton}>
+    <div {...edit} className={selected ? classes.editAdd : classes.hideButton}>
       <MultiIcon type="validate" width="40" height="40" Iconcolor="#ffc107" />
     </div>
   </div>
