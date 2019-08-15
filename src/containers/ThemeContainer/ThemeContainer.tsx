@@ -17,6 +17,7 @@ import { useCaptureRef } from 'hooks/useCaptureRef';
 // components
 import ApparationCard from 'components_v3/ApparationCard/index';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
+import Spinner from 'components_v3/ui/Spinner/Spinner';
 // utils
 import classNames from 'utils/classNames';
 
@@ -140,57 +141,71 @@ const ThemeContainer = forwardRef(
               {skill ? skill.theme.title : get.data.title}
             </span>
           </div>
-          <div className={classes.new_theme_activities}>
-            {map(activitiesArray, activity => {
-              const { index, selected } = getSelected(
-                activities,
-                ({ _id }) => activity._id === _id,
-              );
+          <div
+            className={
+              isActivityEdit && isExpertiseEdit
+                ? classes.new_theme_activities
+                : isActivityEdit
+                ? classes.fullNewThemeActivities
+                : classes.new_theme_activities
+            }
+          >
+            {!activitiesArray ? (
+              <div className={classes.containerSpinner}>
+                <Spinner />
+              </div>
+            ) : (
+              map(activitiesArray, activity => {
+                const { index, selected } = getSelected(
+                  activities,
+                  ({ _id }) => activity._id === _id,
+                );
 
-              const onClick = () => {
-                if (isActivityEdit) {
-                  const nextActivities = [...activities];
-                  if (selected) {
-                    nextActivities.splice(index, 1);
-                  } else {
-                    nextActivities.push(activity);
+                const onClick = () => {
+                  if (isActivityEdit) {
+                    const nextActivities = [...activities];
+                    if (selected) {
+                      nextActivities.splice(index, 1);
+                    } else {
+                      nextActivities.push(activity);
+                    }
+                    activitiesChange(nextActivities);
                   }
-                  activitiesChange(nextActivities);
-                }
-              };
+                };
 
-              return (
-                <div
-                  data-tip
-                  data-for={activity._id}
-                  onClick={onClick}
-                  className={classNames(
-                    classes.activities,
-                    selected && classes.activities_selected,
-                  )}
-                  key={activity._id}
-                >
-                  {!isActivityEdit ? (
-                    <li className={classes.title_activity}>
-                      <span>{activity.title}</span>
-                    </li>
-                  ) : (
-                    <div className={classes.activityCheck}>
-                      <input type="checkbox" checked={selected} className={classes.chekboxAct} />
-                      <span className={classes.title_activity}>{activity.title}</span>
-                    </div>
-                  )}
-                  <ReactTooltip
-                    id={activity._id}
-                    place="right"
-                    type="light"
-                    className={classes.tooltip}
+                return (
+                  <div
+                    data-tip
+                    data-for={activity._id}
+                    onClick={onClick}
+                    className={classNames(
+                      classes.activities,
+                      selected && classes.activities_selected,
+                    )}
+                    key={activity._id}
                   >
-                    {activity.title}
-                  </ReactTooltip>
-                </div>
-              );
-            })}
+                    {!isActivityEdit ? (
+                      <li className={classes.title_activity}>
+                        <span>{activity.title}</span>
+                      </li>
+                    ) : (
+                      <div className={classes.activityCheck}>
+                        <input type="checkbox" checked={selected} className={classes.chekboxAct} />
+                        <span className={classes.title_activity}>{activity.title}</span>
+                      </div>
+                    )}
+                    <ReactTooltip
+                      id={activity._id}
+                      place="right"
+                      type="light"
+                      className={classes.tooltip}
+                    >
+                      {activity.title}
+                    </ReactTooltip>
+                  </div>
+                );
+              })
+            )}
           </div>
           <div className={classes.new_theme_skills}>
             {step !== 'activities_edit'
@@ -240,6 +255,7 @@ const ThemeContainer = forwardRef(
                       title={expertise.title}
                       state={selected ? competences[index].value : 0}
                       clickHandler={onChange}
+                      className={classes.titleFont}
                     />
                   </div>
                 );

@@ -6,44 +6,44 @@ interface Props {
   width: string;
 }
 
-const Remove = ({ color = '#7992BF', width, height }: Props) => {
-  return (
-    <svg
-      fill={color}
-      id="Capa_1"
-      x="0px"
-      y="0px"
-      width={width}
-      height={height}
-      viewBox="0 0 54 54"
-      enableBackground="new 0 0 54 54"
-    >
-      <g>
-        <path
-          fill="#FFFFFF"
-          d="M49.7,27c0,12.5-10.2,22.6-22.6,22.6C14.5,49.7,4.4,39.5,4.4,27C4.4,14.5,14.5,4.4,27,4.4
-		C39.5,4.4,49.7,14.5,49.7,27z"
-        />
-        <path
-          fill={color}
-          d="M27,0C12.1,0,0,12.1,0,27s12.1,27,27,27c14.9,0,27-12.1,27-27S41.9,0,27,0z M27,49.7
-		C14.5,49.7,4.4,39.5,4.4,27C4.4,14.5,14.5,4.4,27,4.4c12.5,0,22.6,10.2,22.6,22.6C49.7,39.5,39.5,49.7,27,49.7z"
-        />
-        <g>
-          <g>
-            <text
-              transform="matrix(1 0 0 1 16.173 39.1049)"
-              fill={color}
-              fontWeight="bold"
-              //fontFamily="'Nunito-Bold'"
-              fontSize="31.2717"
-            >
-              X
-            </text>
-          </g>
-        </g>
-      </g>
-    </svg>
+const Remove = ({ color = '#7992BF', width, height }: Props) => (
+  <svg
+    fill={color}
+    id="Capa_1"
+    x="0px"
+    y="0px"
+    width={width}
+    height={height}
+    viewBox="0 0 54 54"
+    enableBackground="new 0 0 54 54"
+  >
+    <g id="EXP_PERSO" data-name="EXP PERSO">
+      <circle cx="27.02" cy="27.02" r="24.83" fill="#fff" />
+      <path
+        d="M27,54A27,27,0,1,1,54,27,27.05,27.05,0,0,1,27,54ZM27,4.38A22.64,22.64,0,1,0,49.66,27,22.67,22.67,0,0,0,27,4.38Z"
+        fill={color}
+      />
+      <rect
+        x="25.27"
+        y="15.95"
+        width="3.5"
+        height="22.15"
+        rx="1.75"
+        ry="1.75"
+        transform="translate(27.02 -11.19) rotate(45)"
+        fill={color}
+      />
+      <rect
+        x="25.27"
+        y="15.95"
+        width="3.5"
+        height="22.15"
+        rx="1.75"
+        ry="1.75"
+        transform="translate(65.24 27.02) rotate(135)"
+        fill={color}
+      />
+    </g>
+  </svg>
   );
-};
 export default Remove;

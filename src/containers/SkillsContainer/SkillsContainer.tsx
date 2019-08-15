@@ -1,10 +1,13 @@
 import React, { Ref, forwardRef, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
+import { find, isEmpty } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
+
 import {
- ReduxState, IParcoursResponse, IExpertise, IUser,
+  ReduxState, IParcoursResponse, IExpertise, IUser,
 } from 'reducers';
+
+import { pdf2 } from '../../utils/pdf';
 
 import withLayout from 'hoc/withLayout';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
@@ -19,6 +22,7 @@ import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
 import classes from './skills.module.scss';
+import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 
 interface MapToProps {
   parcours: IParcoursResponse;
@@ -28,25 +32,28 @@ interface MapToProps {
 
 interface Props
   extends RouteComponentProps,
-    MapToProps,
-    ApiComponentProps<{ get: typeof getParcours }> {}
+  MapToProps,
+  ApiComponentProps<{ get: typeof getParcours }> { }
 
 interface RefProp {
   onFooterClick(button: string): void;
 }
 const SkillsContainer = forwardRef(
   ({
- parcours, get, history, expertises, user,
-}: Props, ref: Ref<RefProp>) => {
+    parcours, get, history, expertises, user,
+  }: Props, ref: Ref<RefProp>) => {
     useDidMount(() => {
       get.call(parcours._id);
     });
-    function onFooterClick(button: string) {
-      if (button === 'download') {
-        // download pdf
-      }
-      if (button === 'print') {
-        // print
+    async function onFooterClick(button: string) {
+      if (!isEmpty(get.data) && !isEmpty(parcours)) {
+        if (button === 'download') {
+          const div = document.getElementsByClassName(classes.container)[0];
+          pdf2(parcours, get, user);
+        }
+        if (button === 'print') {
+          pdf2(parcours, get, user, true);
+        }
       }
     }
 
@@ -56,7 +63,6 @@ const SkillsContainer = forwardRef(
         history.push(route);
       };
     }
-
     return (
       <div className={classes.container}>
         <div className={classes.card}>
@@ -90,28 +96,28 @@ const SkillsContainer = forwardRef(
                     className={classes.multiOverride}
                   />
                 ) : (
-                  <Fragment>
-                    <div className={classes.themesContainer}>
-                      {parcours.skills
-                        .filter(type => type.theme.type === 'personal')
-                        .map(skill => (
-                          <div className={classes.mapContainer} key={skill._id}>
-                            <div className={classes.hr} />
-                            <li>{skill.theme.title}</li>
-                          </div>
-                        ))}
-                    </div>
-                    <div className={classes.buttonWrapper}>
-                      <MultiIcon
-                        type="add"
-                        Iconcolor="#7992bf"
-                        width="35"
-                        height="35"
-                        onClick={pushRoute('/profile/perso')}
-                      />
-                    </div>
-                  </Fragment>
-                )}
+                    <Fragment>
+                      <div className={classes.themesContainer}>
+                        {parcours.skills
+                          .filter(type => type.theme.type === 'personal')
+                          .map(skill => (
+                            <div className={classes.mapContainer} key={skill._id}>
+                              <div className={classes.hr} />
+                              <li>{skill.theme.title}</li>
+                            </div>
+                          ))}
+                      </div>
+                      <div className={classes.buttonWrapper}>
+                        <MultiIcon
+                          type="add"
+                          Iconcolor="#7992bf"
+                          width="35"
+                          height="35"
+                          onClick={pushRoute('/profile/perso')}
+                        />
+                      </div>
+                    </Fragment>
+                  )}
               </div>
               <div className={classes.item}>
                 <span className={classes.experieceType}>EXPÉRIENCES PROFESSIONNELLES</span>
@@ -128,15 +134,15 @@ const SkillsContainer = forwardRef(
                     className={classes.multiOverride}
                   />
                 ) : (
-                  <Fragment>
-                    <div className={classes.themesContainer}>
-                      {parcours.skills
-                        .filter(type => type.theme.type === 'professional')
-                        .map(skill => (
-                          <div className={classes.mapContainer} key={skill._id}>
-                            <div className={classes.hr} />
-                            <li>{skill.theme.title}</li>
-                            {/* skill.activities.map(activity => {
+                    <Fragment>
+                      <div className={classes.themesContainer}>
+                        {parcours.skills
+                          .filter(type => type.theme.type === 'professional')
+                          .map(skill => (
+                            <div className={classes.mapContainer} key={skill._id}>
+                              <div className={classes.hr} />
+                              <li>{skill.theme.title}</li>
+                              {/* skill.activities.map(activity => {
                               return (
                                 <div className={classes.activityContainer}>
                                   <div className={classes.hr} />
@@ -144,20 +150,20 @@ const SkillsContainer = forwardRef(
                                 </div>
                               )
                             }) */}
-                          </div>
-                        ))}
-                    </div>
-                    <div className={classes.buttonWrapper}>
-                      <MultiIcon
-                        type="add"
-                        Iconcolor="#7992bf"
-                        width="35"
-                        height="35"
-                        onClick={pushRoute('/profile/pro')}
-                      />
-                    </div>
-                  </Fragment>
-                )}
+                            </div>
+                          ))}
+                      </div>
+                      <div className={classes.buttonWrapper}>
+                        <MultiIcon
+                          type="add"
+                          Iconcolor="#7992bf"
+                          width="35"
+                          height="35"
+                          onClick={pushRoute('/profile/pro')}
+                        />
+                      </div>
+                    </Fragment>
+                  )}
               </div>
             </div>
             <div className={classes.right}>
@@ -172,11 +178,12 @@ const SkillsContainer = forwardRef(
                     <ApparationCard
                       title={expertise.title}
                       color={currentSkill && currentSkill.color}
+                      className={classes.titleFont}
                     />
                     <GraduationLevel
                       level={currentSkill && currentSkill.value}
                       color={currentSkill && currentSkill.color}
-                      index={0}
+                      index={1}
                     />
                   </div>
                 );

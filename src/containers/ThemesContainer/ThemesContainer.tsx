@@ -30,6 +30,7 @@ import modalActions from 'reducers/modal';
 import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
+import ReactTooltip from 'react-tooltip';
 
 // utils
 import classNames from 'utils/classNames';
@@ -181,10 +182,7 @@ const ThemesContainer = forwardRef(
 
         if (newSkill && newSkill.activities.length === 0) {
           openModal(
-            <InvalidModal
-              onCloseModal={closeModal}
-              text="activities must at least select one activity"
-            />,
+            <InvalidModal onCloseModal={closeModal} text="Il faut au moins choisir une activité" />,
           );
         } else {
           stepChange('expertise_edit');
@@ -235,12 +233,14 @@ const ThemesContainer = forwardRef(
           />
         );
       }
-
       return (
         <Card
           close={{ onClick: onCloseClick }}
           edit={{ onClick: onEditClick }}
           className={classes.themes}
+          selected={step === 'select_theme' || selectedTheme !== ''}
+          addTheme={selectedTheme !== null}
+          add
         >
           {type === 'professional' && (
             <div className={classes.searchInputWrapper}>
@@ -278,7 +278,13 @@ const ThemesContainer = forwardRef(
                     }
                   >
                     {theme && theme.resources && type === 'personal' && (
-                      <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
+                      <ThemeIcon
+                        title={theme.title}
+                        icon={theme.resources.icon}
+                        key={theme._id}
+                        data-tip
+                        data-for={theme._id}
+                      />
                     )}
                     {theme && theme.resources && (
                       <span
@@ -290,10 +296,20 @@ const ThemesContainer = forwardRef(
                             ? { color: theme.resources.backgroundColor }
                             : { color: 'black' }
                         }
+                        data-tip
+                        data-for={theme._id}
                       >
                         {theme.title}
                       </span>
                     )}
+                    <ReactTooltip
+                      id={theme._id}
+                      place="right"
+                      type="light"
+                      className={classes.tooltip}
+                    >
+                      {theme.title}
+                    </ReactTooltip>
                   </div>
                 );
               })
@@ -314,7 +330,7 @@ const ThemesContainer = forwardRef(
       <Fragment>
         <Prompt
           when={!isEqual(skills.map(skillWithoutId), currentSkills.map(skillWithoutId))}
-          message="changes will be lost"
+          message="les changements seront perdus"
         />
 
         <div className={classes.container}>
@@ -351,7 +367,7 @@ const ThemesContainer = forwardRef(
                 <Card
                   close={{ onClick: onClose }}
                   edit={{ onClick: onEdit }}
-                  selected={step === null}
+                  selected={step === 'edit_all' && selectedTheme === theme._id}
                   key={theme._id}
                   className={classes.themes}
                 >

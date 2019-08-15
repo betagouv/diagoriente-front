@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/dom-to-image": "^2.6.0",
     "axios": "^0.18.0",
     "jspdf": "^1.5.3",
     "localforage": "^1.7.3",

@@ -15,11 +15,11 @@
   background-color: #f1f1f1;
   width: 100%;
   color: blue;
-  padding: 20px calc(#{$profile_horizontal_padding} * 1.2);
+  padding: 20px 7vw;
 }
 
 .themes_container {
-  padding: 20px calc(#{$profile_horizontal_padding} * 1.2);
+  padding: 20px 7vw;
   width: 100%;
 }
 
@@ -27,7 +27,7 @@
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 0;
+  margin: 25px 0;
   @media (max-width: map-get($breakpoints , 'md' )) {
     justify-content: center;
   }
@@ -127,4 +127,18 @@
   .searchInput {
     width: 50%;
     
+  }
+  .tooltip {
+    color: #7992bf !important;
+    background-color: $white !important;
+    box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+    max-width: 250px;
+    white-space: normal;
+    &.place-top {
+      &:after {
+        border-top-color: $white !important;
+        border-top-style: solid !important;
+        border-top-width: 6px !important;
+      }
+    }
   }

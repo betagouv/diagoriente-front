@@ -147,6 +147,7 @@ input[type='checkbox']:disabled:after {
   width: 12px;
   border-radius: 50%;
   margin: 2px;
+  cursor: pointer;
 }
 
 .dot_selected {

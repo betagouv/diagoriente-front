@@ -49,7 +49,6 @@ const ConfirmModal = ({
                   withText
                   text="Annuler"
                   width="37"
-                  left
                   height="37"
                   withBorder
                   style={{ padding: 0 }}

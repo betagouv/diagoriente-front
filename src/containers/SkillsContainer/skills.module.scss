@@ -7,7 +7,7 @@
 
 .container {
   @extend .fill;
-  padding: 30px $profile_horizontal_padding;
+  padding: 30px 7vw;
 }
 
 .card {
@@ -113,6 +113,9 @@
 .skill {
   padding: 5px 0;
   white-space: nowrap;
+}
+.titleFont {
+  font-size: 13px;
 }
 
 .footer {
