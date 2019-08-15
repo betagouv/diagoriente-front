@@ -51,11 +51,11 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
     history.push('/login/advisor');
   };
 
-  return (
-    <div className={classes.home}>
-      <Header />
-      <div className={classes.contentContainer}>
-        <Grid container style={{ padding: '0 10px' }}>
+return (
+  <div className={classes.home}>
+    <Header />
+    <div className={classes.contentContainer}>
+      <Grid container style={{ padding: '0 10px' }}>
           <Grid className={classes.headerContainer} item xl={12}>
             <button
               className={classes.logout}

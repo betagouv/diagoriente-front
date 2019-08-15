@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -8,6 +8,9 @@ import { Dispatch, AnyAction } from 'redux';
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
+import GameContainer from 'containers/GameContainer/GameContainer';
+import CarteContainer from 'containers/CarteContainer/CarteContainer';
+import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
 import Header from '../../components_v3/Header/Header';
 // containers
@@ -25,9 +28,6 @@ import ParcoursActions from '../../reducers/parcours';
 // css
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
-import GameContainer from 'containers/GameContainer/GameContainer';
-import CarteContainer from 'containers/CarteContainer/CarteContainer';
-import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import ExpertisesContainer from '../ExpertisesContainer';
 
 interface ParcoursParams {
@@ -59,7 +59,8 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match }: Props) => {
+const ProfileContainer = ({ match, history }: Props) => {
+  const expertiseRef = useRef(null);
   if (match.isExact) return <Redirect to="/profile/skills" />;
 
   return (
@@ -176,6 +177,7 @@ const ProfileContainer = ({ match }: Props) => {
                 title="GRADUE TES COMPÉTENCES PERSONNELLES"
                 {...props}
                 type="professional"
+                ref={expertiseRef}
                 footerButtons={[
                   {
                     component: (

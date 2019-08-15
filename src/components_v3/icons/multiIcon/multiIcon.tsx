@@ -14,6 +14,7 @@ import Remove from './types/remove';
 import Connect from './types/connect';
 import Warning from './types/danger';
 import Border from './types/border';
+import WarningFooter from '../../../assets_v3/icons/validate/warningFotter.svg';
 
 interface Props {
   type:
@@ -35,6 +36,7 @@ interface Props {
   width: string;
   height: string;
   left?: boolean;
+  barré?: boolean;
   textColor?: string;
   Iconcolor?: string;
   bottom?: boolean;
@@ -59,6 +61,7 @@ const MultiIcon = ({
   sideBar,
   footer,
   disabled,
+  barré,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => (
   <div
@@ -86,30 +89,34 @@ const MultiIcon = ({
             ? classes.textFooter
             : '',
         )}
-        style={{ color: textColor }}
+        style={{
+          color: barré ? '#E55D67' : textColor,
+          textDecoration: barré ? 'line-through' : 'none',
+        }}
       >
         {text}
       </span>
     )}
-    {type === 'add' && <Add width={width} height={height} color={Iconcolor} />}
-    {type === 'edit' && <Edit width={width} height={height} color={Iconcolor} />}
-    {type === 'validate' && <Valid width={width} height={height} color={Iconcolor} />}
-    {type === 'play' && <Play width={width} height={height} color={Iconcolor} />}
-    {type === 'help' && <Help width={width} height={height} color={Iconcolor} />}
-    {type === 'download' && <Download width={width} height={height} color={Iconcolor} />}
-    {type === 'print' && <Print width={width} height={height} color={Iconcolor} />}
-    {type === 'prev' && (
+    {barré && <img src={WarningFooter} alt="warning" className={classes.warning} />}
+    {type === 'add' && !barré && <Add width={width} height={height} color={Iconcolor} />}
+    {type === 'edit' && !barré && <Edit width={width} height={height} color={Iconcolor} />}
+    {type === 'validate' && !barré && <Valid width={width} height={height} color={Iconcolor} />}
+    {type === 'play' && !barré && <Play width={width} height={height} color={Iconcolor} />}
+    {type === 'help' && !barré && <Help width={width} height={height} color={Iconcolor} />}
+    {type === 'download' && !barré && <Download width={width} height={height} color={Iconcolor} />}
+    {type === 'print' && !barré && <Print width={width} height={height} color={Iconcolor} />}
+    {type === 'prev' && !barré && (
       <Prev width={width} height={height} color={Iconcolor} withBorder={withBorder} />
     )}
-    {type === 'next' && (
+    {type === 'next' && !barré && (
       <Next width={width} height={height} color={Iconcolor} withBorder={withBorder} />
     )}
-    {type === 'remove' && <Remove width={width} height={height} color={Iconcolor} />}
-    {type === 'connect' && <Connect width={width} height={height} color={Iconcolor} />}
-    {type === 'warning' && (
+    {type === 'remove' && !barré && <Remove width={width} height={height} color={Iconcolor} />}
+    {type === 'connect' && !barré && <Connect width={width} height={height} color={Iconcolor} />}
+    {type === 'warning' && !barré && (
       <Warning width={width} height={height} color={Iconcolor} withBorder={withBorder} />
     )}
-    {type === 'border' && <Border width={width} height={height} color={Iconcolor} />}
+    {type === 'border' && !barré && <Border width={width} height={height} color={Iconcolor} />}
   </div>
 );
 

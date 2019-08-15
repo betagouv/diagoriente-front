@@ -6,6 +6,7 @@ import withLayout from 'hoc/withLayout';
 import { connect } from 'react-redux';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useCaptureRef } from 'hooks/useCaptureRef';
+import ReactTooltip from 'react-tooltip';
 
 import { ReduxState, IParcoursResponse, IExpertise } from 'reducers';
 import { updateParcoursCompetences, getParcours } from 'requests';
@@ -14,7 +15,6 @@ import classes from './ExpertisesContainer.module.scss';
 import ApparationCard from '../../components_v3/ApparationCard';
 import warning from '../../assets/icons/warning.svg';
 import GraduationLevel from '../../components_v3/GraduationLevel';
-
 
 interface CompetencesValue {
   _id: string;
@@ -33,6 +33,7 @@ interface Props
 
 interface RefProp {
   onFooterClick(button: string): void;
+  footerButtonsProps: any;
 }
 
 const ExpertisesContainer = forwardRef(
@@ -52,17 +53,23 @@ const ExpertisesContainer = forwardRef(
       false,
     ]);
     const [competences, setCompetences] = useState(get.data.globalCopmetences);
+    const [barré, barréChange] = useState(true);
+
     useEffect(() => {
       setCompetences(get.data.globalCopmetences);
+    });
+    useEffect(() => {
+      if (get.data.globalCopmetences) {
+        barréChange(
+          get.data.globalCopmetences.some(function (el: any) {
+            return el.taux > 0 && el.value === 0;
+          }),
+        );
+      }
     });
     useDidMount(() => {
       get.call(parcours._id);
     });
-    function pushRoute(route: string) {
-      return function () {
-        history.push(route);
-      };
-    }  
     function HandleSubmit() {
       const CompetencesValue: CompetencesValue[] = [];
       let validateSubmit: boolean = true;
@@ -79,20 +86,15 @@ const ExpertisesContainer = forwardRef(
         });
         updateParcoursCompetences(parcours._id, CompetencesValue);
         history.push('/profile/pro');
-
       }
-  
     }
-  
 
     function onFooterClick(button: string) {
       if (button === 'valider') {
-        // click
         HandleSubmit();
       }
     }
-    useCaptureRef({ onFooterClick }, ref);
-  
+    useCaptureRef({ onFooterClick, footerButtonsProps: { barré, disabled: barré } }, ref);
     function handleOpen(index: number) {
       const progress = [false, false, false, false, false, false, false, false, false, false];
       if (!progressActive[index]) {
@@ -107,30 +109,37 @@ const ExpertisesContainer = forwardRef(
       setCompetences(CompetencesCopy);
     }
     function DoNothing() {}
-    function RenderDescription(item: any, index:number):any {
+    function RenderDescription(item: any, index: number): any {
       if (item.value > 0) {
-       return (
-         <span className={classes.info}>
-           {expertises[index].niveau[item.value - 1].title}
-         </span>
-      )
-      } if (item.taux > 0) {
-return (
-  <div className={classes.info}>
-    <img src={warning} alt="warning" className={classes.warningIcon} />
-    <span style={{ color: 'red' }}>La competences n'est pas encore graduée</span>
-  </div>
-)
+        return (
+          <span className={classes.info} data-tip={expertises[index].niveau[item.value - 1].title}>
+            {expertises[index].niveau[item.value - 1].title}
+          </span>
+        );
       }
-return (
-     <div className={classes.info} />
-   );
+      if (item.taux > 0) {
+        return (
+          <div className={classes.info}>
+            <img src={warning} alt="warning" className={classes.warningIcon} />
+            <span style={{ color: 'red' }}>La competences n`&apos;est pas encore graduée</span>
+          </div>
+        );
       }
+      return <div className={classes.info} />;
+    }
+    let calculGraduation = 0;
+    if (get.data.globalCopmetences) {
+      calculGraduation = get.data.globalCopmetences.reduce(
+        (acc: any, item: any) => (item.taux === 0 ? acc + 1 : acc),
+        0,
+      );
+    }
+
     return (
       <div className={classes.Container}>
         <div className={classes.Header}>
-          <span>TAUX D'APPARITION</span>
-          <span>GRADUATIONS 9/10</span>
+          <span>TAUX D&lsquo;APPARITION</span>
+          <span>{`GRADUATIONS ${calculGraduation}/10`}</span>
           <span>INFORMATION</span>
         </div>
         {get.data.globalCopmetences
@@ -163,12 +172,12 @@ return (
                 <GraduationLevel
                   level={item.value}
                   color={item.color}
-                  title="neder"
                   withSub
                   index={index}
                   handleChangeValue={item.taux ? handleChangeValue : DoNothing}
                 />
                 {RenderDescription(item, index)}
+                <ReactTooltip place="left" type="info" className={classes.tooltip} multiline />
               </div>
               {progressActive[index] && expertises && (
                 <div className={classes.themesGroupe}>
