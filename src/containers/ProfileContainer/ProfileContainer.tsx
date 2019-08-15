@@ -64,7 +64,7 @@ const ProfileContainer = ({ match }: Props) => {
 
   return (
     <Fragment>
-      <Header HeaderProfile />
+      <Header HeaderProfile showLogout />
 
       <div className={classes.sidebar_container}>
         <SideBar />

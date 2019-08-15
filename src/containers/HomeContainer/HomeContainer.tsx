@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { RouteComponentProps } from 'react-router';
@@ -53,7 +53,7 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
 
   return (
     <div className={classes.home}>
-      <Header />
+      <Header HeaderProfile={false} showLogout={false} />
       <div className={classes.contentContainer}>
         <Grid container style={{ padding: '0 10px' }}>
           <Grid className={classes.headerContainer} item xl={12}>

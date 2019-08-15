@@ -365,7 +365,7 @@ const ThemesContainer = forwardRef(
                 <Card
                   close={{ onClick: onClose }}
                   edit={{ onClick: onEdit }}
-                  selected={step === null}
+                  selected={selectedTheme === theme._id}
                   key={theme._id}
                   className={classes.themes}
                 >

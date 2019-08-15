@@ -1,6 +1,6 @@
 import React from 'react';
-import Grid from '../../ui/Grid/Grid';
-import Button from '../../buttons/RoundButton/RoundButton';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+
 import classes from './logout.module.scss';
 
 interface IProps {
@@ -19,14 +19,29 @@ const LogoutModal = ({ onLogout, onClose }: IProps) => {
         <div className={classes.title_container}>
           <span>Attention, vous allez être déconnecté !</span>
         </div>
-
         <div className={classes.btn_container}>
-          <Button onClick={logout} className={classes.btnOut}>
-            Déconnecter{' '}
-          </Button>
-          <Button onClick={onClose} className={classes.btn}>
-            Annuler{' '}
-          </Button>
+          <MultiIcon
+            type="remove"
+            withText
+            text="retour"
+            width="36"
+            height="36"
+            withBorder
+            style={{ padding: 0 }}
+            onClick={onClose}
+          />
+          <MultiIcon
+            type="validate"
+            withText
+            text="Déconnecter"
+            width="36"
+            height="36"
+            withBorder
+            Iconcolor="#ff001f"
+            textColor="#ff001f"
+            style={{ padding: 0 }}
+            onClick={logout}
+          />
         </div>
       </div>
     </div>
