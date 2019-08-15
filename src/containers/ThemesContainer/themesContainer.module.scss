@@ -128,3 +128,17 @@
     width: 50%;
     
   }
+  .tooltip {
+    color: #7992bf !important;
+    background-color: $white !important;
+    box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+    max-width: 250px;
+    white-space: normal;
+    &.place-top {
+      &:after {
+        border-top-color: $white !important;
+        border-top-style: solid !important;
+        border-top-width: 6px !important;
+      }
+    }
+  }

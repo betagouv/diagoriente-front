@@ -61,7 +61,7 @@ const MultiIcon = ({
   disabled,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => (
-  <button
+  <div
     className={classNames(
       withText
         ? left
@@ -110,7 +110,7 @@ const MultiIcon = ({
       <Warning width={width} height={height} color={Iconcolor} withBorder={withBorder} />
     )}
     {type === 'border' && <Border width={width} height={height} color={Iconcolor} />}
-  </button>
+  </div>
 );
 
 export default MultiIcon;

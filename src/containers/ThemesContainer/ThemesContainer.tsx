@@ -30,6 +30,7 @@ import modalActions from 'reducers/modal';
 import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
+import ReactTooltip from 'react-tooltip';
 
 // utils
 import classNames from 'utils/classNames';
@@ -181,10 +182,7 @@ const ThemesContainer = forwardRef(
 
         if (newSkill && newSkill.activities.length === 0) {
           openModal(
-            <InvalidModal
-              onCloseModal={closeModal}
-              text="Il faut au moins choisir une activité"
-            />,
+            <InvalidModal onCloseModal={closeModal} text="Il faut au moins choisir une activité" />,
           );
         } else {
           stepChange('expertise_edit');
@@ -278,7 +276,13 @@ const ThemesContainer = forwardRef(
                     }
                   >
                     {theme && theme.resources && type === 'personal' && (
-                      <ThemeIcon title={theme.title} icon={theme.resources.icon} key={theme._id} />
+                      <ThemeIcon
+                        title={theme.title}
+                        icon={theme.resources.icon}
+                        key={theme._id}
+                        data-tip
+                        data-for={theme._id}
+                      />
                     )}
                     {theme && theme.resources && (
                       <span
@@ -290,10 +294,20 @@ const ThemesContainer = forwardRef(
                             ? { color: theme.resources.backgroundColor }
                             : { color: 'black' }
                         }
+                        data-tip
+                        data-for={theme._id}
                       >
                         {theme.title}
                       </span>
                     )}
+                    <ReactTooltip
+                      id={theme._id}
+                      place="right"
+                      type="light"
+                      className={classes.tooltip}
+                    >
+                      {theme.title}
+                    </ReactTooltip>
                   </div>
                 );
               })

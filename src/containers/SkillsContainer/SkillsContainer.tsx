@@ -173,6 +173,7 @@ const SkillsContainer = forwardRef(
                     <ApparationCard
                       title={expertise.title}
                       color={currentSkill && currentSkill.color}
+                      className={classes.titleFont}
                     />
                     <GraduationLevel
                       level={currentSkill && currentSkill.value}

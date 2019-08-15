@@ -6,6 +6,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* body::-webkit-scrollbar {
+  display: none;
+} */
 
 * {
   flex: 0 0 auto;
@@ -145,5 +148,5 @@ ul {
   background-color: transparent !important;
 }
 a {
-  text-decoration: none
+  text-decoration: none;
 }
