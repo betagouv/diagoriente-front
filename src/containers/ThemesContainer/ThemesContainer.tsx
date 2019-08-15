@@ -239,6 +239,7 @@ const ThemesContainer = forwardRef(
           close={{ onClick: onCloseClick }}
           edit={{ onClick: onEditClick }}
           className={classes.themes}
+          selected={step === 'select_theme' || selectedTheme !== ''}
         >
           {type === 'professional' && (
             <div className={classes.searchInputWrapper}>
@@ -365,7 +366,7 @@ const ThemesContainer = forwardRef(
                 <Card
                   close={{ onClick: onClose }}
                   edit={{ onClick: onEdit }}
-                  selected={selectedTheme === theme._id}
+                  selected={step === 'edit_all' && selectedTheme === theme._id}
                   key={theme._id}
                   className={classes.themes}
                 >

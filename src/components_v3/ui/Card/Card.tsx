@@ -8,10 +8,11 @@ interface Props
   edit: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   close: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   selected?: boolean;
+  addTheme?: boolean;
 }
 
 const Card = ({
- edit, close, className, selected, children, ...rest
+ edit, close, className, selected, addTheme, children, ...rest
 }: Props) => (
   <div {...rest} className={classNames(classes.container, className)}>
     {children}
