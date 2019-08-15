@@ -233,13 +233,14 @@ const ThemesContainer = forwardRef(
           />
         );
       }
-
       return (
         <Card
           close={{ onClick: onCloseClick }}
           edit={{ onClick: onEditClick }}
           className={classes.themes}
           selected={step === 'select_theme' || selectedTheme !== ''}
+          addTheme={selectedTheme !== null}
+          add
         >
           {type === 'professional' && (
             <div className={classes.searchInputWrapper}>
