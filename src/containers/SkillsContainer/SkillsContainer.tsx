@@ -2,10 +2,7 @@ import React, { Ref, forwardRef, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { find, isEmpty } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
-// import domtoimage from 'dom-to-image';
-// import html2canvas from 'html2canvas';
-// import canvg from 'canvg';
-// import jsPDF from 'jspdf';
+
 import {
   ReduxState, IParcoursResponse, IExpertise, IUser,
 } from 'reducers';

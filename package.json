@@ -5,9 +5,6 @@
   "dependencies": {
     "@types/dom-to-image": "^2.6.0",
     "axios": "^0.18.0",
-    "canvg": "^2.0.0",
-    "dom-to-image": "^2.6.0",
-    "html2canvas": "^1.0.0-rc.3",
     "jspdf": "^1.5.3",
     "localforage": "^1.7.3",
     "lodash": "^4.17.11",

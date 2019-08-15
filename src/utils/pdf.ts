@@ -1,17 +1,10 @@
 import jsPDF from 'jspdf';
 // assets
 
-import { beta1x } from 'assets/icons/logobeta/index';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
-import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
-import ApparationCard from 'components_v3/ApparationCard';
-import GraduationLevel from 'components_v3/GraduationLevel';
 import lignediag3 from 'assets_v3/lignediag3.png';
-import diag3shadow from 'assets_v3/diag3shadow.png';
 import logov3Diag from 'assets_v3/Home/Logo_Diagoriente.png';
 
 import logoRF from '../assets/pdf/rf.png';
-import logoSNU from '../assets/pdf/snu.png';
 import niveau1 from '../assets/pdf/niveau1.png';
 import niveau2 from '../assets/pdf/niveau2.png';
 import niveau3 from '../assets/pdf/niveau3.png';
