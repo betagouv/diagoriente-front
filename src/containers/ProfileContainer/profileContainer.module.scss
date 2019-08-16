@@ -1,5 +1,5 @@
 /** ---variables--- **/
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 $padding_left: 20px;
 
@@ -39,7 +39,6 @@ $padding_left: 20px;
   &:hover {
     width: $sidebar_open_width;
   }
-  
 }
 
 .content {
@@ -52,4 +51,11 @@ $padding_left: 20px;
   .sidebar_container {
     height: -webkit-fill-available;
   }
+}
+.containerSpinner {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

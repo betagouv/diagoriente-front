@@ -2,37 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { RouteComponentProps } from 'react-router';
-import { ReduxState, Advisor } from 'reducers';
+import { ReduxState, Advisor, User } from 'reducers';
 
+import PictoPlayButton from 'assets_v3/Home/Picto_PlayButton.svg';
+import PictoModifier from 'assets_v3/Home/Picto_Modifier.svg';
+import PictoValider from 'assets_v3/Home/Picto_Valider.svg';
+import IlluMiroir from 'assets_v3/Home/Illu_Miroir.svg';
+import ArrowSeConnect from 'assets_v3/Home/Arrow_SeConnect.svg';
+import ArrowConnected from 'assets_v3/Home/Arrow_Connected.svg';
 import WithSub from '../../components/ui/Sub/Sub';
 import Grid from '../../components/ui/Grid/Grid';
 
 // import Stars from '../../components/shapes/stars/stars';
 
 import Header from '../../components_v3/Header/Header';
-
-import Illu_Miroir from '../../assets_v3/Home/Illu_Miroir.svg';
-import Arrow_SeConnect from '../../assets_v3/Home/Arrow_SeConnect.svg';
-
 import CardHome from '../../components_v3/CardHome';
 import advisorActions from '../../reducers/authAdvisor/login';
-import Picto_PlayButton from '../../assets_v3/Home/Picto_PlayButton.svg';
-import Picto_Modifier from '../../assets_v3/Home/Picto_Modifier.svg';
-import Picto_Valider from '../../assets_v3/Home/Picto_Valider.svg';
-
 import classes from './home.module.scss';
 
 const steps = [
   {
-    icon: Picto_PlayButton,
+    icon: PictoPlayButton,
     description: 'Découvre comment identifier tes compétences en jouant',
   },
   {
-    icon: Picto_Modifier,
+    icon: PictoModifier,
     description: 'Complète ton profil et découvre ta carte de compétences',
   },
   {
-    icon: Picto_Valider,
+    icon: PictoValider,
     description: 'Diagoriente te propose des pistes pour ton orientation',
   },
 ];
@@ -40,9 +38,12 @@ const steps = [
 interface Props extends RouteComponentProps {
   advisor: Advisor;
   logoutAdvisor: () => void;
+  user: User;
 }
 
-const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
+const HomeContainer = ({
+ history, advisor, logoutAdvisor, user,
+}: Props) => {
   const navigate = () => {
     history.push('/profile');
   };
@@ -50,7 +51,7 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
   const loginAdvisor = () => {
     history.push('/login/advisor');
   };
-
+  console.log(user.user);
   return (
     <div className={classes.home}>
       <Header HeaderProfile={false} showLogout={false} />
@@ -73,23 +74,32 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
           </Grid>
         </Grid>
         <div className={classes.content}>
-          <img src={Illu_Miroir} alt="homeLogo" className={classes.logoHome} />
+          <img src={IlluMiroir} alt="homeLogo" className={classes.logoHome} />
           <WithSub
             className={classes.WithSub}
             title1="Trouve ta voie"
             subTitle="Révèle tes compétences et engage toi dans ton orientation"
           />
-          <div className={classes.groupBotton}>
-            <div onClick={navigate} className={classes.commencerBtn}>
-              <img src={Arrow_SeConnect} alt="start" className={classes.buttonArrow} />
+          {!user.user ? (
+            <div className={classes.groupBotton}>
+              <div onClick={navigate} className={classes.commencerBtn}>
+                <img src={ArrowSeConnect} alt="start" className={classes.buttonArrow} />
 
-              <span className={classes.btn_text}>S'inscrire</span>
+                <span className={classes.btn_text}>S'inscrire</span>
+              </div>
+              <div onClick={navigate} className={classes.commencerBtn}>
+                <img src={ArrowSeConnect} alt="start" className={classes.buttonArrow} />
+                <span className={classes.btn_text}>Se connecter</span>
+              </div>
             </div>
-            <div onClick={navigate} className={classes.commencerBtn}>
-              <img src={Arrow_SeConnect} alt="start" className={classes.buttonArrow} />
-              <span className={classes.btn_text}>Se connecter</span>
+          ) : (
+            <div className={classes.groupBottonCommencer}>
+              <div onClick={navigate} className={classes.commencerBtn}>
+                <img src={ArrowConnected} alt="start" className={classes.buttonArrow} />
+                <span className={classes.btn_text}>Commencer</span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -106,8 +116,9 @@ const HomeContainer = ({ history, advisor, logoutAdvisor }: Props) => {
   );
 };
 
-const mapStateToProps = ({ authAdvisor }: ReduxState) => ({
+const mapStateToProps = ({ authAdvisor, authUser }: ReduxState) => ({
   advisor: authAdvisor.advisor,
+  user: authUser.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({

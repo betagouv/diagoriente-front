@@ -10,6 +10,7 @@ import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
+import Spinner from 'components_v3/ui/Spinner/Spinner';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
 import Header from '../../components_v3/Header/Header';
 // containers
@@ -46,6 +47,7 @@ interface DispatchToProps {
 
 interface MapToProps {
   parcours: ApiReducer<IParcoursResponse>;
+  fetchingParcour: boolean;
 }
 
 interface Props
@@ -58,7 +60,7 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match }: Props) => {
+const ProfileContainer = ({ match, fetchingParcour }: Props) => {
   const expertiseRef = useRef(null);
   if (match.isExact) return <Redirect to="/profile/skills" />;
 
@@ -122,7 +124,11 @@ const ProfileContainer = ({ match }: Props) => {
                 type="personal"
                 footerButtons={[
                   {
-                    component: (
+                    component: fetchingParcour ? (
+                      <div className={classes.containerSpinner}>
+                        <Spinner />
+                      </div>
+                    ) : (
                       <MultiIcon
                         type="validate"
                         withText
@@ -150,7 +156,11 @@ const ProfileContainer = ({ match }: Props) => {
                 type="professional"
                 footerButtons={[
                   {
-                    component: (
+                    component: fetchingParcour ? (
+                      <div className={classes.containerSpinner}>
+                        <Spinner />
+                      </div>
+                    ) : (
                       <MultiIcon
                         type="validate"
                         withText
@@ -179,7 +189,11 @@ const ProfileContainer = ({ match }: Props) => {
                 ref={expertiseRef}
                 footerButtons={[
                   {
-                    component: (
+                    component: fetchingParcour ? (
+                      <div className={classes.containerSpinner}>
+                        <Spinner />
+                      </div>
+                    ) : (
                       <MultiIcon
                         type="validate"
                         withText
@@ -206,7 +220,11 @@ const ProfileContainer = ({ match }: Props) => {
                 title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
                 footerButtons={[
                   {
-                    component: (
+                    component: fetchingParcour ? (
+                      <div className={classes.containerSpinner}>
+                        <Spinner />
+                      </div>
+                    ) : (
                       <MultiIcon
                         type="validate"
                         withText
@@ -233,7 +251,11 @@ const ProfileContainer = ({ match }: Props) => {
                 {...props}
                 footerButtons={[
                   {
-                    component: (
+                    component: fetchingParcour ? (
+                      <div className={classes.containerSpinner}>
+                        <Spinner />
+                      </div>
+                    ) : (
                       <MultiIcon
                         type="validate"
                         withText
@@ -259,6 +281,7 @@ const ProfileContainer = ({ match }: Props) => {
 
 const mapStateToProps = ({ parcours }: ReduxState): MapToProps => ({
   parcours,
+  fetchingParcour: parcours.fetching,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
