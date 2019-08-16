@@ -8,6 +8,7 @@ import { Dispatch, AnyAction } from 'redux';
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
+
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';

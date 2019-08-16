@@ -5,7 +5,6 @@ import { isEqual } from 'lodash';
 
 import classes from 'hoc/scss/withLayout.module.scss';
 import classNames from 'utils/classNames';
-import { useCaptureRef } from 'hooks/useCaptureRef';
 
 type Props<P> = P & {
   title?: string;
