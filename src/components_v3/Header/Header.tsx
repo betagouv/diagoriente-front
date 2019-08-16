@@ -51,7 +51,7 @@ const Header = ({
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
-      <div onClick={onNavigate}>
+      <div className={classes.logoContainer} onClick={onNavigate}>
         <img src={logo} alt="logo" className={classes.logo} />
       </div>
       <div>
