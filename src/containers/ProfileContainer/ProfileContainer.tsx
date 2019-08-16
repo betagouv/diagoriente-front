@@ -8,11 +8,10 @@ import { Dispatch, AnyAction } from 'redux';
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
-import GameContainer from 'containers/GameContainer/GameContainer';
-import CarteContainer from 'containers/CarteContainer/CarteContainer';
+
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
-import Header from '../../components_v3/Header/Header'
+import Header from '../../components_v3/Header/Header';
 // containers
 
 import ThemesContainer from '../ThemesContainer/ThemesContainer';
@@ -59,7 +58,7 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match, history }: Props) => {
+const ProfileContainer = ({ match }: Props) => {
   const expertiseRef = useRef(null);
   if (match.isExact) return <Redirect to="/profile/skills" />;
 
