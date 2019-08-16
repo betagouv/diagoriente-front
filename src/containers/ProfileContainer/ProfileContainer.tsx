@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -8,8 +8,6 @@ import { Dispatch, AnyAction } from 'redux';
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
-import GameContainer from 'containers/GameContainer/GameContainer';
-import CarteContainer from 'containers/CarteContainer/CarteContainer';
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
@@ -62,6 +60,7 @@ interface Props
     DispatchToProps {}
 
 const ProfileContainer = ({ match, fetchingParcour }: Props) => {
+  const expertiseRef = useRef(null);
   if (match.isExact) return <Redirect to="/profile/skills" />;
 
   return (
@@ -186,6 +185,7 @@ const ProfileContainer = ({ match, fetchingParcour }: Props) => {
                 title="GRADUE TES COMPÉTENCES PERSONNELLES"
                 {...props}
                 type="professional"
+                ref={expertiseRef}
                 footerButtons={[
                   {
                     component: fetchingParcour ? (

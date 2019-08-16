@@ -30,7 +30,6 @@
 .textBottom {
   margin-top: 7px;
   font-size: 14px;
-
 }
 .textFooter {
   margin: 0 10px;
@@ -88,7 +87,10 @@
   cursor: pointer;
   flex-direction: column-reverse;
 }
-
+.warning {
+  width: 35px;
+  height: 35px;
+}
 .validIcon {
   height: 100%;
 }
