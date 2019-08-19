@@ -55,6 +55,13 @@
   justify-content: space-between;
   color: #7a93bc;
 }
+.groupBottonCommencer {
+  display: flex;
+  height: 30%;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $gold;
+}
 .logout_icon_container {
   position: absolute;
   right: 10px;
