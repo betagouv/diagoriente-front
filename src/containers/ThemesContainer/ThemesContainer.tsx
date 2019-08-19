@@ -114,10 +114,18 @@ const ThemesContainer = forwardRef(
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
+        if (type === 'personal') {
+          history.push('/profile/intermediate');
+        } else {
+          history.push('/profile/skills');
+        }
       }
     }
-console.log( 'old', ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId));
-console.log( 'new',  ...skills.map(skillWithoutId));
+    console.log(
+      'old',
+      ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
+    );
+    console.log('new', ...skills.map(skillWithoutId));
 
     useEffect(() => {
       list.call({ type });
