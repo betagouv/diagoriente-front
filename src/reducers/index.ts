@@ -135,6 +135,10 @@ export interface IExpertise {
   color: string;
   themes: string[];
 }
+export interface IEnvironment {
+  _id: string;
+  title: string;
+}
 
 export type ReduxState = {
   readonly startup: boolean;
