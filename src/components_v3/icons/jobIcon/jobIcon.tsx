@@ -1,6 +1,7 @@
 import React from 'react';
-import Star from '../starSvg/star';
+import classNames from 'utils/classNames';
 import classes from './jobIcon.module.scss';
+import Star from '../starSvg/star';
 
 interface Props {
   color?: string;
@@ -10,9 +11,9 @@ interface Props {
 }
 
 const JobIcon = ({
- color = '#000', width, height, rating,
-}: Props) => (
-  <div className={classes.container}>
+ color = '#000', width, height, rating, className,
+}: Props & React.HTMLAttributes<HTMLElement>) => (
+  <div className={classNames(classes.container, className)}>
     {rating && rating >= 1 && <Star height="10" width="10" color={color} className={classes.star} />}
     {rating && rating >= 2 && <Star height="10" width="10" color={color} className={classes.star} />}
     {rating === 3 && <Star height="10" width="10" color={color} className={classes.star} />}

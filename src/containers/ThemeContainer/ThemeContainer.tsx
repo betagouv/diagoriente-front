@@ -191,7 +191,16 @@ const ThemeContainer = forwardRef(
                     ) : (
                       <div className={classes.activityCheck}>
                         <input type="checkbox" checked={selected} className={classes.chekboxAct} />
-                        <span className={classes.title_activity}>{activity.title}</span>
+                        <span
+                          className={classes.title_activity_check}
+                          style={
+                            selected
+                              ? { color: iconSkillcolor === '#fff' ? 'black' : iconSkillcolor }
+                              : {}
+                          }
+                        >
+                          {activity.title}
+                        </span>
                       </div>
                     )}
                     <ReactTooltip

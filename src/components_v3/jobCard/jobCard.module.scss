@@ -1,0 +1,36 @@
+.card {
+  width: 33%;
+  height: 350px;
+  box-shadow: 0px 0px 5px black;
+}
+.cupContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 33%;
+}
+.jobName {
+    width: 70%;
+    text-align: center;
+}
+.description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.descriptionText {
+    width: 100%;
+    text-align: center;
+}
+.activities {
+    height: 42%;
+}
+.niveau {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -6,7 +6,7 @@ interface Props {
   width: string;
 }
 
-const Remove = ({ color = '#7992BF', width, height }: Props) => (
+const Remove = ({ color = '#E55D67', width, height }: Props) => (
   <svg
     fill={color}
     id="Capa_1"

@@ -140,3 +140,11 @@
   background-color: transparent;
   align-items: flex-start;
 }
+.selections {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  width: 100%;
+}
