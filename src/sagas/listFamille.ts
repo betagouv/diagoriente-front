@@ -40,10 +40,7 @@ function* listFamilleRequest({ payload }: { type: string; payload: ListFamillePa
         arrayBythree.push(element);
       }
     });
-    console.log(data);
-
     for (let i = 0; i < data.length; i += 1) {
-      console.log(data[i]);
       const promise = yield all(data[i].map(itemChild => call(getFamilleDetails, itemChild._id)));
       const results: Response<IFamille>[] = yield all(promise as any);
       const error = results.find(response => response && response.code !== 200);

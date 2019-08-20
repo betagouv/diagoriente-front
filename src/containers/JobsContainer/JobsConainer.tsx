@@ -74,6 +74,13 @@ const JobsContainer = ({
   useDidUpdate(() => {
     fetchingChange(listJobs.fetching);
   }, [listJobs.fetching]);
+  function filterJobs(filterArray: string[], secteurArray: string[]) {
+    console.log(filterArray);
+    console.log(secteurArray)
+    listJobs.call(parcoursId, filterArray, secteurArray);
+  }
+
+
 
   if (!families.length) return <Redirect to="/profile" />;
 
@@ -97,7 +104,6 @@ const JobsContainer = ({
   const onNavigate = () => {
     history.push('/profile');
   };
-
   const autres = {
     secteur: {
       _id: 'Autre',
@@ -124,7 +130,6 @@ const JobsContainer = ({
       isSelected: !!selectedSecteurs.find(id => id === autres.secteur._id),
     });
   }
-
   const renderJob = (job: IJob) => {
     const onClickJob = (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
@@ -178,13 +183,7 @@ const JobsContainer = ({
           <Spinner />
         </div>
       )}
-      <SideBar
-        onItemClick={onSecteurClick}
-        title="Mes pistes métiers préférés"
-        options={filter(listJobs.data, job => !!job.interested)}
-        numberOfLine={2}
-        onItemRemove={onJobRemove}
-      />
+      <SideBar secteurs={secteurs} filterJobs={filterJobs} parcoursId={parcoursId} />
       <div className={classes.jobs_container}>
         <div className={classes.selections}>
           <JobSelection title="Technicien en application industrielle" withRemove />

@@ -1,97 +1,128 @@
-import React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDidMount } from 'hooks';
+import { map } from 'lodash';
 
-// assets
-import logo from '../../../assets/icons/logo/Diagoriente_Logo.svg';
-import logo2x from '../../../assets/icons/logo/Diagoriente_Logo.svg';
-import logo3x from '../../../assets/icons/logo/Diagoriente_Logo.svg';
-// components
-import SelectThemeCard from '../../cards/CardSelectedThemes/SelectedThemeCard';
-
+import { getListEnvironment } from 'requests';
+import withApis, { ApiComponentProps } from 'hoc/withApi';
+import { ISecteur } from 'requests/jobs';
 // style
+import classNames from 'utils/classNames';
 import classes from './sideBar.module.scss';
 
-import cross from '../../../assets/icons/svg/cross.svg';
-import crossPro from '../../../assets/icons/svg/cross_pro.svg';
-
-interface Option {
-  _id: string;
-  title: string;
-  isSelected?: boolean;
+interface IProps {
+  secteurs: ISecteur[];
+  filterJobs: (filterArray: string[], secteurArray: string[]) => void;
+  parcoursId: string;
 }
 
-type IProps<T extends Option> = {
-  options: T[];
-  disabled?: boolean;
-  type?: string;
-  title?: string;
-  onItemClick?: (item: T) => void;
-  onItemRemove?: (item: T) => void;
-  numberOfLine?: number;
-} & RouteComponentProps<{ id: string }>;
+interface Props extends IProps, ApiComponentProps<{ get: typeof getListEnvironment }> {}
 
-const SideBar = <T extends Option>({
-  options,
-  history,
-  type,
-  disabled,
-  title,
-  onItemClick,
-  onItemRemove,
-  numberOfLine,
-}: IProps<T>) => {
-  const navigate = (path: string) => () => {
-    history.replace(path);
+const SideBar = ({ get, secteurs, filterJobs }: Props) => {
+  useDidMount(() => {
+    get.call();
+  });
+  const [isFilterOpen, setFilterOpen] = useState(false);
+  const [isSecteurOpen, setSecteurOpen] = useState(false);
+  const [filterArray, setFilterArray] = useState([]);
+  const [secteurArray, setSecteurArray] = useState([]);
+
+  const setFilterToggle = () => {
+    setFilterOpen(!isFilterOpen);
   };
+
+  const setSecteurtoggle = () => {
+    setSecteurOpen(!isSecteurOpen);
+  };
+
+  function getSelected<T>(
+    array: T[],
+    callback: (row: T, index: number, array: T[]) => boolean,
+  ): { index: number; selected: boolean } {
+    const index = array.findIndex(callback);
+    const selected = index !== -1;
+    return { index, selected };
+  }
+  const newArray: ISecteur[] = [];
+  secteurs.forEach(item => {
+    if (item._id !== 'Autre') {
+      newArray.push(item);
+    }
+  });
 
   return (
     <div className={classes.container_sideBar}>
-      <button className={classes.logo_container} onClick={navigate('/profile')}>
-        <img src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} className={classes.logo} />
-      </button>
-      <div className={classes.selection_title_container}>
-        <span className={classes.selection_title}>{title}</span>
+      <div className={classes.filter_container}>
+        <div className={classes.selection_title} onClick={setFilterToggle}>
+          FILTRES
+        </div>
+        <div
+          className={classNames(
+            isFilterOpen ? classes.filter_containerOpen_child : classes.filter_container_child,
+          )}
+        >
+          {map(get.data.data, item => {
+            const { index, selected } = getSelected(
+              get.data.data,
+              () => !!filterArray.find(r => item._id === r),
+            );
+            const onClick = () => {
+              const nextFilters: any = [...filterArray];
+              if (selected) {
+                nextFilters.splice(index, 1);
+              } else {
+                nextFilters.push(item._id);
+              }
+              setFilterArray(nextFilters);
+              filterJobs(filterArray, secteurArray);
+            };
+            return (
+              <div className={classes.rowItem} onClick={onClick}>
+                <input type="checkbox" checked={selected} />
+                <span className={classNames(selected ? classes.itemSelected : classes.item)}>
+                  {item.title}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div className={classes.themes_container}>
-        {options.map((o, i) => {
-          const click = () => {
-            if (onItemClick) {
-              onItemClick(o);
-            } else {
-              navigate(`/theme/${o._id}/activities`)();
-            }
-          };
-
-          const remove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            e.stopPropagation();
-            (onItemRemove as (item: T) => void)(o);
-          };
-
-          return (
-            <SelectThemeCard
-              onClick={disabled ? undefined : click}
-              key={o._id}
-              isSelected={o.isSelected}
-              title={o.title}
-              themetype={type}
-              numberOfLine={numberOfLine}
-            >
-              {!disabled && onItemRemove && (
-                <div onClick={remove} className={classes.remove_button}>
-                  <img src={type === 'professional' ? crossPro : cross} height={12} width={12} />
-                </div>
-              )}
-            </SelectThemeCard>
-          );
-        })}
+      <div className={classes.filter_container}>
+        <div className={classes.selection_title} onClick={setSecteurtoggle}>
+          DOMAINES D’ACTIVITÉ
+        </div>
+        <div
+          className={classNames(
+            isSecteurOpen ? classes.themes_containerOpen_child : classes.themes_container_child,
+          )}
+        >
+          {map(newArray, item => {
+            const { index, selected } = getSelected(
+              newArray,
+              () => !!secteurArray.find(r => item._id === r),
+            );
+            const onClickSecteur = () => {
+              const nextFilters: any = [...secteurArray];
+              if (selected) {
+                nextFilters.splice(index, 1);
+              } else {
+                nextFilters.push(item._id);
+              }
+              setSecteurArray(nextFilters);
+              filterJobs(filterArray, secteurArray);
+            };
+            return (
+              <div className={classes.rowItem} onClick={onClickSecteur}>
+                <input type="checkbox" checked={selected} />
+                <span className={classNames(selected ? classes.itemSelected : classes.item)}>
+                  {item.title}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 };
 
-SideBar.defaultProps = {
-  title: 'ma sélection',
-};
-
-export default withRouter(SideBar);
+export default withApis({ get: getListEnvironment })(SideBar);

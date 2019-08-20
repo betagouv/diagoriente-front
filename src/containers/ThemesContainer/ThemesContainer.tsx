@@ -1,10 +1,9 @@
 import React, {
- Dispatch, useState, useRef, useEffect, Ref, forwardRef, Fragment,
+ Dispatch, useState, useRef, useEffect, Ref, forwardRef, memo,
 } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps, Prompt } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { AnyAction } from 'redux';
-import { isEqual } from 'lodash';
 
 // hoc
 import withApi, { ApiComponentProps } from 'hoc/withApi';
@@ -121,7 +120,7 @@ const ThemesContainer = forwardRef(
         }
       }
     }
-    /* console.log(
+  /*   console.log(
       'old',
       ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
     );
@@ -335,66 +334,58 @@ const ThemesContainer = forwardRef(
         </Card>
       );
     }
-
     return (
-      <Fragment>
-        <Prompt
-          when={!isEqual(skills.map(skillWithoutId), currentSkills.map(skillWithoutId))}
-          message="les changements seront perdus"
-        />
-
-        <div className={classes.container}>
-          <div className={classes.add}>{renderAdd()}</div>
-          <div className={classes.themes_container}>
-            {skills.map(({ theme }, index) => {
-              const selected = theme._id === selectedTheme;
-              function onEdit() {
-                if (selected) {
-                  updateSkill();
-                  return;
-                }
-                selectedThemeChange(theme._id);
-                stepChange('edit_all');
+      <div className={classes.container}>
+        <div className={classes.add}>{renderAdd()}</div>
+        <div className={classes.themes_container}>
+          {skills.map(({ theme }, index) => {
+            const selected = theme._id === selectedTheme;
+            function onEdit() {
+              if (selected) {
+                updateSkill();
+                return;
               }
+              selectedThemeChange(theme._id);
+              stepChange('edit_all');
+            }
 
-              function onClose() {
-                openModal(
-                  <DeleteModal
-                    onDelete={() =>
-                      skillsChange(skills.filter(skill => skill.theme._id !== theme._id))
-                    }
-                    onCloseModal={closeModal}
-                  />,
-                );
-              }
-
-              function captureRef(editRef: ThemeRefObject | null) {
-                const editSkills = editSkillsRefs.current;
-                editSkills[index] = editRef;
-                editSkillsRefs.current = editSkills;
-              }
-              return (
-                <Card
-                  close={{ onClick: onClose }}
-                  edit={{ onClick: onEdit }}
-                  selected={step === 'edit_all' && selectedTheme === theme._id}
-                  key={theme._id}
-                  className={classes.themes}
-                >
-                  <ThemeContainer
-                    skill={skills.find(skill => skill.theme._id === theme._id)}
-                    key={theme._id}
-                    id={theme._id}
-                    step={(selected && step ? step : 'show') as Step}
-                    ref={captureRef as any}
-                    type={type}
-                  />
-                </Card>
+            function onClose() {
+              openModal(
+                <DeleteModal
+                  onDelete={() =>
+                    skillsChange(skills.filter(skill => skill.theme._id !== theme._id))
+                  }
+                  onCloseModal={closeModal}
+                />,
               );
-            })}
-          </div>
+            }
+
+            function captureRef(editRef: ThemeRefObject | null) {
+              const editSkills = editSkillsRefs.current;
+              editSkills[index] = editRef;
+              editSkillsRefs.current = editSkills;
+            }
+            return (
+              <Card
+                close={{ onClick: onClose }}
+                edit={{ onClick: onEdit }}
+                selected={step === 'edit_all' && selectedTheme === theme._id}
+                key={theme._id}
+                className={classes.themes}
+              >
+                <ThemeContainer
+                  skill={skills.find(skill => skill.theme._id === theme._id)}
+                  key={theme._id}
+                  id={theme._id}
+                  step={(selected && step ? step : 'show') as Step}
+                  ref={captureRef as any}
+                  type={type}
+                />
+              </Card>
+            );
+          })}
         </div>
-      </Fragment>
+      </div>
     );
   },
 );
@@ -417,4 +408,4 @@ export default connect(
   mapDispatchToProps,
   null,
   { forwardRef: true },
-)(withApi({ list: listThemes })(withLayout(ThemesContainer)));
+)(withApi({ list: listThemes })(withLayout(memo(ThemesContainer))));

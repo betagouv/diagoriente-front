@@ -1,4 +1,6 @@
-import { Response, axiosGet, axiosPost, axiosDelete } from './http';
+import {
+ Response, axiosGet, axiosPost, axiosDelete,
+} from './http';
 
 export interface ISecteur {
   activities: null;
@@ -29,8 +31,18 @@ export interface IJob {
 
 export const getMyJob = (
   parcourId: string,
+  environments?: string[],
+  secteur?: string[],
   algoType: 'interest_family' | 'family' | 'interest' = 'family',
-): Promise<Response<IJob[]>> => axiosGet('v1/jobs/myJobs', { params: { parcourId, algoType } });
+): Promise<Response<IJob[]>> =>
+  axiosGet('v1/jobs/myJobs', {
+    params: {
+      parcourId,
+      algoType,
+      environments,
+      secteur,
+    },
+  });
 
 export interface FavoritesData {
   interested: boolean | null;
@@ -38,8 +50,10 @@ export interface FavoritesData {
   parcour: string;
 }
 
-export const createFavorites = (data: FavoritesData): Promise<Response<any>> => axiosPost('v1/favorites', { data });
+export const createFavorites = (data: FavoritesData): Promise<Response<any>> =>
+  axiosPost('v1/favorites', { data });
 
 export const getFavorites = (): Promise<Response<any>> => axiosGet('v1/favorites');
 
-export const deleteFavorites = (id: string): Promise<Response<any>> => axiosDelete(`v1/favorites/${id}`);
+export const deleteFavorites = (id: string): Promise<Response<any>> =>
+  axiosDelete(`v1/favorites/${id}`);
