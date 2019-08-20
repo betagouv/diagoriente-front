@@ -5,6 +5,9 @@ import { map } from 'lodash';
 import { getListEnvironment } from 'requests';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { ISecteur } from 'requests/jobs';
+
+import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
+
 // style
 import classNames from 'utils/classNames';
 import classes from './sideBar.module.scss';
@@ -21,8 +24,8 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
   useDidMount(() => {
     get.call();
   });
-  const [isFilterOpen, setFilterOpen] = useState(false);
-  const [isSecteurOpen, setSecteurOpen] = useState(false);
+  const [isFilterOpen, setFilterOpen] = useState(true);
+  const [isSecteurOpen, setSecteurOpen] = useState(true);
   const [filterArray, setFilterArray] = useState([]);
   const [secteurArray, setSecteurArray] = useState([]);
 
@@ -42,18 +45,19 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     const selected = index !== -1;
     return { index, selected };
   }
-  const newArray: ISecteur[] = [];
-  secteurs.forEach(item => {
-    if (item._id !== 'Autre') {
-      newArray.push(item);
-    }
-  });
+  console.log('filterArray', filterArray);
+  console.log('secteurArray', secteurArray);
 
   return (
     <div className={classes.container_sideBar}>
       <div className={classes.filter_container}>
         <div className={classes.selection_title} onClick={setFilterToggle}>
-          FILTRES
+          <img
+            src={arrow}
+            alt="l"
+            className={isFilterOpen ? classes.arrowRoteted : classes.arrow}
+          />
+          <div>FILTRES</div>
         </div>
         <div
           className={classNames(
@@ -68,7 +72,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
             const onClick = () => {
               const nextFilters: any = [...filterArray];
               if (selected) {
-                nextFilters.splice(index, 1);
+                nextFilters.splice(index - 1, 1);
               } else {
                 nextFilters.push(item._id);
               }
@@ -88,22 +92,28 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
       </div>
       <div className={classes.filter_container}>
         <div className={classes.selection_title} onClick={setSecteurtoggle}>
-          DOMAINES D’ACTIVITÉ
+          <img
+            src={arrow}
+            alt="l"
+            className={isSecteurOpen ? classes.arrowRoteted : classes.arrow}
+          />
+
+          <div>DOMAINES D’ACTIVITÉ</div>
         </div>
         <div
           className={classNames(
             isSecteurOpen ? classes.themes_containerOpen_child : classes.themes_container_child,
           )}
         >
-          {map(newArray, item => {
+          {map(secteurs, (item: any) => {
             const { index, selected } = getSelected(
-              newArray,
+              secteurs,
               () => !!secteurArray.find(r => item._id === r),
             );
             const onClickSecteur = () => {
               const nextFilters: any = [...secteurArray];
               if (selected) {
-                nextFilters.splice(index, 1);
+                nextFilters.splice(index - 1, 1);
               } else {
                 nextFilters.push(item._id);
               }

@@ -31,18 +31,21 @@ export interface IJob {
 
 export const getMyJob = (
   parcourId: string,
-  environments?: string[],
-  secteur?: string[],
+  environments?: string,
+  secteur?: string,
   algoType: 'interest_family' | 'family' | 'interest' = 'family',
-): Promise<Response<IJob[]>> =>
-  axiosGet('v1/jobs/myJobs', {
+): Promise<Response<IJob[]>> => {
+  const env = environments && JSON.parse(environments).length ? environments : null;
+  const sect = secteur && JSON.parse(secteur).length ? secteur : null;
+  return axiosGet('v1/jobs/myJobs', {
     params: {
       parcourId,
       algoType,
-      environments,
-      secteur,
+      environments: env,
+      secteur: sect,
     },
   });
+};
 
 export interface FavoritesData {
   interested: boolean | null;

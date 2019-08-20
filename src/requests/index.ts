@@ -12,3 +12,4 @@ export * from './famille';
 export * from './jobs';
 export * from './activity';
 export * from './environment';
+export * from './secteur';

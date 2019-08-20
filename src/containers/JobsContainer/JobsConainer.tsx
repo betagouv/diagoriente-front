@@ -13,6 +13,7 @@ import {
   createFavorites,
   getParcours,
   IJob,
+  getSecteurs,
   ISecteur,
   deleteFavorites,
 } from '../../requests';
@@ -37,6 +38,7 @@ interface Props
       addFavorites: typeof createFavorites;
       getParcours: typeof getParcours;
       deleteFavorites: typeof deleteFavorites;
+      getSecteurs: typeof getSecteurs;
     }>,
     IMapToProps {}
 
@@ -45,6 +47,7 @@ const JobsContainer = ({
   parcoursId,
   addFavorites,
   getParcours,
+  getSecteurs,
   families,
   history,
   deleteFavorites,
@@ -59,8 +62,8 @@ const JobsContainer = ({
 
   useDidMount(() => {
     getParcours.call(parcoursId);
+    getSecteurs.call();
   });
-
   useEffect(() => {
     if (!addFavorites.fetching && !addFavorites.error) {
       listJobs.call(parcoursId);
@@ -77,12 +80,8 @@ const JobsContainer = ({
     fetchingChange(listJobs.fetching);
   }, [listJobs.fetching]);
   function filterJobs(filterArray: string[], secteurArray: string[]) {
-    console.log(filterArray);
-    console.log(secteurArray)
-    listJobs.call(parcoursId, filterArray, secteurArray);
+    listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
-
-
 
   if (!families.length) return <Redirect to="/profile" />;
 
@@ -184,7 +183,7 @@ const JobsContainer = ({
           <Spinner />
         </div>
       )}
-      <SideBar secteurs={secteurs} filterJobs={filterJobs} parcoursId={parcoursId} />
+      <SideBar secteurs={getSecteurs.data} filterJobs={filterJobs} parcoursId={parcoursId} />
       <div className={classes.jobs_container}>
         <Grid container>
           <Grid item xl={12} className={classes.title}>
@@ -239,6 +238,7 @@ export default connect(mapStateToProps)(
     getParcours,
     deleteFavorites,
     listJobs: getMyJob,
+    getSecteurs,
     addFavorites: createFavorites,
   })(withLayout(JobsContainer)),
 );
