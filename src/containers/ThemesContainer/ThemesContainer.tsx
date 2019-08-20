@@ -121,11 +121,11 @@ const ThemesContainer = forwardRef(
         }
       }
     }
-    console.log(
+    /* console.log(
       'old',
       ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
     );
-    console.log('new', ...skills.map(skillWithoutId));
+    console.log('new', ...skills.map(skillWithoutId)); */
 
     useEffect(() => {
       list.call({ type });

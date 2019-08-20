@@ -19,14 +19,10 @@ import {
   deleteFavorites,
 } from '../../requests';
 import { useDidMount, useDidUpdate } from '../../hooks';
-import Grid from '../../components/ui/Grid/Grid';
 import Spinner from '../../components/ui/Spinner/Spinner';
-import Info from '../../components/ui/Info/Info';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
-import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 import Card from '../../components/cards/Card/Card';
-import Carousel from '../../components/ui/Carousel/Carousel';
 
 interface IMapToProps {
   parcoursId: string;
@@ -172,8 +168,9 @@ const JobsContainer = ({
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
 
-  const sections = [...selectedJobs, autres];
-    // console.log(jobs.map(el => el.jobs.map(al => al.interests)));
+  // const sections = [...selectedJobs, autres];
+  const jArray = (jobs.map(el => el.jobs.map(al => al))).flat(1)
+    console.log(jobs);
   return (
     <div className={classes.container}>
       {fetching && (
@@ -192,8 +189,19 @@ const JobsContainer = ({
         <div className={classes.selections}>
           <JobSelection title="Technicien en application industrielle" withRemove />
         </div>
-        <div>
-          <JobCard rating={3} color="#ffba27" />
+        <div className={classes.cardsContainer}>
+          {
+            jArray.map((metier, index) => (
+              <JobCard
+                rating={index <=2 ? 3 : index <= 5 ? 2 : index <= 8 ? 1 : 0}
+                color={index <=2 ? "#fab82d" : index <=5  ? '#c8ccb0' : index <= 8 ? '#a67c52' : '#696b6d'}
+                jobName={metier.title}
+                jobAccessebility={metier.accessibility}
+                jobDescription={metier.description}
+                jobInterest={metier.interests}
+              />
+              ))
+              }
         </div>
         {/* <Grid item xl={12} lg={12}>
           <Carousel
