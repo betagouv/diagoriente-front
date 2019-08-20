@@ -63,7 +63,7 @@ interface Props
 const ProfileContainer = ({ match, fetchingParcour }: Props) => {
   const expertiseRef = useRef(null);
   if (match.isExact) return <Redirect to="/profile/skills" />;
-
+console.log('match', match);
   return (
     <Fragment>
       <Header HeaderProfile showLogout />

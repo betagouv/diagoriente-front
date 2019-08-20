@@ -4,6 +4,7 @@ import { AnyAction } from 'redux';
 import CountUp from 'react-countup';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 import modalActions from 'reducers/modal';
+import { IExpertise } from 'reducers';
 import classes from './ApparationCard.module.scss';
 import classNames from '../../utils/classNames';
 import star from '../../assets/icons/stars/ic_star_full.svg';
@@ -20,8 +21,11 @@ interface Props
   title: string;
   favori?: boolean;
   withProgressBar?: boolean;
+  isChecked?: boolean;
   withCheckBox?: boolean;
   state?: number;
+  expertise?: IExpertise;
+  checkboxHandler?: (expert: IExpertise) => void;
   clickHandler?: (value: number) => void;
   withDots?: boolean;
   active?: boolean;
@@ -36,10 +40,13 @@ const ApparationCard = ({
   withProgressBar,
   withCheckBox,
   state,
+  isChecked,
   clickHandler,
   withDots,
   active,
   index,
+  expertise,
+  checkboxHandler,
   className,
   children,
   openModal,
@@ -79,7 +86,10 @@ const ApparationCard = ({
   }
 
   return (
-    <div className={classes.CardContainer}>
+    <div
+      className={classes.CardContainer}
+      style={{ justifyContent: withDots ? 'space-evenly' : 'center' }}
+    >
       {withProgressBar && clickHandler && (index || index === 0) && (
         <div
           className={classNames(
@@ -90,12 +100,8 @@ const ApparationCard = ({
           style={{ borderColor: `transparent transparent transparent ${color}` }}
         />
       )}
-      {withCheckBox && clickHandler && (
-        <input
-          type="checkbox"
-          checked={state === 5}
-          onChange={() => onChange(5 - (state as number))}
-        />
+      {withCheckBox && checkboxHandler && expertise && (
+        <input type="checkbox" checked={isChecked} onChange={() => checkboxHandler(expertise)} />
       )}
       <div className={classes.CardApp} {...other}>
         <div className={classes.etiquette} style={{ backgroundColor: color }} />

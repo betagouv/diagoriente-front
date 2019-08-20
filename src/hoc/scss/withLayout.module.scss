@@ -1,5 +1,5 @@
 /** ---variables--- **/
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 $title_height: 40px;
 $footer_height: 55px;
@@ -86,7 +86,7 @@ $footer_height: 55px;
     width: 160%;
   }
 }
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px) {
   .footer_container {
     width: -webkit-fill-available;
   }

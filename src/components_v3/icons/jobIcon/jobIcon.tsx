@@ -1,22 +1,31 @@
 import React from 'react';
-import Star from '../starSvg/star';
+import classNames from 'utils/classNames';
 import classes from './jobIcon.module.scss';
+import Star from '../starSvg/star';
 
 interface Props {
   color?: string;
   height: string;
   width: string;
-  rating?: 1 | 2 | 3;
+  rating?: 0 | 1 | 2 | 3;
 }
 
 const JobIcon = ({
- color = '#000', width, height, rating,
-}: Props) => (
-  <div className={classes.container}>
-    {rating && rating >= 1 && <Star height="10" width="10" color={color} className={classes.star} />}
-    {rating && rating >= 2 && <Star height="10" width="10" color={color} className={classes.star} />}
-    {rating === 3 && <Star height="10" width="10" color={color} className={classes.star} />}
-
+  color = '#000',
+  width,
+  height,
+  rating,
+  className,
+}: Props & React.HTMLAttributes<HTMLElement>) => (
+  <div className={classNames(classes.container, className)}>
+    
+    {rating === 3 ? <Star height="10" width="10" color={color} className={classes.star} /> : null}
+    {rating && rating >= 2 ? (
+      <Star height="10" width="10" color={color} className={classes.star} />
+    ) : null}
+    {rating && rating >= 1 ? (
+      <Star height="10" width="10" color={color} className={classes.star} />
+    ) : null}
     <svg
       fill={color}
       id="Capa_1"
@@ -75,10 +84,13 @@ const JobIcon = ({
         <rect x="372.254" y="378.905" width="14.345" height="15.207" fill={color} />
       </g>
     </svg>
-
-    {rating && rating >= 1 && <Star height="10" width="10" color={color} className={classes.star} />}
-    {rating && rating >= 2 && <Star height="10" width="10" color={color} className={classes.star} />}
-    {rating === 3 && <Star height="10" width="10" color={color} className={classes.star} />}
+    {rating === 3 ? <Star height="10" width="10" color={color} className={classes.star} /> : null}
+    {rating && rating >= 2 ? (
+      <Star height="10" width="10" color={color} className={classes.star} />
+    ) : null}
+    {rating && rating >= 1 ? (
+      <Star height="10" width="10" color={color} className={classes.star} />
+    ) : null}
   </div>
 );
 export default JobIcon;

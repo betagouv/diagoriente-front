@@ -53,7 +53,7 @@ const ExpertisesContainer = forwardRef(
       false,
     ]);
     const [competences, setCompetences] = useState(get.data.globalCopmetences);
-    const [barré, barréChange] = useState(true);
+    const [barré, barréChange] = useState(false);
 
     useEffect(() => {
       setCompetences(get.data.globalCopmetences);
@@ -134,7 +134,6 @@ const ExpertisesContainer = forwardRef(
         0,
       );
     }
-
     return (
       <div className={classes.Container}>
         <div className={classes.Header}>

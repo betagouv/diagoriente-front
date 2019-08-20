@@ -7,6 +7,8 @@ import ReactTooltip from 'react-tooltip';
 import { ReduxState } from 'reducers';
 import withLayout from 'hoc/withLayout';
 
+import JobSelection from 'components_v3/jobSelection/jobSelction';
+import JobCard from 'components_v3/jobCard/jobCard';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
   getMyJob,
@@ -18,14 +20,10 @@ import {
   deleteFavorites,
 } from '../../requests';
 import { useDidMount, useDidUpdate } from '../../hooks';
-import Grid from '../../components/ui/Grid/Grid';
 import Spinner from '../../components/ui/Spinner/Spinner';
-import Info from '../../components/ui/Info/Info';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
-import ContinueButton from '../../components/buttons/ContinueButtom/ContinueButton';
 import Card from '../../components/cards/Card/Card';
-import Carousel from '../../components/ui/Carousel/Carousel';
 
 interface IMapToProps {
   parcoursId: string;
@@ -174,8 +172,9 @@ const JobsContainer = ({
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
 
-  const sections = [...selectedJobs, autres];
-
+  // const sections = [...selectedJobs, autres];
+  const jArray = (jobs.map(el => el.jobs.map(al => al))).flat(1)
+    console.log(jobs);
   return (
     <div className={classes.container}>
       {fetching && (
@@ -185,44 +184,44 @@ const JobsContainer = ({
       )}
       <SideBar secteurs={getSecteurs.data} filterJobs={filterJobs} parcoursId={parcoursId} />
       <div className={classes.jobs_container}>
-        <Grid container>
-          <Grid item xl={12} className={classes.title}>
-            Mes pistes métiers
-          </Grid>
-          <Grid item xl={12}>
-            <Info backgroundColor="#f9f3f3">
-              <span className={classes.info}>
-                Sélectionne des métiers que tu aimerais découvrir
-              </span>
-              <br />
-              <span className={classes.italic_text}>
-                Tu peux filtrer les différents secteurs en les sélectionnant dans la colonne de
-                gauche
-              </span>
-            </Info>
-          </Grid>
-          <Grid item xl={12} lg={12}>
-            <Carousel
-              className={classes.carousel}
-              sections={sections.map(section => ({
-                title: section.secteur.title,
-                data: section.jobs,
-                secteur: section.secteur,
-              }))}
-              renderItem={renderJob}
-              itemWrapperComponent={<Grid item xl={6} lg={12} md={12} smd={12} />}
-              itemKeyExtractor={job => job._id}
-              renderTitle={({ title }) => (
-                <Grid className={classes.secteur} item xl={12}>
-                  {title}
-                </Grid>
-              )}
-            />
-          </Grid>
-          <Grid item xl={12} className={classes.btn_container_jobs}>
-            <ContinueButton className={classes.btn_jobs} onClick={onNavigate} label="Terminer" />
-          </Grid>
+        <div className={classes.selections}>
+          <JobSelection title="Technicien en application industrielle" withRemove />
+        </div>
+        <div className={classes.cardsContainer}>
+          {
+            jArray.map((metier, index) => (
+              <JobCard
+                rating={index <=2 ? 3 : index <= 5 ? 2 : index <= 8 ? 1 : 0}
+                color={index <=2 ? "#fab82d" : index <=5  ? '#c8ccb0' : index <= 8 ? '#a67c52' : '#696b6d'}
+                jobName={metier.title}
+                jobAccessebility={metier.accessibility}
+                jobDescription={metier.description}
+                jobInterest={metier.interests}
+              />
+              ))
+              }
+        </div>
+        {/* <Grid item xl={12} lg={12}>
+          <Carousel
+            className={classes.carousel}
+            sections={sections.map(section => ({
+              title: section.secteur.title,
+              data: section.jobs,
+              secteur: section.secteur,
+            }))}
+            renderItem={renderJob}
+            itemWrapperComponent={<Grid item xl={6} lg={12} md={12} smd={12} />}
+            itemKeyExtractor={job => job._id}
+            renderTitle={({ title }) => (
+              <Grid className={classes.secteur} item xl={12}>
+                {title}
+              </Grid>
+            )}
+          />
         </Grid>
+        <Grid item xl={12} className={classes.btn_container_jobs}>
+          <ContinueButton className={classes.btn_jobs} onClick={onNavigate} label="Terminer" />
+        </Grid> */}
       </div>
     </div>
   );
