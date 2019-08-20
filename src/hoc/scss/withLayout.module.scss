@@ -23,7 +23,7 @@ $footer_height: 55px;
   padding-left: $sidebar_width;
   height: $title_height;
   width: 100vw;
-  z-index: 9999;
+  z-index: $header_zindex;
 }
 
 .title {
