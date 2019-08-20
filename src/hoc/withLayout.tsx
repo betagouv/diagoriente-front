@@ -18,6 +18,7 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
     const [state, stateChange] = useState(false);
 
     function captureRef(localRef: any) {
+      wrappedRef.current = localRef;
       if (
         localRef
         && (!wrappedRef.current
@@ -26,7 +27,6 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
       ) {
         stateChange(!state);
       }
-      wrappedRef.current = localRef;
 
       if (ref) {
         if (typeof ref === 'function') ref(localRef);

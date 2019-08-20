@@ -240,6 +240,25 @@ const ThemeContainer = forwardRef(
                     competencesChange(newCompetences);
                   }
                 }
+                function checkboxHandler(expert: IExpertise) {
+                  let newCompetences = [...competences];
+                  if (selected) {
+                    newCompetences = newCompetences.filter(item => item._id !== expert._id);
+                  } else if (competences.length < 4) {
+                    newCompetences = [...competences, { ...expert, value: 5 }];
+                  } else {
+                    openModal(
+                      <ConfirmModal
+                        onCloseModal={closeModal}
+                        confirme={closeModal}
+                        value={2}
+                        text="vous avez déja selectionné 4 compétences"
+                        isConfirm={false}
+                      />,
+                    );
+                  }
+                  competencesChange(newCompetences);
+                }
                 return (
                   <div
                     className={classNames(
@@ -254,8 +273,11 @@ const ThemeContainer = forwardRef(
                       color={expertise.color}
                       title={expertise.title}
                       state={selected ? competences[index].value : 0}
+                      isChecked={selected}
                       clickHandler={onChange}
                       className={classes.titleFont}
+                      expertise={expertise}
+                      checkboxHandler={checkboxHandler}
                     />
                   </div>
                 );
