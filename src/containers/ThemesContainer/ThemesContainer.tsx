@@ -99,6 +99,8 @@ const ThemesContainer = forwardRef(
       !currentSkills.length ? 'select_theme' : null,
     );
 
+    console.log({ step });
+
     const [selectedTheme, selectedThemeChange] = useState<string | null>(null);
     const [skills, skillsChange] = useState(currentSkills);
 
@@ -120,7 +122,7 @@ const ThemesContainer = forwardRef(
         }
       }
     }
-  /*   console.log(
+    /*   console.log(
       'old',
       ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
     );

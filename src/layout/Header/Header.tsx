@@ -36,23 +36,32 @@ type Props = IMapToProps &
     showLogout: boolean;
   };
 
-const Header = ({ logout, user, showLogout, openModal, closeModal, pathTo }: Props) => {
+const Header = ({
+ logout, user, showLogout, openModal, closeModal, pathTo,
+}: Props) => {
   const onLogout = () => {
     openModal(<LogoutModal onLogout={logout} onClose={closeModal} />);
   };
-  logout();
+  // logout();
   return (
     <Grid className={classes.headerContainer} container>
       <Grid item xl={6}>
         <Link to={pathTo}>
-          <img className={classes.logo} src={logo} srcSet={`${logo2x} 2x, ${logo3x} 3x`} alt="Logo" />
+          <img
+            className={classes.logo}
+            src={logo}
+            srcSet={`${logo2x} 2x, ${logo3x} 3x`}
+            alt="Logo"
+          />
         </Link>
       </Grid>
       <Grid className={classes.logout_container} item xl={6}>
         {showLogout && user && (
           <button className={classes.logout} onClick={onLogout}>
             <span className={classes.logout_text}>
-              {user.profile.firstName} {user.profile.lastName}
+              {user.profile.firstName}
+              {' '}
+              {user.profile.lastName}
             </span>
             <div className={classes.logout_icon_container}>
               <img className={classes.logout_icon} src={logoutSvg} />
