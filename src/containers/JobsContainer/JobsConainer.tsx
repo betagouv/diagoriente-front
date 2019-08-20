@@ -77,6 +77,7 @@ const JobsContainer = ({
   useDidUpdate(() => {
     fetchingChange(listJobs.fetching);
   }, [listJobs.fetching]);
+
   function filterJobs(filterArray: string[], secteurArray: string[]) {
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }

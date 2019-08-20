@@ -73,11 +73,13 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
               const nextFilters: any = [...filterArray];
               if (selected) {
                 nextFilters.splice(index - 1, 1);
+                setFilterArray(nextFilters);
+                filterJobs(nextFilters, secteurArray);
               } else {
                 nextFilters.push(item._id);
+                setFilterArray(nextFilters);
+                filterJobs(nextFilters, secteurArray);
               }
-              setFilterArray(nextFilters);
-              filterJobs(filterArray, secteurArray);
             };
             return (
               <div className={classes.rowItem} onClick={onClick}>
@@ -114,11 +116,13 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
               const nextFilters: any = [...secteurArray];
               if (selected) {
                 nextFilters.splice(index - 1, 1);
+                setSecteurArray(nextFilters);
+                filterJobs(filterArray, nextFilters);
               } else {
                 nextFilters.push(item._id);
+                setSecteurArray(nextFilters);
+                filterJobs(filterArray, nextFilters);
               }
-              setSecteurArray(nextFilters);
-              filterJobs(filterArray, secteurArray);
             };
             return (
               <div className={classes.rowItem} onClick={onClickSecteur}>
