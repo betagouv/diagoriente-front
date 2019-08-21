@@ -60,10 +60,13 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match, fetchingParcour }: Props) => {
+const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
   const expertiseRef = useRef(null);
   if (match.isExact) return <Redirect to="/profile/skills" />;
-console.log('match', match);
+  const allXpPersoSetted = parcours.data.skills
+    .filter(item => item.type === 'personal')
+    .flatMap(item => item.competences.flat(2))
+    .some(item => item.value === 5);
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
@@ -149,34 +152,38 @@ console.log('match', match);
           <Route
             path="/profile/pro"
             exact
-            render={props => (
-              <ThemesContainer
-                title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
-                {...props}
-                type="professional"
-                footerButtons={[
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        text="VALIDER"
-                        width="35"
-                        footer
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
-                ]}
-              />
-            )}
+            render={props =>
+              (allXpPersoSetted ? (
+                <Redirect to="/profile/intermediate" />
+              ) : (
+                <ThemesContainer
+                  title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
+                  {...props}
+                  type="professional"
+                  footerButtons={[
+                    {
+                      component: fetchingParcour ? (
+                        <div className={classes.containerSpinner}>
+                          <Spinner />
+                        </div>
+                      ) : (
+                        <MultiIcon
+                          type="validate"
+                          withText
+                          text="VALIDER"
+                          width="35"
+                          footer
+                          height="35"
+                          textColor="#ffba27"
+                          Iconcolor="#ffba27"
+                        />
+                      ),
+                      key: 'valider',
+                    },
+                  ]}
+                />
+              ))
+            }
           />
           <Route
             path="/profile/intermediate"
@@ -214,33 +221,37 @@ console.log('match', match);
           <Route
             path="/profile/favoris"
             exact
-            render={props => (
-              <FavorisContainer
-                {...props}
-                title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
-                footerButtons={[
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        text="VALIDER"
-                        width="35"
-                        footer
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
-                ]}
-              />
-            )}
+            render={props =>
+              (allXpPersoSetted ? (
+                <Redirect to="/profile/intermediate" />
+              ) : (
+                <FavorisContainer
+                  {...props}
+                  title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
+                  footerButtons={[
+                    {
+                      component: fetchingParcour ? (
+                        <div className={classes.containerSpinner}>
+                          <Spinner />
+                        </div>
+                      ) : (
+                        <MultiIcon
+                          type="validate"
+                          withText
+                          text="VALIDER"
+                          width="35"
+                          footer
+                          height="35"
+                          textColor="#ffba27"
+                          Iconcolor="#ffba27"
+                        />
+                      ),
+                      key: 'valider',
+                    },
+                  ]}
+                />
+              ))
+            }
           />
           <Route
             path="/profile/jobs"
