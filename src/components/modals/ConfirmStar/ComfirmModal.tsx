@@ -2,8 +2,6 @@ import React from 'react';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 
 import Grid from '../../ui/Grid/Grid';
-
-import Button from '../../buttons/RoundButton/RoundButton';
 import classes from './confirm.module.scss';
 
 interface Props {
