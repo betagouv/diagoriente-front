@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { forEach, filter, isEmpty } from 'lodash';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import modalActions from 'reducers/modal';
+import { AnyAction } from 'redux';
 
 import { ReduxState } from 'reducers';
 import withLayout from 'hoc/withLayout';
 
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import JobCard from 'components_v3/jobCard/jobCard';
+import JobModal from 'components/modals/jobModal/jobModal';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
   getMyJob,
@@ -29,6 +32,10 @@ interface IMapToProps {
   parcoursId: string;
   families: string[];
 }
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+}
 
 interface Props
   extends ApiComponentProps<{
@@ -38,6 +45,7 @@ interface Props
       deleteFavorites: typeof deleteFavorites;
       getSecteurs: typeof getSecteurs;
     }>,
+    IDispatchToProps,
     IMapToProps {}
 
 const JobsContainer = ({
@@ -49,6 +57,8 @@ const JobsContainer = ({
   families,
   history,
   deleteFavorites,
+  openModal,
+  closeModal,
 }: Props & RouteComponentProps) => {
   const [fetching, fetchingChange] = useState(false);
   const [selectedSecteurs, selectedSecteursChange] = useState([] as string[]);
@@ -172,10 +182,13 @@ const JobsContainer = ({
   if (selectedSecteurs.length) {
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
+  const handleCard = () => {
+    openModal(<JobModal onCloseModal={closeModal} confirme={closeModal}  />);
+  };
 
   // const sections = [...selectedJobs, autres];
-  const jArray = (jobs.map(el => el.jobs.map(al => al))).flat(1)
-    console.log(jobs);
+  const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
+  console.log(jobs);
   return (
     <div className={classes.container}>
       {fetching && (
@@ -189,18 +202,20 @@ const JobsContainer = ({
           <JobSelection title="Technicien en application industrielle" withRemove />
         </div>
         <div className={classes.cardsContainer}>
-          {
-            jArray.map((metier, index) => (
-              <JobCard
-                rating={index <=2 ? 3 : index <= 5 ? 2 : index <= 8 ? 1 : 0}
-                color={index <=2 ? "#fab82d" : index <=5  ? '#c8ccb0' : index <= 8 ? '#a67c52' : '#696b6d'}
-                jobName={metier.title}
-                jobAccessebility={metier.accessibility}
-                jobDescription={metier.description}
-                jobInterest={metier.interests}
-              />
-              ))
+          {jArray.map((metier, index) => (
+            <JobCard
+              rating={index <= 2 ? 3 : index <= 5 ? 2 : index <= 8 ? 1 : 0}
+              color={
+                index <= 2 ? '#fab82d' : index <= 5 ? '#c8ccb0' : index <= 8 ? '#a67c52' : '#696b6d'
               }
+              jobName={metier.title}
+              jobAccessebility={metier.accessibility}
+              jobDescription={metier.description}
+              jobInterest={metier.interests}
+              onClick={handleCard}
+              key={metier._id}
+            />
+          ))}
         </div>
         {/* <Grid item xl={12} lg={12}>
           <Carousel
@@ -232,8 +247,16 @@ const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
   parcoursId: parcours.data._id,
   families: parcours.data.families,
 });
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
 
-export default connect(mapStateToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(
   withApis({
     getParcours,
     deleteFavorites,
