@@ -65,6 +65,7 @@ const ThemeContainer = forwardRef(
 
     function getExpertises() {
       const result: (IExpertise & { value: number })[] = [];
+
       if (skill) {
         expertises.forEach(expertise => {
           const index = skill.competences.findIndex(({ _id }) => expertise._id === _id);
@@ -73,13 +74,13 @@ const ThemeContainer = forwardRef(
           }
         });
       }
+
       return result;
     }
 
-    const [activities, activitiesChange] = useState(getActivities());
-    const [competences, competencesChange] = useState(getExpertises());
+    const [activities, activitiesChange] = useState<IActivity[]>([]);
+    const [competences, competencesChange] = useState<(IExpertise & { value: number })[]>([]);
     const isEditRef = useRef(false);
-
     const isEdit = step !== 'show';
 
     useEffect(() => {
@@ -92,6 +93,10 @@ const ThemeContainer = forwardRef(
         get.call(id);
       }
     }, [step]);
+
+    useEffect(() => {
+      competencesChange(getExpertises());
+    }, [expertises]);
 
     useCaptureRef(
       {
@@ -106,6 +111,7 @@ const ThemeContainer = forwardRef(
       callback: (row: T, index: number, array: T[]) => boolean,
     ): { index: number; selected: boolean } {
       if (!isEdit) return { index: -1, selected: false };
+
       const index = array.findIndex(callback);
       const selected = index !== -1;
       return { index, selected };

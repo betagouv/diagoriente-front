@@ -52,8 +52,11 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
   };
 
   wrapperRefs: (HTMLDivElement | undefined)[] = [];
+
   itemsRefs: (HTMLDivElement | undefined)[][] = [];
+
   carousel: React.RefObject<BaseCarousel> = React.createRef();
+
   container: React.RefObject<HTMLDivElement> = React.createRef();
 
   componentDidMount() {
@@ -81,7 +84,8 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
     }
 
     if (this.state.selectedItem !== state.selectedItem && this.itemsRefs[this.state.selectedItem]) {
-      const currentLength = this.props.sections[this.state.selectedItem].data.length;
+      const currentLength = this.props.sections[this.state.selectedItem]
+        && this.props.sections[this.state.selectedItem].data.length;
       const lastRef = this.itemsRefs[this.state.selectedItem][currentLength - 1];
       const containerRef = this.container.current;
       if (lastRef && containerRef) {
@@ -90,48 +94,54 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
     }
   }
 
-  getMaxHeight = () => {
-    return this.wrapperRefs.reduce((result, ref) => {
+  getMaxHeight = () => this.wrapperRefs.reduce((result, ref) => {
       if (ref) {
         return Math.max(result, ref.getBoundingClientRect().height);
       }
       return result;
-    },                             0);
-  }
+    }, 0);
 
   goToPrevious = () => {
     this.setState((state: State) => ({ selectedItem: state.selectedItem - 1 }));
-  }
+  };
 
   goToNext = () => {
     this.setState((state: State) => ({ selectedItem: state.selectedItem + 1 }));
-  }
+  };
 
   onItemChange = (selectedItem: number) => {
     this.setState({ selectedItem });
-  }
+  };
 
   renderStepper = (section: Section<T>, active: boolean, index: number) => {
     const onClick = () => {
       this.setState({ selectedItem: index });
     };
     return (
-      <>
+      <>'       '<div
+        data-tip
+        data-for={section.title}
+        onClick={onClick}
+        className={classNames(classes.stepper_circle, active && classes.stepper_circle_active)}
+        key={`div${index}`}
+      >
         <div
-          data-tip
-          data-for={section.title}
-          onClick={onClick}
-          className={classNames(classes.stepper_circle, active && classes.stepper_circle_active)}
-          key={`div${index}`}
-        >
-          <div className={classNames(classes.stepper_small_circle, active && classes.stepper_small_circle_active)} />
-        </div>
-        <ReactTooltip key={`tooltip${index}`} id={section.title} place="left" type="light" className={classes.tooltip}>
-          {section.title}
-        </ReactTooltip>
-      </>
+          className={classNames(
+              classes.stepper_small_circle,
+              active && classes.stepper_small_circle_active,
+            )}
+        />
+                 </div>'       '<ReactTooltip
+        key={`tooltip${index}`}
+        id={section.title}
+        place="left"
+        type="light"
+        className={classes.tooltip}
+      >
+        {section.title}
+                     </ReactTooltip>'     '</>
     );
-  }
+  };
 
   render() {
     const {
@@ -155,7 +165,7 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
           showStatus={false}
           showArrows={false}
           stopOnHover={false}
-          axis={'vertical'}
+          axis="vertical"
           {...other}
           ref={this.carousel}
         >
@@ -174,9 +184,7 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
                 {React.cloneElement(
                   sectionWrapperComponent,
                   {},
-                  <>
-                    {renderTitle(section, index)}
-                    {section.data.map((d, i) => {
+                  <>'                   '{renderTitle(section, index)}'                   '{section.data.map((d, i) => {
                       const captureItemRef = (ref: HTMLDivElement) => {
                         if (!this.itemsRefs[index]) {
                           this.itemsRefs[index] = [];
@@ -189,8 +197,7 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
                         { key: itemKeyExtractor(d, i), ref: captureItemRef },
                         renderItem(d, i),
                       );
-                    })}
-                  </>,
+                    })}'                 '</>,
                 )}
               </div>
             );
@@ -205,7 +212,10 @@ class Carousel<T> extends React.PureComponent<Props<T>, State> {
             return this.renderStepper(section, active, index);
           })}
         </div>
-        <div style={this.state.arrowsTop ? { top: this.state.arrowsTop + 20 } : {}} className={classes.nav_arrows}>
+        <div
+          style={this.state.arrowsTop ? { top: this.state.arrowsTop + 20 } : {}}
+          className={classes.nav_arrows}
+        >
           {this.state.selectedItem !== 0 && (
             <div className={`${classes.nav_arrow} ${classes.nav_arrow_left}`}>
               <img onClick={this.goToPrevious} height={25} width={25} src={scrollArrow} />
