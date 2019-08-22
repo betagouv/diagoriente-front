@@ -79,7 +79,7 @@ export interface ITheme {
   createdAt: string;
   activities: IActivity[];
   resources?: { color: string; backgroundColor: string; icon: string };
-  required?: IExpertise[];
+  required?: any[];
 }
 
 export interface ISkillPopulated {
