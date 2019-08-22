@@ -113,10 +113,9 @@ const ThemesContainer = forwardRef(
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-       
       }
     }
-
+   
     useEffect(() => {
       list.call({ type });
       stepChange(!currentSkills.length ? 'select_theme' : null);
@@ -130,7 +129,11 @@ const ThemesContainer = forwardRef(
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
         if (type === 'personal') {
-          history.push('/profile/intermediate');
+          if (skills.length === 0) {
+            history.push('/profile/skills');
+          } else {
+            history.push('/profile/intermediate');
+          }
         } else {
           history.push('/profile/skills');
         }

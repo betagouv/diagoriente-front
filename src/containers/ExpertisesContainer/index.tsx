@@ -36,6 +36,7 @@ interface MapToProps {
 interface DispatchToProps {
   updateParcoursCompetences: (data: updateparcoursParam) => void;
 }
+
 interface Props
   extends RouteComponentProps,
     MapToProps,
@@ -92,6 +93,11 @@ const ExpertisesContainer = forwardRef(
       get.call(parcours._id);
     });
 
+    useDidUpdate(() => {
+      if (!parcoursFetching && parcoursError === 'no error') {
+        history.push('/profile/pro');
+      }
+    }, [parcours]);
     function HandleSubmit() {
       const competencesValue: CompetencesValue[] = [];
       let validateSubmit: boolean = true;
@@ -116,7 +122,8 @@ const ExpertisesContainer = forwardRef(
       if (button === 'valider') {
         HandleSubmit();
       }
-      history.push('/profile/pro');
+      /*       history.push('/profile/pro');
+       */
     }
     useCaptureRef({ onFooterClick, footerButtonsProps: { barré, disabled: barré } }, ref);
     function handleOpen(index: number) {
