@@ -182,8 +182,8 @@ const JobsContainer = ({
   if (selectedSecteurs.length) {
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
-  const handleCard = () => {
-    openModal(<JobModal onCloseModal={closeModal} confirme={closeModal}  />);
+  const handleCard = (id: string) => {
+    openModal(<JobModal onCloseModal={closeModal} confirme={closeModal} id={id} parcoursId={parcoursId} />);
   };
 
   // const sections = [...selectedJobs, autres];
@@ -211,32 +211,11 @@ const JobsContainer = ({
               jobAccessebility={metier.accessibility}
               jobDescription={metier.description}
               jobInterest={metier.interests}
-              onClick={handleCard}
+              onClick={() => handleCard(metier._id)}
               key={metier._id}
             />
           ))}
         </div>
-        {/* <Grid item xl={12} lg={12}>
-          <Carousel
-            className={classes.carousel}
-            sections={sections.map(section => ({
-              title: section.secteur.title,
-              data: section.jobs,
-              secteur: section.secteur,
-            }))}
-            renderItem={renderJob}
-            itemWrapperComponent={<Grid item xl={6} lg={12} md={12} smd={12} />}
-            itemKeyExtractor={job => job._id}
-            renderTitle={({ title }) => (
-              <Grid className={classes.secteur} item xl={12}>
-                {title}
-              </Grid>
-            )}
-          />
-        </Grid>
-        <Grid item xl={12} className={classes.btn_container_jobs}>
-          <ContinueButton className={classes.btn_jobs} onClick={onNavigate} label="Terminer" />
-        </Grid> */}
       </div>
     </div>
   );

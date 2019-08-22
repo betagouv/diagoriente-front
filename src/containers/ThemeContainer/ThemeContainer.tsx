@@ -274,6 +274,23 @@ const ThemeContainer = forwardRef(
                   }
                   competencesChange(newCompetences);
                 }
+
+                function getRequired() {
+                  let result;
+                 if (
+                   step === 'activities_edit'
+                   || step === 'expertise_edit'
+                   || step === 'edit_all'
+                 ) {
+                   if (skill && skill.theme.required) {
+                     result = skill.theme.required.some((item: any) => expertise._id === item);
+                   } else {
+                     result = get.data.required && get.data.required.some((item: any) => expertise._id === item);
+                   }
+                 }
+                 return result;
+                }
+                const test = getRequired();
                 return (
                   <div
                     className={classNames(
@@ -293,6 +310,7 @@ const ThemeContainer = forwardRef(
                       className={classes.titleFont}
                       expertise={expertise}
                       checkboxHandler={checkboxHandler}
+                      favori={test}
                     />
                   </div>
                 );
