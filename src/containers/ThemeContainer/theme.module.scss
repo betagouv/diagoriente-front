@@ -57,21 +57,22 @@
 .activities {
   color: #000;
   padding: 10px 0;
+  align-self: flex-start;
 }
 .title_activity {
- /*  overflow: hidden;
+  /*  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; */
   color: #696b6d;
   width: 90% !important;
   padding-left: 5px;
-    text-indent: -15px;
+  text-indent: -15px;
 }
 .title_activity_check {
-   color: #696b6d;
-   width: 90% !important;
-   cursor: pointer;
- }
+  color: #696b6d;
+  width: 90% !important;
+  cursor: pointer;
+}
 .titleFont {
   font-size: 13px;
 }
@@ -107,5 +108,5 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }

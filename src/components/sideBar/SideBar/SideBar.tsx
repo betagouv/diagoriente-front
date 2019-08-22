@@ -45,9 +45,6 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     const selected = index !== -1;
     return { index, selected };
   }
-  console.log('filterArray', filterArray);
-  console.log('secteurArray', secteurArray);
-
   return (
     <div className={classes.container_sideBar}>
       <div className={classes.filter_container}>
@@ -82,7 +79,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
               }
             };
             return (
-              <div className={classes.rowItem} onClick={onClick}>
+              <div key={item._id} className={classes.rowItem} onClick={onClick}>
                 <input type="checkbox" checked={selected} />
                 <span className={classNames(selected ? classes.itemSelected : classes.item)}>
                   {item.title}
@@ -125,7 +122,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
               }
             };
             return (
-              <div className={classes.rowItem} onClick={onClickSecteur}>
+              <div key={item._id} className={classes.rowItem} onClick={onClickSecteur}>
                 <input type="checkbox" checked={selected} />
                 <span className={classNames(selected ? classes.itemSelected : classes.item)}>
                   {item.title}
