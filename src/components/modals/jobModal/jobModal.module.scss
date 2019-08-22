@@ -1,19 +1,91 @@
 .wrapperModal {
-    display: flex;
-    height: 80vh;
-    background: white;
-    margin: 0 10%;
-    position: relative;
+  display: flex;
+  height: 80vh;
+  background: white;
+  margin: 0 10%;
+  position: relative;
+  flex-direction: column;
 }
 .exit {
-    position: absolute;
-    top: 4%;
-    right: -3%;
+  position: absolute;
+  top: 4%;
+  right: -32px;
 }
 .header {
-    width: 100%;
-    height: 100px;
-    box-shadow: 0px 3px 12px 2px rgba(0, 0, 0, 0.12);
-    display: flex;
-    align-items: center;
+  width: 100%;
+  height: 100px;
+  // box-shadow: 0px 3px 12px 2px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+.title {
+  font-size: 18px;
+  color: #fab82d;
+  font-weight: 600;
+}
+.body {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  box-shadow: inset 0px 3px 6px 0px rgba(0, 0, 0, 0.12),
+    inset 0px -3px 6px 0px rgba(0, 0, 0, 0.12);
+}
+.left {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.right {
+  background-color: #f1f1f1;
+}
+.top {
+  width: 100%;
+  height: 45%;
+  background: white;
+  margin: 5px 0;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.bottom {
+  width: 100%;
+  height: 45%;
+  background: white;
+  margin: 5px 0;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.12);
+}
+.descTitle {
+  width: 100%;
+  display: flex;
+  padding-left: 20px;
+  padding-top: 20px;
+  height: fit-content;
+  font-size: 18px;
+  font-weight: 600;
+  color: #7a93bc;
+  text-transform: uppercase;
+}
+.descText {
+  width: 90%;
+  height: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: #696b6d;
+}
+.jobSelection {
+  margin-left: 20px;
 }

@@ -110,7 +110,7 @@ const ApparationCard = ({
           <div className={classes.contentContainer}>
             <span
               className={classNames(classes.title, className)}
-              style={{ color: favori ? '#ffd700' : '#696b6d' }}
+              style={{ color: favori ? '#fab82d' : '#696b6d' }}
             >
               {title}
             </span>

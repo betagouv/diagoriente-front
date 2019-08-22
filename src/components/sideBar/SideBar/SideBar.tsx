@@ -45,8 +45,8 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     const selected = index !== -1;
     return { index, selected };
   }
-  console.log('filterArray', filterArray);
-  console.log('secteurArray', secteurArray);
+  /* console.log('filterArray', filterArray);
+  console.log('secteurArray', secteurArray); */
 
   return (
     <div className={classes.container_sideBar}>

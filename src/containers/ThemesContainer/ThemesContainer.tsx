@@ -99,7 +99,7 @@ const ThemesContainer = forwardRef(
       !currentSkills.length ? 'select_theme' : null,
     );
 
-    console.log({ step });
+   // console.log({ step });
 
     const [selectedTheme, selectedThemeChange] = useState<string | null>(null);
     const [skills, skillsChange] = useState(currentSkills);

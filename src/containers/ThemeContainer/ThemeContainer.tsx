@@ -274,6 +274,19 @@ const ThemeContainer = forwardRef(
                   }
                   competencesChange(newCompetences);
                 }
+
+                function getRequired() {
+                  let required;
+
+                  if (skill && skill.theme.required) {
+                    console.log(skill.theme.required)
+                    required = skill.theme.required.some(item => item._id === expertise._id);
+                  }
+
+                  return required;
+                }
+                const test = getRequired();
+                console.log(test);
                 return (
                   <div
                     className={classNames(
@@ -293,6 +306,7 @@ const ThemeContainer = forwardRef(
                       className={classes.titleFont}
                       expertise={expertise}
                       checkboxHandler={checkboxHandler}
+                      favori={isExpertiseEdit && test}
                     />
                   </div>
                 );
