@@ -1,5 +1,5 @@
 import {
- Response, axiosGet, axiosPost, axiosDelete,
+ Response, axiosGet, axiosPost, axiosDelete, ListResponse,
 } from './http';
 
 export interface ISecteur {
@@ -27,6 +27,11 @@ export interface IJob {
   accessibility: string;
   interested: boolean | null;
   favoriteId: string | null;
+}
+
+export interface IJobQuestion {
+  _id: string;
+  label: string;
 }
 
 export const getMyJob = (
@@ -62,3 +67,6 @@ export const getFavorites = (): Promise<Response<any>> => axiosGet('v1/favorites
 
 export const deleteFavorites = (id: string): Promise<Response<any>> =>
   axiosDelete(`v1/favorites/${id}`);
+
+export const jobQuestion = (): Promise<Response<ListResponse<IJobQuestion>>> =>
+  axiosGet('v1/questionJobs');

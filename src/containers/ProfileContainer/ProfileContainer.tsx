@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -11,6 +11,7 @@ import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
+import { useDidUpdate } from 'hooks';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
 import Header from '../../components_v3/Header/Header';
 // containers
@@ -60,10 +61,32 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match, fetchingParcour }: Props) => {
+const ProfileContainer = ({ match, fetchingParcour, parcours, history }: Props) => {
   const expertiseRef = useRef(null);
+  const [OneCompetencesNoSetted, SetCompetencesNoSetted] = useState(
+    parcours.data.skills
+      .filter(item => item.type === 'personal')
+      .flatMap(item => item.competences.flat(2))
+      .some(item => item.value === 5),
+  );
+  useDidUpdate(() => {
+    SetCompetencesNoSetted(
+      parcours.data.skills
+        .filter(item => item.type === 'personal')
+        .flatMap(item => item.competences.flat(2))
+        .some(item => item.value === 5),
+    );
+    if (
+      !parcours.data.skills
+        .filter(item => item.type === 'personal')
+        .flatMap(item => item.competences.flat(2))
+        .some(item => item.value === 5)
+    ) {
+      history.push('/profile/pro');
+    }
+  }, [parcours.data.skills]);
   if (match.isExact) return <Redirect to="/profile/skills" />;
-console.log('match', match);
+
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
@@ -149,34 +172,38 @@ console.log('match', match);
           <Route
             path="/profile/pro"
             exact
-            render={props => (
-              <ThemesContainer
-                title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
-                {...props}
-                type="professional"
-                footerButtons={[
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        text="VALIDER"
-                        width="35"
-                        footer
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
-                ]}
-              />
-            )}
+            render={props =>
+              (OneCompetencesNoSetted ? (
+                <Redirect to="/profile/intermediate" />
+              ) : (
+                <ThemesContainer
+                  title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
+                  {...props}
+                  type="professional"
+                  footerButtons={[
+                    {
+                      component: fetchingParcour ? (
+                        <div className={classes.containerSpinner}>
+                          <Spinner />
+                        </div>
+                      ) : (
+                        <MultiIcon
+                          type="validate"
+                          withText
+                          text="VALIDER"
+                          width="35"
+                          footer
+                          height="35"
+                          textColor="#ffba27"
+                          Iconcolor="#ffba27"
+                        />
+                      ),
+                      key: 'valider',
+                    },
+                  ]}
+                />
+              ))
+            }
           />
           <Route
             path="/profile/intermediate"
@@ -214,33 +241,37 @@ console.log('match', match);
           <Route
             path="/profile/favoris"
             exact
-            render={props => (
-              <FavorisContainer
-                {...props}
-                title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
-                footerButtons={[
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        text="VALIDER"
-                        width="35"
-                        footer
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
-                ]}
-              />
-            )}
+            render={props =>
+              (OneCompetencesNoSetted ? (
+                <Redirect to="/profile/intermediate" />
+              ) : (
+                <FavorisContainer
+                  {...props}
+                  title="SELECTIONNE TES INTÉRÊTS PROFESSIONNELS ET CLASSE LES PAR ORDRE DE PRÉFÉRENCE DANS LA COLONNE DE DROITE"
+                  footerButtons={[
+                    {
+                      component: fetchingParcour ? (
+                        <div className={classes.containerSpinner}>
+                          <Spinner />
+                        </div>
+                      ) : (
+                        <MultiIcon
+                          type="validate"
+                          withText
+                          text="VALIDER"
+                          width="35"
+                          footer
+                          height="35"
+                          textColor="#ffba27"
+                          Iconcolor="#ffba27"
+                        />
+                      ),
+                      key: 'valider',
+                    },
+                  ]}
+                />
+              ))
+            }
           />
           <Route
             path="/profile/jobs"

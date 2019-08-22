@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Questions from 'components_v3/Questions/Questions';
+
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import { getOneJob, getMyJob } from 'requests';
@@ -61,21 +63,7 @@ const JobModal = ({
           <span className={classes.title}>{data.title}</span>
         </div>
       </div>
-      <div className={classes.body}>
-        <div className={classes.left}>
-          <div className={classes.top}>
-            <span className={classes.descTitle}>Description</span>
-            <span className={classes.descText}>{data.description}</span>
-          </div>
-          <div className={classes.bottom}>
-            <span className={classes.descTitle}>Metiers similaires</span>
-            {similaire.slice(0, 3).filter((al:any) => al.title !== data.title).map((el: any) => (
-              <JobSelection title={el.title} className={classes.jobSelection} />
-))}
-          </div>
-        </div>
-        <div className={classes.right} />
-      </div>
+      <Questions />
     </div>
   );
 };
