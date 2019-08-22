@@ -291,7 +291,6 @@ const ThemeContainer = forwardRef(
                  return result;
                 }
                 const test = getRequired();
-                console.log(test);
                 return (
                   <div
                     className={classNames(

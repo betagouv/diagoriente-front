@@ -6,6 +6,10 @@
   margin: 20px;
   height: auto;
 }
+.title_container {
+  display: flex;
+  justify-content: space-between;
+}
 .title {
   color: $grey-blue;
 }
@@ -44,4 +48,16 @@
 .btn_remove_color {
   padding-right: 20px;
   color: #e55d67 !important;
+}
+.redWork {
+  color: #e55d67;
+}
+.orangeWork {
+  color: #ffba27;
+}
+.greenWork {
+  color: $teal;
+}
+.grayWork{
+  color :$text-muted
 }
