@@ -1,5 +1,6 @@
 import React from 'react';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Questions from 'components_v3/Questions/Questions';
 
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import Grid from '../../ui/Grid/Grid';
@@ -31,6 +32,7 @@ const JobModal = ({ onCloseModal, confirme }: IProps) => {
           <JobIcon width="55" height="55" color="#fab82d" />
         </div>
       </div>
+      <Questions />
     </div>
   );
 };

@@ -188,7 +188,6 @@ const JobsContainer = ({
 
   // const sections = [...selectedJobs, autres];
   const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
-  console.log(jobs);
   return (
     <div className={classes.container}>
       {fetching && (
