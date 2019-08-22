@@ -99,8 +99,6 @@ const ThemesContainer = forwardRef(
       !currentSkills.length ? 'select_theme' : null,
     );
 
-    console.log({ step });
-
     const [selectedTheme, selectedThemeChange] = useState<string | null>(null);
     const [skills, skillsChange] = useState(currentSkills);
 
@@ -115,18 +113,9 @@ const ThemesContainer = forwardRef(
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-        if (type === 'personal') {
-          history.push('/profile/intermediate');
-        } else {
-          history.push('/profile/skills');
-        }
+       
       }
     }
-    /*   console.log(
-      'old',
-      ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
-    );
-    console.log('new', ...skills.map(skillWithoutId)); */
 
     useEffect(() => {
       list.call({ type });
@@ -140,7 +129,11 @@ const ThemesContainer = forwardRef(
 
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
-        history.push('/profile');
+        if (type === 'personal') {
+          history.push('/profile/intermediate');
+        } else {
+          history.push('/profile/skills');
+        }
       }
     }, [parcoursFetching]);
 

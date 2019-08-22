@@ -1,0 +1,47 @@
+@import '../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  height: auto;
+}
+.title {
+  color: $grey-blue;
+}
+.question_containers {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.question_title {
+  display: flex;
+  color: $text-muted;
+  font-size: 14px;
+}
+.btn_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.btn_remove {
+  padding-left: 20px;
+}
+.btn_validate {
+  padding-right: 20px;
+  color: #7a93bc;
+}
+.btn_disabled {
+  color: gray;
+}
+.btn_validate_color {
+  padding-right: 20px;
+  color: #ffba27 !important;
+}
+.btn_remove_color {
+  padding-right: 20px;
+  color: #e55d67 !important;
+}

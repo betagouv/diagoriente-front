@@ -1,8 +1,7 @@
-import createRedux from '../utils/createRedux';
-
 // types
 import { AnyAction } from 'redux';
 import { ApiReducer, IParcoursResponse } from 'reducers';
+import createRedux from '../utils/createRedux';
 
 export const INITIAL_DATA: IParcoursResponse = {
   completed: false,
@@ -20,8 +19,20 @@ const INITIAL_STATE: ApiReducer<IParcoursResponse> = {
   error: '',
   data: INITIAL_DATA,
 };
+interface CompetencesValue {
+  _id: string;
+  value: number;
+}
 
-const parcoursRequest = (state: ApiReducer<IParcoursResponse>) => ({ ...state, fetching: true, error: '' });
+interface updateparcoursParam {
+  id: string;
+  competencesValue: CompetencesValue[];
+}
+const parcoursRequest = (state: ApiReducer<IParcoursResponse>) => ({
+  ...state,
+  fetching: true,
+  error: '',
+});
 
 const parcoursSuccess = (state: ApiReducer<IParcoursResponse>, { data }: AnyAction) => ({
   ...state,
@@ -34,11 +45,29 @@ const parcoursFailure = (state: ApiReducer<IParcoursResponse>, { error }: AnyAct
   error,
   fetching: false,
 });
+const updateParcoursCompetences = (state: ApiReducer<IParcoursResponse>, { data }: AnyAction) => ({
+  ...state,
+  error: '',
+  fetching: true,
+});
+const updateParcourSucess = (state: ApiReducer<IParcoursResponse>) => ({
+  ...state,
+  error: 'no error',
+  fetching: false,
+});
 
+const updateParcourFailure = (state: ApiReducer<IParcoursResponse>, { error }: AnyAction) => ({
+  ...state,
+  error,
+  fetching: false,
+});
 const { actions, types: currentParcoursTypes, reducer } = createRedux(INITIAL_STATE, {
   parcoursRequest,
   parcoursSuccess,
   parcoursFailure,
+  updateParcoursCompetences,
+  updateParcourFailure,
+  updateParcourSucess,
 });
 
 export default actions;

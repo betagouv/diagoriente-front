@@ -7,10 +7,13 @@ import { connect } from 'react-redux';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useCaptureRef } from 'hooks/useCaptureRef';
 import ReactTooltip from 'react-tooltip';
+import { Dispatch, AnyAction } from 'redux';
 
 import { ReduxState, IParcoursResponse, IExpertise } from 'reducers';
-import { updateParcoursCompetences, getParcours } from 'requests';
-import { useDidMount } from 'hooks';
+import { getParcours } from 'requests';
+import { useDidMount, useDidUpdate } from 'hooks';
+
+import ParcoursActions from '../../reducers/parcours';
 import classes from './ExpertisesContainer.module.scss';
 import ApparationCard from '../../components_v3/ApparationCard';
 import warning from '../../assets/icons/warning.svg';
@@ -20,13 +23,23 @@ interface CompetencesValue {
   _id: string;
   value: number;
 }
+interface updateparcoursParam {
+  id: string;
+  competencesValue: CompetencesValue[];
+}
 interface MapToProps {
   parcours: IParcoursResponse;
   expertises: IExpertise[];
+  parcoursFetching: boolean;
+  parcoursError: string;
+}
+interface DispatchToProps {
+  updateParcoursCompetences: (data: updateparcoursParam) => void;
 }
 interface Props
   extends RouteComponentProps,
     MapToProps,
+    DispatchToProps,
     ApiComponentProps<{ get: typeof getParcours }> {
   type: 'personal' | 'professional';
 }
@@ -37,9 +50,18 @@ interface RefProp {
 }
 
 const ExpertisesContainer = forwardRef(
-  ({
- get, parcours, expertises, history,
-}: Props, ref: Ref<RefProp>) => {
+  (
+    {
+      get,
+      parcours,
+      expertises,
+      history,
+      updateParcoursCompetences,
+      parcoursFetching,
+      parcoursError,
+    }: Props,
+    ref: Ref<RefProp>,
+  ) => {
     const [progressActive, changeProgress] = useState([
       false,
       false,
@@ -56,9 +78,6 @@ const ExpertisesContainer = forwardRef(
     const [barré, barréChange] = useState(false);
 
     useEffect(() => {
-      setCompetences(get.data.globalCopmetences);
-    });
-    useEffect(() => {
       if (get.data.globalCopmetences) {
         barréChange(
           get.data.globalCopmetences.some(function (el: any) {
@@ -66,12 +85,15 @@ const ExpertisesContainer = forwardRef(
           }),
         );
       }
+      setCompetences(get.data.globalCopmetences);
     });
+
     useDidMount(() => {
       get.call(parcours._id);
     });
+
     function HandleSubmit() {
-      const CompetencesValue: CompetencesValue[] = [];
+      const competencesValue: CompetencesValue[] = [];
       let validateSubmit: boolean = true;
       competences.forEach((item: any) => {
         if (item.value === 0 && item.taux !== 0) {
@@ -81,11 +103,12 @@ const ExpertisesContainer = forwardRef(
       if (validateSubmit) {
         competences.forEach((item: any) => {
           if (item.value > 0) {
-            CompetencesValue.push({ _id: item._id, value: item.value });
+            competencesValue.push({ _id: item._id, value: item.value });
           }
         });
-        updateParcoursCompetences(parcours._id, CompetencesValue);
-        history.push('/profile/pro');
+        const id: string = parcours._id;
+
+        updateParcoursCompetences({ id, competencesValue });
       }
     }
 
@@ -93,6 +116,7 @@ const ExpertisesContainer = forwardRef(
       if (button === 'valider') {
         HandleSubmit();
       }
+      history.push('/profile/pro');
     }
     useCaptureRef({ onFooterClick, footerButtonsProps: { barré, disabled: barré } }, ref);
     function handleOpen(index: number) {
@@ -196,10 +220,17 @@ const ExpertisesContainer = forwardRef(
 const mapStateToProps = ({ parcours, expertises }: ReduxState): MapToProps => ({
   parcours: parcours.data,
   expertises: expertises.data,
+  parcoursFetching: parcours.fetching,
+  parcoursError: parcours.error,
 });
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
+  updateParcoursCompetences: (data: updateparcoursParam) =>
+    dispatch(ParcoursActions.updateParcoursCompetences(data)),
+});
+
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
   null,
   { forwardRef: true },
 )(withApis({ get: getParcours })(withLayout(ExpertisesContainer)));

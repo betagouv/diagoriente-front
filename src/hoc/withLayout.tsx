@@ -18,7 +18,6 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
     const [state, stateChange] = useState(false);
 
     function captureRef(localRef: any) {
-      wrappedRef.current = localRef;
       if (
         localRef
         && (!wrappedRef.current
@@ -26,6 +25,9 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
             && !isEqual(localRef.footerButtonsProps, wrappedRef.current.footerButtonsProps)))
       ) {
         stateChange(!state);
+      }
+      if (localRef) {
+        wrappedRef.current = localRef;
       }
 
       if (ref) {
