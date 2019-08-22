@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -11,6 +11,7 @@ import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
+import { useDidUpdate } from 'hooks';
 import SideBar from '../../components_v3/ui/SideBar/SideBar';
 import Header from '../../components_v3/Header/Header';
 // containers
@@ -60,13 +61,32 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
+const ProfileContainer = ({ match, fetchingParcour, parcours, history }: Props) => {
   const expertiseRef = useRef(null);
+  const [OneCompetencesNoSetted, SetCompetencesNoSetted] = useState(
+    parcours.data.skills
+      .filter(item => item.type === 'personal')
+      .flatMap(item => item.competences.flat(2))
+      .some(item => item.value === 5),
+  );
+  useDidUpdate(() => {
+    SetCompetencesNoSetted(
+      parcours.data.skills
+        .filter(item => item.type === 'personal')
+        .flatMap(item => item.competences.flat(2))
+        .some(item => item.value === 5),
+    );
+    if (
+      !parcours.data.skills
+        .filter(item => item.type === 'personal')
+        .flatMap(item => item.competences.flat(2))
+        .some(item => item.value === 5)
+    ) {
+      history.push('/profile/pro');
+    }
+  }, [parcours.data.skills]);
   if (match.isExact) return <Redirect to="/profile/skills" />;
-  const allXpPersoSetted = parcours.data.skills
-    .filter(item => item.type === 'personal')
-    .flatMap(item => item.competences.flat(2))
-    .some(item => item.value === 5);
+
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
@@ -153,7 +173,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
             path="/profile/pro"
             exact
             render={props =>
-              (allXpPersoSetted ? (
+              (OneCompetencesNoSetted ? (
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <ThemesContainer
@@ -222,7 +242,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
             path="/profile/favoris"
             exact
             render={props =>
-              (allXpPersoSetted ? (
+              (OneCompetencesNoSetted ? (
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <FavorisContainer

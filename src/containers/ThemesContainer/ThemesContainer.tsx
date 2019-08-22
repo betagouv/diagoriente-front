@@ -113,11 +113,7 @@ const ThemesContainer = forwardRef(
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-        if (type === 'personal') {
-          history.push('/profile/intermediate');
-        } else {
-          history.push('/profile/skills');
-        }
+       
       }
     }
 
@@ -133,7 +129,11 @@ const ThemesContainer = forwardRef(
 
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
-        history.push('/profile');
+        if (type === 'personal') {
+          history.push('/profile/intermediate');
+        } else {
+          history.push('/profile/skills');
+        }
       }
     }, [parcoursFetching]);
 
