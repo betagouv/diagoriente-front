@@ -290,8 +290,8 @@ const ThemeContainer = forwardRef(
                  }
                  return result;
                 }
-                const test = getRequired();
-                console.log(test);
+                const star = getRequired();
+                // console.log(test);
                 return (
                   <div
                     className={classNames(
@@ -311,7 +311,7 @@ const ThemeContainer = forwardRef(
                       className={classes.titleFont}
                       expertise={expertise}
                       checkboxHandler={checkboxHandler}
-                      favori={test}
+                      favori={star}
                     />
                   </div>
                 );

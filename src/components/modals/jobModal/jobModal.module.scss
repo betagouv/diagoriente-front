@@ -47,7 +47,11 @@
   justify-content: center;
 }
 .right {
-  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
 }
 .top {
   width: 100%;
