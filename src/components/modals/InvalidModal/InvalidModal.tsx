@@ -5,9 +5,10 @@ import classes from './invalid.module.scss';
 interface IProps {
   onCloseModal: () => void;
   text: string;
+  onClick?: () => void;
 }
 
-const DeleteModal = ({ onCloseModal, text }: IProps) => (
+const DeleteModal = ({ onCloseModal, text, onClick }: IProps) => (
   <div className={classes.wrapperModal}>
     <div className={classes.container}>
       <div className={classes.title_container}>
@@ -16,14 +17,14 @@ const DeleteModal = ({ onCloseModal, text }: IProps) => (
 
       <div className={classes.btn_container}>
         <MultiIcon
-          type="prev"
+          type={onClick ? 'validate' : 'prev'}
           withText
-          text="retour"
-          width="15"
-          height="15"
+          text={onClick ? 'ok' : 'retour'}
+          width={onClick ? '35' : '15'}
+          height={onClick ? '35' : '15'}
           withBorder
           style={{ padding: 0 }}
-          onClick={onCloseModal}
+          onClick={onClick || onCloseModal}
         />
       </div>
     </div>

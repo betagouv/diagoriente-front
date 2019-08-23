@@ -1,25 +1,30 @@
-import React, { Ref, forwardRef, Fragment } from 'react';
+import React, {
+ Ref, forwardRef, Fragment, Dispatch,
+} from 'react';
 import { connect } from 'react-redux';
 import { find, isEmpty } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
+import { AnyAction } from 'redux';
 
 import {
-  ReduxState, IParcoursResponse, IExpertise, IUser,
+ ReduxState, IParcoursResponse, IExpertise, IUser,
 } from 'reducers';
-
 
 import withLayout from 'hoc/withLayout';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 
-import { getParcours } from 'requests';
+import { getParcours, IUpdateParcoursParams } from 'requests';
 import { useDidMount } from 'hooks';
-
+import ModalInvalid from 'components/modals/InvalidModal/InvalidModal';
+import modalActions from 'reducers/modal';
 import { useCaptureRef } from 'hooks/useCaptureRef';
 import { beta1x } from 'assets/icons/logobeta/index';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
+import parcoursActions from '../../reducers/parcours';
+
 /* import JobIcon from 'components_v3/icons/jobIcon/jobIcon'; */
 import { pdf2 } from '../../utils/pdf';
 import classes from './skills.module.scss';
@@ -29,19 +34,28 @@ interface MapToProps {
   expertises: IExpertise[];
   user: IUser | undefined;
 }
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+  parcoursRequest: (args: IUpdateParcoursParams) => void;
+}
 
 interface Props
   extends RouteComponentProps,
-  MapToProps,
-  ApiComponentProps<{ get: typeof getParcours }> { }
+    MapToProps,
+    IDispatchToProps,
+    ApiComponentProps<{ get: typeof getParcours }> {}
 
 interface RefProp {
   onFooterClick(button: string): void;
 }
 const SkillsContainer = forwardRef(
-  ({
-    parcours, get, history, expertises, user,
-  }: Props, ref: Ref<RefProp>) => {
+  (
+    {
+ parcours, get, history, expertises, user, closeModal, openModal, parcoursRequest,
+}: Props,
+    ref: Ref<RefProp>,
+  ) => {
     useDidMount(() => {
       get.call(parcours._id);
     });
@@ -57,11 +71,22 @@ const SkillsContainer = forwardRef(
     }
 
     useCaptureRef({ onFooterClick }, ref);
+
     function pushRoute(route: string) {
       return function () {
         history.push(route);
       };
     }
+    const onNavigate = () => {
+      history.push('/profile/game');
+      parcoursRequest({ played: true });
+      closeModal();
+    };
+    const onOpenModal = () => {
+      openModal(
+        <ModalInvalid text=" ===> game" onCloseModal={closeModal} onClick={() => onNavigate()} />,
+      );
+    };
     return (
       <div className={classes.container}>
         <div className={classes.card}>
@@ -91,32 +116,36 @@ const SkillsContainer = forwardRef(
                     Iconcolor="#7992bf"
                     width="65"
                     height="65"
-                    onClick={pushRoute('/profile/perso')}
+                    onClick={
+                      parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()
+                    }
                     className={classes.multiOverride}
                   />
                 ) : (
-                    <Fragment>
-                      <div className={classes.themesContainer}>
-                        {parcours.skills
-                          .filter(type => type.theme.type === 'personal')
-                          .map(skill => (
-                            <div className={classes.mapContainer} key={skill._id}>
-                              <div className={classes.hr} />
-                              <li>{skill.theme.title}</li>
-                            </div>
-                          ))}
-                      </div>
-                      <div className={classes.buttonWrapper}>
-                        <MultiIcon
-                          type="add"
-                          Iconcolor="#7992bf"
-                          width="35"
-                          height="35"
-                          onClick={pushRoute('/profile/perso')}
-                        />
-                      </div>
-                    </Fragment>
-                  )}
+                  <Fragment>
+                    <div className={classes.themesContainer}>
+                      {parcours.skills
+                        .filter(type => type.theme.type === 'personal')
+                        .map(skill => (
+                          <div className={classes.mapContainer} key={skill._id}>
+                            <div className={classes.hr} />
+                            <li>{skill.theme.title}</li>
+                          </div>
+                        ))}
+                    </div>
+                    <div className={classes.buttonWrapper}>
+                      <MultiIcon
+                        type="add"
+                        Iconcolor="#7992bf"
+                        width="35"
+                        height="35"
+                        onClick={
+                          parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()
+                        }
+                      />
+                    </div>
+                  </Fragment>
+                )}
               </div>
               <div className={classes.item}>
                 <span className={classes.experieceType}>EXPÉRIENCES PROFESSIONNELLES</span>
@@ -133,15 +162,15 @@ const SkillsContainer = forwardRef(
                     className={classes.multiOverride}
                   />
                 ) : (
-                    <Fragment>
-                      <div className={classes.themesContainer}>
-                        {parcours.skills
-                          .filter(type => type.theme.type === 'professional')
-                          .map(skill => (
-                            <div className={classes.mapContainer} key={skill._id}>
-                              <div className={classes.hr} />
-                              <li>{skill.theme.title}</li>
-                              {/* skill.activities.map(activity => {
+                  <Fragment>
+                    <div className={classes.themesContainer}>
+                      {parcours.skills
+                        .filter(type => type.theme.type === 'professional')
+                        .map(skill => (
+                          <div className={classes.mapContainer} key={skill._id}>
+                            <div className={classes.hr} />
+                            <li>{skill.theme.title}</li>
+                            {/* skill.activities.map(activity => {
                               return (
                                 <div className={classes.activityContainer}>
                                   <div className={classes.hr} />
@@ -149,20 +178,20 @@ const SkillsContainer = forwardRef(
                                 </div>
                               )
                             }) */}
-                            </div>
-                          ))}
-                      </div>
-                      <div className={classes.buttonWrapper}>
-                        <MultiIcon
-                          type="add"
-                          Iconcolor="#7992bf"
-                          width="35"
-                          height="35"
-                          onClick={pushRoute('/profile/pro')}
-                        />
-                      </div>
-                    </Fragment>
-                  )}
+                          </div>
+                        ))}
+                    </div>
+                    <div className={classes.buttonWrapper}>
+                      <MultiIcon
+                        type="add"
+                        Iconcolor="#7992bf"
+                        width="35"
+                        height="35"
+                        onClick={pushRoute('/profile/pro')}
+                      />
+                    </div>
+                  </Fragment>
+                )}
               </div>
             </div>
             <div className={classes.right}>
@@ -205,7 +234,14 @@ const mapStateToProps = ({ parcours, expertises, authUser }: ReduxState): MapToP
   expertises: expertises.data,
   user: authUser.user.user,
 });
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
 
-export default connect(mapStateToProps)(
-  withApis({ get: getParcours })(withLayout(SkillsContainer)),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withApis({ get: getParcours })(withLayout(SkillsContainer)));

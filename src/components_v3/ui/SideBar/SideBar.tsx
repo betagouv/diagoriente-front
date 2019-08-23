@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
+
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import ModalInvalid from 'components/modals/InvalidModal/InvalidModal';
+import modalActions from 'reducers/modal';
+import parcoursActions from 'reducers/parcours';
+import { IUpdateParcoursParams } from 'requests';
+
 import MultiIcon from '../../icons/multiIcon/multiIcon';
 
 import classes from './sideBar.module.scss';
@@ -35,17 +42,38 @@ const sideBarItemsExplorama = [
 interface MapToProps {
   parcours: ApiReducer<IParcoursResponse>;
 }
-interface Props extends RouteComponentProps, MapToProps {}
+interface IDispatchToProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+  parcoursRequest: (args: IUpdateParcoursParams) => void;
+}
+interface Props extends RouteComponentProps, MapToProps, IDispatchToProps {}
 
 const SideBar = ({
- match, location, parcours, history,
+  match,
+  location,
+  parcours,
+  history,
+  closeModal,
+  openModal,
+  parcoursRequest,
 }: Props) => {
   const isAlloawed = parcours.data.skills.length;
 
   const onNavigate = (url: string) => {
     history.push(url);
   };
-
+  const navigate = () => {
+    history.push('/profile/game');
+    parcoursRequest({ played: true });
+    closeModal();
+  };
+  const onOpenModal = () => {
+    openModal(
+      <ModalInvalid text=" ===> game" onCloseModal={closeModal} onClick={() => navigate()} />,
+    );
+  };
+  console.log('playde side bar', parcours.data.played);
   return (
     <div className={classes.container_Bar}>
       {sideBarItems.map(item => (
@@ -57,7 +85,11 @@ const SideBar = ({
             width="35"
             sideBar
             height="35"
-            onClick={() => onNavigate(`${match.path}/${item.path}`)}
+            onClick={
+              parcours.data.played
+                ? () => onNavigate(`${match.path}/${item.path}`)
+                : () => onOpenModal()
+            }
             textColor={`${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF'}
             Iconcolor={`${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF'}
           />
@@ -123,7 +155,13 @@ const SideBar = ({
 const mapStateToProps = ({ parcours }: ReduxState): MapToProps => ({
   parcours,
 });
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
+  parcoursRequest: args => dispatch(parcoursActions.parcoursRequest(args)),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
+});
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(withRouter(SideBar));

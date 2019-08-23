@@ -30,6 +30,7 @@ import ParcoursActions from '../../reducers/parcours';
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
 import ExpertisesContainer from '../ExpertisesContainer';
+import GameContainer from '../GameContainer/GameContainer';
 
 interface ParcoursParams {
   completed?: boolean;
@@ -62,7 +63,7 @@ interface Props
     DispatchToProps {}
 
 const ProfileContainer = ({
- match, fetchingParcour, parcours, history,
+ match, fetchingParcour, parcours,
 }: Props) => {
   const expertiseRef = useRef(null);
   const [OneCompetencesNoSetted, SetCompetencesNoSetted] = useState(
@@ -294,6 +295,15 @@ const ProfileContainer = ({
                     key: 'valider',
                   },
                 ]}
+              />
+            )}
+          />
+          <Route
+            path="/profile/game"
+            exact
+            render={props => (
+              <GameContainer
+                {...props}
               />
             )}
           />

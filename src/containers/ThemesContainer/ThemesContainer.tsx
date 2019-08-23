@@ -125,7 +125,6 @@ const ThemesContainer = forwardRef(
     }, [type]);
 
     useCaptureRef({ onFooterClick }, ref);
-
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
         if (type === 'personal') {

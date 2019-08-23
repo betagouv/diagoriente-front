@@ -17,6 +17,11 @@
   padding: 10px 30px;
   background-color: #b82635;
 }
+.btn_container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
 .wrapperModal {
   width: 100%;
   display: flex;
