@@ -9,6 +9,7 @@ import { getOneJob, getMyJob, getParcours } from 'requests';
 import RadarChart from 'components_v3/RadarChart/RadarChart';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useDidMount, useDidUpdate } from 'hooks';
+import { Carousel } from 'react-responsive-carousel';
 import classes from './jobModal.module.scss';
 
 interface MyProps {
@@ -45,7 +46,7 @@ const JobModal = ({
           console.log(e);
         });
     }
-    if (Object.keys(data).length === 0) {
+    if (data) {
       const idSecteur = data.secteur && data.secteur[0]._id;
       getMyJob(parcoursId).then(response =>
         setSimilaire(
@@ -58,7 +59,7 @@ const JobModal = ({
   });
   useDidUpdate(() => {
     if (!rendered && get && !isEmpty(get.data)) {
-      console.log('object', get);
+      // console.log('object', get);
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
       RadarChart(ctx, get);
@@ -81,25 +82,43 @@ const JobModal = ({
           <span className={classes.title}>{data.title}</span>
         </div>
       </div>
-      <div className={classes.body}>
-        <div className={classes.left}>
-          <div className={classes.top}>
-            <span className={classes.descTitle}>Description</span>
-            <span className={classes.descText}>{data.description}</span>
+      <div>
+        <Carousel
+          showThumbs={false}
+          showIndicators={false}
+          showStatus={false}
+          width="100%"
+          stopOnHover={false}
+          axis="horizontal"
+          emulateTouch
+          swipeable
+          useKeyboardArrows
+          showArrows={false}
+          selectedItem={0}
+          className={classes.carou}
+        >
+          <div className={classes.body}>
+            <div className={classes.left}>
+              <div className={classes.top}>
+                <span className={classes.descTitle}>Description</span>
+                <span className={classes.descText}>{data.description}</span>
+              </div>
+              <div className={classes.bottom}>
+                <span className={classes.descTitle}>Metiers similaires</span>
+                {similaire
+                  .slice(0, 3)
+                  .filter((al: any) => al.title !== data.title)
+                  .map((el: any) => (
+                    <JobSelection title={el.title} className={classes.jobSelection} key={el._id} />
+                  ))}
+              </div>
+            </div>
+            <div className={classes.right}>
+              <canvas id="canvas" className={classes.canvas} width="300" height="200" />
+            </div>
           </div>
-          <div className={classes.bottom}>
-            <span className={classes.descTitle}>Metiers similaires</span>
-            {similaire
-              .slice(0, 3)
-              .filter((al: any) => al.title !== data.title)
-              .map((el: any) => (
-                <JobSelection title={el.title} className={classes.jobSelection} />
-              ))}
-          </div>
-        </div>
-        <div className={classes.right}>
-          <canvas id="canvas" className={classes.canvas} width="300" height="200" />
-        </div>
+          <Questions />
+        </Carousel>
       </div>
       <div className={classes.footer}>
         <MultiIcon width="15" height="15" type="prev" withBorder />
