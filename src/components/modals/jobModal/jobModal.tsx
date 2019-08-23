@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { isEmpty } from 'lodash';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import Questions from 'components_v3/Questions/Questions';
+import VerticalStepper from 'components/VerticalStepper/VerticalStepper';
 
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
@@ -26,7 +27,37 @@ const JobModal = ({
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
   const [rendered, setRendered] = useState<any>(false);
+  const [DisplayedChild, changeDisplayedChild] = useState(0);
 
+  const items = [
+    {
+      _id: 0,
+      content: (
+        <div className={classes.body}>
+          <div className={classes.left}>
+            <div className={classes.top}>
+              <span className={classes.descTitle}>Description</span>
+              <span className={classes.descText}>{data.description}</span>
+            </div>
+            <div className={classes.bottom}>
+              <span className={classes.descTitle}>Metiers similaires</span>
+              {similaire
+                .slice(0, 3)
+                .filter((al: any) => al.title !== data.title)
+                .map((el: any) => (
+                  <JobSelection title={el.title} className={classes.jobSelection} key={el._id} />
+                ))}
+            </div>
+          </div>
+          <div className={classes.right}>
+            <canvas id="canvas" className={classes.canvas} width="300" height="200" />
+          </div>
+        </div>
+      ),
+    },
+
+    { _id: 1, content: <Questions /> },
+  ];
   const onSubmit = () => {
     confirme();
     onCloseModal();
@@ -57,6 +88,10 @@ const JobModal = ({
         ));
     }
   });
+
+  const handleClick = () => {
+    console.log('clicked');
+  };
   useDidUpdate(() => {
     if (!rendered && get && !isEmpty(get.data)) {
       // console.log('object', get);
@@ -89,41 +124,48 @@ const JobModal = ({
           showStatus={false}
           width="100%"
           stopOnHover={false}
-          axis="horizontal"
           emulateTouch
           swipeable
+          onChange={index => changeDisplayedChild(index)}
           useKeyboardArrows
           showArrows={false}
-          selectedItem={0}
+          selectedItem={DisplayedChild}
           className={classes.carou}
         >
-          <div className={classes.body}>
-            <div className={classes.left}>
-              <div className={classes.top}>
-                <span className={classes.descTitle}>Description</span>
-                <span className={classes.descText}>{data.description}</span>
-              </div>
-              <div className={classes.bottom}>
-                <span className={classes.descTitle}>Metiers similaires</span>
-                {similaire
-                  .slice(0, 3)
-                  .filter((al: any) => al.title !== data.title)
-                  .map((el: any) => (
-                    <JobSelection title={el.title} className={classes.jobSelection} key={el._id} />
-                  ))}
-              </div>
-            </div>
-            <div className={classes.right}>
-              <canvas id="canvas" className={classes.canvas} width="300" height="200" />
-            </div>
-          </div>
-          <Questions />
+          {items.map(item => item.content)}
         </Carousel>
       </div>
       <div className={classes.footer}>
-        <MultiIcon width="15" height="15" type="prev" withBorder />
-        <MultiIcon width="37" height="37" type="validate" Iconcolor="#fab82d" />
-        <MultiIcon width="15" height="15" type="next" withBorder />
+        <div className={classes.directionRow}>
+          <VerticalStepper
+            handleClick={changeDisplayedChild}
+            DisplayedFamily={DisplayedChild}
+            listItems={items}
+          />
+        </div>
+        <div className={classes.directionRow}>
+          <MultiIcon
+            width="15"
+            height="15"
+            type="prev"
+            withBorder
+            onClick={() => changeDisplayedChild(DisplayedChild - 1)}
+          />
+          <MultiIcon
+            width="37"
+            height="37"
+            type="validate"
+            Iconcolor="#fab82d"
+            onClick={handleClick}
+          />
+          <MultiIcon
+            width="15"
+            height="15"
+            type="next"
+            withBorder
+            onClick={() => changeDisplayedChild(DisplayedChild + 1)}
+          />
+        </div>
       </div>
     </div>
   );
