@@ -1,65 +1,79 @@
 import Chart from 'chart.js';
 
 const RadarChart = (ctx: any, get: any) => {
+  const competences = get.data.globalCopmetences;
+  const competencesTitle = competences.map((c: any) => c.title);
+  const competencesValue = competences.map((c: any) => c.value);
 
-    const competences = get.data.globalCopmetences;
-    const competencesTitle = competences.map((c: any) => c.title);
-    const competencesValue = competences.map((c: any) => c.value);
+  const chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(231,233,237)',
+  };
 
-    const chartColors = {
-        red: 'rgb(255, 99, 132)',
-        orange: 'rgb(255, 159, 64)',
-        yellow: 'rgb(255, 205, 86)',
-        green: 'rgb(75, 192, 192)',
-        blue: 'rgb(54, 162, 235)',
-        purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(231,233,237)'
-    };
-
-    /*     const randomScalingFactor = function () {
+  /*     const randomScalingFactor = function () {
             return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
         }
      */
-    const randomScalingFactor = function () {
-        return Math.round(Math.random() * 100);
-    };
+  const randomScalingFactor = function () {
+    return Math.round(Math.random() * 100);
+  };
 
-    const { color } = Chart.helpers;
-    const config = {
-        type: 'radar',
-        data: {
-            labels: competencesTitle,
-            datasets: [{
-                label: 'Mes compétences',
-                backgroundColor: color(chartColors.purple).alpha(0.2).rgbString(),
-                borderColor: chartColors.purple,
-                pointBackgroundColor: chartColors.purple,
-                data: competencesValue,
-            }, {
-                label: 'Compétences du métier',
-                backgroundColor: color(chartColors.blue).alpha(0.2).rgbString(),
-                borderColor: chartColors.blue,
-                pointBackgroundColor: chartColors.blue,
-                data: [2, 3, 4, 3, 1, 1, 2],
-            }],
+  const { color } = Chart.helpers;
+  const config = {
+    type: 'radar',
+    data: {
+      labels: competencesTitle,
+      datasets: [
+        {
+          label: 'Mes compétences',
+          backgroundColor: color(chartColors.red)
+            .alpha(0)
+            .rgbString(),
+          borderColor: '#05035f',
+          pointBackgroundColor: 'rgba(0,0,0,0)',
+          pointBorderColor: 'rgba(0,0,0,0)',
+          borderJoinStyle: 'round',
+          data: competencesValue,
         },
-        options: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Compétences requises'
-            },
-            scale: {
-                ticks: {
-                    beginAtZero: true,
-                    display: true,
-                    min: 0,
-                    max: 4,
-                    stepSize: 1,
-                }
-            }/*,
+        {
+          label: 'Compétences du métier',
+          backgroundColor: color(chartColors.blue)
+            .alpha(0.5)
+            .rgbString(),
+          borderColor: chartColors.blue,
+          pointBackgroundColor: 'rgba(0,0,0,0)',
+          borderJoinStyle: 'round',
+          pointBorderColor: 'rgba(0,0,0,0)',
+          borderWidth: 0,
+          data: [2, 3, 4, 3, 1, 1, 2],
+        },
+      ],
+    },
+    options: {
+      legend: {
+        position: 'top',
+        label: {
+          fontSize: 16,
+        },
+      },
+      title: {
+        display: true,
+        text: 'Compétences requises',
+      },
+      scale: {
+        ticks: {
+          beginAtZero: true,
+          display: true,
+          min: 0,
+          max: 4,
+          stepSize: 1,
+        },
+      } /* ,
              tooltips: {
                 enabled: false,
                 callbacks: {
@@ -124,11 +138,11 @@ const RadarChart = (ctx: any, get: any) => {
                     tooltipEl.style.fontStyle = tooltip._fontStyle;
                     tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
                 }
-             } */
-        },
-    };
+             } */,
+    },
+  };
 
-    return new Chart(ctx, config as any);
+  return new Chart(ctx, config as any);
 };
 
 export default RadarChart;

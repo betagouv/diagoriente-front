@@ -191,7 +191,10 @@ const ThemeContainer = forwardRef(
                     key={activity._id}
                   >
                     {!isActivityEdit ? (
-                      <li className={classes.title_activity}>
+                      <li
+                        className={classes.title_activity}
+                      
+                      >
                         <span>{activity.title}</span>
                       </li>
                     ) : (
@@ -277,20 +280,22 @@ const ThemeContainer = forwardRef(
 
                 function getRequired() {
                   let result;
-                 if (
-                   step === 'activities_edit'
-                   || step === 'expertise_edit'
-                   || step === 'edit_all'
-                 ) {
-                   if (skill && skill.theme.required) {
-                     result = skill.theme.required.some((item: any) => expertise._id === item);
-                   } else {
-                     result = get.data.required && get.data.required.some((item: any) => expertise._id === item);
-                   }
-                 }
-                 return result;
+                  if (
+                    step === 'activities_edit'
+                    || step === 'expertise_edit'
+                    || step === 'edit_all'
+                  ) {
+                    if (skill && skill.theme.required) {
+                      result = skill.theme.required.some((item: any) => expertise._id === item);
+                    } else {
+                      result = get.data.required
+                        && get.data.required.some((item: any) => expertise._id === item);
+                    }
+                  }
+                  return result;
                 }
-                const test = getRequired();
+                const star = getRequired();
+                // console.log(test);
                 return (
                   <div
                     className={classNames(
@@ -310,7 +315,7 @@ const ThemeContainer = forwardRef(
                       className={classes.titleFont}
                       expertise={expertise}
                       checkboxHandler={checkboxHandler}
-                      favori={test}
+                      favori={star}
                     />
                   </div>
                 );

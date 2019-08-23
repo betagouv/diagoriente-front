@@ -196,14 +196,13 @@ const ThemesContainer = forwardRef(
       } else if (step === 'expertise_edit') {
         const newSkill = newSkillRef.current;
         if (newSkill && isSkillValidInputs(newSkill)) {
-       	updateSkill();
+      updateSkill();
         } else {
-				
-					   openModal(
-            <InvalidModal
-              onCloseModal={closeModal}
-              text="Attention, il faut sélectionner 4 compétences!"
-            />,
+ openModal(
+   <InvalidModal
+     onCloseModal={closeModal}
+     text="Attention, il faut sélectionner 4 compétences!"
+   />,
           );
         }
       }

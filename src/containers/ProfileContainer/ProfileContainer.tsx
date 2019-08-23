@@ -62,9 +62,7 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({
- match, fetchingParcour, parcours,
-}: Props) => {
+const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
   const expertiseRef = useRef(null);
   const [OneCompetencesNoSetted, SetCompetencesNoSetted] = useState(
     parcours.data.skills
@@ -270,33 +268,37 @@ const ProfileContainer = ({
           <Route
             path="/profile/jobs"
             exact
-            render={props => (
-              <JobsContainer
-                title="DÉCOUVRE ET AJOUTE LES MÉTIERS QUI T’INTÉRESSENT"
-                {...props}
-                footerButtons={[
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        text="VALIDER"
-                        width="35"
-                        footer
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
-                ]}
-              />
-            )}
+            render={props =>
+              (OneCompetencesNoSetted ? (
+                <Redirect to="/profile/intermediate" />
+              ) : (
+                <JobsContainer
+                  title="DÉCOUVRE ET AJOUTE LES MÉTIERS QUI T’INTÉRESSENT"
+                  {...props}
+                  footerButtons={[
+                    {
+                      component: fetchingParcour ? (
+                        <div className={classes.containerSpinner}>
+                          <Spinner />
+                        </div>
+                      ) : (
+                        <MultiIcon
+                          type="validate"
+                          withText
+                          text="VALIDER"
+                          width="35"
+                          footer
+                          height="35"
+                          textColor="#ffba27"
+                          Iconcolor="#ffba27"
+                        />
+                      ),
+                      key: 'valider',
+                    },
+                  ]}
+                />
+              ))
+            }
           />
           <Route
             path="/profile/game"
