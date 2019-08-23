@@ -283,9 +283,9 @@ const ThemeContainer = forwardRef(
                    || step === 'edit_all'
                  ) {
                    if (skill && skill.theme.required) {
-                     result = skill.theme.required.some((item: any) => expertise._id === item);
+                     result = skill.theme.required.some((item: any) => expertise._id === item._id);
                    } else {
-                     result = get.data.required && get.data.required.some((item: any) => expertise._id === item);
+                     result = get.data.required && get.data.required.some((item: any) => expertise._id === item._id);
                    }
                  }
                  return result;

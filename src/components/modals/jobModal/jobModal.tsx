@@ -45,7 +45,7 @@ const JobModal = ({
           console.log(e);
         });
     }
-    if (data) {
+    if (Object.keys(data).length === 0) {
       const idSecteur = data.secteur && data.secteur[0]._id;
       getMyJob(parcoursId).then(response =>
         setSimilaire(
@@ -100,6 +100,11 @@ const JobModal = ({
         <div className={classes.right}>
           <canvas id="canvas" className={classes.canvas} width="300" height="200" />
         </div>
+      </div>
+      <div className={classes.footer}>
+        <MultiIcon width="15" height="15" type="prev" withBorder />
+        <MultiIcon width="37" height="37" type="validate" Iconcolor="#fab82d" />
+        <MultiIcon width="15" height="15" type="next" withBorder />
       </div>
     </div>
   );
