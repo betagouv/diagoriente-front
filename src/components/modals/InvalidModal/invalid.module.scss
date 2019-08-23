@@ -3,6 +3,7 @@
   height: 200px;
   background-color: $white;
   border-radius: 10px;
+  width: 70%
 }
 .btn_container {
   display: flex;
@@ -28,7 +29,6 @@
   justify-content: center;
 }
 .title_container {
-  display: flex;
   justify-content: center;
   padding: 20px;
   text-align: center;

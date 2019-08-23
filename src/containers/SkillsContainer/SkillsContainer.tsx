@@ -78,13 +78,13 @@ const SkillsContainer = forwardRef(
       };
     }
     const onNavigate = () => {
-      history.push('/profile/game');
+      history.push('/game');
       parcoursRequest({ played: true });
       closeModal();
     };
     const onOpenModal = () => {
       openModal(
-        <ModalInvalid text=" ===> game" onCloseModal={closeModal} onClick={() => onNavigate()} />,
+        <ModalInvalid text="Avant de commencer à renseigner tes expériences, nous te proposons un jeu rapide pour apprendre à identifier tes compétences" onCloseModal={closeModal} onClick={() => onNavigate()} />,
       );
     };
     return (

@@ -18,6 +18,7 @@ import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import LoginUserContainer from 'containers/LoginContainer/LoginContainer';
 import ProfileContainer from 'containers/ProfileContainer/ProfileContainer';
 import RegisterUserContainer from 'containers/RegistreContainer/RegisterContainer';
+import GameContainer from '../GameContainer/GameContainer';
 
 // components
 import Modal from 'components/ui/Modal/Modal';
@@ -89,6 +90,7 @@ const RootContainer = ({
           <Route path="/" exact component={HomeContainer} />
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
+          <Route path="/game" exact render={props => <GameContainer {...props} />} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>
