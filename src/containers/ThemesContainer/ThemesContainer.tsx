@@ -113,10 +113,9 @@ const ThemesContainer = forwardRef(
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-       
       }
     }
-
+   
     useEffect(() => {
       list.call({ type });
       stepChange(!currentSkills.length ? 'select_theme' : null);
@@ -130,7 +129,11 @@ const ThemesContainer = forwardRef(
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
         if (type === 'personal') {
-          history.push('/profile/intermediate');
+          if (skills.length === 0) {
+            history.push('/profile/skills');
+          } else {
+            history.push('/profile/intermediate');
+          }
         } else {
           history.push('/profile/skills');
         }
@@ -138,7 +141,7 @@ const ThemesContainer = forwardRef(
     }, [parcoursFetching]);
 
     function isSkillValidInputs(skillRef: ThemeRefObject) {
-      return skillRef.activities.length > 0 && skillRef.competences.length === 4;
+      return skillRef.activities.length > 0 && skillRef.competences.length < 5 && skillRef.competences.length > 0;
     }
 
     function updateSkill() {
@@ -193,15 +196,16 @@ const ThemesContainer = forwardRef(
         }
       } else if (step === 'expertise_edit') {
         const newSkill = newSkillRef.current;
-        if (newSkill && newSkill.competences.length !== 4) {
-          openModal(
+        if (newSkill && isSkillValidInputs(newSkill)) {
+       	updateSkill();
+        } else {
+				
+					   openModal(
             <InvalidModal
               onCloseModal={closeModal}
               text="Attention, il faut sélectionner 4 compétences!"
             />,
           );
-        } else {
-          updateSkill();
         }
       }
     }

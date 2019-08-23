@@ -24,6 +24,8 @@ const Questions = ({ listQuestion }: IProps) => {
   useDidMount(() => {
     listQuestion.call();
   });
+  const [answers, setAnswers] = useState([] as any);
+
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,
@@ -35,11 +37,56 @@ const Questions = ({ listQuestion }: IProps) => {
     const selected = index !== -1;
     return { index, selected };
   }
-  const [answers, setAnswers] = useState([] as any);
+  function renderScore() {
+    const arrayLength = answers.length;
+    let result;
+    if (arrayLength < 3 && arrayLength > 0) {
+      result = (
+        <div className={classes.redWork}>
+          {arrayLength}
+          /10
+          <span> not for u sorry </span>
+        </div>
+      );
+    }
+    if (arrayLength < 4 && arrayLength > 7) {
+      result = (
+        <div className={classes.orangeWork}>
+          {arrayLength}
+          /10
+          <span> maybe .. u can do it </span>
+        </div>
+      );
+    }
+    if (arrayLength < 8 && arrayLength > 10) {
+      result = (
+        <div className={classes.greenWork}>
+          {arrayLength}
+          /10
+          <span>u can do it</span>
+        </div>
+      );
+    }
+    if (arrayLength === 0) {
+      result = (
+        <div className={classes.grayWork}>
+          {arrayLength}
+          /10
+          <span> answer the question please</span>
+        </div>
+      );
+    }
+    return result;
+  }
   return (
     <div className={classes.container}>
       <div className={classes.title_container}>
-        <span className={classes.title}>CE MÉTIER EST-IL FAIT POUR MOI ?</span>
+        <div className={classes.content}>
+          <span className={classes.title}>CE MÉTIER EST-IL FAIT POUR MOI ?</span>
+        </div>
+        <div className={classes.score_container}>
+          <span className={classes.title}>{renderScore()}</span>
+        </div>
       </div>
       <div className={classes.question_containers}>
         {map(listQuestion.data.data, (item, i) => {

@@ -61,7 +61,9 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match, fetchingParcour, parcours, history }: Props) => {
+const ProfileContainer = ({
+ match, fetchingParcour, parcours, history,
+}: Props) => {
   const expertiseRef = useRef(null);
   const [OneCompetencesNoSetted, SetCompetencesNoSetted] = useState(
     parcours.data.skills
@@ -76,17 +78,8 @@ const ProfileContainer = ({ match, fetchingParcour, parcours, history }: Props) 
         .flatMap(item => item.competences.flat(2))
         .some(item => item.value === 5),
     );
-    if (
-      !parcours.data.skills
-        .filter(item => item.type === 'personal')
-        .flatMap(item => item.competences.flat(2))
-        .some(item => item.value === 5)
-    ) {
-      history.push('/profile/pro');
-    }
   }, [parcours.data.skills]);
   if (match.isExact) return <Redirect to="/profile/skills" />;
-
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
