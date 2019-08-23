@@ -95,7 +95,7 @@ const ExpertisesContainer = forwardRef(
 
     useDidUpdate(() => {
       if (!parcoursFetching && parcoursError === 'no error') {
-        history.push('/profile/pro');
+        history.push('/profile/skills');
       }
     }, [parcours]);
     function HandleSubmit() {
