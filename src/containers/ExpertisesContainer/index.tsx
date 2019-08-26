@@ -204,6 +204,7 @@ const ExpertisesContainer = forwardRef(
                   color={item.color}
                   withSub
                   index={index}
+                  taux={item.taux}
                   handleChangeValue={item.taux ? handleChangeValue : DoNothing}
                 />
                 {RenderDescription(item, index)}

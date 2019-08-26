@@ -11,6 +11,7 @@ interface IProps {
   sub_title?: string;
   withSub?: boolean;
   index: number;
+  taux?: number;
   handleChangeValue?: (value: number, index: number) => void;
 }
 
@@ -20,6 +21,7 @@ const ProgressBarCompetence = ({
   title,
   sub_title,
   withSub,
+  taux,
   index,
   handleChangeValue,
 }: IProps) => {
@@ -31,11 +33,11 @@ const ProgressBarCompetence = ({
     }
   }
   return (
-    <div className={classes.wrapper} >
+    <div className={classes.wrapper}>
       {level >= 1 || Hover[0] ? (
         <div
           className={classes.dots}
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
           onClick={() => {
             onChange(1, index);
           }}
@@ -45,6 +47,7 @@ const ProgressBarCompetence = ({
           className={classes.dots}
           src={index && index % 2 ? whiteDot : greyDot}
           alt="dot"
+          style={{ cursor: taux ? 'pointer' : 'deafult' }}
           onClick={() => {
             onChange(1, index);
           }}
@@ -53,7 +56,7 @@ const ProgressBarCompetence = ({
       {level >= 2 || Hover[1] ? (
         <div
           className={classes.dots}
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
           onClick={() => {
             onChange(2, index);
           }}
@@ -63,6 +66,7 @@ const ProgressBarCompetence = ({
           data-for={title}
           className={classes.dots}
           src={index && index % 2 ? whiteDot : greyDot}
+          style={{ cursor: taux ? 'pointer' : 'deafult' }}
           alt="dot"
           onClick={() => {
             onChange(2, index);
@@ -72,7 +76,7 @@ const ProgressBarCompetence = ({
       {level >= 3 || Hover[2] ? (
         <div
           className={classes.dots}
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
           onClick={() => {
             onChange(3, index);
           }}
@@ -81,6 +85,7 @@ const ProgressBarCompetence = ({
         <img
           className={classes.dots}
           src={index && index % 2 ? whiteDot : greyDot}
+          style={{ cursor: taux ? 'pointer' : 'deafult' }}
           alt="dot"
           onClick={() => {
             onChange(3, index);
@@ -90,7 +95,7 @@ const ProgressBarCompetence = ({
       {level >= 4 || Hover[3] ? (
         <div
           className={classes.dots}
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
           onClick={() => {
             onChange(4, index);
           }}
@@ -99,6 +104,7 @@ const ProgressBarCompetence = ({
         <img
           className={classes.dots}
           src={index && index % 2 ? whiteDot : greyDot}
+          style={{ cursor: taux ? 'pointer' : 'deafult' }}
           alt="dot"
           onClick={() => {
             onChange(4, index);

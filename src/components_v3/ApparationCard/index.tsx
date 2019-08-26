@@ -88,7 +88,10 @@ const ApparationCard = ({
   return (
     <div
       className={classes.CardContainer}
-      style={{ justifyContent: withDots ? 'space-evenly' : 'center' }}
+      style={{
+        justifyContent: withDots ? 'space-evenly' : 'center',
+        cursor: withCheckBox ? 'pointer' : 'default',
+      }}
       role="button"
       aria-pressed={isChecked}
       onClick={() =>

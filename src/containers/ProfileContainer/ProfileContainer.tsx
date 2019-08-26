@@ -78,7 +78,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
         .some(item => item.value === 5),
     );
   }, [parcours.data.skills]);
-  if (match.isExact) return <Redirect to="/profile/skills" />;
+   if (match.isExact) return <Redirect to="/profile/skills" />;
   return (
     <Fragment>
       <Header HeaderProfile showLogout />

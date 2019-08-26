@@ -92,8 +92,8 @@ const JobsContainer = ({
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
 
-  if (!families.length) return <Redirect to="/profile" />;
-
+  /*   if (!families.length) return <Redirect to="/profile" />;
+   */
   const onJobRemove = (job: any) => {
     deleteFavorites.call(job.favoriteId);
     fetchingChange(true);
@@ -183,7 +183,9 @@ const JobsContainer = ({
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
   const handleCard = (id: string) => {
-    openModal(<JobModal onCloseModal={closeModal} confirme={closeModal} id={id} parcoursId={parcoursId} />);
+    openModal(
+      <JobModal onCloseModal={closeModal} confirme={closeModal} id={id} parcoursId={parcoursId} />,
+    );
   };
 
   // const sections = [...selectedJobs, autres];
