@@ -30,7 +30,6 @@ import ParcoursActions from '../../reducers/parcours';
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
 import ExpertisesContainer from '../ExpertisesContainer';
-import GameContainer from '../GameContainer/GameContainer';
 
 interface ParcoursParams {
   completed?: boolean;
@@ -299,15 +298,6 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
                 />
               ))
             }
-          />
-          <Route
-            path="/profile/game"
-            exact
-            render={props => (
-              <GameContainer
-                {...props}
-              />
-            )}
           />
         </Switch>
       </div>

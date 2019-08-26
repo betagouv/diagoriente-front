@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Header from 'components_v3/Header/Header';
 
 import classes from './game.module.scss';
 import modalActions from '../../reducers/modal';
@@ -25,6 +26,7 @@ const GameContainer = ({ history, openModal, closeModal }: Props) => {
   };
   return (
     <Fragment>
+      <Header showLogout={false} HeaderProfile />
       <div className={classes.frame_container}>
         <div className={classes.frame_overlay_container}>
           <iframe
