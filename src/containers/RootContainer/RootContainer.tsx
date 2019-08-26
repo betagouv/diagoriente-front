@@ -18,7 +18,7 @@ import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import LoginUserContainer from 'containers/LoginContainer/LoginContainer';
 import ProfileContainer from 'containers/ProfileContainer/ProfileContainer';
 import RegisterUserContainer from 'containers/RegistreContainer/RegisterContainer';
-import GameContainer from '../GameContainer/GameContainer';
+import GameContainer from 'containers/GameContainer/GameContainer';
 
 // components
 import Modal from 'components/ui/Modal/Modal';
@@ -59,18 +59,20 @@ const RootContainer = ({
  modal, startup, startupEnd, location, user, history, logout,
 }: Props) => {
   const resetTimer = () => {
-    if (timer) {
-      clearTimeout(timer);
+    if (process.env.NODE_ENV !== 'development') {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        logout();
+      }, 420000);
     }
-    timer = setTimeout(() => {
-      logout();
-    }, 420000);
   };
 
-  /*  useListener('mousemove', resetTimer);
+  useListener('mousemove', resetTimer);
   useListener('keypress', resetTimer);
   useListener('wheel', resetTimer);
-  useListener('click', resetTimer); */
+  useListener('click', resetTimer);
 
   useDidMount(() => {
     startup();
@@ -90,7 +92,7 @@ const RootContainer = ({
           <Route path="/" exact component={HomeContainer} />
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
-          <Route path="/game" exact render={props => <GameContainer {...props} />} />
+          <Route path="/game" exact component={GameContainer} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

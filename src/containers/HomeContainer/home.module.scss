@@ -1,8 +1,12 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .logout_container {
   display: flex;
   justify-content: flex-end;
+}
+
+.header_content {
+  padding: 0 10px;
 }
 
 .logout {
@@ -20,7 +24,7 @@
   &:hover {
     opacity: 0.5;
   }
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     border: none;
     padding: 0 10px;
     border-radius: 0;
@@ -44,7 +48,7 @@
   font-weight: bold;
   color: #666666;
   flex: 1 1 auto;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     display: none;
   }
 }
@@ -70,7 +74,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     right: 0;
   }
 }
@@ -78,7 +82,7 @@
 .logout_icon {
   height: 16px;
   width: 16px;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     height: 30px;
     width: 30px;
   }
@@ -143,7 +147,7 @@
     bottom: -1px;
     left: 0;
     right: 0;
-    content: "";
+    content: '';
   }
 
   &::after {
@@ -152,7 +156,7 @@
     border-top: 21px solid $white;
     border-right: 21px solid transparent;
     position: absolute;
-    content: "";
+    content: '';
     left: calc(100% - 1px);
     bottom: 0;
     transform: rotate(-5deg);
@@ -173,7 +177,7 @@
     bottom: -1px;
     left: 0;
     right: 0;
-    content: "";
+    content: '';
   }
 
   &::after {
@@ -182,7 +186,7 @@
     border-top: 21px solid $white;
     border-left: 21px solid transparent;
     position: absolute;
-    content: "";
+    content: '';
     right: calc(100% - 1px);
     bottom: 0;
     transform: rotate(5deg);

@@ -1,4 +1,4 @@
-@import "../../styles//variables.scss";
+@import '../../styles//variables.scss';
 .container_home {
   width: 100%;
   height: calc(100% - 83px);
@@ -21,8 +21,16 @@
     }
   }
 }
-.container_form::-webkit-scrollbar { 
-  display: none; 
+
+.container {
+  display: flex;
+  justify-content: center;
+  height: -webkit-fill-available;
+  flex-direction: column;
+}
+
+.container_form::-webkit-scrollbar {
+  display: none;
 }
 .container_form {
   display: flex;
@@ -41,7 +49,7 @@
     input {
       border-radius: 20px;
       &:focus {
-        box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
       }
     }
   }
@@ -51,7 +59,7 @@
     margin: 10px;
     button {
       padding: 10px 30px;
-       background-image: linear-gradient(254deg, #a422c9, #5065ff); 
+      background-image: linear-gradient(254deg, #a422c9, #5065ff);
     }
   }
   .container_forget_Password {
@@ -74,7 +82,7 @@
       margin: 10px;
       text-decoration-line: underline;
       cursor: pointer;
-      padding-top: 10px
+      padding-top: 10px;
     }
   }
 }
@@ -84,7 +92,7 @@
   align-items: center;
 }
 
-@media (max-width: map-get($breakpoints, "md")) {
+@media (max-width: map-get($breakpoints, 'md')) {
   .container_home {
     .container_title {
       margin: 20px 20px;
@@ -122,4 +130,14 @@
   100% {
     background-position: 100% 0;
   }
+}
+
+.forgot {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  max-width: 500px;
+  margin: 10px 0;
+  cursor: pointer;
+  color: #949494;
 }

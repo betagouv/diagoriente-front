@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { RouteComponentProps } from 'react-router';
+import React from 'react';
+
 import { isEmpty } from 'lodash';
-import { Redirect, match } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState, IUser, User } from 'reducers';
+import { ReduxState, User } from 'reducers';
 
 // hooks
-import { useDidUpdate, useDidMount } from '../../hooks';
+import { useDidUpdate } from 'hooks';
 
 // utils
-import { decodeUri } from '../../utils/url';
+import { decodeUri, encodeUri } from 'utils/url';
 
 // actions
-import loginUserActions from '../../reducers/authUser/login';
-import modalAction from '../../reducers/modal';
-import updateActions from '../../reducers/authUser/updatePassword';
+import loginUserActions from 'reducers/authUser/login';
+import modalAction from 'reducers/modal';
+import updateActions from 'reducers/authUser/updatePassword';
 
 // components
-import ForgetForm from '../../components/form/ForgetForm/ForgetForm';
-import LoginForm from '../../components/form/LoginForm/LoginForm';
+import ForgetForm from 'components/form/ForgetForm/ForgetForm';
+import LoginForm from 'components/form/LoginForm/LoginForm';
 import RegisterContainer from '../RegistreContainer/RegisterUser';
-import classes from '*.module.css';
+import classes from './login.module.scss';
 
 interface DispatchToProps {
   loginRequest: (email: string, password: string) => void;
@@ -51,8 +51,7 @@ const LoginUserContainer = ({
   user,
   match,
 }: Props) => {
-  const [showLogin, setLogin] = useState<boolean>(true);
-  const [showRegister, setRegister] = useState<boolean>(false);
+  const search = decodeUri(location.search);
 
   const onSubmit = (email: string, password: string) => {
     loginRequest(email, password);
@@ -60,7 +59,7 @@ const LoginUserContainer = ({
 
   useDidUpdate(() => {
     if (!(fetching || error)) {
-      const path = decodeUri(location.search).from || '/';
+      const path = search.from || '/';
 
       history.push(path);
     }
@@ -77,46 +76,27 @@ const LoginUserContainer = ({
   if (!isEmpty(user)) return <Redirect to="/" />;
 
   const OpenCard = () => {
-    if (showLogin) {
-      setLogin(false);
-      setRegister(true);
+    if (search.register) {
+      const newSearch = { ...search };
+      delete newSearch.register;
+      history.replace(location.pathname + encodeUri(newSearch));
+    } else {
+      history.replace(location.pathname + encodeUri({ ...search, register: true }));
     }
-    if (showRegister) {
-      setLogin(true);
-      setRegister(false);
-    }
-  };
-  const styles = {
-    forgot: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'flex-start',
-      maxWidth: '500px',
-      margin: '10px 0',
-      cursor: 'pointer',
-      color: '#949494',
-    },
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        height: '-webkit-fill-available',
-        flexDirection: 'column',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className={classes.container}>
+      <div className="flex_center">
         <LoginForm
           error={error}
           onSubmitForm={onSubmit}
           footerComponent={(
-            <span style={styles.forgot} onClick={onOpenModal}>
+            <span className={classes.forgot} onClick={onOpenModal}>
               Mot de passe oublié
             </span>
 )}
-          showLogin={showLogin}
+          showLogin={!search.register}
           onClick={OpenCard}
         />
       </div>
@@ -124,7 +104,7 @@ const LoginUserContainer = ({
         history={history}
         location={location}
         match={match}
-        showRegister={showRegister}
+        showRegister={!!search.register}
         onClick={OpenCard}
       />
     </div>

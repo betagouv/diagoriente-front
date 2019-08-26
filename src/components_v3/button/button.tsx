@@ -6,11 +6,13 @@ interface Props {
   title: string;
 }
 
-const Button = ({ title, className, ...other }: Props & React.HTMLAttributes<HTMLButtonElement>) => {
-  return (
-    <button className={classNames(classes.button, className)} {...other}>
-      <span>{title}</span>
-    </button>
+const Button = ({
+  title,
+  className,
+  ...other
+}: Props & React.HTMLAttributes<HTMLButtonElement>) => (
+  <button className={classNames(classes.button, className)} {...other}>
+    <span>{title}</span>
+  </button>
   );
-};
 export default Button;

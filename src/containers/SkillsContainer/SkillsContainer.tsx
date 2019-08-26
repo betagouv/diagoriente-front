@@ -23,10 +23,10 @@ import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
-import parcoursActions from '../../reducers/parcours';
+import parcoursActions from 'reducers/parcours';
 
 /* import JobIcon from 'components_v3/icons/jobIcon/jobIcon'; */
-import { pdf2 } from '../../utils/pdf';
+import { pdf2 } from 'utils/pdf';
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -84,7 +84,11 @@ const SkillsContainer = forwardRef(
     };
     const onOpenModal = () => {
       openModal(
-        <ModalInvalid text="Avant de commencer à renseigner tes expériences, nous te proposons un jeu rapide pour apprendre à identifier tes compétences" onCloseModal={closeModal} onClick={() => onNavigate()} />,
+        <ModalInvalid
+          text="Avant de commencer à renseigner tes expériences, nous te proposons un jeu rapide pour apprendre à identifier tes compétences"
+          onCloseModal={closeModal}
+          onClick={() => onNavigate()}
+        />,
       );
     };
     return (
@@ -116,9 +120,7 @@ const SkillsContainer = forwardRef(
                     Iconcolor="#7992bf"
                     width="65"
                     height="65"
-                    onClick={
-                      parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()
-                    }
+                    onClick={parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()}
                     className={classes.multiOverride}
                   />
                 ) : (
@@ -170,14 +172,6 @@ const SkillsContainer = forwardRef(
                           <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
                             <li>{skill.theme.title}</li>
-                            {/* skill.activities.map(activity => {
-                              return (
-                                <div className={classes.activityContainer}>
-                                  <div className={classes.hr} />
-                                  <span className={classes.activityTitle}>{activity.title}</span>
-                                </div>
-                              )
-                            }) */}
                           </div>
                         ))}
                     </div>
@@ -200,9 +194,9 @@ const SkillsContainer = forwardRef(
                   get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
                 );
-                // console.log(get.data.globalCopmetences);
+
                 return (
-                  <div className={classes.competences}>
+                  <div key={expertise._id} className={classes.competences}>
                     <ApparationCard
                       title={expertise.title}
                       color={currentSkill && currentSkill.color}

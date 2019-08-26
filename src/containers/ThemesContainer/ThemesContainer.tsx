@@ -94,7 +94,7 @@ const ThemesContainer = forwardRef(
         competences: skill.competences,
       };
     }
-
+    const [search, setSearch] = useState('');
     const [step, stepChange] = useState<Step | 'select_theme' | null>(
       !currentSkills.length ? 'select_theme' : null,
     );
@@ -115,7 +115,7 @@ const ThemesContainer = forwardRef(
         });
       }
     }
-   
+
     useEffect(() => {
       list.call({ type });
       stepChange(!currentSkills.length ? 'select_theme' : null);
@@ -125,6 +125,7 @@ const ThemesContainer = forwardRef(
     }, [type]);
 
     useCaptureRef({ onFooterClick }, ref);
+
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
         if (type === 'personal') {
@@ -140,7 +141,11 @@ const ThemesContainer = forwardRef(
     }, [parcoursFetching]);
 
     function isSkillValidInputs(skillRef: ThemeRefObject) {
-      return skillRef.activities.length > 0 && skillRef.competences.length < 5 && skillRef.competences.length > 0;
+      return (
+        skillRef.activities.length > 0
+        && skillRef.competences.length < 5
+        && skillRef.competences.length > 0
+      );
     }
 
     function updateSkill() {
@@ -196,13 +201,13 @@ const ThemesContainer = forwardRef(
       } else if (step === 'expertise_edit') {
         const newSkill = newSkillRef.current;
         if (newSkill && isSkillValidInputs(newSkill)) {
-      updateSkill();
+          updateSkill();
         } else {
- openModal(
-   <InvalidModal
-     onCloseModal={closeModal}
-     text="Attention, il faut sélectionner 4 compétences!"
-   />,
+          openModal(
+            <InvalidModal
+              onCloseModal={closeModal}
+              text="Attention, il faut sélectionner 4 compétences!"
+            />,
           );
         }
       }
@@ -217,7 +222,7 @@ const ThemesContainer = forwardRef(
         stepChange('activities_edit');
       }
     }
-    const [search, setSearch] = useState<string>('');
+
     function onSearch(e: React.ChangeEvent<HTMLInputElement>) {
       setSearch(e.target.value);
       list.call({ search, type });
@@ -268,21 +273,16 @@ const ThemesContainer = forwardRef(
               .filter(theme => !skills.find(skill => skill.theme._id === theme._id))
               .map(theme => {
                 const selected = theme._id === selectedTheme;
-
+                let { wrapper } = classes;
+                if (selected) {
+                  wrapper = type === 'professional' ? classes.wrapperPro : classes.wrapperGrey;
+                }
                 function onClick() {
                   selectedThemeChange(selected ? null : theme._id);
                 }
+
                 return (
-                  <div
-                    onClick={onClick}
-                    className={
-                      selected
-                        ? type === 'professional'
-                          ? classes.wrapperPro
-                          : classes.wrapperGrey
-                        : classes.wrapper
-                    }
-                  >
+                  <div onClick={onClick} className={wrapper}>
                     {theme && theme.resources && type === 'personal' && (
                       <ThemeIcon
                         title={theme.title}
