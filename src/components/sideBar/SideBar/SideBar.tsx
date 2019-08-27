@@ -26,6 +26,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
   });
   const [isFilterOpen, setFilterOpen] = useState(true);
   const [isSecteurOpen, setSecteurOpen] = useState(true);
+  
   const [filterArray, setFilterArray] = useState([]);
   const [secteurArray, setSecteurArray] = useState([]);
 

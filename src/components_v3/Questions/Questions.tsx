@@ -1,8 +1,5 @@
 import React, { Fragment } from 'react';
 import MultiIcons from 'components_v3/icons/multiIcon/multiIcon';
-import withApis, { ApiComponentProps } from 'hoc/withApi';
-import { jobQuestion } from 'requests/jobs';
-import { useDidMount } from 'hooks';
 import { map } from 'lodash';
 
 import classes from './question.module.scss';
@@ -23,22 +20,11 @@ interface props {
   responseQuestion: any;
   onChangeQuestion: (answer: responseProps[]) => void;
 }
-interface IProps
-  extends ApiComponentProps<{
-      listQuestion: typeof jobQuestion;
-    }>,
-    props {}
+interface IProps extends props {}
 
 const Questions = ({
-  listQuestion,
-  questions,
-  jobId,
-  responseQuestion,
-  onChangeQuestion,
+ questions, jobId, responseQuestion, onChangeQuestion,
 }: IProps) => {
-  useDidMount(() => {
-    listQuestion.call();
-  });
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,
@@ -51,10 +37,7 @@ const Questions = ({
     return { index, selected };
   }
   const renderScore = () => {
-    console.log('arrayLength', responseQuestion);
     const arrayLength = responseQuestion.filter((item: any) => item.response === true).length;
-    console.log('arrayLength', arrayLength);
-
     let result;
     if (arrayLength <= 3 && arrayLength > 0) {
       result = (
@@ -152,4 +135,4 @@ const Questions = ({
     </Fragment>
   );
 };
-export default withApis({ listQuestion: jobQuestion })(Questions);
+export default Questions;

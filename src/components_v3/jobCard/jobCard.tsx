@@ -35,7 +35,6 @@ const JobCard = ({
     <div className={classes.activities}>
       {jobInterest.map((el: any, index: any) => {
         const name = el._id.nom.split('/');
-        // console.log(name)
         return (
           index <= 2 && (
             <React.Fragment>
