@@ -1,5 +1,6 @@
-import React, { useState, ReactDOM } from 'react';
+import React, { useState } from 'react';
 import ReactTooltip from 'react-tooltip';
+import classNames from 'utils/classNames';
 import classes from './GraduationLevel.module.scss';
 
 import greyDot from '../../assets/icons/Dots/greyDot.svg';
@@ -33,127 +34,59 @@ const ProgressBarCompetence = ({
       handleChangeValue(value, nbr);
     }
   }
+
   function hoverHandler(e: any, value: number) {
     const hoverCopie = [false, false, false, false];
-    console.log('hover in', value);
 
-    for (let i = 0; i <= value; i++) {
+    for (let i = 0; i <= value; i += 1) {
       hoverCopie[i] = true;
     }
     setHover(hoverCopie);
   }
   function mouseLeaveHandler() {
-    console.log('hover out');
-
     setHover([false, false, false, false]);
   }
-  console.log('description', description);
-  return (
-    <div className={classes.wrapper}>
-      {level >= 1 || Hover[0] ? (
-        <div
-          className={classes.dots}
-          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
-          onClick={() => {
-            onChange(1, index);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[0].title : ''}
-        />
-      ) : (
-        <img
-          className={classes.dots}
-          src={index && index % 2 ? whiteDot : greyDot}
-          alt="dot"
-          style={{ cursor: taux ? 'pointer' : 'deafult' }}
-          onClick={() => {
-            onChange(1, index);
-          }}
-          onMouseEnter={e => {
-            hoverHandler(e, 0);
-          }}
-          data-tip={description ? description[0].title : ''}
-        />
-      )}
-      {level >= 2 || Hover[1] ? (
-        <div
-          className={classes.dots}
-          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
-          onClick={() => {
-            onChange(2, index);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[1].title : ''}
-        />
-      ) : (
+
+  function renderDot(dotIndex: number) {
+    return (
+      <div
+        className={classes.dots}
+        onClick={() => {
+          onChange(dotIndex, index);
+        }}
+        onMouseLeave={mouseLeaveHandler}
+        onMouseEnter={e => {
+          hoverHandler(e, dotIndex - 1);
+        }}
+        data-tip={description ? description[dotIndex - 1].title : ''}
+      >
         <img
           data-for={title}
-          className={classes.dots}
+          className={classNames(classes.img)}
           src={index && index % 2 ? whiteDot : greyDot}
-          style={{ cursor: taux ? 'pointer' : 'deafult' }}
           alt="dot"
+          style={{ cursor: taux ? 'pointer' : 'deafult' }}
           onClick={() => {
-            onChange(2, index);
+            onChange(dotIndex, index);
           }}
-          onMouseEnter={e => {
-            hoverHandler(e, 1);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[1].title : ''}
         />
-      )}
-      {level >= 3 || Hover[2] ? (
         <div
-          className={classes.dots}
+          className={classNames(
+            classes.img,
+            !(level >= dotIndex || Hover[dotIndex - 1]) && classes.dots_hide,
+          )}
           style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
-          onClick={() => {
-            onChange(3, index);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[2].title : ''}
         />
-      ) : (
-        <img
-          className={classes.dots}
-          src={index && index % 2 ? whiteDot : greyDot}
-          style={{ cursor: taux ? 'pointer' : 'deafult' }}
-          alt="dot"
-          onClick={() => {
-            onChange(3, index);
-          }}
-          onMouseEnter={e => {
-            hoverHandler(e, 2);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[2].title : ''}
-        />
-      )}
-      {level >= 4 || Hover[3] ? (
-        <div
-          className={classes.dots}
-          style={{ backgroundColor: color, cursor: taux ? 'pointer' : 'deafult' }}
-          onClick={() => {
-            onChange(4, index);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[3].title : ''}
-        />
-      ) : (
-        <img
-          className={classes.dots}
-          src={index && index % 2 ? whiteDot : greyDot}
-          style={{ cursor: taux ? 'pointer' : 'deafult' }}
-          alt="dot"
-          onClick={() => {
-            onChange(4, index);
-          }}
-          onMouseEnter={e => {
-            hoverHandler(e, 3);
-          }}
-          onMouseLeave={mouseLeaveHandler}
-          data-tip={description ? description[3].title : ''}
-        />
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className={classes.wrapper}>
+      {renderDot(1)}
+      {renderDot(2)}
+      {renderDot(3)}
+      {renderDot(4)}
       {withSub && <span className={classes.level}>{`NIVEAU${level}/4`}</span>}
       {description && <ReactTooltip place="top" type="light" />}
     </div>
