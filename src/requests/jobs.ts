@@ -54,10 +54,16 @@ export const getMyJob = (
 
 export const getOneJob = (id: string): Promise<Response<any>> => axiosGet(`v1/jobs/${id}`);
 
+type responseProps = {
+  questionJobId: string;
+  response: boolean;
+};
+
 export interface FavoritesData {
   interested: boolean | null;
   job: string;
   parcour: string;
+  responses: responseProps[];
 }
 
 export const createFavorites = (data: FavoritesData): Promise<Response<any>> =>

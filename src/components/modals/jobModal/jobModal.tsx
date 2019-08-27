@@ -16,10 +16,9 @@ import { useDidMount, useDidUpdate } from 'hooks';
 import { Carousel } from 'react-responsive-carousel';
 import classes from './jobModal.module.scss';
 
-type DataJob = {
-  interested: boolean;
-  job: string;
-  parcour: string;
+type responseProps = {
+  questionJobId: string;
+  response: boolean;
 };
 
 interface MyProps {
@@ -27,17 +26,13 @@ interface MyProps {
   confirme: () => void;
   id: string;
   parcoursId: string;
-  createFavorites?: (data: DataJob) => void;
+  fetchingParcours: boolean;
 }
-type responseProps = {
-  questionJobId: string;
-  jobId: string;
-  response: boolean;
-};
+
 type IProps = MyProps & ApiComponentProps<{ get: typeof getParcours }>;
 
 const JobModal = ({
- onCloseModal, id, parcoursId, get, createFavorites,
+ onCloseModal, id, parcoursId, get, fetchingParcours,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
@@ -112,9 +107,17 @@ const JobModal = ({
               .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur),
         ));
     }
-  });
+  }, [fetchingParcours]);
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    createFavorites({
+      job: id,
+      parcour: parcoursId,
+      interested: true,
+      responses: responseQuestion,
+    });
+    onCloseModal();
+  };
   useDidUpdate(() => {
     if (!rendered && get && !isEmpty(get.data)) {
       const canvas: any = document.getElementById('canvas');
@@ -177,7 +180,7 @@ const JobModal = ({
             height="37"
             type="validate"
             Iconcolor="#fab82d"
-            onClick={handleClick}
+            onClick={() => handleClick()}
           />
           <MultiIcon
             width="15"

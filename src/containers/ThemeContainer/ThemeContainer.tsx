@@ -149,13 +149,7 @@ const ThemeContainer = forwardRef(
               {skill ? skill.theme.title : get.data.title}
             </span>
           </div>
-          <div
-            className={
-              isActivityEdit && isExpertiseEdit
-                ? classes.new_theme_activities
-                : test
-            }
-          >
+          <div className={isActivityEdit && isExpertiseEdit ? classes.new_theme_activities : test}>
             {!activitiesArray ? (
               <div className={classes.containerSpinner}>
                 <Spinner />

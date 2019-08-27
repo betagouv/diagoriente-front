@@ -1,14 +1,14 @@
 import React, { Dispatch, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { forEach, filter, isEmpty } from 'lodash';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
+import { forEach, filter, map } from 'lodash';
+import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
 import { AnyAction } from 'redux';
 
 import { ReduxState } from 'reducers';
 import withLayout from 'hoc/withLayout';
-
+import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
+import classNames from 'utils/classNames';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import JobCard from 'components_v3/jobCard/jobCard';
 import JobModal from 'components/modals/jobModal/jobModal';
@@ -18,20 +18,22 @@ import {
   getMyJob,
   createFavorites,
   getParcours,
+  getFavorites,
   IJob,
   getSecteurs,
   ISecteur,
   deleteFavorites,
 } from '../../requests';
+
 import { useDidMount, useDidUpdate } from '../../hooks';
 import Spinner from '../../components/ui/Spinner/Spinner';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
-import Card from '../../components/cards/Card/Card';
 
 interface IMapToProps {
   parcoursId: string;
   families: string[];
+  fetchingParcours: boolean;
 }
 interface IDispatchToProps {
   openModal: (children: JSX.Element, backdropClassName?: string) => void;
@@ -45,6 +47,7 @@ interface Props
       getParcours: typeof getParcours;
       deleteFavorites: typeof deleteFavorites;
       getSecteurs: typeof getSecteurs;
+      getFav: typeof getFavorites;
     }>,
     IDispatchToProps,
     IMapToProps {}
@@ -58,26 +61,44 @@ const JobsContainer = ({
   families,
   history,
   deleteFavorites,
+  getFav,
   openModal,
   closeModal,
+  fetchingParcours,
 }: Props & RouteComponentProps) => {
   const [fetching, fetchingChange] = useState(false);
   const [selectedSecteurs, selectedSecteursChange] = useState([] as string[]);
 
-  const onSecteurClick = (secteur: { _id: string; title: string; isSelected?: boolean }) => {
-    /*   if (!secteur.isSelected) selectedSecteursChange([...selectedSecteurs, secteur._id]);
-    else selectedSecteursChange(selectedSecteurs.filter(id => id !== secteur._id)); */
+  const [isSelectionOpen, setSelectionOpen] = useState(true);
+  const [isRecommandedOpen, setRecommandedOpen] = useState(true);
+  const [isOtherOpen, setOtherOpen] = useState(true);
+
+  const setSelectionToggle = () => {
+    setSelectionOpen(!isSelectionOpen);
+  };
+
+  const setRecommandedtoggle = () => {
+    setRecommandedOpen(!isRecommandedOpen);
+  };
+  const setOthertoggle = () => {
+    setOtherOpen(!isOtherOpen);
   };
 
   useDidMount(() => {
     getParcours.call(parcoursId);
     getSecteurs.call();
+    getFav.call();
   });
   useEffect(() => {
     if (!addFavorites.fetching && !addFavorites.error) {
       listJobs.call(parcoursId);
     }
   }, [addFavorites.fetching]);
+  /*  useEffect(() => {
+    if (!getFav.fetching && !getFav.error) {
+      getFav.call();
+    }
+  }, [getFav.fetching]); */
 
   useEffect(() => {
     if (!deleteFavorites.fetching && !deleteFavorites.error) {
@@ -93,10 +114,8 @@ const JobsContainer = ({
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
 
-  /*   if (!families.length) return <Redirect to="/profile" />;
-   */
-  const onJobRemove = (job: any) => {
-    deleteFavorites.call(job.favoriteId);
+  const onJobRemove = (id: any) => {
+    deleteFavorites.call(id);
     fetchingChange(true);
   };
 
@@ -112,9 +131,6 @@ const JobsContainer = ({
     }
   });
 
-  const onNavigate = () => {
-    history.push('/profile');
-  };
   const autres = {
     secteur: {
       _id: 'Autre',
@@ -141,42 +157,6 @@ const JobsContainer = ({
       isSelected: !!selectedSecteurs.find(id => id === autres.secteur._id),
     });
   }
-  const renderJob = (job: IJob) => {
-    const onClickJob = (e: React.MouseEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-      if (job.interested && job.favoriteId) {
-        deleteFavorites.call(job.favoriteId);
-        fetchingChange(true);
-      } else if (!job.interested) {
-        addFavorites.call({
-          interested: true,
-          job: job._id,
-          parcour: parcoursId,
-        });
-        fetchingChange(true);
-      }
-    };
-
-    return (
-      <div className={classes.cardWrapper}>
-        <Card className={classes.cardJob} checked={job.interested} onClick={onClickJob}>
-          <span className={classes.jobSecteur}>
-            {!isEmpty(job.secteur) ? job.secteur[0].title : ''}
-          </span>
-          <span className={classes.jobTitle}>{job.title}</span>
-          <span data-tip data-for={job._id} className={classes.jobinfo}>
-            {job.description}
-          </span>
-          <span className={classes.jobEntry}>
-            {`Niveau d’accès au métier: ${job.accessibility}`}
-          </span>
-          <ReactTooltip id={job._id} place="top" type="light" className={classes.tooltip}>
-            {job.description}
-          </ReactTooltip>
-        </Card>
-      </div>
-    );
-  };
 
   let selectedJobs = jobs;
 
@@ -185,12 +165,19 @@ const JobsContainer = ({
   }
   const handleCard = (id: string) => {
     openModal(
-      <JobModal onCloseModal={closeModal} confirme={closeModal} id={id} parcoursId={parcoursId} />,
+      <JobModal
+        onCloseModal={closeModal}
+        confirme={closeModal}
+        id={id}
+        parcoursId={parcoursId}
+        fetchingParcours={fetchingParcours}
+      />,
     );
   };
-
-  // const sections = [...selectedJobs, autres];
   const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
+  const recommandedArray = jArray.splice(0, 9);
+  const otherArray = jArray.splice(9, jArray.length - 1);
+
   return (
     <div className={classes.container}>
       {fetching && (
@@ -201,25 +188,105 @@ const JobsContainer = ({
       <SideBar secteurs={getSecteurs.data} filterJobs={filterJobs} parcoursId={parcoursId} />
       <div className={classes.jobs_container}>
         <div className={classes.selections}>
-          <JobSelection title="Technicien en application industrielle">
-            <MultiIcon type="remove" width="22" height="22" className={classes.remove} />
-          </JobSelection>
-        </div>
-        <div className={classes.cardsContainer}>
-          {jArray.map((metier, index) => (
-            <JobCard
-              rating={index <= 2 ? 3 : index <= 5 ? 2 : index <= 8 ? 1 : 0}
-              color={
-                index <= 2 ? '#fab82d' : index <= 5 ? '#c8ccb0' : index <= 8 ? '#a67c52' : '#696b6d'
-              }
-              jobName={metier.title}
-              jobAccessebility={metier.accessibility}
-              jobDescription={metier.description}
-              jobInterest={metier.interests}
-              onClick={() => handleCard(metier._id)}
-              key={metier._id}
+          <div className={classes.selection_title}>
+            <img
+              src={arrow}
+              alt="l"
+              className={isSelectionOpen ? classes.arrowRoteted : classes.arrow}
             />
-          ))}
+
+            <div onClick={setSelectionToggle}>MA SELECTION</div>
+          </div>
+          <div
+            className={classNames(
+              isSelectionOpen ? classes.filter_containerOpen_child : classes.filter_container_child,
+            )}
+          >
+            {map(getFav.data.data, (item: any) => (
+              <JobSelection title={item.job.title}>
+                <MultiIcon
+                  type="remove"
+                  width="22"
+                  height="22"
+                  className={classes.remove}
+                  onClick={() => onJobRemove(item._id)}
+                />
+              </JobSelection>
+            ))}
+          </div>
+        </div>
+        <div className={classes.containerAllCards}>
+          <div className={classes.selection_title}>
+            <img
+              src={arrow}
+              alt="l"
+              className={isRecommandedOpen ? classes.arrowRoteted : classes.arrow}
+            />
+            <div onClick={setRecommandedtoggle}>RECOMMENDES</div>
+          </div>
+
+          <div
+            className={classNames(
+              isRecommandedOpen
+                ? classes.filter_containerOpen_child
+                : classes.filter_container_child,
+            )}
+          >
+            {recommandedArray.map((metier, index) => {
+              let rating: 0 | 1 | 2 | 3 = 0;
+              let color = '#696b6d';
+              if (index <= 2) {
+                rating = 3;
+                color = '#fab82d';
+              } else if (index <= 5) {
+                rating = 2;
+                color = '#c8ccb0';
+              } else if (index <= 8) {
+                rating = 1;
+                color = '#a67c52';
+              }
+              return (
+                <JobCard
+                  rating={rating}
+                  color={color}
+                  jobName={metier.title}
+                  jobAccessebility={metier.accessibility}
+                  jobDescription={metier.description}
+                  jobInterest={metier.interests}
+                  onClick={() => handleCard(metier._id)}
+                  key={metier._id}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className={classes.containerAllCards}>
+          <div className={classes.selection_title}>
+            <img
+              src={arrow}
+              alt="l"
+              className={isOtherOpen ? classes.arrowRoteted : classes.arrow}
+            />
+            <div onClick={setOthertoggle}>AUTRES</div>
+          </div>
+          <div
+            className={classNames(
+              isOtherOpen ? classes.filter_containerOpen_child : classes.filter_container_child,
+            )}
+          >
+            {otherArray.map(metier => (
+              <JobCard
+                rating={0}
+                color="#696b6d"
+                jobName={metier.title}
+                jobAccessebility={metier.accessibility}
+                jobDescription={metier.description}
+                jobInterest={metier.interests}
+                onClick={() => handleCard(metier._id)}
+                key={metier._id}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -229,6 +296,7 @@ const JobsContainer = ({
 const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
   parcoursId: parcours.data._id,
   families: parcours.data.families,
+  fetchingParcours: parcours.fetching,
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   openModal: (children, backdropClassName) =>
@@ -246,5 +314,6 @@ export default connect(
     listJobs: getMyJob,
     getSecteurs,
     addFavorites: createFavorites,
+    getFav: getFavorites,
   })(withLayout(JobsContainer)),
 );

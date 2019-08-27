@@ -327,7 +327,10 @@ const ThemesContainer = forwardRef(
                       <div className={classes.activity_container}>
                         {activity.data.activities && activity.data.activities.length !== 0
                           ? map(activity.data.activities, (e: any) => (
-                            <div key={e._id}>-{e.title}</div>
+                            <div key={e._id}>
+-
+                              {e.title}
+                            </div>
                             ))
                           : theme.title}
                       </div>
