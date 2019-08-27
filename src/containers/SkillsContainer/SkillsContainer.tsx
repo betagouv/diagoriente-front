@@ -84,7 +84,11 @@ const SkillsContainer = forwardRef(
     };
     const onOpenModal = () => {
       openModal(
-        <ModalInvalid text="Avant de commencer à renseigner tes expériences, nous te proposons un jeu rapide pour apprendre à identifier tes compétences" onCloseModal={closeModal} onClick={() => onNavigate()} />,
+        <ModalInvalid
+          text="Avant de commencer à renseigner tes expériences, nous te proposons un jeu rapide pour apprendre à identifier tes compétences"
+          onCloseModal={closeModal}
+          onClick={() => onNavigate()}
+        />,
       );
     };
     return (
@@ -116,9 +120,7 @@ const SkillsContainer = forwardRef(
                     Iconcolor="#7992bf"
                     width="65"
                     height="65"
-                    onClick={
-                      parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()
-                    }
+                    onClick={parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()}
                     className={classes.multiOverride}
                   />
                 ) : (
@@ -200,9 +202,8 @@ const SkillsContainer = forwardRef(
                   get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
                 );
-                // console.log(get.data.globalCopmetences);
                 return (
-                  <div className={classes.competences}>
+                  <div key={expertise._id} className={classes.competences}>
                     <ApparationCard
                       title={expertise.title}
                       color={currentSkill && currentSkill.color}
