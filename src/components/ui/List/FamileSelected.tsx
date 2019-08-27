@@ -26,13 +26,11 @@ const FamileSelected = ({ famile, handleDeleteClick }: any) => {
     e.preventDefault();
     handleDeleteClick(famile);
   };
-  const familleTitle = famile.nom.split('/');
+  const FamilleTitle = famile.nom.replace(/\//g, '-');
   return (
     <div className={classes.container}>
       <div className={classes.description_container}>
-        {familleTitle.map((title: string) => (
-          <span style={{ display: 'inherit' }}>{title}</span>
-        ))}
+        <span style={{ display: 'inherit' }}>{FamilleTitle}</span>
       </div>
 
       <div className={classes.delete_container}>

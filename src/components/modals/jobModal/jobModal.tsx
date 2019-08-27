@@ -1,33 +1,49 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import Questions from 'components_v3/Questions/Questions';
 import VerticalStepper from 'components/VerticalStepper/VerticalStepper';
+import VideoContainer from 'components/VideoContainer/VideoContainer';
 
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
-import { getOneJob, getMyJob, getParcours } from 'requests';
+import {
+ getOneJob, getMyJob, getParcours, createFavorites,
+} from 'requests';
 import RadarChart from 'components_v3/RadarChart/RadarChart';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useDidMount, useDidUpdate } from 'hooks';
 import { Carousel } from 'react-responsive-carousel';
 import classes from './jobModal.module.scss';
 
+type DataJob = {
+  interested: boolean;
+  job: string;
+  parcour: string;
+};
+
 interface MyProps {
   onCloseModal: () => void;
   confirme: () => void;
   id: string;
   parcoursId: string;
+  createFavorites?: (data: DataJob) => void;
 }
+type responseProps = {
+  questionJobId: string;
+  jobId: string;
+  response: boolean;
+};
 type IProps = MyProps & ApiComponentProps<{ get: typeof getParcours }>;
 
 const JobModal = ({
- onCloseModal, confirme, id, parcoursId, get,
+ onCloseModal, id, parcoursId, get, createFavorites,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
   const [rendered, setRendered] = useState<any>(false);
   const [DisplayedChild, changeDisplayedChild] = useState(0);
+  const [responseQuestion, setResponseQuestion] = useState<responseProps[]>([]);
 
   const items = [
     {
@@ -45,7 +61,7 @@ const JobModal = ({
                 .slice(0, 3)
                 .filter((al: any) => al.title !== data.title)
                 .map((el: any) => (
-                  <JobSelection title={el.title} className={classes.jobSelection} key={el._id} />
+                  <JobSelection title={el.title} className={classes.jobSelection} key={el.title} />
                 ))}
             </div>
           </div>
@@ -56,12 +72,21 @@ const JobModal = ({
       ),
     },
 
-    { _id: 1, content: <Questions /> },
+    {
+      _id: 2,
+      content: (
+        <Questions
+          questions={data.questionJobs}
+          jobId={data._id}
+          responseQuestion={responseQuestion}
+          onChangeQuestion={setResponseQuestion}
+        />
+      ),
+    },
   ];
-  const onSubmit = () => {
-    confirme();
-    onCloseModal();
-  };
+  if (data.link) {
+    items.splice(1, 0, { _id: 1, content: <VideoContainer link={data.link} /> });
+  }
   useDidMount(() => {
     get.call(parcoursId);
   });
@@ -89,19 +114,15 @@ const JobModal = ({
     }
   });
 
-  const handleClick = () => {
-    console.log('clicked');
-  };
+  const handleClick = () => {};
   useDidUpdate(() => {
     if (!rendered && get && !isEmpty(get.data)) {
-      // console.log('object', get);
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
       RadarChart(ctx, get);
       setRendered(true);
     }
   });
-
   return (
     <div className={classes.wrapperModal}>
       <MultiIcon
@@ -117,7 +138,7 @@ const JobModal = ({
           <span className={classes.title}>{data.title}</span>
         </div>
       </div>
-      <div>
+      <div className={classes.contentModal2}>
         <Carousel
           showThumbs={false}
           showIndicators={false}
