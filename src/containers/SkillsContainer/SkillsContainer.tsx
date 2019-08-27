@@ -91,7 +91,6 @@ const SkillsContainer = forwardRef(
         />,
       );
     };
-    console.log('expertises', expertises);
     return (
       <div className={classes.container}>
         <div className={classes.card}>
