@@ -1,5 +1,5 @@
 import React, {
- useState, useEffect, Fragment, forwardRef, Ref,
+ useState, useEffect, Fragment, forwardRef, Ref, useRef,
 } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 
@@ -60,6 +60,7 @@ const FavorisContainer = forwardRef(
   ) => {
     const [selectedFamily, changeSelectedFamily] = useState([] as IFamille[]);
     const [DisplayedFamily, changeDisplayedFamily] = useState(0);
+    const updatedFamille = useRef(false);
 
     useDidMount(() => {
       famillesRequest();
@@ -69,13 +70,15 @@ const FavorisContainer = forwardRef(
       if (button === 'valider') {
         const ids: string[] = selectedFamily.map(el => el._id);
         updateParcoursRequest({ families: ids });
+        updatedFamille.current = false;
       }
     }
     useCaptureRef({ onFooterClick }, ref);
 
     useEffect(() => {
-      if (familles.length !== 0 && prevFamily) {
+      if (familles.length !== 0 && prevFamily && !updatedFamille.current) {
         changeSelectedFamily(addPrevFamily(familles, prevFamily));
+        updatedFamille.current = true;
       }
     }, [familles]);
 
@@ -98,13 +101,7 @@ const FavorisContainer = forwardRef(
       changeSelectedFamily(copySelected);
     };
     const deleteFamille = (id: number) => {
-      const famillesSelected = selectedFamily.filter((element: IFamille) => {
-        if (element.resources) {
-          return element.resources.length !== 0;
-        }
-        return false;
-      });
-      const familleSelected = famillesSelected[id];
+      const familleSelected = selectedFamily[id];
       let copySelected: IFamille[] = [...selectedFamily];
       if (isChecked(familleSelected._id)) {
         copySelected = selectedFamily.filter(ele => ele._id !== familleSelected._id);
@@ -162,12 +159,7 @@ const FavorisContainer = forwardRef(
           <Grid item xl={3} className={classes.item2}>
             <Grid item xl={12} className={classes.sideBarWrapper}>
               <List
-                famileSelected={selectedFamily.filter((element: IFamille) => {
-                  if (element.resources) {
-                    return element.resources.length !== 0;
-                  }
-                  return false;
-                })}
+                famileSelected={selectedFamily}
                 onDragEnd={onDragEnd}
                 renderPlaceholder={renderPlaceholder}
                 disable={selectedFamily.length}
