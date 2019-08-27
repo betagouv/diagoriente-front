@@ -12,6 +12,7 @@ import classNames from 'utils/classNames';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import JobCard from 'components_v3/jobCard/jobCard';
 import JobModal from 'components/modals/jobModal/jobModal';
+import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
@@ -94,15 +95,12 @@ const JobsContainer = ({
       listJobs.call(parcoursId);
     }
   }, [addFavorites.fetching]);
-  /*  useEffect(() => {
-    if (!getFav.fetching && !getFav.error) {
-      getFav.call();
-    }
-  }, [getFav.fetching]); */
+
 
   useEffect(() => {
     if (!deleteFavorites.fetching && !deleteFavorites.error) {
       listJobs.call(parcoursId);
+      getFav.call();
     }
   }, [deleteFavorites.fetching]);
 
@@ -115,8 +113,10 @@ const JobsContainer = ({
   }
 
   const onJobRemove = (id: any) => {
-    deleteFavorites.call(id);
-    fetchingChange(true);
+    function remove() {
+      deleteFavorites.call(id);
+    }
+    openModal(<DeleteModal onDelete={remove} onCloseModal={closeModal} />);
   };
 
   const jobs: { secteur: ISecteur; jobs: IJob[] }[] = [];
@@ -203,14 +203,10 @@ const JobsContainer = ({
             )}
           >
             {map(getFav.data.data, (item: any) => (
-              <JobSelection title={item.job.title}>
-                <MultiIcon
-                  type="remove"
-                  width="22"
-                  height="22"
-                  className={classes.remove}
-                  onClick={() => onJobRemove(item._id)}
-                />
+              <JobSelection title={item.job.title} onClick={() => handleCard(item.job._id)}>
+                <div onClick={() => onJobRemove(item._id)} className={classes.iconsContainer}>
+                  <MultiIcon type="remove" width="22" height="22" className={classes.remove} />
+                </div>
               </JobSelection>
             ))}
           </div>
@@ -222,7 +218,7 @@ const JobsContainer = ({
               alt="l"
               className={isRecommandedOpen ? classes.arrowRoteted : classes.arrow}
             />
-            <div onClick={setRecommandedtoggle}>RECOMMENDES</div>
+            <div onClick={setRecommandedtoggle}>RECOMMENDÉS</div>
           </div>
 
           <div

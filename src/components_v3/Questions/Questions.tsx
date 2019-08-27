@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import MultiIcons from 'components_v3/icons/multiIcon/multiIcon';
 import { map } from 'lodash';
-
+import Button from 'components/buttons/RoundButton/RoundButton';
 import classes from './question.module.scss';
 
 type responseProps = {
   questionJobId: string;
   jobId: string;
   response: boolean;
+  parcourId: string;
+  _id?: string;
 };
 type QuestionType = {
   label: string;
@@ -18,13 +20,23 @@ interface props {
   questions: any;
   jobId: string;
   responseQuestion: any;
+  parcourId: string;
   onChangeQuestion: (answer: responseProps[]) => void;
+  answersJobs: (data: any) => void;
+  onCloseModal: () => void;
 }
 interface IProps extends props {}
 
 const Questions = ({
- questions, jobId, responseQuestion, onChangeQuestion,
+  questions,
+  jobId,
+  responseQuestion,
+  onChangeQuestion,
+  answersJobs,
+  parcourId,
+  onCloseModal,
 }: IProps) => {
+  console.log(questions);
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,
@@ -68,13 +80,17 @@ const Questions = ({
         <div className={classes.grayWork}>
           {arrayLength}
           /10
-          <span> answer the question please</span>
+          <span> Répondez à la question s'il vous plait</span>
         </div>
       );
     }
     return result;
   };
 
+  const onValidate = () => {
+    answersJobs.call({ responses: responseQuestion }, 't');
+    // onCloseModal();
+  };
   return (
     <Fragment>
       <div className={classes.title_container}>
@@ -96,10 +112,20 @@ const Questions = ({
                 nextFilters.splice(index - 1, 1);
                 onChangeQuestion(nextFilters);
               } else if (type === 'remove') {
-                nextFilters.push({ questionJobId: items._id, response: false, jobId });
+                nextFilters.push({
+                  questionJobId: items._id,
+                  response: false,
+                  parcourId,
+                  jobId,
+                });
                 onChangeQuestion(nextFilters);
               } else {
-                nextFilters.push({ questionJobId: items._id, response: true, jobId });
+                nextFilters.push({
+                  questionJobId: items._id,
+                  response: true,
+                  parcourId,
+                  jobId,
+                });
                 onChangeQuestion(nextFilters);
               }
             };
@@ -109,6 +135,7 @@ const Questions = ({
             return (
               <div key={item._id} className={classes.question}>
                 <div className={classes.question_title}>{item.label}</div>
+
                 <div className={classes.btn_container}>
                   <MultiIcons
                     width="23"
@@ -131,6 +158,13 @@ const Questions = ({
             );
           })}
         </div>
+        {questions && questions.length !== 0 && (
+          <div className={classes.container_btn}>
+            <Button onClick={onValidate} className={classes.btnValidate}>
+              VALIDER
+            </Button>
+          </div>
+        )}
       </div>
     </Fragment>
   );

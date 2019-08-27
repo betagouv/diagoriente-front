@@ -160,16 +160,15 @@
 .arrow {
   width: 13px;
   height: 13px;
-  transition: all 1s ease;
+  transition: all 0.7s ease;
   margin-right: 3px;
-  transform: rotate(-90deg);
 }
 .arrowRoteted {
   width: 13px;
   height: 13px;
   margin-right: 3px;
-  
-  transition: all 0.3s ease;
+  transform: rotate(90deg);
+  transition: all 0.7s ease;
 }
 .selection_title {
   color: $grey-blue;
@@ -200,7 +199,6 @@
   flex-wrap: wrap;
   width: 100%;
   height: auto;
-  overflow: hidden;
   transition: all 0.7s ease;
   animation: slidein 0.3s ease 1 normal;
 }
@@ -221,4 +219,9 @@
 }
 .containerAllCards {
   padding-left: 20px;
+}
+.iconsContainer {
+  height: 100%;
+  align-items: center;
+  display: flex;
 }

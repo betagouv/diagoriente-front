@@ -1,10 +1,15 @@
-import { axiosGet, Response } from './http';
+import { axiosPost, axiosGet, Response } from './http';
 
+export interface IResponse {
+  questionJobId: string;
+  jobId: string;
+  parcourId: string;
+  response: boolean;
+}
 export interface IQuestion {
   readonly _id: string;
   readonly title: string;
 }
-
 export interface IListQuestionParams {
   page?: number;
   perPage?: number;
@@ -14,6 +19,10 @@ export interface IListQuestionParams {
 
 export type ListQuestionResponse = IQuestion[];
 
-export const listQuestions = (params?: IListQuestionParams): Promise<Response<ListQuestionResponse>> => {
-  return axiosGet('v1/questions', { data: params, sendToken: false });
-};
+export const listQuestions = (
+  params?: IListQuestionParams,
+): Promise<Response<ListQuestionResponse>> =>
+  axiosGet('v1/questions', { data: params, sendToken: false });
+
+export const postResponseJobs = (data: any) =>
+  axiosPost('v1/responseJobs', { data, sendToken: true });

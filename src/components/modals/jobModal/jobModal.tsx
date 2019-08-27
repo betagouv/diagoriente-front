@@ -8,7 +8,7 @@ import VideoContainer from 'components/VideoContainer/VideoContainer';
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import {
- getOneJob, getMyJob, getParcours, createFavorites,
+ getOneJob, getMyJob, getParcours, createFavorites, postResponseJobs,
 } from 'requests';
 import RadarChart from 'components_v3/RadarChart/RadarChart';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
@@ -27,19 +27,21 @@ interface MyProps {
   id: string;
   parcoursId: string;
   fetchingParcours: boolean;
+  answersJobs: (data: any) => void;
 }
 
-type IProps = MyProps & ApiComponentProps<{ get: typeof getParcours }>;
+type IProps = MyProps &
+  ApiComponentProps<{ get: typeof getParcours; answersJobs: typeof postResponseJobs }>;
 
 const JobModal = ({
- onCloseModal, id, parcoursId, get, fetchingParcours,
+ onCloseModal, id, parcoursId, get, fetchingParcours, answersJobs,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
   const [rendered, setRendered] = useState<any>(false);
   const [DisplayedChild, changeDisplayedChild] = useState(0);
   const [responseQuestion, setResponseQuestion] = useState<responseProps[]>([]);
-
+  console.log(data);
   const items = [
     {
       _id: 0,
@@ -75,6 +77,9 @@ const JobModal = ({
           jobId={data._id}
           responseQuestion={responseQuestion}
           onChangeQuestion={setResponseQuestion}
+          answersJobs={answersJobs}
+          parcourId={parcoursId}
+          onCloseModal={onCloseModal}
         />
       ),
     },
@@ -114,7 +119,6 @@ const JobModal = ({
       job: id,
       parcour: parcoursId,
       interested: true,
-      responses: responseQuestion,
     });
     onCloseModal();
   };
@@ -194,4 +198,4 @@ const JobModal = ({
     </div>
   );
 };
-export default withApis({ get: getParcours })(JobModal);
+export default withApis({ get: getParcours, answersJobs: postResponseJobs })(JobModal);
