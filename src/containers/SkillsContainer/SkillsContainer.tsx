@@ -23,10 +23,10 @@ import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
-import parcoursActions from '../../reducers/parcours';
+import parcoursActions from 'reducers/parcours';
 
 /* import JobIcon from 'components_v3/icons/jobIcon/jobIcon'; */
-import { pdf2 } from '../../utils/pdf';
+import { pdf2 } from 'utils/pdf';
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -172,14 +172,6 @@ const SkillsContainer = forwardRef(
                           <div className={classes.mapContainer} key={skill._id}>
                             <div className={classes.hr} />
                             <li>{skill.theme.title}</li>
-                            {/* skill.activities.map(activity => {
-                              return (
-                                <div className={classes.activityContainer}>
-                                  <div className={classes.hr} />
-                                  <span className={classes.activityTitle}>{activity.title}</span>
-                                </div>
-                              )
-                            }) */}
                           </div>
                         ))}
                     </div>
@@ -202,6 +194,7 @@ const SkillsContainer = forwardRef(
                   get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
                 );
+
                 return (
                   <div key={expertise._id} className={classes.competences}>
                     <ApparationCard

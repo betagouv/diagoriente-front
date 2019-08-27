@@ -22,19 +22,20 @@ interface IDispatchToProps {
   openModal: (children: any) => void;
   closeModal: () => void;
 }
-type IProps = IMapToProps &Props&
+type IProps = IMapToProps &
+  Props &
   IDispatchToProps & {
     showLogout: boolean;
   };
 const Header = ({
   HeaderProfile,
-   history,
-   showLogout,
-   location,
-   user,
-   openModal,
-   closeModal,
-   logout,
+  history,
+  showLogout,
+  location,
+  user,
+  openModal,
+  closeModal,
+  logout,
 }: IProps & RouteComponentProps) => {
   function onNavigate() {
     if (location.pathname === '/profile/skills') {
@@ -47,20 +48,18 @@ const Header = ({
   }
   const onLogout = () => {
     openModal(<LogoutModal onLogout={logout} onClose={closeModal} />);
-  }
+  };
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
       <div className={classes.logoContainer} onClick={onNavigate}>
         <img src={logo} alt="logo" className={classes.logo} />
       </div>
-      <div>
+      <div style={{ marginRight: '2%' }}>
         {showLogout && user && (
           <button className={classes.logout} onClick={onLogout}>
-            <span className={classes.logout_text}>
-              {user.profile.firstName}
-              {user.profile.lastName}
-            </span>
+            <span className={classes.logout_text}>{user.profile.firstName}</span>
+            <span className={classes.logout_text}>{user.profile.lastName}</span>
             <div className={classes.logout_icon_container}>
               <img className={classes.logout_icon} src={logoutSvg} alt="" />
             </div>
@@ -82,4 +81,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   openModal: (children: any) => dispatch(modalAction.openModal({ children })),
   closeModal: () => dispatch(modalAction.closeModal()),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(Header));

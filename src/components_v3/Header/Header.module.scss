@@ -48,6 +48,9 @@
 
 .logout {
   height: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 94%;
   border-radius: 30px;
   border: solid 1px #dddddd;
   padding: 0;
