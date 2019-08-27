@@ -189,10 +189,11 @@ const ExpertisesContainer = forwardRef(
       }
       return <div className={classes.info} />;
     }
+
     let calculGraduation = 0;
     if (get.data.globalCopmetences) {
       calculGraduation = get.data.globalCopmetences.reduce(
-        (acc: any, item: any) => (item.taux === 0 ? acc + 1 : acc),
+        (acc: any, item: any) => (item.taux !== 0 && item.value === 0 ? acc + 1 : acc),
         0,
       );
     }

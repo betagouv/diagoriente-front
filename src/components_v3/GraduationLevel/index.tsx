@@ -14,6 +14,7 @@ interface IProps {
   index: number;
   taux?: number;
   description?: { title: string; sub_title?: string }[];
+  modeShowOnly?: boolean;
   handleChangeValue?: (value: number, index: number) => void;
 }
 
@@ -24,6 +25,7 @@ const ProgressBarCompetence = ({
   withSub,
   taux,
   description,
+  modeShowOnly,
   index,
   handleChangeValue,
 }: IProps) => {
@@ -46,7 +48,19 @@ const ProgressBarCompetence = ({
   function mouseLeaveHandler() {
     setHover([false, false, false, false]);
   }
-
+  function DoNothing() {}
+  function conditionHover(dotIndex: number) {
+    if (modeShowOnly) {
+      if (level >= dotIndex && taux !== 0) {
+        return true;
+      }
+      return false;
+    }
+    if (taux !== 0) {
+      return true;
+    }
+    return false;
+  }
   function renderDot(dotIndex: number) {
     return (
       <div
@@ -56,7 +70,7 @@ const ProgressBarCompetence = ({
         }}
         onMouseLeave={mouseLeaveHandler}
         onMouseEnter={e => {
-          hoverHandler(e, dotIndex - 1);
+          conditionHover(dotIndex) ? hoverHandler(e, dotIndex - 1) : DoNothing();
         }}
         data-tip={description ? description[dotIndex - 1].title : ''}
       >
