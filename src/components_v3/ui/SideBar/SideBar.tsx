@@ -77,7 +77,6 @@ const SideBar = ({
       />,
     );
   };
-  console.log('playde side bar', parcours.data.played);
   return (
     <div className={classes.container_Bar}>
       {sideBarItems.map(item => (

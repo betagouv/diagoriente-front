@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import MultiIcons from 'components_v3/icons/multiIcon/multiIcon';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { jobQuestion } from 'requests/jobs';
@@ -7,25 +7,38 @@ import { map } from 'lodash';
 
 import classes from './question.module.scss';
 
-interface AnswerQuestion {
-  _idUser: string;
-  _idJob: string;
-  _idQuestion: string;
+type responseProps = {
+  questionJobId: string;
+  jobId: string;
   response: boolean;
-  description?: string;
-}
+};
+type QuestionType = {
+  label: string;
+  _id: string;
+};
 
+interface props {
+  questions: any;
+  jobId: string;
+  responseQuestion: any;
+  onChangeQuestion: (answer: responseProps[]) => void;
+}
 interface IProps
   extends ApiComponentProps<{
-    listQuestion: typeof jobQuestion;
-  }> {}
+      listQuestion: typeof jobQuestion;
+    }>,
+    props {}
 
-const Questions = ({ listQuestion }: IProps) => {
+const Questions = ({
+  listQuestion,
+  questions,
+  jobId,
+  responseQuestion,
+  onChangeQuestion,
+}: IProps) => {
   useDidMount(() => {
     listQuestion.call();
   });
-  const [answers, setAnswers] = useState([] as any);
-
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,
@@ -37,37 +50,37 @@ const Questions = ({ listQuestion }: IProps) => {
     const selected = index !== -1;
     return { index, selected };
   }
-  function renderScore() {
-    const arrayLength = answers.length;
+  const renderScore = () => {
+    console.log('arrayLength', responseQuestion);
+    const arrayLength = responseQuestion.filter((item: any) => item.response === true).length;
+    console.log('arrayLength', arrayLength);
+
     let result;
-    if (arrayLength < 3 && arrayLength > 0) {
+    if (arrayLength <= 3 && arrayLength > 0) {
       result = (
         <div className={classes.redWork}>
           {arrayLength}
           /10
-          <span> not for u sorry </span>
+          <span> Ce métier ne correspond peut-être pas à ce que tu imaginais </span>
         </div>
       );
-    }
-    if (arrayLength < 4 && arrayLength > 7) {
+    } else if (arrayLength >= 4 && arrayLength <= 7) {
       result = (
         <div className={classes.orangeWork}>
           {arrayLength}
           /10
-          <span> maybe .. u can do it </span>
+          <span> Tu peux tester ce métier pour t’assurer qu’il te correspond bien </span>
         </div>
       );
-    }
-    if (arrayLength < 8 && arrayLength > 10) {
+    } else if (arrayLength >= 8 && arrayLength <= 10) {
       result = (
         <div className={classes.greenWork}>
           {arrayLength}
           /10
-          <span>u can do it</span>
+          <span>Ce métier semble te correspondre, fonce !</span>
         </div>
       );
-    }
-    if (arrayLength === 0) {
+    } else if (arrayLength === 0) {
       result = (
         <div className={classes.grayWork}>
           {arrayLength}
@@ -77,63 +90,66 @@ const Questions = ({ listQuestion }: IProps) => {
       );
     }
     return result;
-  }
+  };
+
   return (
-    <div className={classes.container}>
+    <Fragment>
       <div className={classes.title_container}>
-        <div className={classes.content}>
+        <div className={classes.contentTitle}>
           <span className={classes.title}>CE MÉTIER EST-IL FAIT POUR MOI ?</span>
         </div>
-        <div className={classes.score_container}>
+        <div className={classes.contentTitleScore}>
           <span className={classes.title}>{renderScore()}</span>
         </div>
       </div>
-      <div className={classes.question_containers}>
-        {map(listQuestion.data.data, (item, i) => {
-          const { index, selected } = getSelected(listQuestion.data.data, () =>
-            answers.find((r: any) => item._id === r._id));
-          const onClick = (type: string, items: any) => {
-            const nextFilters: any[] = [...answers];
-            if (selected) {
-              nextFilters.splice(index - 1, 1);
-              setAnswers(nextFilters);
-            } else if (type === 'remove') {
-              nextFilters.push({ _id: items._id, answer: 0 });
-              setAnswers(nextFilters);
-            } else {
-              nextFilters.push({ _id: items._id, answer: 1 });
-              setAnswers(nextFilters);
-            }
-          };
-          const initialStateValidate = answers[i] && answers[i].answer ? '#ffba27' : '#666';
-          const initialStateRemoeve = answers[i] && answers[i].answer ? '#666' : '#e55d67';
+      <div className={classes.container} id="element">
+        <div className={classes.question_containers}>
+          {map(questions, (item: QuestionType, i: number) => {
+            const { index, selected } = getSelected(questions, () =>
+              responseQuestion.find((r: any) => item._id === r.questionJobId));
+            const onClick = (type: string, items: any) => {
+              const nextFilters: responseProps[] = [...responseQuestion];
+              if (selected) {
+                nextFilters.splice(index - 1, 1);
+                onChangeQuestion(nextFilters);
+              } else if (type === 'remove') {
+                nextFilters.push({ questionJobId: items._id, response: false, jobId });
+                onChangeQuestion(nextFilters);
+              } else {
+                nextFilters.push({ questionJobId: items._id, response: true, jobId });
+                onChangeQuestion(nextFilters);
+              }
+            };
+            const initialStateValidate: string = responseQuestion[i] && responseQuestion[i].response ? '#ffba27' : '#666';
+            const initialStateRemoeve: string = responseQuestion[i] && responseQuestion[i].response ? '#666' : '#e55d67';
 
-          return (
-            <div key={item._id} className={classes.question}>
-              <div className={classes.question_title}>{item.label}</div>
-              <div className={classes.btn_container}>
-                <MultiIcons
-                  width="23"
-                  height="23"
-                  type="validate"
-                  onClick={() => onClick('validate', item)}
-                  className={classes.btn_validate}
-                  Iconcolor={selected ? initialStateValidate : '#7a93bc'}
-                />
-                <MultiIcons
-                  width="23"
-                  height="23"
-                  type="remove"
-                  onClick={() => onClick('remove', item)}
-                  className={classes.btn_remove}
-                  Iconcolor={selected ? initialStateRemoeve : '#7a93bc'}
-                />
+            return (
+              <div key={item._id} className={classes.question}>
+                <div className={classes.question_title}>{item.label}</div>
+                <div className={classes.btn_container}>
+                  <MultiIcons
+                    width="23"
+                    height="23"
+                    type="validate"
+                    onClick={() => onClick('validate', item)}
+                    className={classes.btn_validate}
+                    Iconcolor={selected ? initialStateValidate : '#7a93bc'}
+                  />
+                  <MultiIcons
+                    width="23"
+                    height="23"
+                    type="remove"
+                    onClick={() => onClick('remove', item)}
+                    className={classes.btn_remove}
+                    Iconcolor={selected ? initialStateRemoeve : '#7a93bc'}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 export default withApis({ listQuestion: jobQuestion })(Questions);

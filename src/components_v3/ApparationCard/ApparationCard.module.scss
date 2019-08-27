@@ -62,7 +62,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
+
+.CardContainerWithDots {
+  justify-content: space-evenly;
+}
+
+.CardContainerWithCheckbox {
+  cursor: pointer;
+}
+
 .star {
   width: 13px;
   height: 15px;

@@ -10,12 +10,11 @@ interface IProps {
   listItems?: IFamille[] | any;
 }
 
-const VerticalStepper = ({
- handleClick, DisplayedFamily, listItems, selectedFamilys,
-}: IProps) => (
+const VerticalStepper = ({ handleClick, DisplayedFamily, listItems }: IProps) => (
   <Fragment>
     {listItems.map((famille: IFamille, index: number) => (
       <div
+        key={famille._id}
         className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
         onClick={() => handleClick(index)}
       />

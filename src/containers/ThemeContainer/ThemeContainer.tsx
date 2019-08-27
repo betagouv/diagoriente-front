@@ -8,7 +8,6 @@ import { map } from 'lodash';
 import {
  ReduxState, ISkillPopulated, IExpertise, IActivity,
 } from 'reducers';
-import ReactTooltip from 'react-tooltip';
 import modalActions from 'reducers/modal';
 
 // containers
@@ -125,6 +124,9 @@ const ThemeContainer = forwardRef(
     const iconSkill = skill && skill.theme.resources ? skill.theme.resources.icon : '';
     const iconDataColor = get && get.data.resources ? get.data.resources.backgroundColor : '';
     const iconSkillcolor = skill && skill.theme.resources ? skill.theme.resources.backgroundColor : '';
+
+    const test = isActivityEdit ? classes.fullNewThemeActivities : classes.new_theme_activities;
+
     return (
       <Fragment>
         <div className={classes.new_theme}>
@@ -151,9 +153,7 @@ const ThemeContainer = forwardRef(
             className={
               isActivityEdit && isExpertiseEdit
                 ? classes.new_theme_activities
-                : isActivityEdit
-                ? classes.fullNewThemeActivities
-                : classes.new_theme_activities
+                : test
             }
           >
             {!activitiesArray ? (
@@ -191,10 +191,7 @@ const ThemeContainer = forwardRef(
                     key={activity._id}
                   >
                     {!isActivityEdit ? (
-                      <li
-                        className={classes.title_activity}
-                      
-                      >
+                      <li className={classes.title_activity}>
                         <span>{activity.title}</span>
                       </li>
                     ) : (
@@ -212,14 +209,6 @@ const ThemeContainer = forwardRef(
                         </span>
                       </div>
                     )}
-                    <ReactTooltip
-                      id={activity._id}
-                      place="right"
-                      type="light"
-                      className={classes.tooltip}
-                    >
-                      {activity.title}
-                    </ReactTooltip>
                   </div>
                 );
               })
@@ -295,7 +284,6 @@ const ThemeContainer = forwardRef(
                   return result;
                 }
                 const star = getRequired();
-                // console.log(test);
                 return (
                   <div
                     className={classNames(

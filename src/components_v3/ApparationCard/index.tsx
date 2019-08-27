@@ -84,19 +84,20 @@ const ApparationCard = ({
       );
     }
   }
-  function DoNothing() {}
+
   return (
     <div
-      className={classes.CardContainer}
-      style={{
-        justifyContent: withDots ? 'space-evenly' : 'center',
-        cursor: withCheckBox ? 'pointer' : 'default',
-      }}
-      role="button"
+      className={classNames(
+        classes.CardContainer,
+        withDots && classes.CardContainerWithDots,
+        withCheckBox && classes.CardContainerWithCheckbox,
+      )}
       aria-pressed={isChecked}
-      onClick={() =>
-        (withCheckBox && checkboxHandler && expertise ? checkboxHandler(expertise) : DoNothing)
-      }
+      onClick={() => {
+        if (withCheckBox && checkboxHandler && expertise) {
+          checkboxHandler(expertise);
+        }
+      }}
     >
       {withProgressBar && clickHandler && (index || index === 0) && (
         <div

@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .container {
   display: flex;
@@ -8,7 +8,7 @@
 
 .jobs_container {
   width: calc(100% - 250px);
-  @media (max-width: map-get($breakpoints, "md" )) {
+  @media (max-width: map-get($breakpoints, 'md' )) {
     width: 100%;
   }
 }
@@ -17,7 +17,7 @@
   font-family: Nunito;
   font-size: 48px;
   font-weight: bold;
-  color:#9a222b;
+  color: #9a222b;
   padding-top: 50px;
   padding-bottom: 25px;
 }
@@ -28,7 +28,7 @@
   font-weight: bold;
   line-height: 1.5;
   text-align: center;
-  color:#9a222b;
+  color: #9a222b;
 }
 
 .loading_container {
@@ -49,7 +49,7 @@
 
 .competence_container {
   margin-top: 20px;
-  @media (max-width: map-get($breakpoints, "lg" )) {
+  @media (max-width: map-get($breakpoints, 'lg' )) {
     display: none;
   }
 }
@@ -60,11 +60,11 @@
   margin: 10px 0px;
 }
 .btn_jobs {
-  background-color:#b82635 !important;
+  background-color: #b82635 !important;
   background-image: none !important;
   &:hover {
-    background-color:#9a222b !important;
-  background-image: none !important;
+    background-color: #9a222b !important;
+    background-image: none !important;
   }
 }
 .italic_text {
@@ -151,4 +151,11 @@
 .cardsContainer {
   display: flex;
   flex-wrap: wrap;
+}
+
+.remove {
+  position: absolute;
+  right: -17px;
+  width: auto;
+  height: auto;
 }

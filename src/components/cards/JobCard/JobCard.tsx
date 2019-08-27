@@ -12,6 +12,7 @@ import iconLikeGrey from '../../../assets/icons/svg/ic-like-grey.svg';
 import iconDislike from '../../../assets/icons/svg/ic-dislike-01.svg';
 import iconDislikeBlue from '../../../assets/icons/svg/ic-dislike-blue.svg';
 import iconDislikeGrey from '../../../assets/icons/svg/ic-dislike-grey.svg';
+
 interface Props {
   title: string;
   interested: boolean | null;
@@ -21,7 +22,9 @@ interface Props {
   job?: any;
 }
 
-const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, job }: Props) => {
+const JobCard = ({
+ title, interested, onDislikeClick, onLikeClick, showButtons, job,
+}: Props) => {
   const showLike = showButtons || interested === null;
   const showDislike = showButtons || interested === null;
   let length: number = 300;
@@ -31,10 +34,19 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
 
   return (
     <div
-      className={classNames(classes.container_1, 'flex_center', interested !== null && classes.container_interested)}
+      className={classNames(
+        classes.container_1,
+        'flex_center',
+        interested !== null && classes.container_interested,
+      )}
     >
       {interested !== null && (
-        <div className={classNames('absolute_fill', interested ? classes.interested : classes.not_interested)} />
+        <div
+          className={classNames(
+            'absolute_fill',
+            interested ? classes.interested : classes.not_interested,
+          )}
+        />
       )}
       <div className={classes.title}>{title}</div>
 
@@ -51,7 +63,9 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
       </div>
       <div className={classes.title} style={{ paddingBottom: 20 }}>
         Niveau d’accès au métier :
-        <span className={interested === null ? classes.niveauNull : classes.niveau}>{job.accessibility}</span>
+        <span className={interested === null ? classes.niveauNull : classes.niveau}>
+          {job.accessibility}
+        </span>
       </div>
       <ReactTooltip id={`${job._id}1`} place="top" type="light" className={classes.tooltipExtended}>
         <span className={classes.buttonsTooltip}>Sélectionner</span>
@@ -92,10 +106,10 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
             data-for={`${job._id}1`}
           >
             {showLike && (
-              <>
-                <img
-                  className={classes.img}
-                  src={
+              <>'                \' \'
+               '<img
+                 className={classes.img}
+                 src={
                     interested === true
                       ? iconLikeRed
                       : interested === false
@@ -104,9 +118,11 @@ const JobCard = ({ title, interested, onDislikeClick, onLikeClick, showButtons, 
                       ? iconLike
                       : iconLike
                   }
-                />
-                <span className={interested === false ? classes.likeGrey : classes.like}>J'aime</span>
-              </>
+               />'                \' \'
+               '<span className={interested === false ? classes.likeGrey : classes.like}>
+                  J'aime
+               </span>'                \' \'
+             '</>
             )}
           </Grid>
 

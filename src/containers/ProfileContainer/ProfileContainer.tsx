@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useRef } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -7,24 +7,23 @@ import { Dispatch, AnyAction } from 'redux';
 
 // types
 import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
+// containers
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
+import ThemesContainer from 'containers/ThemesContainer/ThemesContainer';
 
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
-import { useDidUpdate } from 'hooks';
-import SideBar from '../../components_v3/ui/SideBar/SideBar';
-import Header from '../../components_v3/Header/Header';
-// containers
+import SideBar from 'components_v3/ui/SideBar/SideBar';
+import Header from 'components_v3/Header/Header';
 
-import ThemesContainer from '../ThemesContainer/ThemesContainer';
-import MultiIcon from '../../components_v3/icons/multiIcon/multiIcon';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 
 // api
-import withApis, { ApiComponentProps } from '../../hoc/withApi';
-import { getParcours, getFavorites, createFavorites } from '../../requests';
+import withApis, { ApiComponentProps } from 'hoc/withApi';
+import { getParcours, getFavorites, createFavorites } from 'requests';
 
 // actions
-import ParcoursActions from '../../reducers/parcours';
+import ParcoursActions from 'reducers/parcours';
 
 // css
 import classes from './profileContainer.module.scss';
@@ -63,21 +62,12 @@ interface Props
 
 const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
   const expertiseRef = useRef(null);
-  const [OneCompetencesNoSetted, SetCompetencesNoSetted] = useState(
-    parcours.data.skills
-      .filter(item => item.type === 'personal')
-      .flatMap(item => item.competences.flat(2))
-      .some(item => item.value === 5),
-  );
-  useDidUpdate(() => {
-    SetCompetencesNoSetted(
-      parcours.data.skills
-        .filter(item => item.type === 'personal')
-        .flatMap(item => item.competences.flat(2))
-        .some(item => item.value === 5),
-    );
-  }, [parcours.data.skills]);
-   if (match.isExact) return <Redirect to="/profile/skills" />;
+  const oneCompetencesNoSetted = parcours.data.skills
+    .filter(item => item.type === 'personal')
+    .flatMap(item => item.competences.flat(2))
+    .some(item => item.value === 5);
+
+  if (match.isExact) return <Redirect to="/profile/skills" />;
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
@@ -164,7 +154,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
             path="/profile/pro"
             exact
             render={props =>
-              (OneCompetencesNoSetted ? (
+              (oneCompetencesNoSetted ? (
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <ThemesContainer
@@ -233,7 +223,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
             path="/profile/favoris"
             exact
             render={props =>
-              (OneCompetencesNoSetted ? (
+              (oneCompetencesNoSetted ? (
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <FavorisContainer
@@ -268,7 +258,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
             path="/profile/jobs"
             exact
             render={props =>
-              (OneCompetencesNoSetted ? (
+              (oneCompetencesNoSetted ? (
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <JobsContainer
