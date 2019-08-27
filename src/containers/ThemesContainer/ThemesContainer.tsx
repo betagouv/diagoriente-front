@@ -4,7 +4,7 @@ import React, {
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { AnyAction } from 'redux';
-
+import { map } from 'lodash';
 // hoc
 import withApi, { ApiComponentProps } from 'hoc/withApi';
 import withLayout from 'hoc/withLayout';
@@ -25,6 +25,7 @@ import { useDidUpdate, useCaptureRef } from 'hooks';
 // reducers
 import parcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
+import activityActions from 'reducers/activity';
 
 import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
@@ -45,12 +46,14 @@ interface IMapToProps {
   parcours: IParcoursResponse;
   parcoursFetching: boolean;
   parcoursError: string;
+  activity: any;
 }
 
 interface IDispatchToProps {
   parcoursRequest: (args: IUpdateParcoursParams) => void;
   openModal: (children: JSX.Element, backdropClassName?: string) => void;
   closeModal: () => void;
+  getActivity: (id: any) => void;
 }
 
 interface Props
@@ -75,8 +78,10 @@ const ThemesContainer = forwardRef(
       parcoursFetching,
       parcoursError,
       history,
+      getActivity,
       openModal,
       closeModal,
+      activity,
     }: Props,
     ref: Ref<RefProp>,
   ) => {
@@ -104,6 +109,10 @@ const ThemesContainer = forwardRef(
 
     const newSkillRef = useRef<ThemeRefObject | null>(null);
     const editSkillsRefs = useRef<(ThemeRefObject | null)[]>([]);
+
+    const onMouseEnter = (id: string) => {
+      getActivity({ id });
+    };
 
     function onFooterClick(button: string) {
       if (button === 'valider') {
@@ -290,6 +299,7 @@ const ThemesContainer = forwardRef(
                         key={theme._id}
                         data-tip
                         data-for={theme._id}
+                        onMouseEnter={() => onMouseEnter(theme._id)}
                       />
                     )}
                     {theme && theme.resources && (
@@ -314,7 +324,13 @@ const ThemesContainer = forwardRef(
                       type="light"
                       className={classes.tooltip}
                     >
-                      {theme.title}
+                      <div className={classes.activity_container}>
+                        {activity.data.activities && activity.data.activities.length !== 0
+                          ? map(activity.data.activities, (e: any) => (
+                            <div key={e._id}>-{e.title}</div>
+                            ))
+                          : theme.title}
+                      </div>
                     </ReactTooltip>
                   </div>
                 );
@@ -387,10 +403,11 @@ const ThemesContainer = forwardRef(
   },
 );
 
-const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
+const mapStateToProps = ({ parcours, activity }: ReduxState): IMapToProps => ({
   parcours: parcours.data,
   parcoursFetching: parcours.fetching,
   parcoursError: parcours.error,
+  activity,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
@@ -398,6 +415,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   openModal: (children, backdropClassName) =>
     dispatch(modalActions.openModal({ children, backdropClassName })),
   closeModal: () => dispatch(modalActions.closeModal()),
+  getActivity: (id: any) => dispatch(activityActions.getActivityRequest(id)),
 });
 
 export default connect(
