@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, ReactDOM } from 'react';
+import ReactTooltip from 'react-tooltip';
 import classes from './GraduationLevel.module.scss';
 
 import greyDot from '../../assets/icons/Dots/greyDot.svg';
@@ -12,6 +13,7 @@ interface IProps {
   withSub?: boolean;
   index: number;
   taux?: number;
+  description?: { title: string; sub_title?: string }[];
   handleChangeValue?: (value: number, index: number) => void;
 }
 
@@ -19,9 +21,9 @@ const ProgressBarCompetence = ({
   level,
   color,
   title,
-  sub_title,
   withSub,
   taux,
+  description,
   index,
   handleChangeValue,
 }: IProps) => {
@@ -32,6 +34,21 @@ const ProgressBarCompetence = ({
       handleChangeValue(value, nbr);
     }
   }
+  function hoverHandler(e: any, value: number) {
+    const hoverCopie = [false, false, false, false];
+    console.log('hover in', value);
+
+    for (let i = 0; i <= value; i++) {
+      hoverCopie[i] = true;
+    }
+    setHover(hoverCopie);
+  }
+  function mouseLeaveHandler() {
+    console.log('hover out');
+
+    setHover([false, false, false, false]);
+  }
+  console.log('description', description);
   return (
     <div className={classes.wrapper}>
       {level >= 1 || Hover[0] ? (
@@ -41,6 +58,8 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(1, index);
           }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[0].title : ''}
         />
       ) : (
         <img
@@ -51,6 +70,10 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(1, index);
           }}
+          onMouseEnter={e => {
+            hoverHandler(e, 0);
+          }}
+          data-tip={description ? description[0].title : ''}
         />
       )}
       {level >= 2 || Hover[1] ? (
@@ -60,6 +83,8 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(2, index);
           }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[1].title : ''}
         />
       ) : (
         <img
@@ -71,6 +96,11 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(2, index);
           }}
+          onMouseEnter={e => {
+            hoverHandler(e, 1);
+          }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[1].title : ''}
         />
       )}
       {level >= 3 || Hover[2] ? (
@@ -80,6 +110,8 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(3, index);
           }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[2].title : ''}
         />
       ) : (
         <img
@@ -90,6 +122,11 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(3, index);
           }}
+          onMouseEnter={e => {
+            hoverHandler(e, 2);
+          }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[2].title : ''}
         />
       )}
       {level >= 4 || Hover[3] ? (
@@ -99,6 +136,8 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(4, index);
           }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[3].title : ''}
         />
       ) : (
         <img
@@ -109,9 +148,15 @@ const ProgressBarCompetence = ({
           onClick={() => {
             onChange(4, index);
           }}
+          onMouseEnter={e => {
+            hoverHandler(e, 3);
+          }}
+          onMouseLeave={mouseLeaveHandler}
+          data-tip={description ? description[3].title : ''}
         />
       )}
       {withSub && <span className={classes.level}>{`NIVEAU${level}/4`}</span>}
+      {description && <ReactTooltip place="top" type="light" />}
     </div>
   );
 };

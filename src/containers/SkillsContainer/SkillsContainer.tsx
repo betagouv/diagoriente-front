@@ -92,7 +92,7 @@ const SkillsContainer = forwardRef(
         <div className={classes.card}>
           <div className={classes.header}>
             <div className={classes.titleContainer}>
-              <span className={classes.headerTitle}>Carte de Competence</span>
+              <span className={classes.headerTitle}>Carte de Compétences</span>
               {user && (
                 <span className={classes.userName}>
                   {`de ${user.profile.firstName} ${user.profile.lastName}`}

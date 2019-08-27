@@ -75,6 +75,29 @@ const ExpertisesContainer = forwardRef(
       false,
       false,
     ]);
+    const sortCompetences = (competences: any) => {
+      if (competences) {
+        return competences.sort((a: any, b: any) => {
+          if (a.taux > 0 && b.taux > 0) {
+            if (a.value === 0 && b.value !== 0) {
+              return -1;
+            }
+            if (b.value === 0 && a.value !== 0) {
+              return 1;
+            }
+            return 0;
+          }
+          if (a.taux > 0 && b.taux === 0) {
+            return -1;
+          }
+          if (a.taux === 0 && b.taux > 0) {
+            return 1;
+          }
+        });
+      }
+      return competences;
+    };
+    console.log('here state');
     const [competences, setCompetences] = useState(get.data.globalCopmetences);
     const [barré, barréChange] = useState(false);
 
@@ -85,8 +108,8 @@ const ExpertisesContainer = forwardRef(
             return el.taux > 0 && el.value === 0;
           }),
         );
+        setCompetences(get.data.globalCopmetences);
       }
-      setCompetences(get.data.globalCopmetences);
     });
 
     useDidMount(() => {
@@ -98,6 +121,11 @@ const ExpertisesContainer = forwardRef(
         history.push('/profile/skills');
       }
     }, [parcours]);
+    useDidUpdate(() => {
+      if (get.data.globalCopmetences.length > 0) {
+        setCompetences(sortCompetences(get.data.globalCopmetences));
+      }
+    }, [get.data.globalCopmetences]);
     function HandleSubmit() {
       const competencesValue: CompetencesValue[] = [];
       let validateSubmit: boolean = true;
@@ -143,7 +171,11 @@ const ExpertisesContainer = forwardRef(
     function RenderDescription(item: any, index: number): any {
       if (item.value > 0) {
         return (
-          <span className={classes.info} data-tip={expertises[index].niveau[item.value - 1].title}>
+          <span
+            className={classes.info}
+            data-for="description"
+            data-tip={expertises[index].niveau[item.value - 1].title}
+          >
             {expertises[index].niveau[item.value - 1].title}
           </span>
         );
@@ -152,7 +184,7 @@ const ExpertisesContainer = forwardRef(
         return (
           <div className={classes.info}>
             <img src={warning} alt="warning" className={classes.warningIcon} />
-            <span style={{ color: 'red' }}>La competences n`&apos;est pas encore graduée</span>
+            <span style={{ color: 'red' }}>La compétences n&apos;est pas encore graduée</span>
           </div>
         );
       }
@@ -165,6 +197,7 @@ const ExpertisesContainer = forwardRef(
         0,
       );
     }
+    console.log('expertises', expertises);
     return (
       <div className={classes.Container}>
         <div className={classes.Header}>
@@ -172,8 +205,9 @@ const ExpertisesContainer = forwardRef(
           <span>{`GRADUATIONS ${calculGraduation}/10`}</span>
           <span>INFORMATION</span>
         </div>
-        {get.data.globalCopmetences
-          && get.data.globalCopmetences.map((item: any, index: number) => (
+        {competences
+          && expertises
+          && competences.map((item: any, index: number) => (
             <div
               className={classes.row}
               style={{
@@ -206,13 +240,20 @@ const ExpertisesContainer = forwardRef(
                   index={index}
                   taux={item.taux}
                   handleChangeValue={item.taux ? handleChangeValue : DoNothing}
+                  description={expertises[index].niveau}
                 />
                 {RenderDescription(item, index)}
-                <ReactTooltip place="left" type="info" className={classes.tooltip} multiline />
+                <ReactTooltip
+                  id="description"
+                  place="left"
+                  type="info"
+                  className={classes.tooltip}
+                  multiline
+                />
               </div>
               {progressActive[index] && expertises && (
                 <div className={classes.themesGroupe}>
-                  {get.data.globalCopmetences[index].themes.map((theme: string, i: number) => (
+                  {competences[index].themes.map((theme: string, i: number) => (
                     <span className={classes.themes} key={`key${i + 1}`}>
                       {theme}
                     </span>
