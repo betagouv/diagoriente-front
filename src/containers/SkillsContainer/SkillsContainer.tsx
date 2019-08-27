@@ -207,7 +207,8 @@ const SkillsContainer = forwardRef(
                       level={currentSkill && currentSkill.value}
                       color={currentSkill && currentSkill.color}
                       index={1}
-                      description={expertises[index].niveau}
+											description={expertises[index].niveau}
+											modeShowOnly
                     />
                   </div>
                 );
