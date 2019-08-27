@@ -32,6 +32,21 @@
   height: 16px;
   margin: 0 5px;
   border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50px;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.dots_hide {
+  transform: scale(0);
 }
 
 .bold_tooltip {

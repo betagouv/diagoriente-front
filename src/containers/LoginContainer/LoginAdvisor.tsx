@@ -1,19 +1,20 @@
 import React from 'react';
-import { RouteComponentProps, Redirect } from 'react-router';
-import { isEmpty } from 'lodash';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, IUser } from 'reducers';
 
 // hooks
-import { useDidUpdate, useDidMount } from '../../hooks';
+import { useDidUpdate } from 'hooks';
 
 // actions
-import loginAdvisorActions from '../../reducers/authAdvisor/login';
+import loginAdvisorActions from 'reducers/authAdvisor/login';
 
 // components
-import LoginForm from '../../components/form/LoginForm/LoginForm';
+import LoginForm from 'components/form/LoginForm/LoginForm';
+
+import classes from './login.module.scss';
 
 interface DispatchToProps {
   loginRequest: (email: string, password: string) => void;
@@ -27,7 +28,9 @@ interface MapToProps {
 
 type Props = RouteComponentProps & DispatchToProps & MapToProps;
 
-const LoginUserContainer = ({ loginRequest, fetching, error, history, location, user }: Props) => {
+const LoginUserContainer = ({
+ loginRequest, fetching, error, history,
+}: Props) => {
   const onSubmit = (email: string, password: string) => {
     loginRequest(email, password);
   };
@@ -36,10 +39,10 @@ const LoginUserContainer = ({ loginRequest, fetching, error, history, location, 
     if (!(fetching || error)) {
       history.push('/');
     }
-  },           [fetching]);
+  }, [fetching]);
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90%' }}>
+    <div className={classes.login_advisor}>
       <LoginForm error={error} onSubmitForm={onSubmit} showLogin />
     </div>
   );
@@ -52,7 +55,8 @@ const mapStateToProps = ({ authAdvisor }: ReduxState): MapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
-  loginRequest: (email, password) => dispatch(loginAdvisorActions.loginAdvisorRequest({ email, password })),
+  loginRequest: (email, password) =>
+    dispatch(loginAdvisorActions.loginAdvisorRequest({ email, password })),
 });
 
 export default connect(
