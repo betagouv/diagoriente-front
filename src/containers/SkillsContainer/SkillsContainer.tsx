@@ -91,6 +91,7 @@ const SkillsContainer = forwardRef(
         />,
       );
     };
+    console.log('expertises', expertises);
     return (
       <div className={classes.container}>
         <div className={classes.card}>
@@ -189,7 +190,7 @@ const SkillsContainer = forwardRef(
               </div>
             </div>
             <div className={classes.right}>
-              {expertises.map(expertise => {
+              {expertises.map((expertise, index) => {
                 const currentSkill = find(
                   get.data.globalCopmetences,
                   ({ _id }) => expertise._id === _id,
@@ -206,6 +207,7 @@ const SkillsContainer = forwardRef(
                       level={currentSkill && currentSkill.value}
                       color={currentSkill && currentSkill.color}
                       index={1}
+                      description={expertises[index].niveau}
                     />
                   </div>
                 );
