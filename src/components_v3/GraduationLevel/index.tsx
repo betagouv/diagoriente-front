@@ -8,7 +8,6 @@ interface IProps {
   level: number;
   color?: string;
   title?: string;
-  sub_title?: string;
   withSub?: boolean;
   index: number;
   taux?: number;
@@ -19,7 +18,6 @@ const ProgressBarCompetence = ({
   level,
   color,
   title,
-  sub_title,
   withSub,
   taux,
   index,

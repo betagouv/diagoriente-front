@@ -12,6 +12,7 @@ import withLayout from 'hoc/withLayout';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import JobCard from 'components_v3/jobCard/jobCard';
 import JobModal from 'components/modals/jobModal/jobModal';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
   getMyJob,
@@ -200,7 +201,9 @@ const JobsContainer = ({
       <SideBar secteurs={getSecteurs.data} filterJobs={filterJobs} parcoursId={parcoursId} />
       <div className={classes.jobs_container}>
         <div className={classes.selections}>
-          <JobSelection title="Technicien en application industrielle" withRemove />
+          <JobSelection title="Technicien en application industrielle">
+            <MultiIcon type="remove" width="22" height="22" className={classes.remove} />
+          </JobSelection>
         </div>
         <div className={classes.cardsContainer}>
           {jArray.map((metier, index) => (

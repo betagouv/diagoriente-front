@@ -6,15 +6,15 @@ import classes from './jobselection.module.scss';
 
 interface Props {
   title: string;
-  withRemove?: boolean;
   onRemove?: () => void;
+  children?: React.ReactChild;
 }
 
 const JobSelection = ({
   title,
-  withRemove,
   onRemove,
   className,
+  children,
   ...other
 }: Props & React.HTMLAttributes<HTMLElement>) => (
   <div className={classNames(classes.container, className)} {...other}>
@@ -24,15 +24,7 @@ const JobSelection = ({
     <div className={classes.titleContainer}>
       <span className={classes.jobTitle}>{title}</span>
     </div>
-    {withRemove && (
-      <MultiIcon
-        type="remove"
-        width="22"
-        height="22"
-        className={classes.remove}
-        onClick={onRemove}
-      />
-    )}
+    {children}
   </div>
 );
 export default JobSelection;
