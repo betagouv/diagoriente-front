@@ -100,7 +100,7 @@ const JobsContainer = ({
     if (!getFav.fetching && !getFav.error) {
       getFav.call();
     }
-  }, [deleteFavorites.fetching]);
+  }, [getFav.fetching]);
 
   useEffect(() => {
     if (!deleteFavorites.fetching && !deleteFavorites.error) {
