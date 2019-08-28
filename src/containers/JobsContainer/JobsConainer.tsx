@@ -96,7 +96,6 @@ const JobsContainer = ({
     }
   }, [addFavorites.fetching]);
 
-
   useEffect(() => {
     if (!deleteFavorites.fetching && !deleteFavorites.error) {
       listJobs.call(parcoursId);
@@ -163,7 +162,7 @@ const JobsContainer = ({
   if (selectedSecteurs.length) {
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
-  const handleCard = (id: string) => {
+  const handleCard = (id: string, isUpdate: boolean) => {
     openModal(
       <JobModal
         onCloseModal={closeModal}
@@ -171,6 +170,7 @@ const JobsContainer = ({
         id={id}
         parcoursId={parcoursId}
         fetchingParcours={fetchingParcours}
+        update={isUpdate}
       />,
     );
   };
@@ -195,7 +195,7 @@ const JobsContainer = ({
               className={isSelectionOpen ? classes.arrowRoteted : classes.arrow}
             />
 
-            <div onClick={setSelectionToggle}>MA SELECTION</div>
+            <div onClick={setSelectionToggle}>Ma sélection</div>
           </div>
           <div
             className={classNames(
@@ -203,7 +203,7 @@ const JobsContainer = ({
             )}
           >
             {map(getFav.data.data, (item: any) => (
-              <JobSelection title={item.job.title} onClick={() => handleCard(item.job._id)}>
+              <JobSelection title={item.job.title} onClick={() => handleCard(item.job._id, true)}>
                 <div onClick={() => onJobRemove(item._id)} className={classes.iconsContainer}>
                   <MultiIcon type="remove" width="22" height="22" className={classes.remove} />
                 </div>
@@ -218,7 +218,7 @@ const JobsContainer = ({
               alt="l"
               className={isRecommandedOpen ? classes.arrowRoteted : classes.arrow}
             />
-            <div onClick={setRecommandedtoggle}>RECOMMENDÉS</div>
+            <div onClick={setRecommandedtoggle}>Mon top métier</div>
           </div>
 
           <div
@@ -249,7 +249,7 @@ const JobsContainer = ({
                   jobAccessebility={metier.accessibility}
                   jobDescription={metier.description}
                   jobInterest={metier.interests}
-                  onClick={() => handleCard(metier._id)}
+                  onClick={() => handleCard(metier._id, false)}
                   key={metier._id}
                 />
               );
@@ -263,7 +263,7 @@ const JobsContainer = ({
               alt="l"
               className={isOtherOpen ? classes.arrowRoteted : classes.arrow}
             />
-            <div onClick={setOthertoggle}>AUTRES</div>
+            <div onClick={setOthertoggle}>Tous les métiers</div>
           </div>
           <div
             className={classNames(
@@ -278,7 +278,7 @@ const JobsContainer = ({
                 jobAccessebility={metier.accessibility}
                 jobDescription={metier.description}
                 jobInterest={metier.interests}
-                onClick={() => handleCard(metier._id)}
+                onClick={() => handleCard(metier._id, false)}
                 key={metier._id}
               />
             ))}

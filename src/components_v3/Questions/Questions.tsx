@@ -24,6 +24,7 @@ interface props {
   onChangeQuestion: (answer: responseProps[]) => void;
   answersJobs: (data: any) => void;
   onCloseModal: () => void;
+  update: boolean;
 }
 interface IProps extends props {}
 
@@ -35,8 +36,8 @@ const Questions = ({
   answersJobs,
   parcourId,
   onCloseModal,
+  update,
 }: IProps) => {
-  console.log(questions);
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,

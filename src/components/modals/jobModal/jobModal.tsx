@@ -28,20 +28,35 @@ interface MyProps {
   parcoursId: string;
   fetchingParcours: boolean;
   answersJobs: (data: any) => void;
+  update: boolean;
+  getJobs: () => void;
+  getOnejob: () => void;
 }
 
 type IProps = MyProps &
-  ApiComponentProps<{ get: typeof getParcours; answersJobs: typeof postResponseJobs }>;
+  ApiComponentProps<{
+    get: typeof getParcours;
+    answersJobs: typeof postResponseJobs;
+    getJobs: typeof getMyJob;
+    getOnejob: typeof getOneJob;
+  }>;
 
 const JobModal = ({
- onCloseModal, id, parcoursId, get, fetchingParcours, answersJobs,
+  onCloseModal,
+  id,
+  parcoursId,
+  get,
+  fetchingParcours,
+  answersJobs,
+  update,
+  getJobs,
+  getOnejob,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
   const [rendered, setRendered] = useState<any>(false);
   const [DisplayedChild, changeDisplayedChild] = useState(0);
   const [responseQuestion, setResponseQuestion] = useState<responseProps[]>([]);
-  console.log(data);
   const items = [
     {
       _id: 0,
@@ -55,11 +70,16 @@ const JobModal = ({
             <div className={classes.bottom}>
               <span className={classes.descTitle}>Metiers similaires</span>
               {similaire
-                .slice(0, 3)
-                .filter((al: any) => al.title !== data.title)
-                .map((el: any) => (
-                  <JobSelection title={el.title} className={classes.jobSelection} key={el.title} />
-                ))}
+                && similaire
+                  .slice(0, 3)
+                  .filter((al: any) => al.title !== data.title)
+                  .map((el: any) => (
+                    <JobSelection
+                      title={el.title}
+                      className={classes.jobSelection}
+                      key={el.title}
+                    />
+                  ))}
             </div>
           </div>
           <div className={classes.right}>
@@ -80,6 +100,7 @@ const JobModal = ({
           answersJobs={answersJobs}
           parcourId={parcoursId}
           onCloseModal={onCloseModal}
+          update={update}
         />
       ),
     },
@@ -89,30 +110,25 @@ const JobModal = ({
   }
   useDidMount(() => {
     get.call(parcoursId);
+    getOnejob.call(id);
+    getJobs.call(parcoursId);
   });
+
   useEffect(() => {
-    if (Object.keys(data).length === 0) {
-      getOneJob(id)
-        .then(response => {
-          if (response.code === 200) {
-            setData(response.data);
-          }
-        })
-        .catch(e => {
-          console.log(e);
-        });
+    if (getOnejob.data) {
+      setData(getOnejob.data);
     }
-    if (data) {
-      const idSecteur = data.secteur && data.secteur[0]._id;
-      getMyJob(parcoursId).then(response =>
-        setSimilaire(
-          response.data
-            && response.data
-              .flatMap(item => item)
-              .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur),
-        ));
+  }, [getJobs.fetching]);
+  useEffect(() => {
+    if (getJobs.data) {
+      const idSecteur = getOnejob.data.secteur && getOnejob.data.secteur[0]._id;
+      const similaireArray = !isEmpty(getJobs.data)
+        && getJobs.data
+          .flatMap(item => item)
+          .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur);
+      setSimilaire(similaireArray);
     }
-  }, [fetchingParcours]);
+  });
 
   const handleClick = () => {
     createFavorites({
@@ -198,4 +214,9 @@ const JobModal = ({
     </div>
   );
 };
-export default withApis({ get: getParcours, answersJobs: postResponseJobs })(JobModal);
+export default withApis({
+  get: getParcours,
+  answersJobs: postResponseJobs,
+  getJobs: getMyJob,
+  getOnejob: getOneJob,
+})(JobModal);
