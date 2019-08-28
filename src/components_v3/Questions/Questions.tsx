@@ -39,7 +39,7 @@ const Questions = ({
     if (questions) {
       let updatedArray = [];
       const newArray: any[] = [];
-      updatedArray = questions.filter((item: any) => item.response);
+      updatedArray = questions.filter((item: any) => item.response === true || item.response === false);
       updatedArray.map((item: any) =>
         newArray.push({ questionJobId: item._id, response: item.response }));
       onChangeQuestion(newArray);
