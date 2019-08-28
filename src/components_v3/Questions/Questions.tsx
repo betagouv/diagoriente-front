@@ -56,7 +56,6 @@ const Questions = ({
     const selected = index !== -1;
     return { index, selected };
   }
-  console.log(responseQuestion);
   const renderScore = () => {
     const arrayLength = responseQuestion.filter((item: any) => item.response === true).length;
     let result;

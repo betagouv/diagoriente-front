@@ -62,7 +62,7 @@ const JobModal = ({
 
   useEffect(() => {
     get.call(parcoursId);
-    getOnejob.call(id);
+    getOnejob.call(id, parcoursId);
     getJobs.call(parcoursId);
   }, [id]);
   useEffect(() => {
@@ -83,10 +83,9 @@ const JobModal = ({
   }, [getJobs.fetching]);
 
   useDidUpdate(() => {
-    if (!getOnejob.fetching && !get.fetching) {
+    if (!getOnejob.fetching && !get.fetching && !isEmpty(getOnejob.data)) {
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
-
       RadarChart(ctx, get, getOnejob);
     }
   }, [getOnejob.fetching, get.fetching]);
@@ -174,8 +173,6 @@ const JobModal = ({
           showStatus={false}
           width="100%"
           stopOnHover={false}
-          emulateTouch
-          swipeable
           onChange={index => changeDisplayedChild(index)}
           useKeyboardArrows
           showArrows={false}
