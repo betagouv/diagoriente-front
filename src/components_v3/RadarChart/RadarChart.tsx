@@ -1,9 +1,12 @@
 import Chart from 'chart.js';
 
-const RadarChart = (ctx: any, get: any) => {
-  const competences = get.data.globalCopmetences;
+const RadarChart = (ctx: any, get: any, job: any) => {
+  console.log(get);
+  const { competences } = job.data;
+  const { globalCopmetences } = get.data;
   const competencesTitle = competences.map((c: any) => c.title);
-  const competencesValue = competences.map((c: any) => c.value);
+  const competencesValue = globalCopmetences.map((c: any) => c.value);
+  const jobCompoetences = competences.map((c: any) => c.weight);
 
   const chartColors = {
     red: 'rgb(255, 99, 132)',
@@ -50,7 +53,7 @@ const RadarChart = (ctx: any, get: any) => {
           borderJoinStyle: 'round',
           pointBorderColor: 'rgba(0,0,0,0)',
           borderWidth: 0,
-          data: [2, 3, 4, 3, 1, 1, 2],
+          data: jobCompoetences,
         },
       ],
     },

@@ -46,7 +46,6 @@ const JobModal = ({
   id,
   parcoursId,
   get,
-  fetchingParcours,
   answersJobs,
   update,
   getJobs,
@@ -54,9 +53,40 @@ const JobModal = ({
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
-  const [rendered, setRendered] = useState<any>(false);
   const [DisplayedChild, changeDisplayedChild] = useState(0);
   const [responseQuestion, setResponseQuestion] = useState<responseProps[]>([]);
+
+  useEffect(() => {
+    get.call(parcoursId);
+    getOnejob.call(id);
+    getJobs.call(parcoursId);
+  }, [id]);
+  useEffect(() => {
+    if (getOnejob.data) {
+      setData(getOnejob.data);
+      console.log(getOnejob.data);
+    }
+  }, [getOnejob.fetching]);
+  useEffect(() => {
+    if (getJobs.data) {
+      const idSecteur = getOnejob.data.secteur && getOnejob.data.secteur[0]._id;
+      const similaireArray = !isEmpty(getJobs.data)
+        && getJobs.data
+          .flatMap(item => item)
+          .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur);
+      setSimilaire(similaireArray);
+    }
+  }, [getJobs.fetching]);
+
+  useDidUpdate(() => {
+    if (!getOnejob.fetching && !get.fetching) {
+      const canvas: any = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      RadarChart(ctx, get, getOnejob);
+    }
+  }, [getOnejob.fetching, get.fetching]);
+
   const items = [
     {
       _id: 0,
@@ -108,27 +138,6 @@ const JobModal = ({
   if (data.link) {
     items.splice(1, 0, { _id: 1, content: <VideoContainer link={data.link} /> });
   }
-  useDidMount(() => {
-    get.call(parcoursId);
-    getOnejob.call(id);
-    getJobs.call(parcoursId);
-  });
-
-  useEffect(() => {
-    if (getOnejob.data) {
-      setData(getOnejob.data);
-    }
-  }, [getJobs.fetching]);
-  useEffect(() => {
-    if (getJobs.data) {
-      const idSecteur = getOnejob.data.secteur && getOnejob.data.secteur[0]._id;
-      const similaireArray = !isEmpty(getJobs.data)
-        && getJobs.data
-          .flatMap(item => item)
-          .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur);
-      setSimilaire(similaireArray);
-    }
-  });
 
   const handleClick = () => {
     createFavorites({
@@ -138,14 +147,7 @@ const JobModal = ({
     });
     onCloseModal();
   };
-  useDidUpdate(() => {
-    if (!rendered && get && !isEmpty(get.data)) {
-      const canvas: any = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      RadarChart(ctx, get);
-      setRendered(true);
-    }
-  });
+
   return (
     <div className={classes.wrapperModal}>
       <MultiIcon
