@@ -1,5 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { MouseEvent } from 'react';
 
 // hooks
 import { useTextInput } from '../../../hooks';
@@ -10,11 +9,8 @@ import { validateEmail, validatePassword } from '../../../utils/validation';
 import classes from './loginForm.module.scss';
 
 // components
-import Button from '../../buttons/RoundButton/RoundButton';
 import Input from '../Input/Input';
 import arrow from '../../../assets_v3/icons/arrow/arrow.svg';
-import ButtonIcon from '../../../assets_v3/icons/svgIcons/iconButton.svg';
-import RegisterUserContainer from '../../../containers/RegistreContainer/RegisterUser';
 import MultiIcon from '../../../components_v3/icons/multiIcon/multiIcon';
 
 interface Props {
@@ -72,7 +68,7 @@ const LoginUserContainer = ({
             <MultiIcon
               type="connect"
               withText
-              text={'se connecter'}
+              text="se connecter"
               width="35"
               height="35"
               textColor="#7992BF"
@@ -80,14 +76,6 @@ const LoginUserContainer = ({
               Iconcolor="#7992BF"
             />
           </div>
-          {/* <div className={classes.container_forget_Password}>
-          {showInscription && (
-            <h5 className={classes.register_text}>
-              <span>Vous ne possédez pas de compte ?</span>
-              <Link to="/register">S’inscrire</Link>
-            </h5>
-          )}
-        </div> */}
         </div>
       )}
     </div>

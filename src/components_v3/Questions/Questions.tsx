@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import MultiIcons from 'components_v3/icons/multiIcon/multiIcon';
 import { map } from 'lodash';
 import Button from 'components/buttons/RoundButton/RoundButton';
@@ -6,9 +6,7 @@ import classes from './question.module.scss';
 
 type responseProps = {
   questionJobId: string;
-  jobId: string;
   response: boolean;
-  parcourId: string;
   _id?: string;
 };
 type QuestionType = {
@@ -36,8 +34,17 @@ const Questions = ({
   answersJobs,
   parcourId,
   onCloseModal,
-  update,
 }: IProps) => {
+  useEffect(() => {
+    if (questions) {
+      let updatedArray = [];
+      const newArray: any[] = [];
+      updatedArray = questions.filter((item: any) => item.response);
+      updatedArray.map((item: any) =>
+        newArray.push({ questionJobId: item._id, response: item.response }));
+      onChangeQuestion(newArray);
+    }
+  }, [questions]);
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,
@@ -49,6 +56,7 @@ const Questions = ({
     const selected = index !== -1;
     return { index, selected };
   }
+  console.log(responseQuestion);
   const renderScore = () => {
     const arrayLength = responseQuestion.filter((item: any) => item.response === true).length;
     let result;
@@ -89,12 +97,9 @@ const Questions = ({
   };
 
   const onValidate = () => {
-    answersJobs.call({ responses: responseQuestion }, 't');
-    // onCloseModal();
+    answersJobs.call({ parcourId, jobId, responses: responseQuestion }, 't');
+    onCloseModal();
   };
-
-  console.log(responseQuestion);
-
   return (
     <Fragment>
       <div className={classes.title_container}>
@@ -110,11 +115,10 @@ const Questions = ({
           {map(questions, (item: QuestionType) => {
             const { index, selected } = getSelected(
               responseQuestion,
-              (r: any) => item._id === r.questionJobId,
+              (r: any) => item._id === (r.questionJobId || r._id),
             );
+            const nextFilters: responseProps[] = [...responseQuestion];
             const onClick = (response: boolean) => {
-              const nextFilters: responseProps[] = [...responseQuestion];
-
               if (selected) {
                 const question = nextFilters[index];
                 if (question.response === response) {
@@ -126,8 +130,6 @@ const Questions = ({
                 nextFilters.push({
                   questionJobId: item._id,
                   response,
-                  parcourId,
-                  jobId,
                 });
               }
 
@@ -165,7 +167,7 @@ const Questions = ({
         {questions && questions.length !== 0 && (
           <div className={classes.container_btn}>
             <Button onClick={onValidate} className={classes.btnValidate}>
-              VALIDER
+              Valider
             </Button>
           </div>
         )}

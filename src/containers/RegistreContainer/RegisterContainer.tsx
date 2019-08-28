@@ -1,10 +1,11 @@
-import React, { lazy } from 'react';
+import React, { Fragment } from 'react';
 import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
-import NotFound from '../../layout/NotFound';
+import {
+ Route, Switch, Redirect, RouteComponentProps,
+} from 'react-router-dom';
 import { ReduxState, User } from 'reducers';
-import Header from '../../layout/Header/Header';
+import NotFound from '../../layout/NotFound';
 import RegisterUser from './RegisterUser';
 
 type Props = RouteComponentProps & {
@@ -12,17 +13,16 @@ type Props = RouteComponentProps & {
 };
 
 const RegisterContainer = ({ user }: Props) => {
-  if (!isEmpty(user)) return <Redirect to={'/'} />;
+  if (!isEmpty(user)) return <Redirect to="/" />;
 
   return (
-    <>
-     {/*  <Header showLogout={false} pathTo="/" /> */}
+    <Fragment>
       <Switch>
-        <Route  path={'/login'} component={RegisterUser} />
-        <Route exact path={'/register/user'} component={RegisterUser} />
+        <Route path="/login" component={RegisterUser} />
+        <Route exact path="/register/user" component={RegisterUser} />
         <Route component={NotFound} />
       </Switch>
-    </>
+    </Fragment>
   );
 };
 

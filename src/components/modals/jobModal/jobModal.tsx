@@ -31,6 +31,8 @@ interface MyProps {
   update: boolean;
   getJobs: () => void;
   getOnejob: () => void;
+  idFav?: string;
+  remove: (id: string, e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 type IProps = MyProps &
@@ -50,6 +52,8 @@ const JobModal = ({
   update,
   getJobs,
   getOnejob,
+  remove,
+  idFav,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
@@ -64,9 +68,9 @@ const JobModal = ({
   useEffect(() => {
     if (getOnejob.data) {
       setData(getOnejob.data);
-      console.log(getOnejob.data);
     }
   }, [getOnejob.fetching]);
+
   useEffect(() => {
     if (getJobs.data) {
       const idSecteur = getOnejob.data.secteur && getOnejob.data.secteur[0]._id;
@@ -200,9 +204,9 @@ const JobModal = ({
           <MultiIcon
             width="37"
             height="37"
-            type="validate"
-            Iconcolor="#fab82d"
-            onClick={() => handleClick()}
+            type={update ? 'remove' : 'validate'}
+            Iconcolor={update ? '#e55d67' : '#fab82d'}
+            onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
           />
           <MultiIcon
             width="15"

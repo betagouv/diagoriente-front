@@ -18,7 +18,16 @@ type IProps = {
   placeholder: string;
 };
 
-const Select = ({ className, selectOpen, selectClose, value, options, onChange, open, placeholder }: IProps) => {
+const Select = ({
+  className,
+  selectOpen,
+  selectClose,
+  value,
+  options,
+  onChange,
+  open,
+  placeholder,
+}: IProps) => {
   (Select as any).handleClickOutside = (e: any) => {
     if (!open) {
       selectClose(e);
@@ -36,12 +45,12 @@ const Select = ({ className, selectOpen, selectClose, value, options, onChange, 
       <div className={style.login_container_input}>
         <div className={style.text_container}>{title}</div>
         <div onClick={selectOpen} className={style.img_container}>
-          <img src={Arrow} className={style.arrow} />
+          <img src={Arrow} className={style.arrow} alt="arrow" />
         </div>
         {open && (
           <div className={style.select_drop}>
-            {!isEmpty(options) &&
-              options.map(el => {
+            {!isEmpty(options)
+              && options.map(el => {
                 const onChangeText = (e: React.MouseEvent<HTMLDivElement>) => {
                   e.stopPropagation();
                   onChange(el.value);

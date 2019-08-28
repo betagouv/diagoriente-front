@@ -1,6 +1,5 @@
 import React from 'react';
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import classNames from 'utils/classNames';
 import classes from './jobselection.module.scss';
 

@@ -1,22 +1,23 @@
-import React, { MouseEvent, useEffect } from 'react';
+import React, { MouseEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import Grid from '../../ui/Grid/Grid';
 
 import { map } from 'lodash';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 
-import { useTextInput, useDidMount, useSelectInput, useDidUpdate } from '../../../hooks';
-import { validateEmail, validateNom } from '../../../utils/validation';
+import {
+ useTextInput, useDidMount, useSelectInput, useDidUpdate,
+} from 'hooks';
+import { validateEmail, validateNom } from 'utils/validation';
 import { ReduxState } from 'reducers';
-import withApi, { ApiComponentProps } from '../../../hoc/withApi';
-import { listQuestions } from '../../../requests/question';
+import withApi, { ApiComponentProps } from 'hoc/withApi';
+import { listQuestions } from 'requests/question';
 
-import resetActions from '../../../reducers/authUser/resetPassword';
-import Spinner from '../../ui/Spinner/Spinner';
+import resetActions from 'reducers/authUser/resetPassword';
+import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import Input from '../Input/Input';
 import Button from '../../buttons/RoundButton/RoundButton';
-import logo from '../../../assets/icons/logo/Diagoriente_Logo.svg';
+import Grid from '../../ui/Grid/Grid';
 import Select from '../Select/select';
 import classes from './forget.module.scss';
 
@@ -42,7 +43,9 @@ type IProps = Props &
   RouteComponentProps &
   ApiComponentProps<{ list: typeof listQuestions }>;
 
-const ForgetForm = ({ onCloseModal, list, resetRequest, fetching, dataReset, history }: IProps) => {
+const ForgetForm = ({
+ onCloseModal, list, resetRequest, dataReset, history,
+}: IProps) => {
   useDidMount(() => {
     list.call();
   });

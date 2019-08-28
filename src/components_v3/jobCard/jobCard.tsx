@@ -37,13 +37,13 @@ const JobCard = ({
         const name = el._id.nom.split('/');
         return (
           index <= 2 && (
-            <React.Fragment>
+            <React.Fragment key={el._id.nom}>
               <div className={classes.interestWrapper}>
                 <span className={classes.number} style={{ color }}>
                   {index + 1}
                 </span>
                 {name.map((title: string) => (
-                  <span className={classes.titleInterest}>{title}</span>
+                  <span className={classes.titleInterest} key={title}>{title}</span>
                 ))}
               </div>
               {index <= 1 && <div className={classes.verticalLine} />}

@@ -1,4 +1,4 @@
-import { axiosPost, axiosGet, Response } from './http';
+import { axiosPut, axiosGet, Response } from './http';
 
 export interface IResponse {
   questionJobId: string;
@@ -25,4 +25,4 @@ export const listQuestions = (
   axiosGet('v1/questions', { data: params, sendToken: false });
 
 export const postResponseJobs = (data: any) =>
-  axiosPost('v1/responseJobs', { data, sendToken: true });
+  axiosPut('v1/responseJobs', { data, sendToken: true });

@@ -81,10 +81,12 @@
 }
 .btnValidate{
 background-color: $grey-blue;
-padding: 15px 20px
+padding: 12px 20px;
 }
 .container_btn{
   margin-bottom: 25px;
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 8px
+
 }

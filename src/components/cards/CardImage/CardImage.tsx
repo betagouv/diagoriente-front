@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IFamille } from 'reducers';
 import classes from './CardImage.module.scss';
-import cat2 from '../../../assets/images/cat2.gif';
-import staticCat from '../../../assets/images/staticCat.png';
-import Button from '../../buttons/LikeButton/LikeButton';
-import like from '../../../assets/icons/svg/like.svg';
-import redLike from '../../../assets/icons/svg/redLike.svg';
-import cancel from '../../../assets/icons/cancel.png';
-import { useHover } from '../../../hooks';
 
 interface Props {
   /*   ref?: (ref: React.RefObject<HTMLDivElement | null>) => void;
@@ -26,16 +19,9 @@ interface Props {
   famille: IFamille;
 }
 
-const CardImage = ({
- handleClick, resources, index, famille, checked, nom,
-}: Props) => {
-  const [isMouseEnter, onMouseEnter, onMouseLeave] = useHover(false);
+const CardImage = ({ resources, checked }: Props) => {
   let animated;
   let Static;
-
-  const onClick = () => {
-    handleClick(famille);
-  };
 
   const getClassNames = (): string => {
     if (checked && resources) {

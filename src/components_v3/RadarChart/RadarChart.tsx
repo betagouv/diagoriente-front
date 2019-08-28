@@ -17,14 +17,6 @@ const RadarChart = (ctx: any, get: any, job: any) => {
     grey: 'rgb(231,233,237)',
   };
 
-  /*     const randomScalingFactor = function () {
-            return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-        }
-     */
-  const randomScalingFactor = function () {
-    return Math.round(Math.random() * 100);
-  };
-
   const { color } = Chart.helpers;
   const config = {
     type: 'radar',

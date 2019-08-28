@@ -97,6 +97,12 @@ const JobsContainer = ({
   }, [addFavorites.fetching]);
 
   useEffect(() => {
+    if (!getFav.fetching && !getFav.error) {
+      getFav.call();
+    }
+  }, [deleteFavorites.fetching]);
+
+  useEffect(() => {
     if (!deleteFavorites.fetching && !deleteFavorites.error) {
       listJobs.call(parcoursId);
       getFav.call();
@@ -111,7 +117,12 @@ const JobsContainer = ({
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
 
-  const onJobRemove = (id: any) => {
+  const onJobRemove = (id: any, e?: React.MouseEvent<any>) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
     function remove() {
       deleteFavorites.call(id);
     }
@@ -162,15 +173,21 @@ const JobsContainer = ({
   if (selectedSecteurs.length) {
     selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
   }
-  const handleCard = (id: string, isUpdate: boolean) => {
+  const isExistInFav = (id: string) => {
+    const test = getFav.data.data.some((item: any) => item.job._id === id);
+    return test;
+  };
+  const handleCard = (id: string, idFav?:string) => {
     openModal(
       <JobModal
         onCloseModal={closeModal}
         confirme={closeModal}
         id={id}
+        idFav={idFav}
         parcoursId={parcoursId}
         fetchingParcours={fetchingParcours}
-        update={isUpdate}
+        update={isExistInFav(id)}
+        remove={(i, e) => onJobRemove(idFav, e)}
       />,
     );
   };
@@ -203,8 +220,15 @@ const JobsContainer = ({
             )}
           >
             {map(getFav.data.data, (item: any) => (
-              <JobSelection title={item.job.title} onClick={() => handleCard(item.job._id, true)}>
-                <div onClick={() => onJobRemove(item._id)} className={classes.iconsContainer}>
+              <JobSelection
+                title={item.job.title}
+                onClick={() => handleCard(item.job._id, item._id)}
+                key={item.job._id}
+              >
+                <div
+                  onClick={event => onJobRemove(item._id, event)}
+                  className={classes.iconsContainer}
+                >
                   <MultiIcon type="remove" width="22" height="22" className={classes.remove} />
                 </div>
               </JobSelection>
@@ -249,7 +273,7 @@ const JobsContainer = ({
                   jobAccessebility={metier.accessibility}
                   jobDescription={metier.description}
                   jobInterest={metier.interests}
-                  onClick={() => handleCard(metier._id, false)}
+                  onClick={() => handleCard(metier._id)}
                   key={metier._id}
                 />
               );
@@ -278,7 +302,7 @@ const JobsContainer = ({
                 jobAccessebility={metier.accessibility}
                 jobDescription={metier.description}
                 jobInterest={metier.interests}
-                onClick={() => handleCard(metier._id, false)}
+                onClick={() => handleCard(metier._id)}
                 key={metier._id}
               />
             ))}
