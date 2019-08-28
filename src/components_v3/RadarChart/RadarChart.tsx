@@ -1,7 +1,6 @@
 import Chart from 'chart.js';
 
 const RadarChart = (ctx: any, get: any, job: any) => {
-  console.log(get);
   const { competences } = job.data;
   const { globalCopmetences } = get.data;
   const competencesTitle = competences.map((c: any) => c.title);

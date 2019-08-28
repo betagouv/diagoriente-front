@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import MultiIcons from 'components_v3/icons/multiIcon/multiIcon';
 import { map } from 'lodash';
 import Button from 'components/buttons/RoundButton/RoundButton';
@@ -92,6 +92,9 @@ const Questions = ({
     answersJobs.call({ responses: responseQuestion }, 't');
     // onCloseModal();
   };
+
+  console.log(responseQuestion);
+
   return (
     <Fragment>
       <div className={classes.title_container}>
@@ -104,34 +107,34 @@ const Questions = ({
       </div>
       <div className={classes.container} id="element">
         <div className={classes.question_containers}>
-          {map(questions, (item: QuestionType, i: number) => {
-            const { index, selected } = getSelected(questions, () =>
-              responseQuestion.find((r: any) => item._id === r.questionJobId));
-            const onClick = (type: string, items: any) => {
+          {map(questions, (item: QuestionType) => {
+            const { index, selected } = getSelected(
+              responseQuestion,
+              (r: any) => item._id === r.questionJobId,
+            );
+            const onClick = (response: boolean) => {
               const nextFilters: responseProps[] = [...responseQuestion];
+
               if (selected) {
-                nextFilters.splice(index - 1, 1);
-                onChangeQuestion(nextFilters);
-              } else if (type === 'remove') {
-                nextFilters.push({
-                  questionJobId: items._id,
-                  response: false,
-                  parcourId,
-                  jobId,
-                });
-                onChangeQuestion(nextFilters);
+                const question = nextFilters[index];
+                if (question.response === response) {
+                  nextFilters.splice(index, 1);
+                } else {
+                  nextFilters[index] = { ...question, response };
+                }
               } else {
                 nextFilters.push({
-                  questionJobId: items._id,
-                  response: true,
+                  questionJobId: item._id,
+                  response,
                   parcourId,
                   jobId,
                 });
-                onChangeQuestion(nextFilters);
               }
+
+              onChangeQuestion(nextFilters);
             };
-            const initialStateValidate: string = responseQuestion[i] && responseQuestion[i].response ? '#ffba27' : '#666';
-            const initialStateRemoeve: string = responseQuestion[i] && responseQuestion[i].response ? '#666' : '#e55d67';
+            const initialStateValidate: string = selected && responseQuestion[index].response ? '#ffba27' : '#666';
+            const initialStateRemoeve: string = selected && responseQuestion[index].response ? '#666' : '#e55d67';
 
             return (
               <div key={item._id} className={classes.question}>
@@ -142,7 +145,7 @@ const Questions = ({
                     width="23"
                     height="23"
                     type="validate"
-                    onClick={() => onClick('validate', item)}
+                    onClick={() => onClick(true)}
                     className={classes.btn_validate}
                     Iconcolor={selected ? initialStateValidate : '#7a93bc'}
                   />
@@ -150,7 +153,7 @@ const Questions = ({
                     width="23"
                     height="23"
                     type="remove"
-                    onClick={() => onClick('remove', item)}
+                    onClick={() => onClick(false)}
                     className={classes.btn_remove}
                     Iconcolor={selected ? initialStateRemoeve : '#7a93bc'}
                   />
