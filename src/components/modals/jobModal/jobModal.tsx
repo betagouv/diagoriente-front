@@ -12,7 +12,7 @@ import {
 } from 'requests';
 import RadarChart from 'components_v3/RadarChart/RadarChart';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
-import { useDidMount, useDidUpdate } from 'hooks';
+import { useDidUpdate } from 'hooks';
 import { Carousel } from 'react-responsive-carousel';
 import classes from './jobModal.module.scss';
 

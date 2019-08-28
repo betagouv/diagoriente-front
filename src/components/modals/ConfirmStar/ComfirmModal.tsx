@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components/buttons/RoundButton/RoundButton';
 
 import Grid from '../../ui/Grid/Grid';
 import classes from './confirm.module.scss';
@@ -42,43 +42,18 @@ const ConfirmModal = ({
 
             {ConfirmModals ? (
               <Grid item xl={12} className={classes.container_button}>
-                <MultiIcon
-                  type="remove"
-                  withText
-                  text="Annuler"
-                  width="37"
-                  height="37"
-                  withBorder
-                  style={{ padding: 0 }}
-                  onClick={onCloseModal}
-                />
-                <MultiIcon
-                  type="validate"
-                  withText
-                  text="Confirmer"
-                  width="37"
-                  height="37"
-                  withBorder
-                  Iconcolor="#ff001f"
-                  textColor="#ff001f"
-                  style={{ padding: 0 }}
-                  onClick={onSubmit}
-                />
+                <Button onClick={onAnnule} className={classes.btn}>
+                  Annuler
+                </Button>
+                <Button onClick={onSubmit} className={classes.btnOut}>
+                Confirmer
+                </Button>
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>
-                <MultiIcon
-                  type="validate"
-                  withText
-                  text="Ok"
-                  width="37"
-                  height="37"
-                  withBorder
-                  Iconcolor="#ff001f"
-                  textColor="#ff001f"
-                  style={{ padding: 0 }}
-                  onClick={onSubmit}
-                />
+                <Button onClick={onSubmit} className={classes.btnOut}>
+                  Ok
+                </Button>
               </Grid>
             )}
           </Grid>

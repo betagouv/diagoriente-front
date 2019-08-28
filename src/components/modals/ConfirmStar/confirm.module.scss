@@ -37,27 +37,14 @@
   color: $darkblue;
   text-align: center;
   font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 30px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
 .container_button {
   display: flex;
   justify-content: space-evenly;
   padding: 0px 0px 0px 0px;
-
-  .red_btn {
-    padding: 10px 30px;
-    background-color: #b82635;
-  }
-  .orangeBtn {
-    padding: 10px 30px;
-    background-color: #ff701e;
-  }
-  .rose_btn {
-    padding: 10px 30px;
-    background-color: #808080;
-  }
 }
 .spinner_container {
   margin-left: 5px;
@@ -66,4 +53,12 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.btn {
+  padding: 10px 30px;
+  background-color: #808080;
+}
+.btnOut {
+  padding: 10px 30px;
+  background-color: #ff001f;
 }

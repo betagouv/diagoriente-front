@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components/buttons/RoundButton/RoundButton';
 
 import classes from './logout.module.scss';
 
@@ -20,28 +20,14 @@ const LogoutModal = ({ onLogout, onClose }: IProps) => {
           <span>Attention, vous allez être déconnecté !</span>
         </div>
         <div className={classes.btn_container}>
-          <MultiIcon
-            type="remove"
-            withText
-            text="retour"
-            width="36"
-            height="36"
-            withBorder
-            style={{ padding: 0 }}
-            onClick={onClose}
-          />
-          <MultiIcon
-            type="validate"
-            withText
-            text="Déconnecter"
-            width="36"
-            height="36"
-            withBorder
-            Iconcolor="#ff001f"
-            textColor="#ff001f"
-            style={{ padding: 0 }}
-            onClick={logout}
-          />
+          <Button onClick={logout} className={classes.btnOut}>
+            Déconnecter
+            {' '}
+          </Button>
+          <Button onClick={onClose} className={classes.btn}>
+            Annuler
+            {' '}
+          </Button>
         </div>
       </div>
     </div>

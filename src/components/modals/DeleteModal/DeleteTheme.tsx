@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components/buttons/RoundButton/RoundButton';
 import classes from './deleteModal.module.scss';
 
 interface IProps {
@@ -18,30 +18,13 @@ const DeleteModal = ({ onDelete, onCloseModal }: IProps) => {
         <div className={classes.title_container}>
           <span>Attention, vous allez supprimer ce theme !</span>
         </div>
-
         <div className={classes.btn_container}>
-          <MultiIcon
-            type="remove"
-            withText
-            text="annuler"
-            width="37"
-            height="37"
-            withBorder
-            style={{ padding: 0 }}
-            onClick={onCloseModal}
-          />
-          <MultiIcon
-            type="validate"
-            withText
-            text="supprimer"
-            width="37"
-            height="37"
-            withBorder
-            Iconcolor="#ff001f"
-            textColor="#ff001f"
-            style={{ padding: 0 }}
-            onClick={deleteTheme}
-          />
+          <Button onClick={onCloseModal} className={classes.btn}>
+            Annuler
+          </Button>
+          <Button onClick={deleteTheme} className={classes.btnOut}>
+            Supprimer
+          </Button>
         </div>
       </div>
     </div>

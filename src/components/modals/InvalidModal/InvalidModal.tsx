@@ -1,5 +1,6 @@
 import React from 'react';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components/buttons/RoundButton/RoundButton';
+
 import classes from './invalid.module.scss';
 
 interface IProps {
@@ -8,7 +9,7 @@ interface IProps {
   onClick?: () => void;
 }
 
-const DeleteModal = ({ onCloseModal, text, onClick }: IProps) => (
+const InvalidModal = ({ onCloseModal, text, onClick }: IProps) => (
   <div className={classes.wrapperModal}>
     <div className={classes.container}>
       <div className={classes.title_container}>
@@ -16,18 +17,11 @@ const DeleteModal = ({ onCloseModal, text, onClick }: IProps) => (
       </div>
 
       <div className={classes.btn_container}>
-        <MultiIcon
-          type={onClick ? 'validate' : 'prev'}
-          withText
-          text={onClick ? 'ok' : 'retour'}
-          width={onClick ? '35' : '15'}
-          height={onClick ? '35' : '15'}
-          withBorder
-          style={{ padding: 0 }}
-          onClick={onClick || onCloseModal}
-        />
+        <Button onClick={onClick || onCloseModal} className={classes.btnOut}>
+          {onClick ? 'Ok' : 'Retour'}
+        </Button>
       </div>
     </div>
   </div>
 );
-export default DeleteModal;
+export default InvalidModal;
