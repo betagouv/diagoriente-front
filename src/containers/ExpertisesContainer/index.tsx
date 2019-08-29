@@ -183,7 +183,7 @@ const ExpertisesContainer = forwardRef(
         return (
           <div className={classes.info}>
             <img src={warning} alt="warning" className={classes.warningIcon} />
-            <span style={{ color: 'red' }}>La compétences n&apos;est pas encore graduée</span>
+            <span style={{ color: 'red' }}>La compétence n&apos;est pas encore graduée</span>
           </div>
         );
       }
