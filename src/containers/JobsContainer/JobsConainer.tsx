@@ -199,7 +199,7 @@ const JobsContainer = ({
   const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
   const recommandedArray = jArray.filter((j, i) => i < 9);
   const otherArray = jArray.filter((j, i) => i >= 9);
-
+console.log('jobsListRef  ',jobsListRef)
   if (!jobsListRef.current.length && !isEmpty(jArray)) jobsListRef.current = recommandedArray;
   const arrayNew: any = [];
   jobsListRef.current.map((item: any) => {
@@ -271,13 +271,13 @@ const JobsContainer = ({
 
               let rating: 0 | 1 | 2 | 3 = 0;
               let color = '#696b6d';
-              if (i <= 2) {
+              if (index <= 2) {
                 rating = 3;
                 color = '#fab82d';
-              } else if (i <= 5) {
+              } else if (index <= 5) {
                 rating = 2;
                 color = '#c8ccb0';
-              } else if (i <= 8) {
+              } else if (index <= 8) {
                 rating = 1;
                 color = '#a67c52';
               }
