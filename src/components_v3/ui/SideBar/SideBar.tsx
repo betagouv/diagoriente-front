@@ -33,10 +33,10 @@ const sideBarItemsExplorama = [
     path: 'jobs',
     title: 'CHOISIR DES PISTES DE MÉTIERS',
   },
-  {
+ /*  {
     path: 'demarche',
     title: 'MES DÉMARCHES',
-  },
+  }, */
 ];
 
 interface MapToProps {

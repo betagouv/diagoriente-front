@@ -32,6 +32,7 @@ interface MyProps {
   getJobs: () => void;
   getOnejob: () => void;
   idFav?: string;
+  addfav: () => void;
   remove: (id: string, e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
@@ -54,12 +55,12 @@ const JobModal = ({
   getOnejob,
   remove,
   idFav,
+  addfav,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
   const [DisplayedChild, changeDisplayedChild] = useState(0);
   const [responseQuestion, setResponseQuestion] = useState<responseProps[]>([]);
-
   useEffect(() => {
     get.call(parcoursId);
     getOnejob.call(id, parcoursId);
@@ -148,6 +149,7 @@ const JobModal = ({
       parcour: parcoursId,
       interested: true,
     });
+    addfav();
     onCloseModal();
   };
 
