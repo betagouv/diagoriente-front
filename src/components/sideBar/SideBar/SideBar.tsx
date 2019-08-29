@@ -45,6 +45,8 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     const selected = index !== -1;
     return { index, selected };
   }
+  console.log(secteurArray)
+
   return (
     <div className={classes.container_sideBar}>
       <div className={classes.filter_container}>
@@ -69,7 +71,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
             const onClick = () => {
               const nextFilters: any = [...filterArray];
               if (selected) {
-                nextFilters.splice(index - 1, 1);
+                nextFilters.splice(index, 1);
                 setFilterArray(nextFilters);
                 filterJobs(nextFilters, secteurArray);
               } else {
@@ -105,21 +107,21 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
           )}
         >
           {map(secteurs, (item: any) => {
-            const { index, selected } = getSelected(
-              secteurs,
-              () => !!secteurArray.find(r => item._id === r),
-            );
+            const { index, selected } = getSelected(secteurArray, (r: any) => {
+              console.log(item._id === r);
+              return item._id === r;
+            });
+            const nextFilters: any = [...secteurArray];
             const onClickSecteur = () => {
-              const nextFilters: any = [...secteurArray];
+              console.log(index);
+              console.log(selected)
               if (selected) {
-                nextFilters.splice(index - 1, 1);
-                setSecteurArray(nextFilters);
-                filterJobs(filterArray, nextFilters);
+                nextFilters.splice(index, 1);
               } else {
                 nextFilters.push(item._id);
-                setSecteurArray(nextFilters);
-                filterJobs(filterArray, nextFilters);
               }
+              setSecteurArray(nextFilters);
+              filterJobs(filterArray, nextFilters);
             };
             return (
               <div key={item._id} className={classes.rowItem} onClick={onClickSecteur}>
