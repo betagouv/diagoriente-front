@@ -45,8 +45,6 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     const selected = index !== -1;
     return { index, selected };
   }
-  console.log(secteurArray)
-
   return (
     <div className={classes.container_sideBar}>
       <div className={classes.filter_container}>
@@ -108,13 +106,10 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
         >
           {map(secteurs, (item: any) => {
             const { index, selected } = getSelected(secteurArray, (r: any) => {
-              console.log(item._id === r);
               return item._id === r;
             });
             const nextFilters: any = [...secteurArray];
             const onClickSecteur = () => {
-              console.log(index);
-              console.log(selected)
               if (selected) {
                 nextFilters.splice(index, 1);
               } else {

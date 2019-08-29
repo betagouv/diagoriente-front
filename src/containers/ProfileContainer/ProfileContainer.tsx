@@ -264,27 +264,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
                 <JobsContainer
                   title="DÉCOUVRE ET AJOUTE LES MÉTIERS QUI T’INTÉRESSENT"
                   {...props}
-                  footerButtons={[
-                    {
-                      component: fetchingParcour ? (
-                        <div className={classes.containerSpinner}>
-                          <Spinner />
-                        </div>
-                      ) : (
-                        <MultiIcon
-                          type="validate"
-                          withText
-                          text="VALIDER"
-                          width="35"
-                          footer
-                          height="35"
-                          textColor="#ffba27"
-                          Iconcolor="#ffba27"
-                        />
-                      ),
-                      key: 'valider',
-                    },
-                  ]}
+                  footerButtons={[]}
                 />
               ))
             }
