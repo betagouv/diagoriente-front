@@ -3,10 +3,9 @@ import Chart from 'chart.js';
 const RadarChart = (ctx: any, get: any, job: any) => {
   const { competences } = job.data;
   const { globalCopmetences } = get.data;
-  const competencesTitle = competences.map((c: any) => c.title);
+  const competencesTitle = globalCopmetences.map((c: any) => c.title);
   const competencesValue = globalCopmetences.map((c: any) => c.value);
   const jobCompoetences = competences.map((c: any) => c.weight);
-
   const chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
@@ -16,13 +15,9 @@ const RadarChart = (ctx: any, get: any, job: any) => {
     purple: 'rgb(153, 102, 255)',
     grey: 'rgb(231,233,237)',
   };
-
-  const { color } = Chart.helpers;
-  const config = {
-    type: 'radar',
-    data: {
-      labels: competencesTitle,
-      datasets: [
+  function getData() {
+    if (competencesValue.length > 0 && jobCompoetences.length > 0) {
+      return [
         {
           label: 'Mes compétences',
           backgroundColor: color(chartColors.red)
@@ -46,7 +41,48 @@ const RadarChart = (ctx: any, get: any, job: any) => {
           borderWidth: 0,
           data: jobCompoetences,
         },
-      ],
+      ];
+    }
+
+    if (competences.length > 0) {
+      return [
+        {
+          label: 'Compétences du métier',
+          backgroundColor: color(chartColors.blue)
+            .alpha(0.5)
+            .rgbString(),
+          borderColor: chartColors.blue,
+          pointBackgroundColor: 'rgba(0,0,0,0)',
+          borderJoinStyle: 'round',
+          pointBorderColor: 'rgba(0,0,0,0)',
+          borderWidth: 0,
+          data: jobCompoetences,
+        },
+      ];
+    }
+    if (globalCopmetences) {
+      return [
+        {
+          label: 'Mes compétences',
+          backgroundColor: color(chartColors.red)
+            .alpha(0)
+            .rgbString(),
+          borderColor: '#05035f',
+          pointBackgroundColor: 'rgba(0,0,0,0)',
+          pointBorderColor: 'rgba(0,0,0,0)',
+          borderJoinStyle: 'round',
+          data: competencesValue,
+        },
+      ];
+    }
+    return [{}];
+  }
+  const { color } = Chart.helpers;
+  const config = {
+    type: 'radar',
+    data: {
+      labels: competencesTitle,
+      datasets: getData(),
     },
     options: {
       legend: {
@@ -61,6 +97,7 @@ const RadarChart = (ctx: any, get: any, job: any) => {
       },
       scale: {
         ticks: {
+          backdropColor: '#F1F1F1',
           beginAtZero: true,
           display: true,
           min: 0,

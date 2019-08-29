@@ -13,7 +13,7 @@ interface IProps {
   withSub?: boolean;
   index: number;
   taux?: number;
-  description?: { title: string; sub_title?: string }[];
+  description?: { title: string; sub_title: string }[];
   modeShowOnly?: boolean;
   handleChangeValue?: (value: number, index: number) => void;
 }
@@ -72,7 +72,11 @@ const ProgressBarCompetence = ({
         onMouseEnter={e => {
           conditionHover(dotIndex) ? hoverHandler(e, dotIndex - 1) : DoNothing();
         }}
-        data-tip={description ? description[dotIndex - 1].title : ''}
+        data-tip={
+          description
+            ? `${description[dotIndex - 1].sub_title}\n${description[dotIndex - 1].title}`
+            : ''
+        }
       >
         <img
           data-for={title}
@@ -102,7 +106,7 @@ const ProgressBarCompetence = ({
       {renderDot(3)}
       {renderDot(4)}
       {withSub && <span className={classes.level}>{`NIVEAU${level}/4`}</span>}
-      {description && <ReactTooltip place="top" type="light" />}
+      {description && <ReactTooltip place="top" type="light" wrapper="span" />}
     </div>
   );
 };

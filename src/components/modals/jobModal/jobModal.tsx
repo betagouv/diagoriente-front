@@ -83,7 +83,7 @@ const JobModal = ({
   }, [getJobs.fetching]);
 
   useDidUpdate(() => {
-    if (!getOnejob.fetching && !get.fetching && !isEmpty(getOnejob.data)) {
+    if (!getOnejob.fetching && !get.fetching && !isEmpty(get)) {
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
       RadarChart(ctx, get, getOnejob);
