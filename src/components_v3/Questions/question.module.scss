@@ -36,8 +36,11 @@
   align-items: center;
   margin: 20px 0px 23px;
 }
+.question {
+  text-align: center;
+  width: 70%;
+}
 .question_title {
-  display: flex;
   color: $text-muted;
   font-size: 14px;
 }

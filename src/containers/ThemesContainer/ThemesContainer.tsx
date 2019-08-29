@@ -1,5 +1,12 @@
 import React, {
- Dispatch, useState, useRef, useEffect, Ref, forwardRef, memo,
+  Dispatch,
+  useState,
+  useRef,
+  useEffect,
+  Ref,
+  forwardRef,
+  memo,
+  Fragment,
 } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
@@ -291,33 +298,36 @@ const ThemesContainer = forwardRef(
                 }
 
                 return (
-                  <div onClick={onClick} className={wrapper}>
-                    {theme && theme.resources && type === 'personal' && (
-                      <ThemeIcon
-                        title={theme.title}
-                        icon={theme.resources.icon}
-                        key={theme._id}
-                        data-tip
-                        data-for={theme._id}
-                        onMouseEnter={() => onMouseEnter(theme._id)}
-                      />
-                    )}
-                    {theme && theme.resources && (
-                      <span
-                        className={classNames(
-                          type === 'personal' ? classes.theme_title : classes.theme_titlePro,
-                        )}
-                        style={
-                          type === 'personal'
-                            ? { color: theme.resources.backgroundColor }
-                            : { color: 'black' }
-                        }
-                        data-tip
-                        data-for={theme._id}
-                      >
-                        {theme.title}
-                      </span>
-                    )}
+                  <Fragment>
+                    <div onClick={onClick} className={wrapper}>
+                      {theme && theme.resources && type === 'personal' && (
+                        <ThemeIcon
+                          title={theme.title}
+                          icon={theme.resources.icon}
+                          key={theme._id}
+                          data-tip
+                          data-for={theme._id}
+                          onMouseEnter={() => onMouseEnter(theme._id)}
+                        />
+                      )}
+                      {theme && theme.resources && (
+                        <span
+                          className={classNames(
+                            type === 'personal' ? classes.theme_title : classes.theme_titlePro,
+                          )}
+                          style={
+                            type === 'personal'
+                              ? { color: theme.resources.backgroundColor }
+                              : { color: 'black' }
+                          }
+                          data-tip
+                          data-for={theme._id}
+                          onMouseEnter={() => onMouseEnter(theme._id)}
+                        >
+                          {theme.title}
+                        </span>
+                      )}
+                    </div>
                     <ReactTooltip
                       id={theme._id}
                       place="right"
@@ -335,7 +345,7 @@ const ThemesContainer = forwardRef(
                           : theme.title}
                       </div>
                     </ReactTooltip>
-                  </div>
+                  </Fragment>
                 );
               })
           ) : (
