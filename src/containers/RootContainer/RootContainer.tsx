@@ -65,7 +65,7 @@ const RootContainer = ({
       }
       timer = setTimeout(() => {
         logout();
-      }, 420000);
+      }, 900000);
     }
   };
 
