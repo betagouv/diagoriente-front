@@ -73,16 +73,25 @@ const JobModal = ({
   }, [getOnejob.fetching]);
 
   useEffect(() => {
-    if (getJobs.data) {
+    if (getJobs.data && !getJobs.fetching) {
       const idSecteur = getOnejob.data.secteur && getOnejob.data.secteur[0]._id;
-      const similaireArray = !isEmpty(getJobs.data)
-        && getJobs.data
+      if (!isEmpty(getJobs.data)) {
+        const similaireArray = getJobs.data
           .flatMap(item => item)
           .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur);
-      setSimilaire(similaireArray);
+        setSimilaire(similaireArray);
+      }
     }
   }, [getJobs.fetching]);
-
+  useDidUpdate(() => {
+    const idSecteur = getOnejob.data.secteur && getOnejob.data.secteur[0]._id;
+    if (!isEmpty(getJobs.data)) {
+      const similaireArray = getJobs.data
+        .flatMap(item => item)
+        .filter(el => el.secteur[0] && el.secteur[0]._id === idSecteur);
+      setSimilaire(similaireArray);
+    }
+  }, [getJobs]);
   useDidUpdate(() => {
     if (!getOnejob.fetching && !get.fetching && !isEmpty(get)) {
       const canvas: any = document.getElementById('canvas');
@@ -103,7 +112,7 @@ const JobModal = ({
             </div>
             <div className={classes.bottom}>
               <span className={classes.descTitle}>Metiers similaires</span>
-              {similaire
+              {similaire.length > 0
                 && similaire
                   .slice(0, 3)
                   .filter((al: any) => al.title !== data.title)
@@ -152,6 +161,7 @@ const JobModal = ({
     addfav();
     onCloseModal();
   };
+  console.log('similaire', similaire);
 
   return (
     <div className={classes.wrapperModal}>
