@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import {
- forEach, filter, map, isEmpty,
+ forEach, filter, map, isEmpty, intersectionBy,
 } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
@@ -198,8 +198,7 @@ const JobsContainer = ({
   };
   const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
   const recommandedArray = jArray.filter((j, i) => i < 9);
-  const otherArray = jArray.filter((j, i) => i >= 9);
-console.log('jobsListRef  ',jobsListRef)
+  const otherArray = intersectionBy(jArray, recommandedArray, '_id');
   if (!jobsListRef.current.length && !isEmpty(jArray)) jobsListRef.current = recommandedArray;
   const arrayNew: any = [];
   jobsListRef.current.map((item: any) => {
@@ -266,7 +265,7 @@ console.log('jobsListRef  ',jobsListRef)
                 : classes.filter_container_child,
             )}
           >
-            {arrayNew.map((metier: any, i: number) => {
+            {arrayNew.map((metier: any) => {
               const index = jobsListRef.current.findIndex(job => job._id === metier._id);
 
               let rating: 0 | 1 | 2 | 3 = 0;

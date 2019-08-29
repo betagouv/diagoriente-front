@@ -161,7 +161,6 @@ const JobModal = ({
     addfav();
     onCloseModal();
   };
-  console.log('similaire', similaire);
 
   return (
     <div className={classes.wrapperModal}>
