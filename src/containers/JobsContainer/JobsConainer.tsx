@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import {
- forEach, filter, map, isEmpty, intersectionBy,
+ forEach, filter, map, isEmpty, differenceBy,
 } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
@@ -198,8 +198,10 @@ const JobsContainer = ({
   };
   const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
   const recommandedArray = jArray.filter((j, i) => i < 9);
-  const otherArray = intersectionBy(jArray, recommandedArray, '_id');
+   
   if (!jobsListRef.current.length && !isEmpty(jArray)) jobsListRef.current = recommandedArray;
+  const otherArray = differenceBy(jArray, jobsListRef.current, '_id');
+   
   const arrayNew: any = [];
   jobsListRef.current.map((item: any) => {
     recommandedArray.filter((el: any) => {
