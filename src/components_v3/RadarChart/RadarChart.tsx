@@ -5,7 +5,9 @@ const RadarChart = (ctx: any, get: any, job: any) => {
   const { globalCopmetences } = get.data;
   const competencesTitle = globalCopmetences.map((c: any) => c.title);
   const competencesValue = globalCopmetences.map((c: any) => c.value);
-  const jobCompoetences = competences.map((c: any) => c.weight);
+  const jobCompoetences = globalCopmetences.map(
+    (c: any) => competences.find(({ _id }: any) => _id === c._id).weight,
+  );
   const chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
