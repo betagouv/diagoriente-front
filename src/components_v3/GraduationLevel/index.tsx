@@ -74,7 +74,7 @@ const ProgressBarCompetence = ({
         }}
         data-tip={
           description
-            ? `${description[dotIndex - 1].sub_title}\n${description[dotIndex - 1].title}`
+            ? `${description[dotIndex - 1].title}, \n${description[dotIndex - 1].sub_title}`
             : ''
         }
       >
@@ -106,7 +106,7 @@ const ProgressBarCompetence = ({
       {renderDot(3)}
       {renderDot(4)}
       {withSub && <span className={classes.level}>{`NIVEAU${level}/4`}</span>}
-      {description && <ReactTooltip place="top" type="light" wrapper="span" />}
+      {description && <ReactTooltip place="top" type="light" wrapper="div" className={classes.tooltipNiveau} />}
     </div>
   );
 };

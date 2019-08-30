@@ -66,6 +66,18 @@
     }
   }
 }
+.tooltipNiveau{
+  color: $darkblue !important;
+  background-color: $white !important;
+  width: 250px;
+  &.place-right {
+    &:after {
+      border-right-color: $white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
+    }
+  }
+}
 
 .background_bar_competence {
   position: absolute;
