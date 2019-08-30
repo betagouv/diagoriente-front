@@ -33,10 +33,10 @@ const sideBarItemsExplorama = [
     path: 'jobs',
     title: 'CHOISIR DES PISTES DE MÉTIERS',
   },
- /*  {
+  {
     path: 'demarche',
     title: 'MES DÉMARCHES',
-  }, */
+  },
 ];
 
 interface MapToProps {
@@ -124,31 +124,46 @@ const SideBar = ({
         />
       </div>
       <div className={classes.itemsExplorama}>
-        {sideBarItemsExplorama.map(item => (
+        {sideBarItemsExplorama.map((item, i) => (
           <div key={item.path} className={classes.item}>
-            <MultiIcon
-              type="edit"
-              withText
-              text={`${item.title}`}
-              width="35"
-              sideBar
-              height="35"
-              onClick={isAlloawed !== 0 ? () => onNavigate(`${match.path}/${item.path}`) : () => {}}
-              textColor={
-                isAlloawed !== 0
-                  ? `${match.path}/${item.path}` === location.pathname
-                    ? '#ffba27'
-                    : '#7992BF'
-                  : 'gray'
-              }
-              Iconcolor={
-                isAlloawed !== 0
-                  ? `${match.path}/${item.path}` === location.pathname
-                    ? '#ffba27'
-                    : '#7992BF'
-                  : 'gray'
-              }
-            />
+            {i === sideBarItemsExplorama.length - 1 ? (
+              <MultiIcon
+                type="edit"
+                withText
+                text={`${item.title}`}
+                width="35"
+                sideBar
+                height="35"
+                textColor="gray"
+                Iconcolor="gray"
+              />
+            ) : (
+              <MultiIcon
+                type="edit"
+                withText
+                text={`${item.title}`}
+                width="35"
+                sideBar
+                height="35"
+                onClick={
+                  isAlloawed !== 0 ? () => onNavigate(`${match.path}/${item.path}`) : () => {}
+                }
+                textColor={
+                  isAlloawed !== 0
+                    ? `${match.path}/${item.path}` === location.pathname
+                      ? '#ffba27'
+                      : '#7992BF'
+                    : 'gray'
+                }
+                Iconcolor={
+                  isAlloawed !== 0
+                    ? `${match.path}/${item.path}` === location.pathname
+                      ? '#ffba27'
+                      : '#7992BF'
+                    : 'gray'
+                }
+              />
+            )}
           </div>
         ))}
       </div>
