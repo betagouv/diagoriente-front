@@ -200,9 +200,7 @@ const ThemesContainer = forwardRef(
     }
 
     function onEditClick() {
-      if (!selectedTheme) {
-        // do nothing
-      } else if (step === 'select_theme') {
+     if (step === 'select_theme') {
         stepChange('activities_edit');
       } else if (step === 'activities_edit') {
         const newSkill = newSkillRef.current;

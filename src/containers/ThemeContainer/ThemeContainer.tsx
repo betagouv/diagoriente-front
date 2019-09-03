@@ -9,6 +9,7 @@ import {
  ReduxState, ISkillPopulated, IExpertise, IActivity,
 } from 'reducers';
 import modalActions from 'reducers/modal';
+import ReactTooltip from 'react-tooltip';
 
 // containers
 import { useCaptureRef } from 'hooks/useCaptureRef';
@@ -83,6 +84,7 @@ const ThemeContainer = forwardRef(
     const isEdit = step !== 'show';
 
     useEffect(() => {
+      get.call(id);
       if (step === 'show') {
         isEditRef.current = false;
         activitiesChange(getActivities());
@@ -124,8 +126,19 @@ const ThemeContainer = forwardRef(
     const iconSkill = skill && skill.theme.resources ? skill.theme.resources.icon : '';
     const iconDataColor = get && get.data.resources ? get.data.resources.backgroundColor : '';
     const iconSkillcolor = skill && skill.theme.resources ? skill.theme.resources.backgroundColor : '';
-
     const test = isActivityEdit ? classes.fullNewThemeActivities : classes.new_theme_activities;
+
+    function findTooltip(expertise: IExpertise) {
+      if (get.data.tooltips) {
+        const toolfinded = get.data.tooltips.find(item => item.competenceId === expertise._id);
+        if (toolfinded) {
+          return toolfinded.tooltip;
+        }
+        return '';
+      }
+
+      return '';
+    }
 
     return (
       <Fragment>
@@ -298,7 +311,9 @@ const ThemeContainer = forwardRef(
                       expertise={expertise}
                       checkboxHandler={checkboxHandler}
                       favori={star}
+                      data-tip={findTooltip(expertise)}
                     />
+                    <ReactTooltip place="top" type="light" className={classes.tooltipNiveau} />
                   </div>
                 );
               })}
