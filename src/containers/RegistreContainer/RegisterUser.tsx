@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { map } from 'lodash';
 import { RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
@@ -77,6 +77,8 @@ const RegisterUserContainer = ({
   const [response, responseChange, responseTouched] = useTextInput('');
   const [lastName, lastNameChange, lastNameTouched] = useTextInput('');
   const [questionValue, open, onChange, onOpen, onClose] = useSelectInput('');
+  const [conditionChecked, setChecked] = useState(false);
+  const [conditionValidation, changeConditionValidation] = useState(false);
 
   const emailValid = emailTouched ? validateEmail(email) : '';
   const passwordValid = passwordTouched ? validatePassword(password) : '';
@@ -85,11 +87,15 @@ const RegisterUserContainer = ({
   const responseValid = responseTouched ? validateNom(response) : '';
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const question: any = {
-      response,
-      _id: questionValue,
-    };
-    registerRequest(email, password, firstName, lastName, question);
+    if (conditionChecked) {
+      const question: any = {
+        response,
+        _id: questionValue,
+      };
+      registerRequest(email, password, firstName, lastName, question);
+    } else {
+      changeConditionValidation(true);
+    }
   };
   useDidUpdate(() => {
     if (!(fetching || error)) {
@@ -177,6 +183,26 @@ const RegisterUserContainer = ({
                   />
                 </Grid>
               </div>
+              {conditionValidation && (
+                <span style={{    fontSize: '11px', color: 'red'}}>
+                  Vous devez accepter les conditions d’utilisation de Pix pour créer un compte.
+                </span>
+              )}
+              <div className={classes.container_select} style={{ margin: '15px 0 0 15px' }}>
+                <Grid item xl={12} md={12} style={{ display: 'flex' }}>
+                  <input
+                    type="checkbox"
+                    name="vehicle2"
+                    value="Car"
+                    checked={conditionChecked}
+                    onChange={() => {setChecked(!conditionChecked);  changeConditionValidation(false);}}
+                  />
+                  <span style={{ margin: '-1px 0.5ex' }}>
+                    j&apos;accepte les conditions d&apos;utilisation de Diagoriente
+                  </span>
+                  <br />
+                </Grid>
+              </div>
             </div>
 
             <div className={classes.container_button}>
@@ -191,6 +217,16 @@ const RegisterUserContainer = ({
                 Iconcolor="#7a93bc"
               />
             </div>
+            <span style={{ margin: '4px 29px 23px 29px', fontSize: '11px', lineHeight: '1rem' }}>
+              Les informations recueillies sur ce formulaire sont enregistrées dans un fichier
+              informatisé par Pix pour permettre l&apos;accès au service offert par Pix. Elles sont
+              conservées pendant une durée de 5 ans maximum à compter du dernier accès au compte
+              utilisateur, et archivées selon les délais de prescription légale (5 ans). Elles sont
+              destinées à Pix et à ses prestataires techniques exclusivement. Conformément à la loi
+              « informatique et libertés », vous pouvez exercer votre droit d&apos;accès aux données
+              vous concernant et les faire rectifier en envoyant un mail à
+              pascal.chaumette@beta.gouv.fr
+            </span>
           </div>
         )}
       </div>
