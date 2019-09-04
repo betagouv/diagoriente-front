@@ -18,10 +18,11 @@ type Props = {
   onChangeContrat: (event: any) => void;
   onOpenContrat: () => void;
   onCloseContrat: () => void;
-  distanceValue: number;
+  distanceValue: any;
   onChangeDistance: (event: any) => void;
   searchJob: () => void;
   data: any;
+  isAllowed: boolean;
 };
 
 const EntrepriseForm = ({
@@ -40,6 +41,7 @@ const EntrepriseForm = ({
   onChangeDistance,
   searchJob,
   data,
+  isAllowed,
 }: Props) => (
   <div className={classes.container}>
     <SelectCommune
@@ -53,25 +55,27 @@ const EntrepriseForm = ({
       selectClose={onCloseCommune}
       onChangeValue={onChangeValue}
     />
-    <Select
-      options={[
-        {
-          value: 'dpae',
-          label: 'dpae',
-        },
-        {
-          value: 'alternance',
-          label: 'alternance',
-        },
-      ]}
-      open={openContrat}
-      onChange={onChangeContrat}
-      value={contratValue}
-      className={classes.container_input_select}
-      placeholder="Type de contrat"
-      selectOpen={onOpenContrat}
-      selectClose={onCloseContrat}
-    />
+    <div className={classes.inputContrat}>
+      <Select
+        options={[
+          {
+            value: 'dpae',
+            label: 'dpae',
+          },
+          {
+            value: 'alternance',
+            label: 'alternance',
+          },
+        ]}
+        open={openContrat}
+        onChange={onChangeContrat}
+        value={contratValue}
+        className={classes.container_input_select}
+        placeholder="Type de contrat"
+        selectOpen={onOpenContrat}
+        selectClose={onCloseContrat}
+      />
+    </div>
     <div className={classes.inputContainer}>
       <input
         type="text"
@@ -82,7 +86,11 @@ const EntrepriseForm = ({
       />
     </div>
     <div className={classes.btnCOntainer}>
-      <Button title="Recherche" onClick={searchJob} className={classes.btnRecherche} />
+      {isAllowed ? (
+        <Button title="Recherche" onClick={searchJob} className={classes.btnRecherche} />
+      ) : (
+        <Button title="Recherche" className={classes.btnRechercheDisabled} />
+      )}
     </div>
   </div>
 );

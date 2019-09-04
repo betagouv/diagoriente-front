@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { useSelectInput } from 'hooks';
 import withLayout from 'hoc/withLayout';
 import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
@@ -12,7 +12,7 @@ import classes from './mesdemarches.module.scss';
 
 type Props = ApiComponentProps<{ list: typeof listCommunes; get: typeof listEntreprise }>;
 
-const MesDemarches = ({ list, get }: Props) => {
+const MesDemarches = forwardRef(({ list, get }: Props) => {
   const [isSelectionOpen, setSelectionOpen] = useState(true);
   const setSelectionToggle = () => {
     setSelectionOpen(!isSelectionOpen);
@@ -31,7 +31,7 @@ const MesDemarches = ({ list, get }: Props) => {
     onOpenContrat,
     onCloseContrat,
   ] = useSelectInput('');
-  const [distanceValue, setDistance] = useState(0);
+  const [distanceValue, setDistance] = useState(null);
 
   const onChangeValue = (event: any) => {
     const code = event.target.value;
@@ -58,6 +58,7 @@ const MesDemarches = ({ list, get }: Props) => {
   };
   const { data } = list.data;
   const listEntreprises = get.data;
+  const isAllowed = !isEmpty(communeValue) && distanceValue !== null && contratValue !== '';
   return (
     <div>
       <div className={classes.selections}>
@@ -91,6 +92,7 @@ const MesDemarches = ({ list, get }: Props) => {
             distanceValue={distanceValue}
             searchJob={searchJob}
             data={data}
+            isAllowed={isAllowed}
           />
         </div>
       </div>
@@ -104,7 +106,6 @@ const MesDemarches = ({ list, get }: Props) => {
                 {entreprise.name}
               </div>
               <div>
-                {' '}
                 address:
                 {entreprise.address}
               </div>
@@ -116,5 +117,5 @@ const MesDemarches = ({ list, get }: Props) => {
       </div>
     </div>
   );
-};
+});
 export default withApi({ list: listCommunes, get: listEntreprise })(withLayout(MesDemarches));

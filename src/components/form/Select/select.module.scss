@@ -24,8 +24,8 @@
   flex-direction: column;
   position: relative;
   border: none;
-  height: 30px;
-  color: $grey-blue
+  height: 33px;
+  color: $grey-blue;
 }
 .img_container {
   width: 10%;
@@ -67,6 +67,17 @@
 input {
   outline: 0;
   background-color: #fff;
-
 }
 
+.communeInput {
+  width: 100%;
+  display: flex;
+  margin: 15px 0;
+  position: relative;
+  border: 1px solid $gray-500;
+  line-height: 2;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding-left: 10px;
+  background-color: white;
+}

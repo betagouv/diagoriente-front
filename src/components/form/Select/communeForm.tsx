@@ -43,8 +43,8 @@ const Select = ({
   }
 
   return (
-    <div onClick={selectOpen}>
-      <div className={style.login_container_input}>
+    <div className={style.selectContainer} onClick={selectOpen}>
+      <div className={style.communeInput}>
         <input
           type="text"
           className={style.text_container}
@@ -61,11 +61,7 @@ const Select = ({
                   onChange(el);
                 };
                 return (
-                  <div
-                    key={el.Code_postal}
-                    onClick={onChangeText}
-                    className={style.select_item}
-                  >
+                  <div key={el.Code_postal} onClick={onChangeText} className={style.select_item}>
                     {el.Code_commune_INSEE}
                   </div>
                 );

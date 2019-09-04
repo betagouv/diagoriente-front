@@ -5,7 +5,7 @@ export interface IParamsEntreprise {
   contract: string;
   latitude: number;
   longitude: number;
-  distance: number;
+  distance: any;
   rome_codes: string;
 }
 
@@ -14,7 +14,7 @@ export interface ListEntrepriseParams {
   contract: string;
   latitude: number;
   longitude: number;
-  distance: number;
+  distance: any;
   rome_codes: string;
 }
 
