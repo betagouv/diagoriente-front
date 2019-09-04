@@ -1,21 +1,22 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, Fragment } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import { isEmpty } from 'lodash';
+import { ICommune } from 'requests';
 
 // style
 import style from './select.module.scss';
 // image
-import Arrow from '../../../assets/icons/arrow2.png';
 
 type IProps = {
   open: boolean;
   selectOpen: (e: MouseEvent<HTMLElement>) => void;
   selectClose: (e: MouseEvent<HTMLElement>) => void;
-  onChange: (value: string) => void;
-  value: string;
-  options: { value: any; label: any }[];
+  onChange: (value: any) => void;
+  value: ICommune;
+  options: ICommune[];
   className: string;
   placeholder: string;
+  onChangeValue: (event: any) => void;
 };
 
 const Select = ({
@@ -25,6 +26,7 @@ const Select = ({
   value,
   options,
   onChange,
+  onChangeValue,
   open,
   placeholder,
 }: IProps) => {
@@ -36,28 +38,35 @@ const Select = ({
 
   let title = placeholder;
   if (value) {
-    const selectedOption = options.find(o => o.value === value);
-    title = selectedOption ? selectedOption.label : placeholder;
+    const selectedOption = !isEmpty(options) && options.find(o => o.Code_commune_INSEE === value.Code_commune_INSEE);
+    title = selectedOption ? selectedOption.Libelle_acheminement : placeholder;
   }
 
   return (
-    <div className={style.selectContainer} onClick={selectOpen}>
+    <div onClick={selectOpen}>
       <div className={style.login_container_input}>
-        <div className={style.text_container}>{title}</div>
-        <div onClick={selectOpen} className={style.img_container}>
-          <img src={Arrow} className={style.arrow} alt="arrow" />
-        </div>
+        <input
+          type="text"
+          className={style.text_container}
+          placeholder={title}
+          onChange={onChangeValue}
+        />
+
         {open && (
           <div className={style.select_drop}>
             {!isEmpty(options)
               && options.map(el => {
                 const onChangeText = (e: React.MouseEvent<HTMLDivElement>) => {
                   e.stopPropagation();
-                  onChange(el.value);
+                  onChange(el);
                 };
                 return (
-                  <div key={el.value} onClick={onChangeText} className={style.select_item}>
-                    {el.label}
+                  <div
+                    key={el.Code_commune_INSEE}
+                    onClick={onChangeText}
+                    className={style.select_item}
+                  >
+                    {el.Code_commune_INSEE}
                   </div>
                 );
               })}

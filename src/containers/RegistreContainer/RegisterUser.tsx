@@ -184,7 +184,7 @@ const RegisterUserContainer = ({
                 </Grid>
               </div>
               {conditionValidation && (
-                <span style={{    fontSize: '11px', color: 'red'}}>
+                <span style={{ fontSize: '11px', color: 'red' }}>
                   Vous devez accepter les conditions d’utilisation de Pix pour créer un compte.
                 </span>
               )}
@@ -195,7 +195,10 @@ const RegisterUserContainer = ({
                     name="vehicle2"
                     value="Car"
                     checked={conditionChecked}
-                    onChange={() => {setChecked(!conditionChecked);  changeConditionValidation(false);}}
+                    onChange={() => {
+                      setChecked(!conditionChecked);
+                      changeConditionValidation(false);
+                    }}
                   />
                   <span style={{ margin: '-1px 0.5ex' }}>
                     j&apos;accepte les conditions d&apos;utilisation de Diagoriente

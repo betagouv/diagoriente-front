@@ -13,3 +13,5 @@ export * from './jobs';
 export * from './activity';
 export * from './environment';
 export * from './secteur';
+export * from './commune';
+export * from './entreprise';
