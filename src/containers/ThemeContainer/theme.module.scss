@@ -72,6 +72,18 @@
   width: 100% !important;
   cursor: pointer;
 }
+.tooltipNiveau {
+  color: $darkblue !important;
+  background-color: $white !important;
+  width: 250px;
+  &.place-right {
+    &:after {
+      border-right-color: $white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
+    }
+  }
+}
 .titleFont {
   font-size: 13px;
 }

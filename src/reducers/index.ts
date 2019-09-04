@@ -80,6 +80,12 @@ export interface ITheme {
   activities: IActivity[];
   resources?: { color: string; backgroundColor: string; icon: string };
   required?: any[];
+  tooltips: [
+    {
+      competenceId: string;
+      tooltip: string;
+    },
+  ];
 }
 
 export interface ISkillPopulated {
