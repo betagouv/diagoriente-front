@@ -15,7 +15,6 @@
   border-top-left-radius: 5px;
   background-color: white;
   margin: 0px 3px;
-  
 }
 .inputDistance {
   display: flex;
@@ -31,5 +30,8 @@
 .btnRecherche {
   padding: 7px;
   font-size: 12px;
-  background-color: $grey-blue
+  background-color: $grey-blue;
+  &:hover {
+    box-shadow: none;
+  }
 }

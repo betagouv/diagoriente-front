@@ -62,7 +62,7 @@ const Select = ({
                 };
                 return (
                   <div
-                    key={el.Code_commune_INSEE}
+                    key={el.Code_postal}
                     onClick={onChangeText}
                     className={style.select_item}
                   >
