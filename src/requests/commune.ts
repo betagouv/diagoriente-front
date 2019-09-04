@@ -19,10 +19,10 @@ export interface CommunesList {
   currentPage: 1;
   data: ICommune[];
   document: 'environments';
-  perPage: 30;
+  perPage: 10;
   totalPages: 1;
 }
 
 export const listCommunes = (params?: ListCommunesParams): Promise<Response<CommunesList>> => {
-  return axiosGet('v1/commune/all', { params });
+  return axiosGet('v1/commune/all/', { params });
 };

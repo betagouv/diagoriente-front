@@ -44,12 +44,13 @@ const Select = ({
 
   return (
     <div className={style.selectContainer} onClick={selectOpen}>
-      <div className={style.communeInput}>
+      <div className={style.login_container_input}>
         <input
           type="text"
           className={style.text_container}
           placeholder={title}
           onChange={onChangeValue}
+          value={value.Code_commune_INSEE}
         />
 
         {open && (
