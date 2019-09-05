@@ -147,10 +147,10 @@ const JobModal = ({
         />
       ),
     },
-    {
+/*     {
       _id: 3,
       content: <EntrepriseForm />,
-    },
+    }, */
   ];
   if (data.link) {
     items.splice(1, 0, { _id: 1, content: <VideoContainer link={data.link} /> });

@@ -222,10 +222,10 @@ const RegisterUserContainer = ({
             </div>
             <span style={{ margin: '4px 29px 23px 29px', fontSize: '11px', lineHeight: '1rem' }}>
               Les informations recueillies sur ce formulaire sont enregistrées dans un fichier
-              informatisé par Pix pour permettre l&apos;accès au service offert par Pix. Elles sont
+              informatisé par Diagoriente pour permettre l&apos;accès au service offert par Diagoriente. Elles sont
               conservées pendant une durée de 5 ans maximum à compter du dernier accès au compte
               utilisateur, et archivées selon les délais de prescription légale (5 ans). Elles sont
-              destinées à Pix et à ses prestataires techniques exclusivement. Conformément à la loi
+              destinées à Diagoriente et à ses prestataires techniques exclusivement. Conformément à la loi
               « informatique et libertés », vous pouvez exercer votre droit d&apos;accès aux données
               vous concernant et les faire rectifier en envoyant un mail à
               pascal.chaumette@beta.gouv.fr
