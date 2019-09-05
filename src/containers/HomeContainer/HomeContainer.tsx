@@ -13,11 +13,14 @@ import Header from 'components_v3/Header/Header';
 import CardHome from 'components_v3/CardHome';
 
 import advisorActions from 'reducers/authAdvisor/login';
+import modalActions from 'reducers/modal';
 
 import PictoPlayButton from 'assets_v3/Home/Picto_PlayButton.svg';
 import PictoModifier from 'assets_v3/Home/Picto_Modifier.svg';
 import PictoValider from 'assets_v3/Home/Picto_Valider.svg';
 import IlluMiroir from 'assets_v3/Home/Illu_Miroir.svg';
+import TutoModal from 'components/modals/Tutomodal/tutoModal';
+import { useDidMount } from 'hooks';
 import classes from './home.module.scss';
 
 const steps = [
@@ -41,9 +44,15 @@ interface Props extends RouteComponentProps {
   user: User;
 }
 
+interface DispatchProps {
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
+  logoutAdvisor: () => void;
+}
+
 const HomeContainer = ({
- history, advisor, logoutAdvisor, user,
-}: Props) => {
+ history, advisor, logoutAdvisor, user, openModal, closeModal,
+}: Props & DispatchProps) => {
   const navigate = (path: string) => () => {
     history.push(path);
   };
@@ -60,6 +69,9 @@ const HomeContainer = ({
       </div>
     );
   }
+  useDidMount(() => {
+    openModal(<TutoModal type="acceuil" click={() => history.push('/')} passer={closeModal} />);
+  });
 
   return (
     <div className={classes.home}>
@@ -120,8 +132,11 @@ const mapStateToProps = ({ authAdvisor, authUser }: ReduxState) => ({
   user: authUser.user,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => ({
   logoutAdvisor: () => dispatch(advisorActions.logoutAdvisor()),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(

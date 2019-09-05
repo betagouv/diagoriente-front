@@ -1,0 +1,49 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+.header {
+    background: #7992bf;
+    width: 100%;
+    position: relative;
+    height: 40px;
+}
+.img {
+    width: 100%;
+    margin-top: 20px;
+}
+.title {
+    text-transform: uppercase;
+    position: absolute;
+    top: 10px;
+    left: 45px;
+    font-size: 16px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.help {
+ position: absolute;
+ left: -25px;
+ top: -10px;
+}
+.buttonsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.compris {
+    font-size: 16px;
+}
