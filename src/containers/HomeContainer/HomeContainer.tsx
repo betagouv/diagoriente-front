@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
@@ -19,6 +19,7 @@ import PictoModifier from 'assets_v3/Home/Picto_Modifier.svg';
 import PictoValider from 'assets_v3/Home/Picto_Valider.svg';
 import IlluMiroir from 'assets_v3/Home/Illu_Miroir.svg';
 import classes from './home.module.scss';
+import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 const steps = [
   {
@@ -51,7 +52,14 @@ const HomeContainer = ({
   const loginAdvisor = () => {
     history.push('/login/advisor');
   };
-
+  useEffect(() => {
+    localStorage.setItem(
+      'Tuto',
+      JSON.stringify([false, false, false, false, false, false, false, false, false]),
+    );
+		console.log('showTuto', showTuto(0));
+		tutoShowed(2);
+  }, []);
   function renderButton(text: string, icon: string, onClick?: () => void) {
     return (
       <div onClick={onClick} className={classes.commencerBtn}>

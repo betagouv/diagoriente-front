@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useEffect } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -17,6 +17,7 @@ import SideBar from 'components_v3/ui/SideBar/SideBar';
 import Header from 'components_v3/Header/Header';
 
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 
 // api
 import withApis, { ApiComponentProps } from 'hoc/withApi';
@@ -24,11 +25,12 @@ import { getParcours, getFavorites, createFavorites } from 'requests';
 
 // actions
 import ParcoursActions from 'reducers/parcours';
-
+import modalActions from 'reducers/modal';
 // css
 import classes from './profileContainer.module.scss';
 import SkillsContainer from '../SkillsContainer/SkillsContainer';
 import ExpertisesContainer from '../ExpertisesContainer';
+import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 interface ParcoursParams {
   completed?: boolean;
@@ -43,6 +45,8 @@ interface ParcoursParams {
 
 interface DispatchToProps {
   parcoursRequest: (payload: ParcoursParams) => void;
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
 }
 
 interface MapToProps {
@@ -60,7 +64,23 @@ interface Props
     MapToProps,
     DispatchToProps {}
 
-const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
+const ProfileContainer = ({
+ match, fetchingParcour, parcours, openModal, closeModal,
+}: Props) => {
+  useEffect(() => {
+    if (showTuto(0)) {
+      openModal(
+        <ConfirmModal
+          onCloseModal={closeModal}
+          confirme={closeModal}
+          value={2}
+          text="vous avez déja selectionné 4 compétences"
+          isConfirm={false}
+        />,
+      );
+    }
+    tutoShowed(2);
+  }, []);
   const expertiseRef = useRef(null);
   const oneCompetencesNoSetted = parcours.data.skills
     .filter(item => item.type === 'personal')
@@ -282,6 +302,9 @@ const mapStateToProps = ({ parcours }: ReduxState): MapToProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
   parcoursRequest: (payload: ParcoursParams) => dispatch(ParcoursActions.parcoursRequest(payload)),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(
