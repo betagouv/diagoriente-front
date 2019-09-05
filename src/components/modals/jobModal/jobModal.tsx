@@ -4,7 +4,7 @@ import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import Questions from 'components_v3/Questions/Questions';
 import VerticalStepper from 'components/VerticalStepper/VerticalStepper';
 import VideoContainer from 'components/VideoContainer/VideoContainer';
-
+import EntrepriseForm from 'components_v3/EntrepriseForm/EntrepriseForm';
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import {
@@ -147,6 +147,10 @@ const JobModal = ({
         />
       ),
     },
+/*     {
+      _id: 3,
+      content: <EntrepriseForm />,
+    }, */
   ];
   if (data.link) {
     items.splice(1, 0, { _id: 1, content: <VideoContainer link={data.link} /> });

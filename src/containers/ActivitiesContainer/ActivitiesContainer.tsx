@@ -39,7 +39,7 @@ interface Props extends RouteComponentProps<{ id: string }>, IMapToProps, IDispa
 }
 
 const ActivitiesContainer = ({
-  theme, /// check theme.type and change style if it's professional
+  theme, // / check theme.type and change style if it's professional
   currentThemeSkill,
   history,
   match,
@@ -72,7 +72,7 @@ const ActivitiesContainer = ({
 
   useDidUpdate(() => {
     activitiesChange(currentThemeSkill.activities);
-  },           [match.params.id]);
+  }, [match.params.id]);
 
   useDidUpdate(() => {
     if (!(fetching || error)) {
@@ -81,7 +81,7 @@ const ActivitiesContainer = ({
       }
       initialLength.current = skills.length;
     }
-  },           [fetching]);
+  }, [fetching]);
 
   if (isEmpty(theme.activities)) {
     return (
@@ -116,7 +116,12 @@ const ActivitiesContainer = ({
   return (
     <div className={classes.activityContainer}>
       <Prompt
-        when={!isEqual(currentThemeSkill.activities.map(({ _id }) => _id), activities.map(({ _id }) => _id))}
+        when={
+          !isEqual(
+            currentThemeSkill.activities.map(({ _id }) => _id),
+            activities.map(({ _id }) => _id),
+          )
+        }
         message={'Êtes-vous sûr de vouloir fermer cette page?\nVous allez perdre vos modifications'}
       />
       <div className={classNames('colorful_bar', classes.bar_color)} />
@@ -135,7 +140,7 @@ const ActivitiesContainer = ({
         <Grid item xl={12} sm={12} smd={12} xs={12}>
           <div className={classes.activitiesContainer}>{activitiesComponents}</div>
         </Grid>
-        <Grid item xl={12} sm={8} smd={9} xs={6} className={'flex_center'}>
+        <Grid item xl={12} sm={8} smd={9} xs={6} className="flex_center">
           <ContinueButton
             disabled={theme.activities.length !== 0 && activities.length === 0}
             onClick={onContinueClick}
@@ -148,7 +153,10 @@ const ActivitiesContainer = ({
   );
 };
 
-const mapStateToProps = (state: ReduxState, { match }: RouteComponentProps<{ id: string }>): IMapToProps => ({
+const mapStateToProps = (
+  state: ReduxState,
+  { match }: RouteComponentProps<{ id: string }>,
+): IMapToProps => ({
   currentThemeSkill: currentThemeSelector(match.params.id)(state),
   skills: state.parcours.data.skills,
   fetching: state.parcours.fetching,

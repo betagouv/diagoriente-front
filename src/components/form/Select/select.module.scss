@@ -1,4 +1,4 @@
-@import "../../../styles/variables.scss";
+@import '../../../styles/variables.scss';
 
 .login_container_input {
   width: 100%;
@@ -10,13 +10,22 @@
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   padding-left: 10px;
+  background-color: white;
+  cursor: pointer;
 }
-
+.selectContainer {
+  width: 25%;
+  display: flex;
+  margin: 0px 3px;
+}
 .text_container {
   width: 90%;
   display: flex;
   flex-direction: column;
   position: relative;
+  border: none;
+  height: 33px;
+  color: $grey-blue;
 }
 .img_container {
   width: 10%;
@@ -51,7 +60,24 @@
     background: rgba(0, 0, 0, 0.05);
   }
 }
-@media (max-width: map-get($breakpoints, "md")) {
+@media (max-width: map-get($breakpoints, 'md')) {
   .login_container_input {
   }
+}
+input {
+  outline: 0;
+  background-color: #fff;
+}
+
+.communeInput {
+  width: 100%;
+  display: flex;
+  margin: 15px 0;
+  position: relative;
+  border: 1px solid $gray-500;
+  line-height: 2;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding-left: 10px;
+  background-color: white;
 }

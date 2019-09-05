@@ -13,7 +13,7 @@ type IProps = {
   selectClose: (e: MouseEvent<HTMLElement>) => void;
   onChange: (value: string) => void;
   value: string;
-  options: { value: string; label: string }[];
+  options: { value: any; label: any }[];
   className: string;
   placeholder: string;
 };
@@ -41,29 +41,27 @@ const Select = ({
   }
 
   return (
-    <div className={className} onClick={selectOpen}>
-      <div className={style.login_container_input}>
-        <div className={style.text_container}>{title}</div>
-        <div onClick={selectOpen} className={style.img_container}>
-          <img src={Arrow} className={style.arrow} alt="arrow" />
-        </div>
-        {open && (
-          <div className={style.select_drop}>
-            {!isEmpty(options)
-              && options.map(el => {
-                const onChangeText = (e: React.MouseEvent<HTMLDivElement>) => {
-                  e.stopPropagation();
-                  onChange(el.value);
-                };
-                return (
-                  <div key={el.value} onClick={onChangeText} className={style.select_item}>
-                    {el.label}
-                  </div>
-                );
-              })}
-          </div>
-        )}
+    <div className={style.login_container_input} onClick={selectOpen}>
+      <div className={style.text_container}>{title}</div>
+      <div onClick={selectOpen} className={style.img_container}>
+        <img src={Arrow} className={style.arrow} alt="arrow" />
       </div>
+      {open && (
+        <div className={style.select_drop}>
+          {!isEmpty(options)
+            && options.map(el => {
+              const onChangeText = (e: React.MouseEvent<HTMLDivElement>) => {
+                e.stopPropagation();
+                onChange(el.value);
+              };
+              return (
+                <div key={el.value} onClick={onChangeText} className={style.select_item}>
+                  {el.label}
+                </div>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };
