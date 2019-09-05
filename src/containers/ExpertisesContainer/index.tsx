@@ -12,12 +12,16 @@ import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, IParcoursResponse, IExpertise } from 'reducers';
 import { getParcours } from 'requests';
 import { useDidMount, useDidUpdate } from 'hooks';
+import modalActions from 'reducers/modal';
 
+import TutoModal from 'components/modals/Tutomodal/tutoModal';
 import ParcoursActions from '../../reducers/parcours';
 import classes from './ExpertisesContainer.module.scss';
 import ApparationCard from '../../components_v3/ApparationCard';
 import warning from '../../assets/icons/warning.svg';
 import GraduationLevel from '../../components_v3/GraduationLevel';
+
+import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 interface CompetencesValue {
   _id: string;
@@ -35,6 +39,8 @@ interface MapToProps {
 }
 interface DispatchToProps {
   updateParcoursCompetences: (data: updateparcoursParam) => void;
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
 }
 
 interface Props
@@ -60,6 +66,8 @@ const ExpertisesContainer = forwardRef(
       updateParcoursCompetences,
       parcoursFetching,
       parcoursError,
+      openModal,
+      closeModal,
     }: Props,
     ref: Ref<RefProp>,
   ) => {
@@ -109,6 +117,17 @@ const ExpertisesContainer = forwardRef(
         );
         setCompetences(get.data.globalCopmetences);
       }
+      if (showTuto(5)) {
+        openModal(
+          <TutoModal
+            type="intermediate"
+            click={() => {
+              closeModal();
+              tutoShowed(5);
+            }}
+          />,
+        );
+      }
     });
 
     useDidMount(() => {
@@ -118,6 +137,17 @@ const ExpertisesContainer = forwardRef(
     useDidUpdate(() => {
       if (!parcoursFetching && parcoursError === 'no error') {
         history.push('/profile/skills');
+        if (showTuto(6)) {
+          openModal(
+            <TutoModal
+              type="addPro"
+              click={() => {
+                closeModal();
+                tutoShowed(6);
+              }}
+            />,
+          );
+        }
       }
     }, [parcours]);
     useDidUpdate(() => {
@@ -274,6 +304,9 @@ const mapStateToProps = ({ parcours, expertises }: ReduxState): MapToProps => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
   updateParcoursCompetences: (data: updateparcoursParam) =>
     dispatch(ParcoursActions.updateParcoursCompetences(data)),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(

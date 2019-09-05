@@ -59,6 +59,14 @@ const LoginUserContainer = ({
 
   useDidUpdate(() => {
     if (!(fetching || error)) {
+      const storedTuto = localStorage.getItem('Tuto');
+      if (!storedTuto) {
+        localStorage.setItem(
+          'Tuto',
+          JSON.stringify([false, false, false, false, false, false, false, false, false]),
+        );
+      }
+
       const path = search.from || '/';
 
       history.push(path);

@@ -18,6 +18,8 @@ import { useCaptureRef } from 'hooks/useCaptureRef';
 import ApparationCard from 'components_v3/ApparationCard/index';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
+import TutoModal from 'components/modals/Tutomodal/tutoModal';
+
 // utils
 import classNames from 'utils/classNames';
 
@@ -26,6 +28,7 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 
 // api
 import { getTheme } from 'requests';
+import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 // styles
 import classes from './theme.module.scss';
@@ -168,6 +171,7 @@ const ThemeContainer = forwardRef(
                 <Spinner />
               </div>
             ) : (
+				
               map(activitiesArray, activity => {
                 const { index, selected } = getSelected(
                   activities,

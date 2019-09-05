@@ -6,8 +6,8 @@ import competencesPerso from 'assets_v3/tuto/4.png';
 import successPerso from 'assets_v3/tuto/5.png';
 import intermediate from 'assets_v3/tuto/6.png';
 import addPro from 'assets_v3/tuto/7.png';
-import competencesPro from 'assets_v3/tuto/8.png';
-import searchPro from 'assets_v3/tuto/9.png';
+import searchPro from 'assets_v3/tuto/8.png';
+import competencesPro from 'assets_v3/tuto/9.png';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import classes from './tuto.module.scss';
 
@@ -23,7 +23,7 @@ interface Props {
     | 'competencesPro'
     | 'searchPro';
   click: () => void;
-  passer: () => void;
+  passer?: () => void;
 }
 
 const TutoModal = ({ type, click, passer }: Props) => {
@@ -94,7 +94,6 @@ const TutoModal = ({ type, click, passer }: Props) => {
               Iconcolor="#FF001F"
               textColor="#FF001F"
               className={classes.compris}
-              
             />
           )}
         </div>

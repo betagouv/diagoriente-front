@@ -47,7 +47,9 @@ import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import Input from 'components/form/Input/Input';
 import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
 import InvalidModal from 'components/modals/InvalidModal/InvalidModal';
+import TutoModal from 'components/modals/Tutomodal/tutoModal';
 import classes from './themesContainer.module.scss';
+import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 interface IMapToProps {
   parcours: IParcoursResponse;
@@ -139,6 +141,21 @@ const ThemesContainer = forwardRef(
       skillsChange(currentSkills);
       // eslint-disable-next-line
     }, [type]);
+    useEffect(() => {
+      if (type === 'professional') {
+        if (showTuto(7)) {
+          openModal(
+            <TutoModal
+              type="competencesPro"
+              click={() => {
+                closeModal();
+                tutoShowed(7);
+              }}
+            />,
+          );
+        }
+      }
+    }, []);
 
     useCaptureRef({ onFooterClick }, ref);
 
@@ -200,11 +217,32 @@ const ThemesContainer = forwardRef(
     }
 
     function onEditClick() {
-     if (step === 'select_theme') {
+      if (step === 'select_theme') {
         stepChange('activities_edit');
+        if (showTuto(2)) {
+          openModal(
+            <TutoModal
+              type="actvities"
+              click={() => {
+                closeModal();
+                tutoShowed(2);
+              }}
+            />,
+          );
+        }
       } else if (step === 'activities_edit') {
         const newSkill = newSkillRef.current;
-
+        if (showTuto(3)) {
+          openModal(
+            <TutoModal
+              type="competencesPerso"
+              click={() => {
+                closeModal();
+                tutoShowed(3);
+              }}
+            />,
+          );
+        }
         if (newSkill && newSkill.activities.length === 0) {
           openModal(
             <InvalidModal onCloseModal={closeModal} text="Il faut au moins choisir une activité" />,
@@ -213,6 +251,17 @@ const ThemesContainer = forwardRef(
           stepChange('expertise_edit');
         }
       } else if (step === 'expertise_edit') {
+        if (showTuto(4)) {
+          openModal(
+            <TutoModal
+              type="successPerso"
+              click={() => {
+                closeModal();
+                tutoShowed(4);
+              }}
+            />,
+          );
+        }
         const newSkill = newSkillRef.current;
         if (newSkill && isSkillValidInputs(newSkill)) {
           updateSkill();
@@ -254,6 +303,29 @@ const ThemesContainer = forwardRef(
             onClick={() => {
               selectedThemeChange(null);
               stepChange('select_theme');
+              if (type === 'personal') {
+                if (showTuto(1)) {
+                  openModal(
+                    <TutoModal
+                      type="themes"
+                      click={() => {
+                        closeModal();
+                        tutoShowed(1);
+                      }}
+                    />,
+                  );
+                }
+              } else if (showTuto(8)) {
+                  openModal(
+                    <TutoModal
+                      type="searchPro"
+                      click={() => {
+                        closeModal();
+                        tutoShowed(8);
+                      }}
+                    />,
+                  );
+                }
             }}
           />
         );

@@ -30,8 +30,8 @@ import ParcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
 // css
 import classes from './profileContainer.module.scss';
-import SkillsContainer from '../SkillsContainer/SkillsContainer';
-import ExpertisesContainer from '../ExpertisesContainer';
+import TutoModal from 'components/modals/Tutomodal/tutoModal';
+
 import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 interface ParcoursParams {
@@ -67,21 +67,21 @@ interface Props
     DispatchToProps {}
 
 const ProfileContainer = ({
- match, fetchingParcour, parcours, openModal, closeModal,
+ match, fetchingParcour, parcours, openModal, closeModal, history,
 }: Props) => {
   useEffect(() => {
     if (showTuto(0)) {
       openModal(
-        <ConfirmModal
-          onCloseModal={closeModal}
-          confirme={closeModal}
-          value={2}
-          text="vous avez déja selectionné 4 compétences"
-          isConfirm={false}
+        <TutoModal
+          type="acceuil"
+          click={() => {history.push('/game'); closeModal();}}
+          passer={() => {
+            closeModal();
+            tutoShowed(0);
+          }}
         />,
       );
     }
-    tutoShowed(2);
   }, []);
   const expertiseRef = useRef(null);
   const oneCompetencesNoSetted = parcours.data.skills

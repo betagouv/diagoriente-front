@@ -13,14 +13,11 @@ import Header from 'components_v3/Header/Header';
 import CardHome from 'components_v3/CardHome';
 
 import advisorActions from 'reducers/authAdvisor/login';
-import modalActions from 'reducers/modal';
 
 import PictoPlayButton from 'assets_v3/Home/Picto_PlayButton.svg';
 import PictoModifier from 'assets_v3/Home/Picto_Modifier.svg';
 import PictoValider from 'assets_v3/Home/Picto_Valider.svg';
 import IlluMiroir from 'assets_v3/Home/Illu_Miroir.svg';
-import TutoModal from 'components/modals/Tutomodal/tutoModal';
-import { useDidMount } from 'hooks';
 import classes from './home.module.scss';
 import { showTuto, tutoShowed } from '../../utils/localStorage';
 
@@ -52,7 +49,12 @@ interface DispatchProps {
 }
 
 const HomeContainer = ({
- history, advisor, logoutAdvisor, user, openModal, closeModal,
+  history,
+  advisor,
+  logoutAdvisor,
+  user,
+  openModal,
+  closeModal,
 }: Props & DispatchProps) => {
   const navigate = (path: string) => () => {
     history.push(path);
@@ -61,14 +63,7 @@ const HomeContainer = ({
   const loginAdvisor = () => {
     history.push('/login/advisor');
   };
-  useEffect(() => {
-    localStorage.setItem(
-      'Tuto',
-      JSON.stringify([false, false, false, false, false, false, false, false, false]),
-    );
-		console.log('showTuto', showTuto(0));
-		tutoShowed(2);
-  }, []);
+
   function renderButton(text: string, icon: string, onClick?: () => void) {
     return (
       <div onClick={onClick} className={classes.commencerBtn}>
@@ -77,9 +72,6 @@ const HomeContainer = ({
       </div>
     );
   }
-  useDidMount(() => {
-    openModal(<TutoModal type="acceuil" click={() => history.push('/')} passer={closeModal} />);
-  });
 
   return (
     <div className={classes.home}>
@@ -140,11 +132,8 @@ const mapStateToProps = ({ authAdvisor, authUser }: ReduxState) => ({
   user: authUser.user,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   logoutAdvisor: () => dispatch(advisorActions.logoutAdvisor()),
-  openModal: (children, backdropClassName) =>
-    dispatch(modalActions.openModal({ children, backdropClassName })),
-  closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(
