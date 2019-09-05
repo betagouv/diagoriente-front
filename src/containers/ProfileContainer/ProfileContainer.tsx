@@ -273,16 +273,7 @@ const ProfileContainer = ({ match, fetchingParcour, parcours }: Props) => {
             path="/profile/mesDemarches"
             exact
             render={props =>
-              (oneCompetencesNoSetted ? (
-                <Redirect to="/profile/intermediate" />
-              ) : (
-                <MesDemarches
-                  title="DÉCOUVRE ET AJOUTE LES MÉTIERS QUI T’INTÉRESSENT"
-                  {...props}
-                  footerButtons={[]}
-
-                />
-              ))
+              (oneCompetencesNoSetted ? <Redirect to="/profile/intermediate" /> : <MesDemarches />)
             }
           />
         </Switch>
