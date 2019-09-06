@@ -178,6 +178,16 @@ const ExpertisesContainer = forwardRef(
     function onFooterClick(button: string) {
       if (button === 'valider') {
         HandleSubmit();
+      } else if (button === 'help') {
+        openModal(
+          <TutoModal
+            type="intermediate"
+            click={() => {
+              closeModal();
+              tutoShowed(5);
+            }}
+          />,
+        );
       }
       /*       history.push('/profile/pro');
        */
