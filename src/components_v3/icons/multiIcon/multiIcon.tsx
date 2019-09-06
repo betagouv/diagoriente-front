@@ -90,19 +90,21 @@ const MultiIcon = ({
             : '',
         )}
         style={{
-          color: barré ? '#E55D67' : textColor,
-          textDecoration: barré ? 'line-through' : 'none',
+          color: barré && type === 'validate' ? '#E55D67' : textColor,
+          textDecoration: barré && type === 'validate' ? 'line-through' : 'none',
         }}
       >
         {text}
       </span>
     )}
-    {barré && <img src={WarningFooter} alt="warning" className={classes.warning} />}
+    {barré && type === 'validate' && (
+      <img src={WarningFooter} alt="warning" className={classes.warning} />
+    )}
     {type === 'add' && !barré && <Add width={width} height={height} color={Iconcolor} />}
     {type === 'edit' && !barré && <Edit width={width} height={height} color={Iconcolor} />}
     {type === 'validate' && !barré && <Valid width={width} height={height} color={Iconcolor} />}
     {type === 'play' && !barré && <Play width={width} height={height} color={Iconcolor} />}
-    {type === 'help' && !barré && <Help width={width} height={height} color={Iconcolor} />}
+    {type === 'help' && <Help width={width} height={height} color={Iconcolor} />}
     {type === 'download' && !barré && <Download width={width} height={height} color={Iconcolor} />}
     {type === 'print' && !barré && <Print width={width} height={height} color={Iconcolor} />}
     {type === 'prev' && !barré && (
