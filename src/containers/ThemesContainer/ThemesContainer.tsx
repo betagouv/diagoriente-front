@@ -132,6 +132,63 @@ const ThemesContainer = forwardRef(
           ],
         });
       }
+      if (button === 'help') {
+        if (type === 'personal') {
+          if (step === 'activities_edit') {
+            openModal(
+              <TutoModal
+                type="actvities"
+                click={() => {
+                  closeModal();
+                  tutoShowed(2);
+                }}
+              />,
+            );
+          } else if (step === 'expertise_edit') {
+            openModal(
+              <TutoModal
+                type="competencesPerso"
+                click={() => {
+                  closeModal();
+                  tutoShowed(3);
+                }}
+              />,
+            );
+          } else {
+            openModal(
+              <TutoModal
+                type="themes"
+                click={() => {
+                  closeModal();
+                  tutoShowed(1);
+                }}
+              />,
+            );
+          }
+        } else if (type === 'professional') {
+          if (step === 'activities_edit' || step === 'expertise_edit') {
+            openModal(
+              <TutoModal
+                type="competencesPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(7);
+                }}
+              />,
+            );
+          } else {
+            openModal(
+              <TutoModal
+                type="searchPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(8);
+                }}
+              />,
+            );
+          }
+        }
+      }
     }
 
     useEffect(() => {
@@ -316,16 +373,16 @@ const ThemesContainer = forwardRef(
                   );
                 }
               } else if (showTuto(8)) {
-                  openModal(
-                    <TutoModal
-                      type="searchPro"
-                      click={() => {
-                        closeModal();
-                        tutoShowed(8);
-                      }}
-                    />,
-                  );
-                }
+                openModal(
+                  <TutoModal
+                    type="searchPro"
+                    click={() => {
+                      closeModal();
+                      tutoShowed(8);
+                    }}
+                  />,
+                );
+              }
             }}
           />
         );
