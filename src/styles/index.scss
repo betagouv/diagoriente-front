@@ -9,6 +9,10 @@ body {
 /* body::-webkit-scrollbar {
   display: none;
 } */
+body::-webkit-scrollbar {
+  display: none;
+}
+
 
 * {
   flex: 0 0 auto;
