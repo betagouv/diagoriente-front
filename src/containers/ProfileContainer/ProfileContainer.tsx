@@ -169,7 +169,7 @@ const ProfileContainer = ({
             render={props => (
               <ThemesContainer
                 {...props}
-                title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PERSONNELLES"
+                title=" "
                 type="personal"
                 footerButtons={[
                   {
@@ -218,7 +218,7 @@ const ProfileContainer = ({
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <ThemesContainer
-                  title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
+                  title=" "
                   {...props}
                   type="professional"
                   footerButtons={[
