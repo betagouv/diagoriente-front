@@ -29,7 +29,7 @@
 }
 .Header {
   @extend .base;
-  width: 100vw;
+  width: 100%;
   height: $header_height;
   z-index: $header_zindex;
   background-color: #fff;

@@ -89,7 +89,7 @@
 
 .backdrop {
   z-index: $zindex-modal-backdrop;
-  background-color: $modal-backdrop-bg;
+  background-color: rgba(0, 0, 0, 0.75);
   opacity: 0;
   transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }

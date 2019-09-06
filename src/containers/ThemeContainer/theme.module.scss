@@ -122,3 +122,16 @@
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 768px) {
+  .new_theme {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+  }
+  .new_theme_activities {
+    width: 80%;
+    
+  }
+}
