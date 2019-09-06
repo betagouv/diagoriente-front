@@ -524,6 +524,7 @@ const ThemesContainer = forwardRef(
       <div className={classes.container}>
         <div className={classes.add}>{renderAdd()}</div>
         <div className={classes.themes_container}>
+          <span className={classes.themesSaved}>Mes experieces enregistres</span>
           {skills.map(({ theme }, index) => {
             const selected = theme._id === selectedTheme;
             function onEdit() {

@@ -42,7 +42,7 @@ const GameContainer = ({ history, openModal, closeModal }: Props) => {
           type="validate"
           withText
           footer
-          text="passer à la suite"
+          text="commencer ma carte"
           width="35"
           height="35"
           textColor="#ffba27"

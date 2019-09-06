@@ -19,10 +19,10 @@ const sideBarItems = [
     path: 'skills',
     title: 'CARTE DE COMPÉTENCES',
   },
-  {
+  /* {
     path: 'perso',
     title: 'EXPÉRIENCES PERSONNELLES',
-  },
+  }, */
 ];
 const sideBarItemsExplorama = [
   {
@@ -98,7 +98,7 @@ const SideBar = ({
           />
         </div>
       ))}
-      <div className={classes.item}>
+      {/* <div className={classes.item}>
         <MultiIcon
           type="edit"
           withText
@@ -122,7 +122,7 @@ const SideBar = ({
               : 'gray'
           }
         />
-      </div>
+      </div> */}
       <div className={classes.itemsExplorama}>
         {sideBarItemsExplorama.map((item, i) => (
           <div key={item.path} className={classes.item}>
