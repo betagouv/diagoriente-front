@@ -201,15 +201,27 @@ const ThemesContainer = forwardRef(
     useEffect(() => {
       if (type === 'professional') {
         if (showTuto(7)) {
-          openModal(
-            <TutoModal
-              type="competencesPro"
-              click={() => {
-                closeModal();
-                tutoShowed(7);
-              }}
-            />,
-          );
+          if (step) {
+            openModal(
+              <TutoModal
+                type="searchPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(8);
+                }}
+              />,
+            );
+          } else {
+            openModal(
+              <TutoModal
+                type="competencesPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(7);
+                }}
+              />,
+            );
+          }
         }
       }
     }, []);
@@ -276,7 +288,7 @@ const ThemesContainer = forwardRef(
     function onEditClick() {
       if (step === 'select_theme') {
         stepChange('activities_edit');
-        if (showTuto(2)) {
+        if (showTuto(2) && type === 'personal') {
           openModal(
             <TutoModal
               type="actvities"
@@ -289,7 +301,7 @@ const ThemesContainer = forwardRef(
         }
       } else if (step === 'activities_edit') {
         const newSkill = newSkillRef.current;
-        if (showTuto(3)) {
+        if (showTuto(3) && type === 'personal') {
           openModal(
             <TutoModal
               type="competencesPerso"
@@ -308,7 +320,7 @@ const ThemesContainer = forwardRef(
           stepChange('expertise_edit');
         }
       } else if (step === 'expertise_edit') {
-        if (showTuto(4)) {
+        if (showTuto(4) && type === 'personal') {
           openModal(
             <TutoModal
               type="successPerso"
@@ -396,7 +408,7 @@ const ThemesContainer = forwardRef(
           addTheme={selectedTheme !== null}
           add
         >
-          {type === 'professional' && (
+          {type === 'professional' && step === 'select_theme' && (
             <div className={classes.searchInputWrapper}>
               <Input
                 name="rechercher"

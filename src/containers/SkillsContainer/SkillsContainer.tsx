@@ -72,17 +72,17 @@ const SkillsContainer = forwardRef(
         }
         if (button === 'help') {
           openModal(
-          <TutoModal
-          type="acceuil"
-          click={() => {
-            history.push('/game');
-            closeModal();
-          }}
-          passer={() => {
-            closeModal();
-            tutoShowed(0);
-          }}
-        />,
+            <TutoModal
+              type="acceuil"
+              click={() => {
+                history.push('/game');
+                closeModal();
+              }}
+              passer={() => {
+                closeModal();
+                tutoShowed(0);
+              }}
+            />,
           );
         }
       }
