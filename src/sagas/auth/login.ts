@@ -5,7 +5,8 @@ import { IParcoursResponse, ReduxState } from 'reducers';
 import userActions from 'reducers/authUser/user';
 import loginActions from 'reducers/authUser/login';
 import parcoursActions from 'reducers/parcours';
-
+/* import { initializeTuto } from 'utils/localStorage';
+ */
 import loginAdvisorActions from 'reducers/authAdvisor/login';
 import advisorActions from 'reducers/authAdvisor/advisor';
 import expertiseActions from 'reducers/expertises';
@@ -38,7 +39,8 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
       password,
     });
     if (response.success) {
-      setAuthorizationBearer(response.data.token.accessToken);
+/*       initializeTuto(response.data.user._id);
+ */      setAuthorizationBearer(response.data.token.accessToken);
       const { authAdvisor }: ReduxState = yield select();
       const [parcours, competences]: [
         Response<IParcoursResponse>,

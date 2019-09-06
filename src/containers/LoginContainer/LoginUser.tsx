@@ -12,7 +12,6 @@ import { useDidUpdate } from 'hooks';
 
 // utils
 import { decodeUri, encodeUri } from 'utils/url';
-
 // actions
 import loginUserActions from 'reducers/authUser/login';
 import modalAction from 'reducers/modal';
@@ -59,11 +58,11 @@ const LoginUserContainer = ({
 
   useDidUpdate(() => {
     if (!(fetching || error)) {
-      const storedTuto = localStorage.getItem('Tuto');
+       const storedTuto = localStorage.getItem('Tuto');
       if (!storedTuto) {
         localStorage.setItem(
           'Tuto',
-          JSON.stringify([false, false, false, false, false, false, false, false, false]),
+          JSON.stringify([false, false, false, false, false, false, false, false, false, false]),
         );
       }
 

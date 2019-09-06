@@ -14,3 +14,21 @@ export function tutoShowed(ModalIndex: number) {
     localStorage.setItem('Tuto', JSON.stringify(newStoredTuto));
   }
 }
+/* export function initializeTuto(userId: string) {
+  const newUser = {
+    userId,
+    show: [false, false, false, false, false, false, false, false, false],
+  };
+  const Tuto = [];
+  Tuto.push(newUser);
+  localStorage.setItem('Tuto', JSON.stringify(Tuto));
+
+  const storedTuto = localStorage.getItem('Tuto');
+  if (!storedTuto) {
+    localStorage.setItem(
+      'Tuto',
+      JSON.stringify([false, false, false, false, false, false, false, false, false]),
+    );
+  }
+}
+ */

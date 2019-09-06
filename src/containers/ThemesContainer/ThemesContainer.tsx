@@ -166,13 +166,23 @@ const ThemesContainer = forwardRef(
             );
           }
         } else if (type === 'professional') {
-          if (step === 'activities_edit' || step === 'expertise_edit') {
+          if (step === 'activities_edit') {
+            openModal(
+              <TutoModal
+                type="actvities"
+                click={() => {
+                  closeModal();
+                  tutoShowed(8);
+                }}
+              />,
+            );
+          } else if (step === 'expertise_edit') {
             openModal(
               <TutoModal
                 type="competencesPro"
                 click={() => {
                   closeModal();
-                  tutoShowed(7);
+                  tutoShowed(9);
                 }}
               />,
             );
@@ -182,7 +192,7 @@ const ThemesContainer = forwardRef(
                 type="searchPro"
                 click={() => {
                   closeModal();
-                  tutoShowed(8);
+                  tutoShowed(7);
                 }}
               />,
             );
@@ -205,16 +215,6 @@ const ThemesContainer = forwardRef(
             openModal(
               <TutoModal
                 type="searchPro"
-                click={() => {
-                  closeModal();
-                  tutoShowed(8);
-                }}
-              />,
-            );
-          } else {
-            openModal(
-              <TutoModal
-                type="competencesPro"
                 click={() => {
                   closeModal();
                   tutoShowed(7);
@@ -298,6 +298,16 @@ const ThemesContainer = forwardRef(
               }}
             />,
           );
+        } else if (showTuto(8) && type === 'professional') {
+          openModal(
+            <TutoModal
+              type="actvities"
+              click={() => {
+                closeModal();
+                tutoShowed(8);
+              }}
+            />,
+          );
         }
       } else if (step === 'activities_edit') {
         const newSkill = newSkillRef.current;
@@ -308,6 +318,17 @@ const ThemesContainer = forwardRef(
               click={() => {
                 closeModal();
                 tutoShowed(3);
+              }}
+            />,
+          );
+        }
+        if (showTuto(9) && type === 'professional') {
+          openModal(
+            <TutoModal
+              type="competencesPro"
+              click={() => {
+                closeModal();
+                tutoShowed(9);
               }}
             />,
           );
@@ -384,13 +405,13 @@ const ThemesContainer = forwardRef(
                     />,
                   );
                 }
-              } else if (showTuto(8)) {
+              } else if (showTuto(7)) {
                 openModal(
                   <TutoModal
                     type="searchPro"
                     click={() => {
                       closeModal();
-                      tutoShowed(8);
+                      tutoShowed(7);
                     }}
                   />,
                 );
