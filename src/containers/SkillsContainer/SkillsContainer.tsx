@@ -24,9 +24,12 @@ import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
 import parcoursActions from 'reducers/parcours';
+import TutoModal from 'components/modals/Tutomodal/tutoModal';
+
+import { pdf2 } from 'utils/pdf';
+import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 /* import JobIcon from 'components_v3/icons/jobIcon/jobIcon'; */
-import { pdf2 } from 'utils/pdf';
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -66,6 +69,21 @@ const SkillsContainer = forwardRef(
         }
         if (button === 'print') {
           pdf2(parcours, get, user, true);
+        }
+        if (button === 'help') {
+          openModal(
+            <TutoModal
+              type="acceuil"
+              click={() => {
+                history.push('/game');
+                closeModal();
+              }}
+              passer={() => {
+                closeModal();
+                tutoShowed(0);
+              }}
+            />,
+          );
         }
       }
     }
@@ -206,8 +224,8 @@ const SkillsContainer = forwardRef(
                       level={currentSkill && currentSkill.value}
                       color={currentSkill && currentSkill.color}
                       index={1}
-											description={expertises[index].niveau}
-											modeShowOnly
+                      description={expertises[index].niveau}
+                      modeShowOnly
                     />
                   </div>
                 );

@@ -29,8 +29,8 @@ import { getParcours, getFavorites, createFavorites } from 'requests';
 import ParcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
 // css
-import classes from './profileContainer.module.scss';
 import TutoModal from 'components/modals/Tutomodal/tutoModal';
+import classes from './profileContainer.module.scss';
 
 import { showTuto, tutoShowed } from '../../utils/localStorage';
 
@@ -67,14 +67,22 @@ interface Props
     DispatchToProps {}
 
 const ProfileContainer = ({
- match, fetchingParcour, parcours, openModal, closeModal, history,
+  match,
+  fetchingParcour,
+  parcours,
+  openModal,
+  closeModal,
+  history,
 }: Props) => {
   useEffect(() => {
     if (showTuto(0)) {
       openModal(
         <TutoModal
           type="acceuil"
-          click={() => {history.push('/game'); closeModal();}}
+          click={() => {
+            history.push('/game');
+            closeModal();
+          }}
           passer={() => {
             closeModal();
             tutoShowed(0);
@@ -106,6 +114,21 @@ const ProfileContainer = ({
               <SkillsContainer
                 {...props}
                 footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="help"
+                        withText
+                        footer
+                        text="Aide"
+                        width="35"
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'help',
+                  },
                   {
                     component: (
                       <MultiIcon
@@ -146,9 +169,24 @@ const ProfileContainer = ({
             render={props => (
               <ThemesContainer
                 {...props}
-                title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PERSONNELLES"
+                title=" "
                 type="personal"
                 footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="help"
+                        withText
+                        footer
+                        text="Aide"
+                        width="35"
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'help',
+                  },
                   {
                     component: fetchingParcour ? (
                       <div className={classes.containerSpinner}>
@@ -180,10 +218,25 @@ const ProfileContainer = ({
                 <Redirect to="/profile/intermediate" />
               ) : (
                 <ThemesContainer
-                  title="AJOUTE ET AUTO-ÉVALUE TES EXPÉRIENCES PROFESSIONNELLES"
+                  title=" "
                   {...props}
                   type="professional"
                   footerButtons={[
+                    {
+                      component: (
+                        <MultiIcon
+                          type="help"
+                          withText
+                          footer
+                          text="Aide"
+                          width="35"
+                          height="35"
+                          textColor="#7992BF"
+                          Iconcolor="#7992BF"
+                        />
+                      ),
+                      key: 'help',
+                    },
                     {
                       component: fetchingParcour ? (
                         <div className={classes.containerSpinner}>
@@ -218,6 +271,21 @@ const ProfileContainer = ({
                 type="professional"
                 ref={expertiseRef}
                 footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="help"
+                        withText
+                        footer
+                        text="Aide"
+                        width="35"
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'help',
+                  },
                   {
                     component: fetchingParcour ? (
                       <div className={classes.containerSpinner}>

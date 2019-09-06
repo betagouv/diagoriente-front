@@ -132,6 +132,63 @@ const ThemesContainer = forwardRef(
           ],
         });
       }
+      if (button === 'help') {
+        if (type === 'personal') {
+          if (step === 'activities_edit') {
+            openModal(
+              <TutoModal
+                type="actvities"
+                click={() => {
+                  closeModal();
+                  tutoShowed(2);
+                }}
+              />,
+            );
+          } else if (step === 'expertise_edit') {
+            openModal(
+              <TutoModal
+                type="competencesPerso"
+                click={() => {
+                  closeModal();
+                  tutoShowed(3);
+                }}
+              />,
+            );
+          } else {
+            openModal(
+              <TutoModal
+                type="themes"
+                click={() => {
+                  closeModal();
+                  tutoShowed(1);
+                }}
+              />,
+            );
+          }
+        } else if (type === 'professional') {
+          if (step === 'activities_edit' || step === 'expertise_edit') {
+            openModal(
+              <TutoModal
+                type="competencesPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(7);
+                }}
+              />,
+            );
+          } else {
+            openModal(
+              <TutoModal
+                type="searchPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(8);
+                }}
+              />,
+            );
+          }
+        }
+      }
     }
 
     useEffect(() => {
@@ -144,15 +201,27 @@ const ThemesContainer = forwardRef(
     useEffect(() => {
       if (type === 'professional') {
         if (showTuto(7)) {
-          openModal(
-            <TutoModal
-              type="competencesPro"
-              click={() => {
-                closeModal();
-                tutoShowed(7);
-              }}
-            />,
-          );
+          if (step) {
+            openModal(
+              <TutoModal
+                type="searchPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(8);
+                }}
+              />,
+            );
+          } else {
+            openModal(
+              <TutoModal
+                type="competencesPro"
+                click={() => {
+                  closeModal();
+                  tutoShowed(7);
+                }}
+              />,
+            );
+          }
         }
       }
     }, []);
@@ -219,7 +288,7 @@ const ThemesContainer = forwardRef(
     function onEditClick() {
       if (step === 'select_theme') {
         stepChange('activities_edit');
-        if (showTuto(2)) {
+        if (showTuto(2) && type === 'personal') {
           openModal(
             <TutoModal
               type="actvities"
@@ -232,7 +301,7 @@ const ThemesContainer = forwardRef(
         }
       } else if (step === 'activities_edit') {
         const newSkill = newSkillRef.current;
-        if (showTuto(3)) {
+        if (showTuto(3) && type === 'personal') {
           openModal(
             <TutoModal
               type="competencesPerso"
@@ -251,7 +320,7 @@ const ThemesContainer = forwardRef(
           stepChange('expertise_edit');
         }
       } else if (step === 'expertise_edit') {
-        if (showTuto(4)) {
+        if (showTuto(4) && type === 'personal') {
           openModal(
             <TutoModal
               type="successPerso"
@@ -316,16 +385,16 @@ const ThemesContainer = forwardRef(
                   );
                 }
               } else if (showTuto(8)) {
-                  openModal(
-                    <TutoModal
-                      type="searchPro"
-                      click={() => {
-                        closeModal();
-                        tutoShowed(8);
-                      }}
-                    />,
-                  );
-                }
+                openModal(
+                  <TutoModal
+                    type="searchPro"
+                    click={() => {
+                      closeModal();
+                      tutoShowed(8);
+                    }}
+                  />,
+                );
+              }
             }}
           />
         );
@@ -339,7 +408,7 @@ const ThemesContainer = forwardRef(
           addTheme={selectedTheme !== null}
           add
         >
-          {type === 'professional' && (
+          {type === 'professional' && step === 'select_theme' && (
             <div className={classes.searchInputWrapper}>
               <Input
                 name="rechercher"
@@ -434,6 +503,7 @@ const ThemesContainer = forwardRef(
       <div className={classes.container}>
         <div className={classes.add}>{renderAdd()}</div>
         <div className={classes.themes_container}>
+          <span className={classes.themesSaved}>Mes experieces enregistres</span>
           {skills.map(({ theme }, index) => {
             const selected = theme._id === selectedTheme;
             function onEdit() {

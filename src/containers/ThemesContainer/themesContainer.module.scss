@@ -11,11 +11,12 @@
   min-height: 120px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #f1f1f1;
   width: 100%;
   color: blue;
   padding: 20px 7vw;
+  margin-right: 35px;
 }
 
 .themes_container {
@@ -141,4 +142,10 @@
         border-top-width: 6px !important;
       }
     }
+  }
+  .themesSaved {
+    color: #7992bf;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
   }

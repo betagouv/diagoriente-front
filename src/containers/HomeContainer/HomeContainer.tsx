@@ -53,8 +53,6 @@ const HomeContainer = ({
   advisor,
   logoutAdvisor,
   user,
-  openModal,
-  closeModal,
 }: Props & DispatchProps) => {
   const navigate = (path: string) => () => {
     history.push(path);
