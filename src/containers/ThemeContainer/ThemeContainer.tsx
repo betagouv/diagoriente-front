@@ -139,7 +139,6 @@ const ThemeContainer = forwardRef(
         }
         return '';
       }
-
       return '';
     }
 
@@ -171,7 +170,6 @@ const ThemeContainer = forwardRef(
                 <Spinner />
               </div>
             ) : (
-				
               map(activitiesArray, activity => {
                 const { index, selected } = getSelected(
                   activities,
@@ -226,7 +224,7 @@ const ThemeContainer = forwardRef(
             )}
           </div>
           <div className={classes.new_theme_skills}>
-            {step !== 'activities_edit'
+            {step === 'expertise_edit'
               && map(expertisesArray, expertise => {
                 const { index, selected } = getSelected(
                   competences,
