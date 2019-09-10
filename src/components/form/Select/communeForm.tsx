@@ -38,7 +38,7 @@ const Select = ({
 
   let title = placeholder;
   if (value) {
-    const selectedOption = !isEmpty(options) && options.find(o => o.Code_commune_INSEE === value.Code_commune_INSEE);
+    const selectedOption = !isEmpty(options) && options.find(o => o.Nom_commune === value.Nom_commune);
     title = selectedOption ? selectedOption.Libelle_acheminement : placeholder;
   }
 
@@ -50,7 +50,7 @@ const Select = ({
           className={style.text_container}
           placeholder={title}
           onChange={onChangeValue}
-          value={value.Code_commune_INSEE}
+          value={value.Nom_commune}
         />
 
         {open && (
@@ -63,7 +63,7 @@ const Select = ({
                 };
                 return (
                   <div key={el.Code_postal} onClick={onChangeText} className={style.select_item}>
-                    {el.Code_commune_INSEE}
+                    {el.Nom_commune}
                   </div>
                 );
               })}

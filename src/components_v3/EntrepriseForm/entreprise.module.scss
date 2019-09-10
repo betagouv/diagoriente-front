@@ -116,13 +116,12 @@
   flex-wrap: wrap;
   display: flex;
   padding-bottom: 50px;
-
 }
 .entrepriseList::-webkit-scrollbar {
   display: none;
 }
-.containerEntrepriseList{
-  margin: 20px;
+.containerEntrepriseList {
+  padding: 10px;
   height: 100%;
   overflow: scroll;
 }

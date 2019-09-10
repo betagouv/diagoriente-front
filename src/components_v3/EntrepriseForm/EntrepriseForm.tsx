@@ -12,9 +12,13 @@ import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
 
 import classes from './entreprise.module.scss';
 
-type Props = ApiComponentProps<{ list: typeof listCommunes; get: typeof listEntreprise }>;
+interface Iprops {
+  title: string;
+}
 
-const EntrepriseForm = ({ list, get }: Props) => {
+type Props = Iprops & ApiComponentProps<{ list: typeof listCommunes; get: typeof listEntreprise }>;
+
+const EntrepriseForm = ({ list, get, title }: Props) => {
   const [isSelectionOpen, setSelectionOpen] = useState(true);
   const setSelectionToggle = () => {
     setSelectionOpen(!isSelectionOpen);
@@ -33,7 +37,7 @@ const EntrepriseForm = ({ list, get }: Props) => {
     onOpenContrat,
     onCloseContrat,
   ] = useSelectInput('');
-  const [distanceValue, setDistance] = useState('');
+  const [distanceValue, setDistance] = useState(10);
 
   const onChangeValue = (event: any) => {
     const code = event.target.value;
@@ -56,11 +60,12 @@ const EntrepriseForm = ({ list, get }: Props) => {
       longitude,
       distance: distanceValue,
       rome_codes: 'M1607',
+      rome_codes_keyword_search: title,
     });
   };
   const { data } = list.data;
   const listEntreprises = get.data;
-  const isAllowed = !isEmpty(communeValue) && distanceValue !== '' && contratValue !== '';
+  const isAllowed = !isEmpty(communeValue) && distanceValue !== null && contratValue !== '';
   return (
     <Fragment>
       <div className={classes.selections}>
