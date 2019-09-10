@@ -29,6 +29,7 @@ export interface IUser {
     readonly lastName: string;
   };
   readonly createdAt: string;
+  readonly tutorial: boolean[];
 }
 
 export interface IAdvisor {

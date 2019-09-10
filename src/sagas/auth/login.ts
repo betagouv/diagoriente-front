@@ -39,8 +39,11 @@ export function* loginUser({ email, password }: ILoginRequestAction) {
       password,
     });
     if (response.success) {
-/*       initializeTuto(response.data.user._id);
- */      setAuthorizationBearer(response.data.token.accessToken);
+      /*       initializeTuto(response.data.user._id);
+       */
+
+      localStorage.setItem('Tuto', JSON.stringify(response.data.user.tutorial));
+      setAuthorizationBearer(response.data.token.accessToken);
       const { authAdvisor }: ReduxState = yield select();
       const [parcours, competences]: [
         Response<IParcoursResponse>,

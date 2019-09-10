@@ -21,7 +21,8 @@ import ApparationCard from '../../components_v3/ApparationCard';
 import warning from '../../assets/icons/warning.svg';
 import GraduationLevel from '../../components_v3/GraduationLevel';
 
-import { showTuto, tutoShowed } from '../../utils/localStorage';
+import {} from '../../utils/localStorage';
+import tutoWrapper from 'hoc/tutoWrapper';
 
 interface CompetencesValue {
   _id: string;
@@ -49,6 +50,8 @@ interface Props
     DispatchToProps,
     ApiComponentProps<{ get: typeof getParcours }> {
   type: 'personal' | 'professional';
+  showTuto: (index: number) => boolean;
+  tutoShowed: (index: number) => void;
 }
 
 interface RefProp {
@@ -68,6 +71,8 @@ const ExpertisesContainer = forwardRef(
       parcoursError,
       openModal,
       closeModal,
+      showTuto,
+      tutoShowed,
     }: Props,
     ref: Ref<RefProp>,
   ) => {
@@ -319,9 +324,11 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => (
   closeModal: () => dispatch(modalActions.closeModal()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  { forwardRef: true },
-)(withApis({ get: getParcours })(withLayout(ExpertisesContainer)));
+export default tutoWrapper(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    null,
+    { forwardRef: true },
+  )(withApis({ get: getParcours })(withLayout(ExpertisesContainer))),
+);
