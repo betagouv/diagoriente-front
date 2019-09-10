@@ -30,9 +30,9 @@ import ParcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
 // css
 import TutoModal from 'components/modals/Tutomodal/tutoModal';
+import tutoWrapper from 'hoc/tutoWrapper';
 import classes from './profileContainer.module.scss';
 
-import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 interface ParcoursParams {
   completed?: boolean;
@@ -64,7 +64,10 @@ interface Props
       addFavorites: typeof createFavorites;
     }>,
     MapToProps,
-    DispatchToProps {}
+    DispatchToProps {
+  showTuto: (index: number) => boolean;
+  tutoShowed: (index: number) => void;
+}
 
 const ProfileContainer = ({
   match,
@@ -73,6 +76,8 @@ const ProfileContainer = ({
   openModal,
   closeModal,
   history,
+  showTuto,
+  tutoShowed,
 }: Props) => {
   useEffect(() => {
     if (showTuto(0)) {
@@ -384,7 +389,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => (
   closeModal: () => dispatch(modalActions.closeModal()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withApis({ getParcours, getFavorites, addFavorites: createFavorites })(ProfileContainer));
+export default tutoWrapper(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withApis({ getParcours, getFavorites, addFavorites: createFavorites })(ProfileContainer)),
+);

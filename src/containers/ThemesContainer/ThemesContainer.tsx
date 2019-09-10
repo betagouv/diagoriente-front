@@ -48,8 +48,8 @@ import Input from 'components/form/Input/Input';
 import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
 import InvalidModal from 'components/modals/InvalidModal/InvalidModal';
 import TutoModal from 'components/modals/Tutomodal/tutoModal';
+import tutoWrapper from 'hoc/tutoWrapper';
 import classes from './themesContainer.module.scss';
-import { showTuto, tutoShowed } from '../../utils/localStorage';
 
 interface IMapToProps {
   parcours: IParcoursResponse;
@@ -71,6 +71,8 @@ interface Props
     IDispatchToProps,
     IMapToProps {
   type: 'personal' | 'professional';
+  showTuto: (index: number) => boolean;
+  tutoShowed: (index: number) => void;
 }
 
 interface RefProp {
@@ -91,6 +93,8 @@ const ThemesContainer = forwardRef(
       openModal,
       closeModal,
       activity,
+      tutoShowed,
+      showTuto,
     }: Props,
     ref: Ref<RefProp>,
   ) => {
@@ -209,9 +213,9 @@ const ThemesContainer = forwardRef(
       // eslint-disable-next-line
     }, [type]);
     useEffect(() => {
-      if (type === 'professional') {
-        if (showTuto(7)) {
-          if (step) {
+      if (step) {
+        if (type === 'professional') {
+          if (showTuto(7)) {
             openModal(
               <TutoModal
                 type="searchPro"
@@ -222,6 +226,16 @@ const ThemesContainer = forwardRef(
               />,
             );
           }
+        } else {
+          openModal(
+            <TutoModal
+              type="themes"
+              click={() => {
+                closeModal();
+                tutoShowed(1);
+              }}
+            />,
+          );
         }
       }
     }, []);
@@ -592,9 +606,11 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   getActivity: (id: any) => dispatch(activityActions.getActivityRequest(id)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  { forwardRef: true },
-)(withApi({ list: listThemes })(withLayout(memo(ThemesContainer))));
+export default tutoWrapper(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    null,
+    { forwardRef: true },
+  )(withApi({ list: listThemes })(withLayout(memo(ThemesContainer)))),
+);

@@ -27,7 +27,7 @@ import parcoursActions from 'reducers/parcours';
 import TutoModal from 'components/modals/Tutomodal/tutoModal';
 
 import { pdf2 } from 'utils/pdf';
-import { showTuto, tutoShowed } from '../../utils/localStorage';
+import tutoWrapper, { TutoFns } from 'hoc/tutoWrapper';
 
 /* import JobIcon from 'components_v3/icons/jobIcon/jobIcon'; */
 import classes from './skills.module.scss';
@@ -47,7 +47,8 @@ interface Props
   extends RouteComponentProps,
     MapToProps,
     IDispatchToProps,
-    ApiComponentProps<{ get: typeof getParcours }> {}
+    ApiComponentProps<{ get: typeof getParcours }>,
+    TutoFns {}
 
 interface RefProp {
   onFooterClick(button: string): void;
@@ -55,8 +56,16 @@ interface RefProp {
 const SkillsContainer = forwardRef(
   (
     {
- parcours, get, history, expertises, user, closeModal, openModal, parcoursRequest,
-}: Props,
+      parcours,
+      get,
+      history,
+      expertises,
+      user,
+      closeModal,
+      openModal,
+      parcoursRequest,
+      tutoShowed,
+    }: Props,
     ref: Ref<RefProp>,
   ) => {
     useDidMount(() => {
@@ -261,7 +270,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   closeModal: () => dispatch(modalActions.closeModal()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withApis({ get: getParcours })(withLayout(SkillsContainer)));
+export default tutoWrapper(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withApis({ get: getParcours })(withLayout(SkillsContainer))),
+);
