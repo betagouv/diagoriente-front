@@ -5,6 +5,7 @@ import CountUp from 'react-countup';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 import modalActions from 'reducers/modal';
 import { IExpertise } from 'reducers';
+import ReactTooltip from 'react-tooltip';
 import classes from './ApparationCard.module.scss';
 import classNames from '../../utils/classNames';
 import star from '../../assets/icons/stars/ic_star_full.svg';
@@ -75,12 +76,25 @@ const ApparationCard = ({
   if (withDots) {
     for (let i = 0; i < 4; i += 1) {
       dots.push(
-        <div
-          onClick={() => onChange(state === i + 1 ? 0 : i + 1)}
-          key={i}
-          className={classNames(classes.dot, state === i + 1 && classes.dot_selected)}
-          style={state && state >= i + 1 ? { background: color, border: 'none' } : {}}
-        />,
+        <div>
+          <div
+            onClick={() => onChange(state === i + 1 ? 0 : i + 1)}
+            key={i}
+            className={classNames(classes.dot, state === i + 1 && classes.dot_selected)}
+            style={state && state >= i + 1 ? { background: color, border: 'none' } : {}}
+            data-tip
+            data-for={expertise && expertise._id + i}
+          />
+          <ReactTooltip
+            id={expertise && expertise._id + i}
+            place="right"
+            type="light"
+            className={classes.tooltip}
+          >
+            <span style={{ fontWeight: 600 , display: 'block' }}>{expertise && expertise.niveau[i].title}</span>
+            <span>{expertise && expertise.niveau[i].sub_title}</span>
+          </ReactTooltip>
+        </div>,
       );
     }
   }

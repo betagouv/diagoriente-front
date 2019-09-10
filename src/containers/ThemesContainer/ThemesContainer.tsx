@@ -442,6 +442,7 @@ const ThemesContainer = forwardRef(
           selected={step === 'select_theme' || selectedTheme !== ''}
           addTheme={selectedTheme !== null}
           add
+          step={step}
         >
           {type === 'professional' && step === 'select_theme' && (
             <div className={classes.searchInputWrapper}>

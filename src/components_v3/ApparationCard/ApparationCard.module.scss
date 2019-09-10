@@ -165,3 +165,16 @@ input[type='checkbox']:disabled:after {
 .dotsContainer {
   display: flex;
 }
+.tooltip {
+  color: #7992bf !important;
+  background-color: white !important;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.25);
+  width: 250px;
+  &.place-right {
+    &:after {
+      border-right-color: white !important;
+      border-right-style: solid !important;
+      border-right-width: 6px !important;
+    }
+  }
+}

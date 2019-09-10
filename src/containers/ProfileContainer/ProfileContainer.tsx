@@ -202,7 +202,7 @@ const ProfileContainer = ({
                         type="validate"
                         withText
                         footer
-                        text="VALIDER"
+                        text="evaluer"
                         width="35"
                         height="35"
                         textColor="#ffba27"
@@ -251,7 +251,7 @@ const ProfileContainer = ({
                         <MultiIcon
                           type="validate"
                           withText
-                          text="VALIDER"
+                          text="evaluer"
                           width="35"
                           footer
                           height="35"
@@ -300,7 +300,7 @@ const ProfileContainer = ({
                       <MultiIcon
                         type="validate"
                         withText
-                        text="valider"
+                        text="evaluer"
                         width="35"
                         footer
                         height="35"
@@ -334,7 +334,7 @@ const ProfileContainer = ({
                         <MultiIcon
                           type="validate"
                           withText
-                          text="VALIDER"
+                          text="evaluer"
                           width="35"
                           footer
                           height="35"
