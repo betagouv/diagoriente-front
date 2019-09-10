@@ -218,9 +218,9 @@ const ExpertisesContainer = forwardRef(
           <span
             className={classes.info}
             data-for="description"
-            data-tip={expertises[index].niveau[item.value - 1].title}
+            data-tip={`${expertises[index].niveau[item.value - 1].title} ${expertises[index].niveau[item.value - 1].sub_title}`}
           >
-            {expertises[index].niveau[item.value - 1].title}
+            {`${expertises[index].niveau[item.value - 1].title} ${expertises[index].niveau[item.value - 1].sub_title}`}
           </span>
         );
       }

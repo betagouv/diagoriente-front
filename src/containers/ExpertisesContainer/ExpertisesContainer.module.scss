@@ -30,10 +30,10 @@
 }
 .info {
   margin-left: 11px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
   width: 312px;
+  display: flex;
+  align-items: center;
 }
 .themes {
   font-size: 12px;
