@@ -223,7 +223,7 @@ const ThemeContainer = forwardRef(
             )}
           </div>
           <div className={classes.new_theme_skills}>
-            {(step === 'expertise_edit' || step === 'edit_all')
+            {(step === 'expertise_edit' || step === 'edit_all' || step === 'show')
               && map(expertisesArray, expertise => {
                 const { index, selected } = getSelected(
                   competences,

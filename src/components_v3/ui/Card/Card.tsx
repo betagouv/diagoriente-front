@@ -18,14 +18,17 @@ const Card = ({
   <div {...rest} className={classNames(classes.container, className)}>
     {children}
     <div className={classes.buttonsContainer}>
-      <div {...close} className={classNames(classes.delete)}>
+      <div
+        {...close}
+        className={classNames(!addTheme && add ? classes.hideButton : classes.delete)}
+      >
         <MultiIcon
           type="remove"
           width="30"
           height="30"
           Iconcolor="#ff001f"
           withText
-          text="Supprimer"
+          text={selected && addTheme ? 'fermer' : 'supprimer'}
           textColor="#ff001f"
           style={{ fontSize: 14 }}
         />
