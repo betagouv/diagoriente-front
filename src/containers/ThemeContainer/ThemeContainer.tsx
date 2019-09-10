@@ -40,7 +40,7 @@ interface IDispatchToProps {
   openModal: (children: JSX.Element, backdropClassName?: string) => void;
   closeModal: () => void;
 }
-export type Step = 'activities_edit' | 'show' | 'expertise_edit' | 'edit_all';
+export type Step = 'activities_edit' | 'show' | 'expertise_edit' | 'edit_all' | 'step edit_all';
 
 interface Props extends IMapToProps, IDispatchToProps, ApiComponentProps<{ get: typeof getTheme }> {
   id: string;
@@ -130,7 +130,6 @@ const ThemeContainer = forwardRef(
     const iconDataColor = get && get.data.resources ? get.data.resources.backgroundColor : '';
     const iconSkillcolor = skill && skill.theme.resources ? skill.theme.resources.backgroundColor : '';
     const test = isActivityEdit ? classes.fullNewThemeActivities : classes.new_theme_activities;
-
     function findTooltip(expertise: IExpertise) {
       if (get.data.tooltips) {
         const toolfinded = get.data.tooltips.find(item => item.competenceId === expertise._id);
@@ -224,7 +223,7 @@ const ThemeContainer = forwardRef(
             )}
           </div>
           <div className={classes.new_theme_skills}>
-            {step === 'expertise_edit'
+            {(step === 'expertise_edit' || step === 'edit_all')
               && map(expertisesArray, expertise => {
                 const { index, selected } = getSelected(
                   competences,
