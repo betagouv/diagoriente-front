@@ -5,9 +5,10 @@ const RadarChart = (ctx: any, get: any, job: any) => {
   const { globalCopmetences } = get.data;
   const competencesTitle = globalCopmetences.map((c: any) => c.title);
   const competencesValue = globalCopmetences.map((c: any) => c.value);
-  const jobCompoetences = globalCopmetences.map(
+  const jobCompoetences = competences.length > 0 && globalCopmetences.map(
     (c: any) => competences.find(({ _id }: any) => _id === c._id).weight,
-  );
+  )  ;
+ // console.log(jobCompoetences);
   const chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
