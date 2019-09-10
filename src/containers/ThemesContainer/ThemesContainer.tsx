@@ -51,7 +51,6 @@ import TutoModal from 'components/modals/Tutomodal/tutoModal';
 import tutoWrapper from 'hoc/tutoWrapper';
 import classes from './themesContainer.module.scss';
 
-
 interface IMapToProps {
   parcours: IParcoursResponse;
   parcoursFetching: boolean;
@@ -93,9 +92,9 @@ const ThemesContainer = forwardRef(
       getActivity,
       openModal,
       closeModal,
-			activity,
-			tutoShowed,
-			showTuto
+      activity,
+      tutoShowed,
+      showTuto,
     }: Props,
     ref: Ref<RefProp>,
   ) => {
@@ -214,9 +213,9 @@ const ThemesContainer = forwardRef(
       // eslint-disable-next-line
     }, [type]);
     useEffect(() => {
-      if (type === 'professional') {
-        if (showTuto(7)) {
-          if (step) {
+      if (step) {
+        if (type === 'professional') {
+          if (showTuto(7)) {
             openModal(
               <TutoModal
                 type="searchPro"
@@ -227,6 +226,16 @@ const ThemesContainer = forwardRef(
               />,
             );
           }
+        } else {
+          openModal(
+            <TutoModal
+              type="themes"
+              click={() => {
+                closeModal();
+                tutoShowed(1);
+              }}
+            />,
+          );
         }
       }
     }, []);
