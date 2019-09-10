@@ -10,25 +10,31 @@ interface Props
   selected?: boolean;
   addTheme?: boolean;
   add?: boolean;
+  step?: any;
 }
 
 const Card = ({
- edit, close, className, selected, add, addTheme, children, ...rest
+  edit,
+  close,
+  className,
+  selected,
+  add,
+  addTheme,
+  children,
+  step,
+  ...rest
 }: Props) => (
   <div {...rest} className={classNames(classes.container, className)}>
     {children}
     <div className={classes.buttonsContainer}>
-      <div
-        {...close}
-        className={classNames(!addTheme && add ? classes.hideButton : classes.delete)}
-      >
+      <div {...close} className={classNames(classes.delete)}>
         <MultiIcon
           type="remove"
           width="30"
           height="30"
           Iconcolor="#ff001f"
           withText
-          text={selected && addTheme ? 'fermer' : 'supprimer'}
+          text={selected && addTheme ? 'fermer' : step === 'select_theme' ? 'fermer' : 'supprimer'}
           textColor="#ff001f"
           style={{ fontSize: 14 }}
         />
