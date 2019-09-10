@@ -157,8 +157,11 @@ const SkillsContainer = forwardRef(
                       <MultiIcon
                         type="add"
                         Iconcolor="#7992bf"
-                        width="35"
-                        height="35"
+                        width="25"
+                        height="25"
+                        withText
+                        text="Ajouter"
+                        style={{ fontSize: 12, padding: 5 }}
                         onClick={
                           parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()
                         }
@@ -197,8 +200,11 @@ const SkillsContainer = forwardRef(
                       <MultiIcon
                         type="add"
                         Iconcolor="#7992bf"
-                        width="35"
-                        height="35"
+                        width="25"
+                        height="25"
+                        withText
+                        text="Ajouter"
+                        style={{ fontSize: 12, padding: 5 }}
                         onClick={pushRoute('/profile/pro')}
                       />
                     </div>
