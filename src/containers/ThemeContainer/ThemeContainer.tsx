@@ -300,8 +300,8 @@ const ThemeContainer = forwardRef(
                     key={expertise._id}
                   >
                     <ApparationCard
-                      withDots={type === 'professional' && isExpertiseEdit}
-                      withCheckBox={type === 'personal' && isExpertiseEdit}
+                      withDots={isExpertiseEdit}
+                      withCheckBox={false}
                       color={expertise.color}
                       title={expertise.title}
                       state={selected ? competences[index].value : 0}

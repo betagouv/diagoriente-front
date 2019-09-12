@@ -266,7 +266,7 @@ const ProfileContainer = ({
               ))
             }
           />
-          <Route
+          {/* <Route
             path="/profile/intermediate"
             exact
             render={props => (
@@ -313,7 +313,7 @@ const ProfileContainer = ({
                 ]}
               />
             )}
-          />
+          /> */}
           <Route
             path="/profile/favoris"
             exact

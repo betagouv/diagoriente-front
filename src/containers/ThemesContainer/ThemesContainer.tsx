@@ -17,7 +17,7 @@ import withApi, { ApiComponentProps } from 'hoc/withApi';
 import withLayout from 'hoc/withLayout';
 
 // api
-import { listThemes, IUpdateParcoursParams } from 'requests';
+import { listThemes, IUpdateParcoursParams, ISkill } from 'requests';
 
 // container
 import ThemeContainer, { Step, ThemeRefObject } from 'containers/ThemeContainer/ThemeContainer';
@@ -145,6 +145,7 @@ const ThemesContainer = forwardRef(
 
     function onFooterClick(button: string) {
       if (button === 'valider') {
+        // console.log(skills)
         parcoursRequest({
           skills: [
             ...skills.map(skillWithoutId),
@@ -227,6 +228,7 @@ const ThemesContainer = forwardRef(
       selectedThemeChange(null);
       skillsChange(currentSkills);
       // eslint-disable-next-line
+      // console.log(skills)
     }, [type]);
     useEffect(() => {
       if (step) {
@@ -263,9 +265,9 @@ const ThemesContainer = forwardRef(
         if (type === 'personal') {
           if (skills.length === 0) {
             history.push('/profile/skills');
-          } else {
+          } /* else {
             history.push('/profile/intermediate');
-          }
+          } */
         } else {
           history.push('/profile/skills');
         }
@@ -302,9 +304,19 @@ const ThemesContainer = forwardRef(
             _id: `__new__${skills.length}`,
           });
         }
-        skillsChange(currentSkills);
-        stepChange(null);
+        // skillsChange(currentSkills);
+        // stepChange(null);
         selectedThemeChange(null);
+        console.log(
+          ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
+        );
+        parcoursRequest({
+          skills: [
+            ...currentSkills.map(skillWithoutId),
+            ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
+          ],
+        });
+        history.push('/profile/skills');
       } else {
         openModal(
           <InvalidModal
@@ -385,6 +397,24 @@ const ThemesContainer = forwardRef(
         const newSkill = newSkillRef.current;
         if (newSkill && isSkillValidInputs(newSkill)) {
           updateSkill();
+          /* const activities = newSkill.activities.map(el => el._id);
+          const competences = newSkill.competences.map(el => ({ _id: el._id, value: el.value }));
+          const theme: any = selectedTheme;
+          const send: any[] = [
+            {
+              activities,
+              competences,
+              theme,
+              type,
+            },
+          ];
+          send.push(parcours.skills)
+          console.log(send);
+          parcoursRequest({
+            skills: send,
+          }); */
+
+          console.log(skills);
         } else {
           openModal(
             <InvalidModal
@@ -398,11 +428,12 @@ const ThemesContainer = forwardRef(
 
     function onCloseClick() {
       if (step === 'select_theme') {
-        stepChange(null);
+        // stepChange(null);
+        history.push('skills')
       } else if (step === 'activities_edit') {
-        stepChange('select_theme');
+        history.push('skills')
       } else {
-        stepChange('activities_edit');
+        history.push('skills')
       }
     }
 
@@ -412,6 +443,12 @@ const ThemesContainer = forwardRef(
     }
 
     function renderAdd() {
+      console.log(
+        'first one',
+        selectedTheme && skills.find(skill => skill.theme._id === selectedTheme),
+        'step ',
+        step,
+      );
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
         return (
           <MultiIcon
@@ -450,6 +487,7 @@ const ThemesContainer = forwardRef(
           />
         );
       }
+
       return (
         <div className={classes.cardNewContainer}>
           <div>{renderTitle()}</div>
@@ -554,6 +592,7 @@ const ThemesContainer = forwardRef(
         </div>
       );
     }
+    console.log(skills);
     return (
       <div className={classes.container}>
         {step !== 'edit_all' && <div className={classes.add}>{renderAdd()}</div>}
