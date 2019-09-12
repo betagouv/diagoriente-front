@@ -33,7 +33,6 @@ import TutoModal from 'components/modals/Tutomodal/tutoModal';
 import tutoWrapper from 'hoc/tutoWrapper';
 import classes from './profileContainer.module.scss';
 
-
 interface ParcoursParams {
   completed?: boolean;
   createdAt?: string;
@@ -192,25 +191,6 @@ const ProfileContainer = ({
                     ),
                     key: 'help',
                   },
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        footer
-                        text="evaluer"
-                        width="35"
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
                 ]}
               />
             )}
@@ -242,78 +222,11 @@ const ProfileContainer = ({
                       ),
                       key: 'help',
                     },
-                    {
-                      component: fetchingParcour ? (
-                        <div className={classes.containerSpinner}>
-                          <Spinner />
-                        </div>
-                      ) : (
-                        <MultiIcon
-                          type="validate"
-                          withText
-                          text="evaluer"
-                          width="35"
-                          footer
-                          height="35"
-                          textColor="#ffba27"
-                          Iconcolor="#ffba27"
-                        />
-                      ),
-                      key: 'valider',
-                    },
                   ]}
                 />
               ))
             }
           />
-          {/* <Route
-            path="/profile/intermediate"
-            exact
-            render={props => (
-              <ExpertisesContainer
-                title="GRADUE TES COMPÉTENCES PERSONNELLES"
-                {...props}
-                type="professional"
-                ref={expertiseRef}
-                footerButtons={[
-                  {
-                    component: (
-                      <MultiIcon
-                        type="help"
-                        withText
-                        footer
-                        text="Aide"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
-                    ),
-                    key: 'help',
-                  },
-                  {
-                    component: fetchingParcour ? (
-                      <div className={classes.containerSpinner}>
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <MultiIcon
-                        type="validate"
-                        withText
-                        text="evaluer"
-                        width="35"
-                        footer
-                        height="35"
-                        textColor="#ffba27"
-                        Iconcolor="#ffba27"
-                      />
-                    ),
-                    key: 'valider',
-                  },
-                ]}
-              />
-            )}
-          /> */}
           <Route
             path="/profile/favoris"
             exact
