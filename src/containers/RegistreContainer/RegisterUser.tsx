@@ -41,6 +41,7 @@ interface DispatchToProps {
       _id: string;
       response: string;
     },
+    code: string,
   ) => void;
 }
 
@@ -76,6 +77,8 @@ const RegisterUserContainer = ({
   const [firstName, firstNameChange, firstNameTouched] = useTextInput('');
   const [response, responseChange, responseTouched] = useTextInput('');
   const [lastName, lastNameChange, lastNameTouched] = useTextInput('');
+  const [code, codeChange, codeTouched] = useTextInput('');
+
   const [questionValue, open, onChange, onOpen, onClose] = useSelectInput('');
   const [conditionChecked, setChecked] = useState(false);
   const [conditionValidation, changeConditionValidation] = useState(false);
@@ -85,6 +88,8 @@ const RegisterUserContainer = ({
   const firstNameValid = firstNameTouched ? validateNom(firstName) : '';
   const lastNameValid = lastNameTouched ? validateNom(lastName) : '';
   const responseValid = responseTouched ? validateNom(response) : '';
+  const codeValid = codeTouched ? validateNom(code) : '';
+
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (conditionChecked) {
@@ -92,7 +97,7 @@ const RegisterUserContainer = ({
         response,
         _id: questionValue,
       };
-      registerRequest(email, password, firstName, lastName, question);
+      registerRequest(email, password, firstName, lastName, question, code);
     } else {
       changeConditionValidation(true);
     }
@@ -183,6 +188,17 @@ const RegisterUserContainer = ({
                   />
                 </Grid>
               </div>
+              <div className={classes.container_select}>
+                <Grid item xl={12} md={12}>
+                  <Input
+                    name="code"
+                    validation={codeValid}
+                    onChange={codeChange}
+                    className={classes.container_input}
+                    type="text"
+                  />
+                </Grid>
+              </div>
               {conditionValidation && (
                 <span style={{ fontSize: '11px', color: 'red' }}>
                   Vous devez accepter les conditions d’utilisation de Diagoriente pour créer un
@@ -223,13 +239,13 @@ const RegisterUserContainer = ({
             </div>
             <span style={{ margin: '4px 29px 23px 29px', fontSize: '11px', lineHeight: '1rem' }}>
               Les informations recueillies sur ce formulaire sont enregistrées dans un fichier
-              informatisé par Diagoriente pour permettre l&apos;accès au service offert par Diagoriente. Elles sont
-              conservées pendant une durée de 5 ans maximum à compter du dernier accès au compte
-              utilisateur, et archivées selon les délais de prescription légale (5 ans). Elles sont
-              destinées à Diagoriente et à ses prestataires techniques exclusivement. Conformément à la loi
-              « informatique et libertés », vous pouvez exercer votre droit d&apos;accès aux données
-              vous concernant et les faire rectifier en envoyant un mail à
-              pascal.chaumette@beta.gouv.fr
+              informatisé par Diagoriente pour permettre l&apos;accès au service offert par
+              Diagoriente. Elles sont conservées pendant une durée de 5 ans maximum à compter du
+              dernier accès au compte utilisateur, et archivées selon les délais de prescription
+              légale (5 ans). Elles sont destinées à Diagoriente et à ses prestataires techniques
+              exclusivement. Conformément à la loi « informatique et libertés », vous pouvez exercer
+              votre droit d&apos;accès aux données vous concernant et les faire rectifier en
+              envoyant un mail à pascal.chaumette@beta.gouv.fr
             </span>
           </div>
         )}
@@ -244,7 +260,7 @@ const mapStateToProps = ({ authUser }: ReduxState): MapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
-  registerRequest: (email, password, firstName, lastName, question) =>
+  registerRequest: (email, password, firstName, lastName, question, code) =>
     dispatch(
       registerUserActions.registerUserRequest({
         email,
@@ -252,6 +268,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => (
         firstName,
         lastName,
         question,
+        code,
       }),
     ),
 });
