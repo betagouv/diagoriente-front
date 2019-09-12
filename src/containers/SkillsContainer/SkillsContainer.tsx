@@ -99,9 +99,9 @@ const SkillsContainer = forwardRef(
 
     useCaptureRef({ onFooterClick }, ref);
 
-    function pushRoute(route: string) {
+    function pushRoute(route: string, params?:string) {
       return function () {
-        history.push(route);
+        history.push({ pathname: route, state:{ detail: params }});
       };
     }
     const onNavigate = () => {
@@ -172,7 +172,19 @@ const SkillsContainer = forwardRef(
                         text="Ajouter"
                         style={{ fontSize: 12, padding: 5 }}
                         onClick={
-                          parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()
+                          parcours.played ? pushRoute('/profile/perso','select_theme') : () => onOpenModal()
+                        }
+                      />
+                      <MultiIcon
+                        type="edit"
+                        Iconcolor="#7992bf"
+                        width="25"
+                        height="25"
+                        withText
+                        text="Modifier"
+                        style={{ fontSize: 12, padding: 5 }}
+                        onClick={
+                          parcours.played ? pushRoute('/profile/perso','edit_all') : () => onOpenModal()
                         }
                       />
                     </div>

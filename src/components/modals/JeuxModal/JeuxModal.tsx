@@ -1,4 +1,5 @@
 import React from 'react';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 
 import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
 
@@ -35,7 +36,7 @@ const JeuxModal = ({ onClick }: Props) => (
         <div className={`flex_center ${classes.footer} ${classes.item}`}>
           <ContinueButton
             onClick={onClick}
-            label="Terminer"
+            label="Continuer"
             className={classNames(classes.continue_button)}
           />
         </div>

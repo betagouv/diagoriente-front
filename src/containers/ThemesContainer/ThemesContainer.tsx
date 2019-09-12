@@ -27,13 +27,13 @@ import Card from 'components_v3/ui/Card/Card';
 import ThemeIcon from 'components_v3/icons/themeIcon/themeIcon';
 
 // hooks
-import { useDidUpdate, useCaptureRef } from 'hooks';
+import { useDidUpdate, useCaptureRef, useDidMount } from 'hooks';
 
 // reducers
 import parcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
 import activityActions from 'reducers/activity';
-
+import Stepper from 'components/PathStepper/Path';
 import {
  ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
 } from 'reducers';
@@ -95,6 +95,7 @@ const ThemesContainer = forwardRef(
       activity,
       tutoShowed,
       showTuto,
+      location,
     }: Props,
     ref: Ref<RefProp>,
   ) => {
@@ -125,6 +126,17 @@ const ThemesContainer = forwardRef(
 
     const onMouseEnter = (id: string) => {
       getActivity({ id });
+    };
+    const renderTitle = () => {
+      if (step === 'select_theme') {
+        return <span  className={classes.titleStep}>Choisis un thème</span>;
+      }
+      if (step === 'activities_edit') {
+        return <span  className={classes.titleStep}>Sélectionne des activités</span>;
+      }
+      if (step === 'expertise_edit') {
+        return <span className={classes.titleStep}>Sélectionne et évalue tes compétences (4 maximum)</span>;
+      }
     };
 
     function onFooterClick(button: string) {
@@ -207,7 +219,7 @@ const ThemesContainer = forwardRef(
 
     useEffect(() => {
       list.call({ type });
-      stepChange(!currentSkills.length ? 'select_theme' : null);
+      stepChange(!currentSkills.length ? 'select_theme' : location.state.detail);
       selectedThemeChange(null);
       skillsChange(currentSkills);
       // eslint-disable-next-line
@@ -435,158 +447,170 @@ const ThemesContainer = forwardRef(
         );
       }
       return (
-        <Card
-          close={{ onClick: onCloseClick }}
-          edit={{ onClick: onEditClick }}
-          className={classes.themes}
-          selected={step === 'select_theme' || selectedTheme !== ''}
-          addTheme={selectedTheme !== null}
-          add
-          step={step}
-        >
-          {type === 'professional' && step === 'select_theme' && (
-            <div className={classes.searchInputWrapper}>
-              <Input
-                name="rechercher"
-                validation=""
-                type="text"
-                placeholder="kfc, entretien, ..."
-                className={classes.searchInput}
-                onChange={onSearch}
-                value={search}
-              />
-            </div>
-          )}
+        <div className={classes.cardNewContainer}>
+          <div>{renderTitle()}</div>
+          <Card
+            close={{ onClick: onCloseClick }}
+            edit={{ onClick: onEditClick }}
+            className={classes.themes}
+            selected={step === 'select_theme' || selectedTheme !== ''}
+            addTheme={selectedTheme !== null}
+            add
+            step={step}
+          >
+            {type === 'professional' && step === 'select_theme' && (
+              <div className={classes.searchInputWrapper}>
+                <Input
+                  name="rechercher"
+                  validation=""
+                  type="text"
+                  placeholder="kfc, entretien, ..."
+                  className={classes.searchInput}
+                  onChange={onSearch}
+                  value={search}
+                />
+              </div>
+            )}
 
-          {step === 'select_theme' ? (
-            list.data.data
-            && list.data.data
-              .filter(theme => !skills.find(skill => skill.theme._id === theme._id))
-              .map(theme => {
-                const selected = theme._id === selectedTheme;
-                let { wrapper } = classes;
-                if (selected) {
-                  wrapper = type === 'professional' ? classes.wrapperPro : classes.wrapperGrey;
-                }
-                function onClick() {
-                  selectedThemeChange(selected ? null : theme._id);
-                }
+            {step === 'select_theme' ? (
+              list.data.data
+              && list.data.data
+                .filter(theme => !skills.find(skill => skill.theme._id === theme._id))
+                .map(theme => {
+                  const selected = theme._id === selectedTheme;
+                  let { wrapper } = classes;
+                  if (selected) {
+                    wrapper = type === 'professional' ? classes.wrapperPro : classes.wrapperGrey;
+                  }
+                  function onClick() {
+                    selectedThemeChange(selected ? null : theme._id);
+                  }
 
-                return (
-                  <Fragment>
-                    <div onClick={onClick} className={wrapper}>
-                      {theme && theme.resources && type === 'personal' && (
-                        <ThemeIcon
-                          title={theme.title}
-                          icon={theme.resources.icon}
-                          key={theme._id}
-                          data-tip
-                          data-for={theme._id}
-                          onMouseEnter={() => onMouseEnter(theme._id)}
-                        />
-                      )}
-                      {theme && theme.resources && (
-                        <span
-                          className={classNames(
-                            type === 'personal' ? classes.theme_title : classes.theme_titlePro,
-                          )}
-                          style={
-                            type === 'personal'
-                              ? { color: theme.resources.backgroundColor }
-                              : { color: 'black' }
-                          }
-                          data-tip
-                          data-for={theme._id}
-                          onMouseEnter={() => onMouseEnter(theme._id)}
-                        >
-                          {theme.title}
-                        </span>
-                      )}
-                    </div>
-                    <ReactTooltip
-                      id={theme._id}
-                      place="right"
-                      type="light"
-                      className={classes.tooltip}
-                    >
-                      <div className={classes.activity_container}>
-                        {activity.data.activities && activity.data.activities.length !== 0
-                          ? map(activity.data.activities, (e: any) => (
-                            <div key={e._id}>
--
-                              {e.title}
-                            </div>
-                            ))
-                          : theme.title}
+                  return (
+                    <Fragment>
+                      <div onClick={onClick} className={wrapper}>
+                        {theme && theme.resources && type === 'personal' && (
+                          <ThemeIcon
+                            title={theme.title}
+                            icon={theme.resources.icon}
+                            key={theme._id}
+                            data-tip
+                            data-for={theme._id}
+                            onMouseEnter={() => onMouseEnter(theme._id)}
+                          />
+                        )}
+                        {theme && theme.resources && (
+                          <span
+                            className={classNames(
+                              type === 'personal' ? classes.theme_title : classes.theme_titlePro,
+                            )}
+                            style={
+                              type === 'personal'
+                                ? { color: theme.resources.backgroundColor }
+                                : { color: 'black' }
+                            }
+                            data-tip
+                            data-for={theme._id}
+                            onMouseEnter={() => onMouseEnter(theme._id)}
+                          >
+                            {theme.title}
+                          </span>
+                        )}
                       </div>
-                    </ReactTooltip>
-                  </Fragment>
-                );
-              })
-          ) : (
-            <ThemeContainer
-              ref={newSkillRef as any}
-              key={selectedTheme as string}
-              step={step}
-              id={selectedTheme as string}
-              type={type}
-            />
-          )}
-        </Card>
+                      <ReactTooltip
+                        id={theme._id}
+                        place="right"
+                        type="light"
+                        className={classes.tooltip}
+                      >
+                        <div className={classes.activity_container}>
+                          {activity.data.activities && activity.data.activities.length !== 0
+                            ? map(activity.data.activities, (e: any) => (
+                              <div key={e._id}>
+-
+                                {e.title}
+                              </div>
+                              ))
+                            : theme.title}
+                        </div>
+                      </ReactTooltip>
+                    </Fragment>
+                  );
+                })
+            ) : (
+              <ThemeContainer
+                ref={newSkillRef as any}
+                key={selectedTheme as string}
+                step={step}
+                id={selectedTheme as string}
+                type={type}
+              />
+            )}
+          </Card>
+        </div>
       );
     }
     return (
       <div className={classes.container}>
-        <div className={classes.add}>{renderAdd()}</div>
-        <div className={classes.themes_container}>
-          <span className={classes.themesSaved}>Mes expériences enregistrées</span>
-          {skills.map(({ theme }, index) => {
-            const selected = theme._id === selectedTheme;
-            function onEdit() {
-              if (selected) {
-                updateSkill();
-                return;
+        {step !== 'edit_all' && <div className={classes.add}>{renderAdd()}</div>}
+        {step === 'edit_all' && (
+          <div className={classes.themes_container}>
+            <span className={classes.themesSaved}>Mes expériences enregistrées</span>
+            {skills.map(({ theme }, index) => {
+              const selected = theme._id === selectedTheme;
+              function onEdit() {
+                if (selected) {
+                  updateSkill();
+                  return;
+                }
+                selectedThemeChange(theme._id);
+                stepChange('edit_all');
               }
-              selectedThemeChange(theme._id);
-              stepChange('edit_all');
-            }
 
-            function onClose() {
-              openModal(
-                <DeleteModal
-                  onDelete={() =>
-                    skillsChange(skills.filter(skill => skill.theme._id !== theme._id))
-                  }
-                  onCloseModal={closeModal}
-                />,
-              );
-            }
+              function onClose() {
+                openModal(
+                  <DeleteModal
+                    onDelete={() =>
+                      skillsChange(skills.filter(skill => skill.theme._id !== theme._id))
+                    }
+                    onCloseModal={closeModal}
+                  />,
+                );
+              }
 
-            function captureRef(editRef: ThemeRefObject | null) {
-              const editSkills = editSkillsRefs.current;
-              editSkills[index] = editRef;
-              editSkillsRefs.current = editSkills;
-            }
-            return (
-              <Card
-                close={{ onClick: onClose }}
-                edit={{ onClick: onEdit }}
-                selected={step === 'edit_all' && selectedTheme === theme._id}
-                key={theme._id}
-                className={classes.themes}
-              >
-                <ThemeContainer
-                  skill={skills.find(skill => skill.theme._id === theme._id)}
+              function captureRef(editRef: ThemeRefObject | null) {
+                const editSkills = editSkillsRefs.current;
+                editSkills[index] = editRef;
+                editSkillsRefs.current = editSkills;
+              }
+              return (
+                <Card
+                  close={{ onClick: onClose }}
+                  edit={{ onClick: onEdit }}
+                  selected={step === 'edit_all' && selectedTheme === theme._id}
                   key={theme._id}
-                  id={theme._id}
-                  step={(selected && step ? step : 'show') as Step}
-                  ref={captureRef as any}
-                  type={type}
-                />
-              </Card>
-            );
-          })}
-        </div>
+                  className={classes.themes}
+                >
+                  <ThemeContainer
+                    skill={skills.find(skill => skill.theme._id === theme._id)}
+                    key={theme._id}
+                    id={theme._id}
+                    step={(selected && step ? step : 'show') as Step}
+                    ref={captureRef as any}
+                    type={type}
+                  />
+                </Card>
+              );
+            })}
+          </div>
+        )}
+        {(step === 'select_theme' || step === 'expertise_edit' || step === 'activities_edit') && (
+          <Stepper
+            steps={['Choix du thème', 'Sélection des activités', 'Evaluation des compétences']}
+            indexStep={1}
+            stepName={step}
+          />
+        )}
       </div>
     );
   },

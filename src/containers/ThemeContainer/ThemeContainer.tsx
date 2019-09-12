@@ -140,8 +140,6 @@ const ThemeContainer = forwardRef(
       }
       return '';
     }
-
-    console.log('add test moez !!');
     return (
       <Fragment>
         <div className={classes.new_theme}>

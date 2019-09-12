@@ -1,73 +1,62 @@
-@import "../../styles/variables.scss";
-.container {
+.stepper_container {
+  width: 100%;
+  height: 70px;
   display: flex;
-  margin-top: 40px;
+  justify-content: center;
   align-items: center;
-  @media (max-width: map-get($breakpoints, "md")) {
-    flex-wrap: wrap;
-  }
+  margin-top: 25px
 }
-.item_container {
+.step_container {
   display: flex;
-  margin: 0 5px 0px 7.5px;
-  @media (max-width: map-get($breakpoints, "md")) {
-    margin: 0 2px 0px 3.5px;
-  }
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 1 1 100%;
+  padding: 0 5px;
 }
-.item {
+.step_title {
+  font-size: 14px;
+  color: #7a93bc;;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-top: 5px;
+}
+.block {
   display: flex;
-  margin: 0 5px 0px 7.5px;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.54;
-  letter-spacing: normal;
-  color: $footer_color;
+  align-items: center;
+}
+.circle_container {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #003189;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
   cursor: pointer;
-  @media (max-width: map-get($breakpoints, "md")) {
-    margin: 0 3px 0px 3.5px;
-  }
 }
-.item_selected {
+.step_content {
+  width: 38px;
+  height: 38px;
+  border-radius: 19px;
   display: flex;
-  margin: 0 5px 0px 7.5px;
-  font-size: 13px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.54;
-  letter-spacing: normal;
-  color: #b82635;
-  @media (max-width: map-get($breakpoints, "md")) {
-    margin: 0 3px 0px 3.5px;
-  }
+  justify-content: center;
+  align-items: center;
+  background-color: #003189;
 }
-.item_selected_pro {
-  display: flex;
-  margin: 0 5px 0px 7.5px;
-  font-size: 13px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.54;
-  letter-spacing: normal;
-  color: #ff701e;
-  @media (max-width: map-get($breakpoints, "md")) {
-    margin: 0 3px 0px 3.5px;
-  }
+.step_content_title {
+  font-size: 12px;
 }
-.item_selectes_standard {
-  display: flex;
-  margin: 0 5px 0px 7.5px;
-  font-size: 13px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.54;
-  letter-spacing: normal;
-  color: #ffba27;
-  @media (max-width: map-get($breakpoints, "md")) {
-    margin: 0 3px 0px 3.5px;
-  }
+.bar {
+  width: 100%;
+  height: 3px;
+  background-color: #7a93bc;
+  position: absolute;
+  margin-left: 40px;
 }

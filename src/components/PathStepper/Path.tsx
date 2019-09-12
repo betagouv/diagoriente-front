@@ -1,42 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classes from './path.module.scss';
-import classNames from '../../utils/classNames';
 
 interface IProps {
-  options: string[];
-  onClick: (index: number, p: string) => void;
-  type?: string;
+  indexStep: number;
+  stepName: string | null;
+  steps: string[];
 }
+type Props = IProps & RouteComponentProps;
 
-const PathStepper = ({ options, onClick, type }: IProps) => (
-  <div className={classes.container}>
-    {['Accueil', ...options].map((p, index, array) => {
-      const isLast = index === array.length - 1;
+const Stepper = ({ steps, stepName }: Props) => {
+  const [indexStep, setIndexStep] = useState(0);
+  useEffect(() => {
+    if (stepName === 'select_theme') {
+      setIndexStep(0);
+    } else if (stepName === 'activities_edit') {
+      setIndexStep(1);
+    } else if (stepName === 'expertise_edit') {
+      setIndexStep(2);
+    } else if (stepName === null) {
+      setIndexStep(-1);
+    }
+  });
 
-      return (
-        <div key={p} className={classes.item_container}>
-          <div
-            onClick={() => onClick(index, p)}
-            className={classNames(
-              isLast
-                ? type === 'professional'
-                  ? classes.item_selected_pro
-                  : type === 'type'
-                  ? classes.item_selectes_standard
-                  : classes.item_selected
-                : classes.item,
+  return (
+    <div className={classes.stepper_container}>
+      {steps.map((step, i) => (
+        <div key={step} className={classes.step_container}>
+          <div className={classes.block}>
+            <div className={classes.circle_container}>
+              <div
+                className={classes.step_content}
+                style={
+                  indexStep === i || indexStep >= i
+                    ? { backgroundColor: '#7a93bc' }
+                    : { backgroundColor: '#C0C0C0' }
+                }
+              >
+                <span
+                  className={classes.step_content_title}
+                  style={indexStep === i ? { color: 'white' } : { color: 'white' }}
+                >
+                  {i + 1}
+                </span>
+              </div>
+            </div>
+            {i < steps.length - 1 && (
+              <div
+                className={classes.bar}
+                style={indexStep > i ? { backgroundColor: '#7a93bc' } : { backgroundColor: '#7a93bc' }}
+              />
             )}
-          >
-            {p}
           </div>
-          {!isLast && <div className={classes.item}>></div>}
+          <span className={classes.step_title}>{step}</span>
         </div>
-      );
-    })}
-  </div>
-);
-
-PathStepper.defaultProps = {
-  options: [],
+      ))}
+    </div>
+  );
 };
-export default PathStepper;
+
+export default connect(
+  null,
+  null,
+)(withRouter(Stepper));
