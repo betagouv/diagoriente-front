@@ -129,13 +129,17 @@ const ThemesContainer = forwardRef(
     };
     const renderTitle = () => {
       if (step === 'select_theme') {
-        return <span  className={classes.titleStep}>Choisis un thème</span>;
+        return <span className={classes.titleStep}>Choisis un thème</span>;
       }
       if (step === 'activities_edit') {
-        return <span  className={classes.titleStep}>Sélectionne des activités</span>;
+        return <span className={classes.titleStep}>Sélectionne des activités</span>;
       }
       if (step === 'expertise_edit') {
-        return <span className={classes.titleStep}>Sélectionne et évalue tes compétences (4 maximum)</span>;
+        return (
+          <span className={classes.titleStep}>
+            Sélectionne et évalue tes compétences (4 maximum)
+          </span>
+        );
       }
     };
 

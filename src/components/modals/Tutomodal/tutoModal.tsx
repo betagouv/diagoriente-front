@@ -58,7 +58,6 @@ const TutoModal = ({ type, click, passer }: Props) => {
         src = searchPro;
         break;
       default:
-        console.log('object');
     }
     return src;
   };

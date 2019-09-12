@@ -147,7 +147,7 @@ const SkillsContainer = forwardRef(
                     Iconcolor="#7992bf"
                     width="65"
                     height="65"
-                    onClick={parcours.played ? pushRoute('/profile/perso') : () => onOpenModal()}
+                    onClick={parcours.played ? pushRoute('/profile/perso','select_theme') : () => onOpenModal()}
                     className={classes.multiOverride}
                   />
                 ) : (
@@ -184,7 +184,7 @@ const SkillsContainer = forwardRef(
                         text="Modifier"
                         style={{ fontSize: 12, padding: 5 }}
                         onClick={
-                          parcours.played ? pushRoute('/profile/perso','edit_all') : () => onOpenModal()
+                          parcours.played ? pushRoute('/profile/perso', 'edit_all') : () => onOpenModal()
                         }
                       />
                     </div>
@@ -202,7 +202,7 @@ const SkillsContainer = forwardRef(
                     Iconcolor="#7992bf"
                     width="65"
                     height="65"
-                    onClick={pushRoute('/profile/pro')}
+                    onClick={pushRoute('/profile/pro', 'select_theme')}
                     className={classes.multiOverride}
                   />
                 ) : (
@@ -226,7 +226,19 @@ const SkillsContainer = forwardRef(
                         withText
                         text="Ajouter"
                         style={{ fontSize: 12, padding: 5 }}
-                        onClick={pushRoute('/profile/pro')}
+                        onClick={pushRoute('/profile/pro', 'select_theme')}
+                      />
+                           <MultiIcon
+                        type="edit"
+                        Iconcolor="#7992bf"
+                        width="25"
+                        height="25"
+                        withText
+                        text="Modifier"
+                        style={{ fontSize: 12, padding: 5 }}
+                        onClick={
+                          parcours.played ? pushRoute('/profile/pro', 'edit_all') : () => onOpenModal()
+                        }
                       />
                     </div>
                   </Fragment>
