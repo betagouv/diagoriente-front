@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 
@@ -9,7 +9,10 @@ import ModalInvalid from 'components/modals/InvalidModal/InvalidModal';
 import modalActions from 'reducers/modal';
 import parcoursActions from 'reducers/parcours';
 import { IUpdateParcoursParams } from 'requests';
-
+import SvgCompetence from 'assets_v3/Sidebar/compétences';
+import SvgMesDemarches from 'assets_v3/Sidebar/MesDemarches';
+import SvgInterests from 'assets_v3/Sidebar/MesInterets';
+import SvgPistesMetiers from 'assets_v3/Sidebar/PistesMetiers';
 import MultiIcon from '../../icons/multiIcon/multiIcon';
 
 import classes from './sideBar.module.scss';
@@ -18,6 +21,7 @@ const sideBarItems = [
   {
     path: 'skills',
     title: 'CARTE DE COMPÉTENCES',
+    icon: SvgCompetence,
   },
   /* {
     path: 'perso',
@@ -28,14 +32,17 @@ const sideBarItemsExplorama = [
   {
     path: 'favoris',
     title: 'EXPLORER MES INTÉRÊTS',
+    icon: SvgInterests,
   },
   {
     path: 'jobs',
     title: 'CHOISIR DES PISTES DE MÉTIERS',
+    icon: SvgPistesMetiers,
   },
   {
     path: 'demarche',
     title: 'MES DÉMARCHES',
+    icon: SvgMesDemarches,
   },
 ];
 
@@ -80,22 +87,30 @@ const SideBar = ({
   return (
     <div className={classes.container_Bar}>
       {sideBarItems.map(item => (
-        <div key={item.path} className={classes.item}>
-          <MultiIcon
-            type="edit"
-            withText
-            text={`${item.title}`}
-            width="35"
-            sideBar
-            height="35"
-            onClick={
-              parcours.data.played
-                ? () => onNavigate(`${match.path}/${item.path}`)
-                : () => onOpenModal()
-            }
-            textColor={`${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF'}
-            Iconcolor={`${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF'}
-          />
+        <div
+          key={item.path}
+          className={classes.item}
+          onClick={
+            parcours.data.played
+              ? () => onNavigate(`${match.path}/${item.path}`)
+              : () => onOpenModal()
+          }
+        >
+          <div className={classes.iconContainer}>
+            <SvgCompetence
+              color={`${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF'}
+            />
+          </div>
+          <div className={classes.titleContainer}>
+            <span
+              className={classes.title}
+              style={{
+                color: `${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF',
+              }}
+            >
+              {item.title}
+            </span>
+          </div>
         </div>
       ))}
       {/* <div className={classes.item}>
@@ -124,48 +139,60 @@ const SideBar = ({
         />
       </div> */}
       <div className={classes.itemsExplorama}>
-        {sideBarItemsExplorama.map((item, i) => (
-          <div key={item.path} className={classes.item}>
-            {i === sideBarItemsExplorama.length - 1 ? (
-              <MultiIcon
-                type="edit"
-                withText
-                text={`${item.title}`}
-                width="35"
-                sideBar
-                height="35"
-                textColor="gray"
-                Iconcolor="gray"
-              />
-            ) : (
-              <MultiIcon
-                type="edit"
-                withText
-                text={`${item.title}`}
-                width="35"
-                sideBar
-                height="35"
-                onClick={
-                  isAlloawed !== 0 ? () => onNavigate(`${match.path}/${item.path}`) : () => {}
-                }
-                textColor={
-                  isAlloawed !== 0
-                    ? `${match.path}/${item.path}` === location.pathname
-                      ? '#ffba27'
-                      : '#7992BF'
-                    : 'gray'
-                }
-                Iconcolor={
-                  isAlloawed !== 0
-                    ? `${match.path}/${item.path}` === location.pathname
-                      ? '#ffba27'
-                      : '#7992BF'
-                    : 'gray'
-                }
-              />
-            )}
-          </div>
-        ))}
+        {sideBarItemsExplorama.map((item, i) => {
+          const condition = `${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF';
+
+          return (
+            <div
+              key={item.path}
+              className={classes.item}
+              onClick={isAlloawed !== 0 ? () => onNavigate(`${match.path}/${item.path}`) : () => {}}
+            >
+              {i === sideBarItemsExplorama.length - 1 ? (
+                <Fragment>
+                  <div
+                    className={classes.iconContainer}
+                    /*      onClick={
+                    parcours.data.played
+                      ? () => onNavigate(`${match.path}/${item.path}`)
+                      : () => onOpenModal()
+                  } */
+                  >
+                    <SvgMesDemarches
+                      color={`${match.path}/${item.path}` === location.pathname ? '#666' : '#666'}
+                    />
+                  </div>
+                  <div className={classes.titleContainer}>
+                    <span
+                      className={classes.title}
+                      style={{
+                        color: `${match.path}/${item.path}` === location.pathname ? '#666' : '#666',
+                      }}
+                    >
+                      {item.title}
+                    </span>
+                  </div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div className={classes.iconContainer}>
+                    <item.icon color={isAlloawed !== 0 ? condition : 'gray'} />
+                  </div>
+                  <div className={classes.titleContainer}>
+                    <span
+                      className={classes.title}
+                      style={{
+                        color: isAlloawed !== 0 ? condition : 'gray',
+                      }}
+                    >
+                      {item.title}
+                    </span>
+                  </div>
+                </Fragment>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

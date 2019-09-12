@@ -1,10 +1,30 @@
 .item {
   display: flex;
   height: 55px;
+  align-items: center;
+  margin-left: 13px;
 }
 .container_Bar {
   margin-left: -20px;
 }
 .itemsExplorama {
   margin-top: 15px;
+}
+.titleContainer {
+  margin-left: 15px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+.title {
+  width: 170px;
+  font-weight: 600;
+}
+.iconContainer {
+  height: 55px;
+  width: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
