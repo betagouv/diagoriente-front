@@ -244,7 +244,7 @@ const ThemesContainer = forwardRef(
               />,
             );
           }
-        } else {
+        } else if (showTuto(1)) {
           openModal(
             <TutoModal
               type="themes"
@@ -429,11 +429,11 @@ const ThemesContainer = forwardRef(
     function onCloseClick() {
       if (step === 'select_theme') {
         // stepChange(null);
-        history.push('skills')
+        history.push('skills');
       } else if (step === 'activities_edit') {
-        history.push('skills')
+        history.push('skills');
       } else {
-        history.push('skills')
+        history.push('skills');
       }
     }
 
