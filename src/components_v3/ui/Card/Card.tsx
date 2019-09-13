@@ -1,4 +1,5 @@
 import React from 'react';
+import { Step } from 'containers/ThemeContainer/ThemeContainer';
 import classes from './card.module.scss';
 import classNames from '../../../utils/classNames';
 import MultiIcon from '../../icons/multiIcon/multiIcon';
@@ -34,7 +35,15 @@ const Card = ({
           height="30"
           Iconcolor="#ff001f"
           withText
-          text={selected && addTheme ? 'fermer' : step === 'select_theme' ? 'fermer' : 'supprimer'}
+          text={
+            selected && addTheme
+              ? 'Annuler'
+              : step === 'select_theme'
+              ? 'Annuler'
+              : step === 'edit_all'
+              ? 'annuler'
+              : 'supprimer'
+          }
           textColor="#ff001f"
           style={{ fontSize: 14 }}
         />
@@ -75,7 +84,7 @@ const Card = ({
             height="30"
             Iconcolor="#ffc107"
             withText
-            text="Enregistrer"
+            text="Valider"
             textColor="#ffc107"
             style={{ fontSize: 14 }}
           />
@@ -96,7 +105,7 @@ const Card = ({
             height="30"
             Iconcolor="gray"
             withText
-            text="Enregistrer"
+            text="continuer"
             textColor="gray"
             style={{ fontSize: 14 }}
           />
@@ -110,7 +119,7 @@ const Card = ({
             height="30"
             Iconcolor="#ffc107"
             withText
-            text="Enregistrer"
+            text="continuer"
             textColor="#ffc107"
             style={{ fontSize: 14 }}
           />

@@ -13,6 +13,7 @@ export interface IRegisterParams {
   firstName: string;
   lastName: string;
   question: QuestionQuery;
+  code?: string;
 }
 
 export const registerUserRequest = (data: IRegisterParams): Promise<Response<User>> =>

@@ -1,5 +1,5 @@
 import React, {
- Ref, forwardRef, Fragment, Dispatch,
+ Ref, forwardRef, Fragment, Dispatch, useEffect,
 } from 'react';
 import { connect } from 'react-redux';
 import { find, isEmpty } from 'lodash';
@@ -69,8 +69,13 @@ const SkillsContainer = forwardRef(
     ref: Ref<RefProp>,
   ) => {
     useDidMount(() => {
-      get.call(parcours._id);
+      get.call(parcours._id)
     });
+    useEffect(()=> {
+      if (get.data.globalCopmetences === {}) {
+        get.call(parcours._id)
+      }
+    })
     async function onFooterClick(button: string) {
       if (!isEmpty(get.data) && !isEmpty(parcours)) {
         if (button === 'download') {
@@ -99,9 +104,9 @@ const SkillsContainer = forwardRef(
 
     useCaptureRef({ onFooterClick }, ref);
 
-    function pushRoute(route: string, params?:string) {
+    function pushRoute(route: string, params?: string) {
       return function () {
-        history.push({ pathname: route, state:{ detail: params }});
+        history.push({ pathname: route, state: { detail: params } });
       };
     }
     const onNavigate = () => {
@@ -147,7 +152,11 @@ const SkillsContainer = forwardRef(
                     Iconcolor="#7992bf"
                     width="65"
                     height="65"
-                    onClick={parcours.played ? pushRoute('/profile/perso','select_theme') : () => onOpenModal()}
+                    onClick={
+                      parcours.played
+                        ? pushRoute('/profile/perso', 'select_theme')
+                        : () => onOpenModal()
+                    }
                     className={classes.multiOverride}
                   />
                 ) : (
@@ -172,7 +181,9 @@ const SkillsContainer = forwardRef(
                         text="Ajouter"
                         style={{ fontSize: 12, padding: 5 }}
                         onClick={
-                          parcours.played ? pushRoute('/profile/perso','select_theme') : () => onOpenModal()
+                          parcours.played
+                            ? pushRoute('/profile/perso', 'select_theme')
+                            : () => onOpenModal()
                         }
                       />
                       <MultiIcon
@@ -184,7 +195,9 @@ const SkillsContainer = forwardRef(
                         text="Modifier"
                         style={{ fontSize: 12, padding: 5 }}
                         onClick={
-                          parcours.played ? pushRoute('/profile/perso', 'edit_all') : () => onOpenModal()
+                          parcours.played
+                            ? pushRoute('/profile/perso', 'edit_all')
+                            : () => onOpenModal()
                         }
                       />
                     </div>
@@ -228,7 +241,7 @@ const SkillsContainer = forwardRef(
                         style={{ fontSize: 12, padding: 5 }}
                         onClick={pushRoute('/profile/pro', 'select_theme')}
                       />
-                           <MultiIcon
+                      <MultiIcon
                         type="edit"
                         Iconcolor="#7992bf"
                         width="25"
@@ -237,7 +250,9 @@ const SkillsContainer = forwardRef(
                         text="Modifier"
                         style={{ fontSize: 12, padding: 5 }}
                         onClick={
-                          parcours.played ? pushRoute('/profile/pro', 'edit_all') : () => onOpenModal()
+                          parcours.played
+                            ? pushRoute('/profile/pro', 'edit_all')
+                            : () => onOpenModal()
                         }
                       />
                     </div>

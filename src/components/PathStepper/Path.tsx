@@ -40,7 +40,7 @@ const Stepper = ({ steps, stepName }: Props) => {
               >
                 <span
                   className={classes.step_content_title}
-                  style={indexStep === i ? { color: 'white' } : { color: 'black' }}
+                  style={indexStep >= i ? { color: 'white' } : { color: '#7a93bc' }}
                 >
                   {i + 1}
                 </span>
