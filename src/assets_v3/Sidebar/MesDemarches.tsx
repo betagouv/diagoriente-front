@@ -11,7 +11,7 @@ const MesdemarcheSvg = ({ color }: IProps) => (
     id="Calque_1"
     x="0px"
     y="0px"
-    viewBox="0 0 53.2 41.5"
+    viewBox="0 0 53.7 41.4"
     enableBackground="new 0 0 53.2 41.5"
   >
     <g>

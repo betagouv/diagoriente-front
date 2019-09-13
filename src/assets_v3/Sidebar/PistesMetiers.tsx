@@ -13,7 +13,7 @@ const PistesMetierSvg = ({ color }: IProps) => (
 	height="50px"
     x="0px"
     y="0px"
-    viewBox="0 0 52.7 34.4"
+    viewBox="0 0 56.7 34.4"
     enableBackground="new 0 0 52.7 34.4"
   >
     <g>
