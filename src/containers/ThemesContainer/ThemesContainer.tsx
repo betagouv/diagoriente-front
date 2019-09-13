@@ -115,7 +115,7 @@ const ThemesContainer = forwardRef(
     }
     const [search, setSearch] = useState('');
     const [step, stepChange] = useState<Step | 'select_theme' | null>(
-      !currentSkills.length ? 'select_theme' : null,
+      !currentSkills.length ? 'select_theme' : location.state.detail,
     );
 
     const [selectedTheme, selectedThemeChange] = useState<string | null>(null);
@@ -228,7 +228,7 @@ const ThemesContainer = forwardRef(
       selectedThemeChange(null);
       skillsChange(currentSkills);
       // eslint-disable-next-line
-      // console.log(skills)
+       console.log(step)
     }, [type]);
     useEffect(() => {
       if (step) {
@@ -307,9 +307,9 @@ const ThemesContainer = forwardRef(
         // skillsChange(currentSkills);
         // stepChange(null);
         selectedThemeChange(null);
-        console.log(
+        /* console.log(
           ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
-        );
+        ); */
         parcoursRequest({
           skills: [
             ...currentSkills.map(skillWithoutId),
@@ -414,7 +414,7 @@ const ThemesContainer = forwardRef(
             skills: send,
           }); */
 
-          console.log(skills);
+         // console.log(skills);
         } else {
           openModal(
             <InvalidModal
@@ -429,11 +429,11 @@ const ThemesContainer = forwardRef(
     function onCloseClick() {
       if (step === 'select_theme') {
         // stepChange(null);
-        history.push('skills')
+        history.push('skills');
       } else if (step === 'activities_edit') {
-        history.push('skills')
+        history.push('skills');
       } else {
-        history.push('skills')
+        history.push('skills');
       }
     }
 
@@ -443,12 +443,12 @@ const ThemesContainer = forwardRef(
     }
 
     function renderAdd() {
-      console.log(
+      /* console.log(
         'first one',
         selectedTheme && skills.find(skill => skill.theme._id === selectedTheme),
         'step ',
         step,
-      );
+      ); */
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
         return (
           <MultiIcon
@@ -592,7 +592,7 @@ const ThemesContainer = forwardRef(
         </div>
       );
     }
-    console.log(skills);
+    // console.log(skills);
     return (
       <div className={classes.container}>
         {step !== 'edit_all' && <div className={classes.add}>{renderAdd()}</div>}
@@ -613,9 +613,17 @@ const ThemesContainer = forwardRef(
               function onClose() {
                 openModal(
                   <DeleteModal
-                    onDelete={() =>
-                      skillsChange(skills.filter(skill => skill.theme._id !== theme._id))
-                    }
+                    onDelete={() => {
+                      skillsChange(skills.filter(skill => skill.theme._id !== theme._id));
+                      parcoursRequest({
+                        skills: [
+                          ...skills.filter(skill => skill.theme._id !== theme._id).map(skillWithoutId),
+                          ...parcours.skills
+                            .filter(skill => skill.theme.type !== type)
+                            .map(skillWithoutId),
+                        ],
+                      });
+                    }}
                     onCloseModal={closeModal}
                   />,
                 );
