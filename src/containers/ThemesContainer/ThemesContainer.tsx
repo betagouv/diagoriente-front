@@ -230,7 +230,7 @@ const ThemesContainer = forwardRef(
       // eslint-disable-next-line
        console.log(step)
     }, [type]);
-    useEffect(() => {
+    /* useEffect(() => {
       if (step) {
         if (type === 'professional') {
           if (showTuto(7)) {
@@ -256,7 +256,7 @@ const ThemesContainer = forwardRef(
           );
         }
       }
-    }, []);
+    }, []); */
 
     useCaptureRef({ onFooterClick }, ref);
 
@@ -330,7 +330,7 @@ const ThemesContainer = forwardRef(
     function onEditClick() {
       if (step === 'select_theme') {
         stepChange('activities_edit');
-        if (showTuto(2) && type === 'personal') {
+        /* if (showTuto(2) && type === 'personal') {
           openModal(
             <TutoModal
               type="actvities"
@@ -350,10 +350,10 @@ const ThemesContainer = forwardRef(
               }}
             />,
           );
-        }
+        } */
       } else if (step === 'activities_edit') {
         const newSkill = newSkillRef.current;
-        if (showTuto(3) && type === 'personal') {
+        /* if (showTuto(3) && type === 'personal') {
           openModal(
             <TutoModal
               type="competencesPerso"
@@ -374,7 +374,7 @@ const ThemesContainer = forwardRef(
               }}
             />,
           );
-        }
+        } */
         if (newSkill && newSkill.activities.length === 0) {
           openModal(
             <InvalidModal onCloseModal={closeModal} text="Il faut au moins choisir une activité" />,
@@ -383,7 +383,7 @@ const ThemesContainer = forwardRef(
           stepChange('expertise_edit');
         }
       } else if (step === 'expertise_edit') {
-        if (showTuto(4) && type === 'personal') {
+        /* if (showTuto(4) && type === 'personal') {
           openModal(
             <TutoModal
               type="successPerso"
@@ -393,28 +393,10 @@ const ThemesContainer = forwardRef(
               }}
             />,
           );
-        }
+        } */
         const newSkill = newSkillRef.current;
         if (newSkill && isSkillValidInputs(newSkill)) {
           updateSkill();
-          /* const activities = newSkill.activities.map(el => el._id);
-          const competences = newSkill.competences.map(el => ({ _id: el._id, value: el.value }));
-          const theme: any = selectedTheme;
-          const send: any[] = [
-            {
-              activities,
-              competences,
-              theme,
-              type,
-            },
-          ];
-          send.push(parcours.skills)
-          console.log(send);
-          parcoursRequest({
-            skills: send,
-          }); */
-
-         // console.log(skills);
         } else {
           openModal(
             <InvalidModal
@@ -460,7 +442,7 @@ const ThemesContainer = forwardRef(
             onClick={() => {
               selectedThemeChange(null);
               stepChange('select_theme');
-              if (type === 'personal') {
+              /* if (type === 'personal') {
                 if (showTuto(1)) {
                   openModal(
                     <TutoModal
@@ -482,7 +464,7 @@ const ThemesContainer = forwardRef(
                     }}
                   />,
                 );
-              }
+              } */
             }}
           />
         );
