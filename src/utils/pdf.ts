@@ -130,7 +130,7 @@ export function pdf2(parcours: any, get: any, user: any, div: any = false) {
   doc.setFont('nunito', 'bold');
   doc.setFontSize(12);
   doc.setTextColor(26, 68, 131);
-  doc.text('EXPÉRIENCES PERSONNELLES', 24, y3 + 22);
+  doc.text('EXPÉRIENCES PROFESSIONNELLES', 24, y3 + 22);
 
   doc.setFont('lato', 'semiBold');
   doc.setFontSize(12);

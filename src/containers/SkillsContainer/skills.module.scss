@@ -158,7 +158,7 @@
   margin-right: 20px;
 }
 .themesContainerPro {
-  padding: 15px 0px 0px 25px;
+  padding: 10px 0px 0px 20px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -168,13 +168,13 @@
   flex-wrap: wrap;
 }
 .themesContainer {
-  padding: 15px 0px 0px 25px;
+  padding: 10px 0px 0px 20px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
-  height: 80%;
+  height: 75%;
   flex-wrap: wrap;
 }
 .hr {
@@ -233,6 +233,7 @@ li::before {
 li {
   list-style: none;
   color: #305f5a;
+  font-size: 14.5px;
 }
 @media screen and (max-width: 1100px) {
   .content {
