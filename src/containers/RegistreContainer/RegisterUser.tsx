@@ -41,7 +41,7 @@ interface DispatchToProps {
       _id: string;
       response: string;
     },
-    code: string,
+    codeGroupe: string,
   ) => void;
 }
 
@@ -77,7 +77,7 @@ const RegisterUserContainer = ({
   const [firstName, firstNameChange, firstNameTouched] = useTextInput('');
   const [response, responseChange, responseTouched] = useTextInput('');
   const [lastName, lastNameChange, lastNameTouched] = useTextInput('');
-  const [code, codeChange, codeTouched] = useTextInput('');
+  const [codeGroupe, codeChange, codeTouched] = useTextInput('');
 
   const [questionValue, open, onChange, onOpen, onClose] = useSelectInput('');
   const [conditionChecked, setChecked] = useState(false);
@@ -88,7 +88,7 @@ const RegisterUserContainer = ({
   const firstNameValid = firstNameTouched ? validateNom(firstName) : '';
   const lastNameValid = lastNameTouched ? validateNom(lastName) : '';
   const responseValid = responseTouched ? validateNom(response) : '';
-  const codeValid = codeTouched ? validateNom(code) : '';
+  const codeValid = codeTouched ? validateNom(codeGroupe) : '';
 
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -97,7 +97,7 @@ const RegisterUserContainer = ({
         response,
         _id: questionValue,
       };
-      registerRequest(email, password, firstName, lastName, question, code);
+      registerRequest(email, password, firstName, lastName, question, codeGroupe);
     } else {
       changeConditionValidation(true);
     }
@@ -260,7 +260,7 @@ const mapStateToProps = ({ authUser }: ReduxState): MapToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
-  registerRequest: (email, password, firstName, lastName, question, code) =>
+  registerRequest: (email, password, firstName, lastName, question, codeGroupe) =>
     dispatch(
       registerUserActions.registerUserRequest({
         email,
@@ -268,7 +268,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => (
         firstName,
         lastName,
         question,
-        code,
+        codeGroupe,
       }),
     ),
 });
