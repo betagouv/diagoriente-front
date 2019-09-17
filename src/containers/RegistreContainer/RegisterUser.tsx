@@ -191,7 +191,7 @@ const RegisterUserContainer = ({
               <div className={classes.container_select}>
                 <Grid item xl={12} md={12}>
                   <Input
-                    name="Code de Groupe"
+                    name="Code Groupe"
                     validation={codeValid}
                     onChange={codeChange}
                     className={classes.container_input}
