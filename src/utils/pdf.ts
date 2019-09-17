@@ -107,9 +107,9 @@ export function pdf2(parcours: any, get: any, user: any, div: any = false) {
   doc.text('EXPÉRIENCES PERSONNELLES', 24, y2 + 22);
 
   doc.setFont('lato', 'semiBold');
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.setTextColor(120, 120, 120);
-  const n2 = themesPerso.length < 10 ? themesPerso.length : 10;
+  const n2 = themesPerso.length < 16 ? themesPerso.length : 16;
   for (let i = 0; i < n2; i++) {
     const x2 = i < 8 ? 38 : 248;
     const j = i < 8 ? i : i - 8;
@@ -133,9 +133,9 @@ export function pdf2(parcours: any, get: any, user: any, div: any = false) {
   doc.text('EXPÉRIENCES PROFESSIONNELLES', 24, y3 + 22);
 
   doc.setFont('lato', 'semiBold');
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.setTextColor(120, 120, 120);
-  const n3 = skillPro.length < 10 ? skillPro.length : 10;
+  const n3 = skillPro.length < 16 ? skillPro.length : 16;
   for (let i = 0; i < n3; i++) {
     const x2 = i < 8 ? 38 : 248;
     const j = i < 8 ? i : i - 8;
