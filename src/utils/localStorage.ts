@@ -2,9 +2,9 @@ import { patchTuto } from 'requests';
 
 export function showTuto(ModalIndex: number) {
   const storedTuto = localStorage.getItem('Tuto');
-  if (storedTuto) {
+  /* if (storedTuto) {
     return !JSON.parse(storedTuto)[ModalIndex];
-  }
+  } */
   return false;
 }
 export function tutoShowed(userId: string) {
