@@ -123,7 +123,7 @@ const RegisterUserContainer = ({
             <div className={classes.container_select}>
               <Grid item xl={5} md={12}>
                 <Input
-                  name="Prénom"
+                  name="*Prénom"
                   validation={firstNameValid}
                   onChange={firstNameChange}
                   className={classes.container_input}
@@ -131,7 +131,7 @@ const RegisterUserContainer = ({
               </Grid>
               <Grid item xl={5} md={12}>
                 <Input
-                  name="Nom"
+                  name="*Nom"
                   validation={lastNameValid}
                   onChange={lastNameChange}
                   className={classes.container_input}
@@ -142,7 +142,7 @@ const RegisterUserContainer = ({
               <div className={classes.container_select}>
                 <Grid item xl={12} md={12}>
                   <Input
-                    name="Email  "
+                    name="*Email  "
                     validation={emailValid}
                     onChange={emailChange}
                     className={classes.container_input}
@@ -153,7 +153,7 @@ const RegisterUserContainer = ({
               <div className={classes.container_select}>
                 <Grid item xl={12} md={12}>
                   <Input
-                    name="Mot de passe"
+                    name="*Mot de passe"
                     validation={passwordValid}
                     onChange={passwordChange}
                     className={classes.container_input}
@@ -172,7 +172,7 @@ const RegisterUserContainer = ({
                     onChange={onChange}
                     value={questionValue}
                     className={classes.container_input_select}
-                    placeholder="Questions de sécurité"
+                    placeholder="*Questions de sécurité"
                     selectOpen={onOpen}
                     selectClose={onClose}
                   />
@@ -181,7 +181,7 @@ const RegisterUserContainer = ({
               <div className={classes.container_select}>
                 <Grid item xl={12} md={12}>
                   <Input
-                    name="Votre réponse à la question de sécurité"
+                    name="*Votre réponse à la question de sécurité"
                     validation={responseValid}
                     onChange={responseChange}
                     className={classes.container_input}
@@ -191,7 +191,7 @@ const RegisterUserContainer = ({
               <div className={classes.container_select}>
                 <Grid item xl={12} md={12}>
                   <Input
-                    name="code"
+                    name="Code de Groupe"
                     validation={codeValid}
                     onChange={codeChange}
                     className={classes.container_input}
