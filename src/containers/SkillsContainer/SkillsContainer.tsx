@@ -29,7 +29,6 @@ import TutoModal from 'components/modals/Tutomodal/tutoModal';
 import { pdf2 } from 'utils/pdf';
 import tutoWrapper, { TutoFns } from 'hoc/tutoWrapper';
 
-/* import JobIcon from 'components_v3/icons/jobIcon/jobIcon'; */
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -71,7 +70,7 @@ const SkillsContainer = forwardRef(
     useDidMount(() => {
       get.call(parcours._id)
     });
-    useEffect(()=> {
+    useEffect(() => {
       if (get.data.globalCopmetences === {}) {
         get.call(parcours._id)
       }
