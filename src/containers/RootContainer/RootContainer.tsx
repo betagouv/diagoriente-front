@@ -22,6 +22,9 @@ import GameContainer from 'containers/GameContainer/GameContainer';
 
 // components
 import Modal from 'components/ui/Modal/Modal';
+import SkillsContainer from 'containers/SkillsContainer/SkillsContainer';
+import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import CartePublicContainer from 'containers/CartePublicContainer/CartePublicContainer';
 // hoc
 import ProtectedRoute from 'hoc/ProtectedRoute';
 
@@ -93,6 +96,46 @@ const RootContainer = ({
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
           <Route path="/game" exact component={GameContainer} />
+          <Route
+            path="/public/:idUser"
+            render={props => (
+              <CartePublicContainer
+                {...props}
+                footerButtons={[
+                  {
+                    component: (
+                      <MultiIcon
+                        type="print"
+                        withText
+                        footer
+                        text="IMPRIMER"
+                        width="35"
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'print',
+                  },
+                  {
+                    component: (
+                      <MultiIcon
+                        type="download"
+                        withText
+                        footer
+                        text="TÉLÉCHARGER"
+                        width="35"
+                        height="35"
+                        textColor="#7992BF"
+                        Iconcolor="#7992BF"
+                      />
+                    ),
+                    key: 'download',
+                  },
+                ]}
+              />
+            )}
+          />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

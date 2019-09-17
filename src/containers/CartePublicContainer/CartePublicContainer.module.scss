@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .fill {
   width: 100%;
@@ -12,8 +12,7 @@
 
 .card {
   @extend .fill;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
 }
@@ -40,7 +39,7 @@
       #223b77 50.5%,
       #223b77 100%
     );
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -138,7 +137,7 @@
       #223b77 50.5%,
       #223b77 100%
     );
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
@@ -158,7 +157,7 @@
   margin-right: 20px;
 }
 .themesContainerPro {
-  padding: 10px 0px 0px 20px;
+  padding: 15px 0px 0px 25px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -168,13 +167,13 @@
   flex-wrap: wrap;
 }
 .themesContainer {
-  padding: 10px 0px 0px 20px;
+  padding: 15px 0px 0px 25px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
-  height: 75%;
+  height: 80%;
   flex-wrap: wrap;
 }
 .hr {
@@ -191,7 +190,6 @@
 .mapContainer {
   display: flex;
   flex-direction: row;
-  max-width: 50%;
 }
 .mapContainerPro {
   display: flex;
@@ -205,7 +203,7 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  display: flex
+  display: flex;
 }
 .competences {
   display: flex;
@@ -225,7 +223,7 @@
   font-size: 12px;
 }
 li::before {
-  content: "\2022";
+  content: '\2022';
   color: #dedede;
   font-weight: bold;
   display: inline-block;
@@ -234,7 +232,6 @@ li::before {
 li {
   list-style: none;
   color: #305f5a;
-  font-size: 14.5px;
 }
 @media screen and (max-width: 1100px) {
   .content {

@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { find, isEmpty } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import { AnyAction } from 'redux';
-
 import {
  ReduxState, IParcoursResponse, IExpertise, IUser,
 } from 'reducers';
+import { useDidUpdate, useDidMount } from 'hooks';
 
 import withLayout from 'hoc/withLayout';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 
 import { getParcours, IUpdateParcoursParams } from 'requests';
-import { useDidMount } from 'hooks';
+
 import ModalInvalid from 'components/modals/InvalidModal/InvalidModal';
 import modalActions from 'reducers/modal';
 import { useCaptureRef } from 'hooks/useCaptureRef';
@@ -68,13 +68,18 @@ const SkillsContainer = forwardRef(
     ref: Ref<RefProp>,
   ) => {
     useDidMount(() => {
-      get.call(parcours._id)
+      get.call(parcours._id);
     });
     useEffect(() => {
       if (get.data.globalCopmetences === {}) {
-        get.call(parcours._id)
+        get.call(parcours._id);
       }
-    })
+    });
+    useDidUpdate(() => {
+      if (get.data.globalCopmetences.length > 0) {
+        get.call(parcours._id);
+      }
+    }, [get.data.globalCopmetences]);
     async function onFooterClick(button: string) {
       if (!isEmpty(get.data) && !isEmpty(parcours)) {
         if (button === 'download') {
@@ -122,6 +127,7 @@ const SkillsContainer = forwardRef(
         />,
       );
     };
+    console.log('global competences', get.data.globalCopmetences);
     return (
       <div className={classes.container}>
         <div className={classes.card}>
