@@ -71,7 +71,7 @@ const SkillsContainer = forwardRef(
       get.call(parcours._id);
     });
     useEffect(() => {
-      if (get.data.globalCopmetences === {}) {
+      if (get.data.globalCopmetences.length === 0) {
         get.call(parcours._id);
       }
     });
