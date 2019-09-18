@@ -70,11 +70,11 @@ const SkillsContainer = forwardRef(
     useDidMount(() => {
       get.call(parcours._id);
     });
-    useEffect(() => {
+   /*  useEffect(() => {
       if (get.data.globalCopmetences.length === 0) {
         get.call(parcours._id);
       }
-    });
+    }); */
     useDidUpdate(() => {
       if (get.data.globalCopmetences.length > 0) {
         get.call(parcours._id);
