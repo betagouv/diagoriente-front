@@ -34,9 +34,7 @@ import parcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
 import activityActions from 'reducers/activity';
 import Stepper from 'components/PathStepper/Path';
-import {
- ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
-} from 'reducers';
+import { ReduxState, ITheme, IParcoursResponse, ISkillPopulated } from 'reducers';
 import ReactTooltip from 'react-tooltip';
 
 // utils
@@ -276,9 +274,9 @@ const ThemesContainer = forwardRef(
 
     function isSkillValidInputs(skillRef: ThemeRefObject) {
       return (
-        skillRef.activities.length > 0
-        && skillRef.competences.length < 5
-        && skillRef.competences.length > 0
+        skillRef.activities.length > 0 &&
+        skillRef.competences.length < 5 &&
+        skillRef.competences.length > 0
       );
     }
 
@@ -499,8 +497,8 @@ const ThemesContainer = forwardRef(
             )}
 
             {step === 'select_theme' ? (
+              list.data.data &&
               list.data.data
-              && list.data.data
                 .filter(theme => !skills.find(skill => skill.theme._id === theme._id))
                 .map(theme => {
                   const selected = theme._id === selectedTheme;
@@ -552,10 +550,7 @@ const ThemesContainer = forwardRef(
                         <div className={classes.activity_container}>
                           {activity.data.activities && activity.data.activities.length !== 0
                             ? map(activity.data.activities, (e: any) => (
-                              <div key={e._id}>
--
-                                {e.title}
-                              </div>
+                                <div key={e._id}>{`-${e.title}`}</div>
                               ))
                             : theme.title}
                         </div>
@@ -595,6 +590,10 @@ const ThemesContainer = forwardRef(
               }
 
               function onClose() {
+                if (selected) {
+                  history.push('/profile/skills');
+                  return;
+                }
                 openModal(
                   <DeleteModal
                     onDelete={() => {
@@ -627,6 +626,7 @@ const ThemesContainer = forwardRef(
                   selected={step === 'edit_all' && selectedTheme === theme._id}
                   key={theme._id}
                   className={classes.themes}
+                  step={step}
                 >
                   <ThemeContainer
                     skill={skills.find(skill => skill.theme._id === theme._id)}
