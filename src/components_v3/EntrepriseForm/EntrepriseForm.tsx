@@ -17,8 +17,8 @@ const EntrepriseForm = ({ title }: Iprops) => {
     <div className={classes.widgetContainer}>
       <div
         className="immersion-widget"
-        data-metier="coiffure"
-        data-lieu="nantes-44"
+        data-metier={title}
+        data-lieu=""
         data-format="horizontal"
       />
     </div>
