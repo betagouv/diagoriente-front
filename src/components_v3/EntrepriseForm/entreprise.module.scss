@@ -116,6 +116,15 @@
   flex-wrap: wrap;
   display: flex;
   padding-bottom: 50px;
+  align-items: center;
+  justify-content: center;
+}
+.containerSpinner {
+  display: flex;
+  width: auto;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 .entrepriseList::-webkit-scrollbar {
   display: none;
@@ -124,4 +133,10 @@
   padding: 10px;
   height: 100%;
   overflow: scroll;
+}
+.widgetContainer {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
 }
