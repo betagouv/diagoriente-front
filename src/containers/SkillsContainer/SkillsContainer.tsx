@@ -68,18 +68,19 @@ const SkillsContainer = forwardRef(
     ref: Ref<RefProp>,
   ) => {
     useDidMount(() => {
+			console.log('get call');
       get.call(parcours._id);
     });
-    useEffect(() => {
+ /*    useEffect(() => {
       if (get.data.globalCopmetences === {}) {
         get.call(parcours._id);
       }
-    });
-    useDidUpdate(() => {
-      if (get.data.globalCopmetences.length > 0) {
+    }); */
+/*     useDidUpdate(() => {
+      if (!get.fetching) {
         get.call(parcours._id);
       }
-    }, [get.data.globalCopmetences]);
+    }, [get.fetching]); */
     async function onFooterClick(button: string) {
       if (!isEmpty(get.data) && !isEmpty(parcours)) {
         if (button === 'download') {

@@ -228,7 +228,7 @@ const ThemesContainer = forwardRef(
       selectedThemeChange(null);
       skillsChange(currentSkills);
       // eslint-disable-next-line
-       console.log(step)
+      console.log(step);
     }, [type]);
     /* useEffect(() => {
       if (step) {
@@ -316,7 +316,9 @@ const ThemesContainer = forwardRef(
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-        history.push('/profile/skills');
+        if (!parcoursFetching) {
+          history.push('/profile/skills');
+        }
       } else {
         openModal(
           <InvalidModal
@@ -599,7 +601,9 @@ const ThemesContainer = forwardRef(
                       skillsChange(skills.filter(skill => skill.theme._id !== theme._id));
                       parcoursRequest({
                         skills: [
-                          ...skills.filter(skill => skill.theme._id !== theme._id).map(skillWithoutId),
+                          ...skills
+                            .filter(skill => skill.theme._id !== theme._id)
+                            .map(skillWithoutId),
                           ...parcours.skills
                             .filter(skill => skill.theme.type !== type)
                             .map(skillWithoutId),
