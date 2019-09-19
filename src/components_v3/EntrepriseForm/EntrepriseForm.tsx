@@ -13,11 +13,13 @@ const EntrepriseForm = ({ title }: Iprops) => {
   useDidMount(() => {
     appendWidget();
   });
+  console.log('title', title);
+
   return (
     <div className={classes.widgetContainer}>
       <div
         className="immersion-widget"
-        data-metier={title}
+        data-metier={title || ''}
         data-lieu=""
         data-format="horizontal"
       />
