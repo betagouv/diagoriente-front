@@ -70,16 +70,16 @@ const SkillsContainer = forwardRef(
     useDidMount(() => {
       get.call(parcours._id);
     });
-   /*  useEffect(() => {
-      if (get.data.globalCopmetences.length === 0) {
+    useEffect(() => {
+      if (get.data.globalCopmetences === {}) {
         get.call(parcours._id);
       }
-    }); */
-    useDidUpdate(() => {
+    });
+    /* useDidUpdate(() => {
       if (get.data.globalCopmetences.length > 0) {
         get.call(parcours._id);
       }
-    }, [get.data.globalCopmetences]);
+    }, [get.data.globalCopmetences]); */
     async function onFooterClick(button: string) {
       if (!isEmpty(get.data) && !isEmpty(parcours)) {
         if (button === 'download') {
