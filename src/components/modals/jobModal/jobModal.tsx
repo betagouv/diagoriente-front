@@ -147,10 +147,10 @@ const JobModal = ({
         />
       ),
     },
-    /* {
+    {
       _id: 3,
       content: <EntrepriseForm title={data.title} />,
-    }, */
+    },
   ];
   if (data.link) {
     items.splice(1, 0, { _id: 1, content: <VideoContainer link={data.link} /> });
@@ -198,35 +198,53 @@ const JobModal = ({
         </Carousel>
       </div>
       <div className={classes.footer}>
-        <div className={classes.directionRow}>
-          <VerticalStepper
-            handleClick={changeDisplayedChild}
-            DisplayedFamily={DisplayedChild}
-            listItems={items}
-          />
-        </div>
-        <div className={classes.directionRow}>
-          <MultiIcon
-            width="15"
-            height="15"
-            type="prev"
-            withBorder
-            onClick={() => changeDisplayedChild(DisplayedChild - 1)}
-          />
-          <MultiIcon
-            width="37"
-            height="37"
-            type={update ? 'remove' : 'validate'}
-            Iconcolor={update ? '#e55d67' : '#fab82d'}
-            onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
-          />
-          <MultiIcon
-            width="15"
-            height="15"
-            type="next"
-            withBorder
-            onClick={() => changeDisplayedChild(DisplayedChild + 1)}
-          />
+        <div className={classes.btnContent}>
+          <div className={classes.wrraperBtn}>
+            <div className={classes.directionRowBtn}>
+              <div className={classes.directionRow}>
+                <VerticalStepper
+                  handleClick={changeDisplayedChild}
+                  DisplayedFamily={DisplayedChild}
+                  listItems={items}
+                />
+              </div>
+              <div className={classes.directionRow}>
+                <MultiIcon
+                  width="15"
+                  height="15"
+                  type="prev"
+                  withBorder
+                  onClick={() => changeDisplayedChild(DisplayedChild - 1)}
+                />
+                <MultiIcon
+                  width="37"
+                  height="37"
+                  type={update ? 'remove' : 'validate'}
+                  Iconcolor={update ? '#e55d67' : '#fab82d'}
+                  onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
+                />
+                <MultiIcon
+                  width="15"
+                  height="15"
+                  type="next"
+                  withBorder
+                  onClick={() => changeDisplayedChild(DisplayedChild + 1)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={classes.directionRowBtn2}>
+            <MultiIcon
+              width="15"
+              height="15"
+              type="next"
+              className={classes.textbtn}
+              withText
+              text="Trouver mon immersion"
+              withBorder
+              onClick={() => changeDisplayedChild(items.length - 1)}
+            />
+          </div>
         </div>
       </div>
     </div>
