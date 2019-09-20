@@ -34,7 +34,9 @@ import parcoursActions from 'reducers/parcours';
 import modalActions from 'reducers/modal';
 import activityActions from 'reducers/activity';
 import Stepper from 'components/PathStepper/Path';
-import { ReduxState, ITheme, IParcoursResponse, ISkillPopulated } from 'reducers';
+import {
+ ReduxState, ITheme, IParcoursResponse, ISkillPopulated,
+} from 'reducers';
 import ReactTooltip from 'react-tooltip';
 
 // utils
@@ -143,7 +145,6 @@ const ThemesContainer = forwardRef(
 
     function onFooterClick(button: string) {
       if (button === 'valider') {
-        // console.log(skills)
         parcoursRequest({
           skills: [
             ...skills.map(skillWithoutId),
@@ -226,57 +227,22 @@ const ThemesContainer = forwardRef(
       selectedThemeChange(null);
       skillsChange(currentSkills);
       // eslint-disable-next-line
-      console.log(step);
     }, [type]);
-    /* useEffect(() => {
-      if (step) {
-        if (type === 'professional') {
-          if (showTuto(7)) {
-            openModal(
-              <TutoModal
-                type="searchPro"
-                click={() => {
-                  closeModal();
-                  tutoShowed(7);
-                }}
-              />,
-            );
-          }
-        } else if (showTuto(1)) {
-          openModal(
-            <TutoModal
-              type="themes"
-              click={() => {
-                closeModal();
-                tutoShowed(1);
-              }}
-            />,
-          );
-        }
-      }
-    }, []); */
+  
 
     useCaptureRef({ onFooterClick }, ref);
 
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
-        if (type === 'personal') {
-          if (skills.length === 0) {
-            history.push('/profile/skills');
-          } /* else {
-            history.push('/profile/intermediate');
-          } */
-        } else {
-          history.push('/profile/skills');
-        }
+        history.push('/profile/skills');
       }
     }, [parcoursFetching]);
 
     function isSkillValidInputs(skillRef: ThemeRefObject) {
       return (
-        skillRef.activities.length > 0 &&
-        skillRef.competences.length < 5 &&
-        skillRef.competences.length > 0
+        skillRef.activities.length > 0
+        && skillRef.competences.length < 5
+        && skillRef.competences.length > 0
       );
     }
 
@@ -305,18 +271,14 @@ const ThemesContainer = forwardRef(
         // skillsChange(currentSkills);
         // stepChange(null);
         selectedThemeChange(null);
-        /* console.log(
-          ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
-        ); */
+      
         parcoursRequest({
           skills: [
             ...currentSkills.map(skillWithoutId),
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-        if (!parcoursFetching) {
-          history.push('/profile/skills');
-        }
+     
       } else {
         openModal(
           <InvalidModal
@@ -425,12 +387,7 @@ const ThemesContainer = forwardRef(
     }
 
     function renderAdd() {
-      /* console.log(
-        'first one',
-        selectedTheme && skills.find(skill => skill.theme._id === selectedTheme),
-        'step ',
-        step,
-      ); */
+ 
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
         return (
           <MultiIcon
@@ -497,8 +454,8 @@ const ThemesContainer = forwardRef(
             )}
 
             {step === 'select_theme' ? (
-              list.data.data &&
               list.data.data
+              && list.data.data
                 .filter(theme => !skills.find(skill => skill.theme._id === theme._id))
                 .map(theme => {
                   const selected = theme._id === selectedTheme;
@@ -550,7 +507,7 @@ const ThemesContainer = forwardRef(
                         <div className={classes.activity_container}>
                           {activity.data.activities && activity.data.activities.length !== 0
                             ? map(activity.data.activities, (e: any) => (
-                                <div key={e._id}>{`-${e.title}`}</div>
+                              <div key={e._id}>{`-${e.title}`}</div>
                               ))
                             : theme.title}
                         </div>
@@ -571,7 +528,6 @@ const ThemesContainer = forwardRef(
         </div>
       );
     }
-    // console.log(skills);
     return (
       <div className={classes.container}>
         {step !== 'edit_all' && <div className={classes.add}>{renderAdd()}</div>}
