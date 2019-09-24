@@ -8,11 +8,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
-  /*   border: 1px black solid;
- */
-  -webkit-box-shadow: 0px 8px 6px -1px rgba(147, 149, 153, 0.18);
-  -moz-box-shadow: 0px 8px 6px -1px rgba(147, 149, 153, 0.18);
-  box-shadow: 0px 8px 6px -1px rgba(147, 149, 153, 0.18);
+  border-bottom: 1px solid #c4c4c4;
 }
 .logo {
   height: 37px;
@@ -57,17 +53,17 @@
   height: 33px;
   display: flex;
   justify-content: space-evenly;
-  width: 90%;
+  width: 83%;
   border-radius: 4px;
   border: solid 1px #dddddd;
   padding: 0;
   margin-top: 4px;
   margin-right: 5px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 3px;
+  padding-left: 3px;
   position: relative;
   cursor: pointer;
-  margin-right: 20px;
+  /* margin-right: 20px; */
   background-color: #7540fb;
   -webkit-transition: opacity 0.25s linear;
   transition: opacity 0.25s linear;
@@ -89,8 +85,8 @@
   align-items: center;
   justify-content: center;
   font-family: Nunito;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 12px;
+  /* font-weight: bold; */
   color: white;
   text-transform: capitalize;
   @media (max-width: map-get($breakpoints, 'smd' )) {

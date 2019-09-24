@@ -55,12 +55,7 @@ const Header = ({
       history.push('/profile/skills');
     }
   }
-  const onLogout = () => {
-    openModal(<LogoutModal onLogout={logout} onClose={closeModal} />);
-  };
-  const loginAdvisor = () => {
-    history.push('/login/advisor');
-  };
+
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
@@ -81,7 +76,7 @@ const Header = ({
           <span className={classes.logout_text}>
             {' '}
             {!advisor.advisor
-              ? 'Connexion Pro'
+              ? 'CONNEXION PRO'
               : `${advisor.advisor.profile.firstName} ${advisor.advisor.profile.lastName}`}
           </span>
         </button>

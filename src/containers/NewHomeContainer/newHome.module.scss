@@ -285,6 +285,7 @@
   margin-bottom: 3%;
   margin-left: 5%;
 }
+
 .bigText {
   color: #233c78;
 }
@@ -300,7 +301,11 @@
   letter-spacing: 11px;
   line-height: 1.3em;
 }
-
+@media only screen and (max-width: 1200px) {
+  .homeContent {
+    width: 31%;
+  }
+}
 @media only screen and (max-width: 768px) {
   .contentContainer {
     height: 568px;
@@ -309,9 +314,18 @@
     width: 150px;
     height: auto;
   }
+  .homeContent {
+    width: 52%;
+  }
 }
 @media only screen and (max-width: 480px) {
   .contentContainer {
     height: 568px;
+  }
+  .homeContent {
+    width: 90%;
+  }
+  .commencerBtn {
+    padding: 18px 23px;
   }
 }
