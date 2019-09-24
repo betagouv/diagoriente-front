@@ -73,7 +73,7 @@ const NewHomeContainer = ({
           <div className={classes.bigTextContainer}>
             {/*   <span className={classes.bigText}>trouve </span>
 						<span className={classes.bigText}>ta voie</span> */}
-            <img src={TTVFichier} alt="bigText" />
+            <img src={TTVFichier} alt="TrouveTaVoie" />
           </div>
           <div className={classes.groupBottonCommencer}>
             {renderButton('INSCRIPTION', '#24d0fd', navigate('/profile'))}
