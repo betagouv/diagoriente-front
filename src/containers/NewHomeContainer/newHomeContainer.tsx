@@ -14,8 +14,8 @@ import Header from 'components_v3/Header/Header';
 import CardHome from 'components_v3/CardHome';
 
 import advisorActions from 'reducers/authAdvisor/login';
-
-import HomeBackground from 'assets_v3/Home/ACCUEIL.png';
+import HomeBackground from 'assets_v3/Home/ACCEUIL.svg';
+import TTVFichier from 'assets_v3/Home/TTVFichier.svg';
 import PictoModifier from 'assets_v3/Home/Picto_Modifier.svg';
 import PictoValider from 'assets_v3/Home/Picto_Valider.svg';
 import IlluMiroir from 'assets_v3/Home/Illu_Miroir.svg';
@@ -47,7 +47,11 @@ const NewHomeContainer = ({
 
   function renderButton(text: string, color: string, onClick?: () => void) {
     return (
-      <div onClick={onClick} className={classes.commencerBtn} style={{ backgroundColor: `${color}` }}>
+      <div
+        onClick={onClick}
+        className={classes.commencerBtn}
+        style={{ backgroundColor: `${color}` }}
+      >
         <span className={classes.btn_text}>{text}</span>
       </div>
     );
@@ -67,8 +71,9 @@ const NewHomeContainer = ({
       >
         <div className={classes.homeContent}>
           <div className={classes.bigTextContainer}>
-            <span className={classes.bigText}>trouve </span>
-            <span className={classes.bigText}>ta voie</span>
+            {/*   <span className={classes.bigText}>trouve </span>
+						<span className={classes.bigText}>ta voie</span> */}
+            <img src={TTVFichier} alt="bigText" />
           </div>
           <div className={classes.groupBottonCommencer}>
             {renderButton('INSCRIPTION', '#24d0fd', navigate('/profile'))}

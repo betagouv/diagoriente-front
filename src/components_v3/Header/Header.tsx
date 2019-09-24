@@ -4,8 +4,8 @@ import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, IUser, Advisor } from 'reducers';
 import { connect } from 'react-redux';
 import LogoutModal from 'components/modals/LogOutModal/LogoutModal';
-import logo from 'assets_v3/Home/logo.png';
-import logo2 from 'assets_v3/Home/logo2.png';
+import logo from 'assets_v3/Home/logo.svg';
+import logo2 from 'assets_v3/Home/logo2.svg';
 import Grid from 'components/ui/Grid/Grid';
 import advisorActions from 'reducers/authAdvisor/login';
 
@@ -74,7 +74,10 @@ const Header = ({
       </div>
 
       <Grid className={classes.headerContainer} item xl={2}>
-        <button className={classes.logout} onClick={advisor.advisor ? logoutAdvisor : loginAdvisor}>
+        <button
+          className={classes.logout}
+          onClick={() => window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')}
+        >
           <span className={classes.logout_text}>
             {' '}
             {!advisor.advisor

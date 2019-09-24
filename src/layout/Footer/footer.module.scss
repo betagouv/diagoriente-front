@@ -54,23 +54,26 @@
 .beta {
   width: 75px;
   height: auto;
+  margin: 15px;
 }
 .orange {
   width: 75px;
   height: auto;
+  margin: 15px;
   @media (max-width: map-get($breakpoints, 'smd' )) {
     height: auto;
   }
 }
-
+.orange2 {
+  width: 150px;
+  height: auto;
+}
 .images {
   justify-content: flex-end;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  img {
-    margin: 15px;
-  }
+
   @media (max-width: map-get($breakpoints, 'lg' )) {
     justify-content: space-between;
     align-items: center;
