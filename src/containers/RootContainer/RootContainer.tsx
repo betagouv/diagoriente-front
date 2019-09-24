@@ -14,7 +14,7 @@ import Footer from 'layout/Footer/Footer';
 import NotFound from 'layout/NotFound';
 
 // containers
-import HomeContainer from 'containers/HomeContainer/HomeContainer';
+import NewHomeContainer from 'containers/NewHomeContainer/newHomeContainer';
 import LoginUserContainer from 'containers/LoginContainer/LoginContainer';
 import ProfileContainer from 'containers/ProfileContainer/ProfileContainer';
 import RegisterUserContainer from 'containers/RegistreContainer/RegisterContainer';
@@ -92,7 +92,7 @@ const RootContainer = ({
     <div className={classNames(classes.container)}>
       <div className={classes.app_container}>
         <Switch>
-          <Route path="/" exact component={HomeContainer} />
+          <Route path="/" exact component={NewHomeContainer} />
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
           <Route path="/game" exact component={GameContainer} />

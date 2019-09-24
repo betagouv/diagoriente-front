@@ -228,7 +228,6 @@ const ThemesContainer = forwardRef(
       skillsChange(currentSkills);
       // eslint-disable-next-line
     }, [type]);
-  
 
     useCaptureRef({ onFooterClick }, ref);
 
@@ -271,14 +270,13 @@ const ThemesContainer = forwardRef(
         // skillsChange(currentSkills);
         // stepChange(null);
         selectedThemeChange(null);
-      
+
         parcoursRequest({
           skills: [
             ...currentSkills.map(skillWithoutId),
             ...parcours.skills.filter(skill => skill.theme.type !== type).map(skillWithoutId),
           ],
         });
-     
       } else {
         openModal(
           <InvalidModal
@@ -387,7 +385,6 @@ const ThemesContainer = forwardRef(
     }
 
     function renderAdd() {
- 
       if (!step || (selectedTheme && skills.find(skill => skill.theme._id === selectedTheme))) {
         return (
           <MultiIcon

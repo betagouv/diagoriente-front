@@ -1,11 +1,16 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState, IUser } from 'reducers';
+import { ReduxState, IUser, Advisor } from 'reducers';
 import { connect } from 'react-redux';
 import LogoutModal from 'components/modals/LogOutModal/LogoutModal';
+import logo from 'assets_v3/Home/logo.png';
+import logo2 from 'assets_v3/Home/logo2.png';
+import Grid from 'components/ui/Grid/Grid';
+import advisorActions from 'reducers/authAdvisor/login';
+
 import classes from './Header.module.scss';
-import logo from '../../assets/icons/logo/Diagoriente_Logo.svg';
+
 import ColoredLine from '../ColoredLine/ColoredLine';
 import loginActions from '../../reducers/authUser/login';
 import modalAction from '../../reducers/modal';
@@ -16,11 +21,13 @@ interface Props {
 }
 interface IMapToProps {
   user: IUser | undefined;
+  advisor: Advisor;
 }
 interface IDispatchToProps {
   logout: () => void;
   openModal: (children: any) => void;
   closeModal: () => void;
+  logoutAdvisor: () => void;
 }
 type IProps = IMapToProps &
   Props &
@@ -31,8 +38,10 @@ const Header = ({
   HeaderProfile,
   history,
   showLogout,
+  logoutAdvisor,
   location,
   user,
+  advisor,
   openModal,
   closeModal,
   logout,
@@ -49,13 +58,33 @@ const Header = ({
   const onLogout = () => {
     openModal(<LogoutModal onLogout={logout} onClose={closeModal} />);
   };
+  const loginAdvisor = () => {
+    history.push('/login/advisor');
+  };
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
-      <div className={classes.logoContainer} onClick={onNavigate}>
-        <img src={logo} alt="logo" className={classes.logo} />
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+        <div className={classes.logoContainer} onClick={onNavigate}>
+          <img src={logo} alt="logo" className={classes.logo} />
+        </div>
+        <div className={classes.logoContainer}>
+          <img src={logo2} alt="logo" className={classes.logo2} />
+        </div>
       </div>
-      <div style={{ marginRight: '2%' }}>
+
+      <Grid className={classes.headerContainer} item xl={2}>
+        <button className={classes.logout} onClick={advisor.advisor ? logoutAdvisor : loginAdvisor}>
+          <span className={classes.logout_text}>
+            {' '}
+            {!advisor.advisor
+              ? 'Connexion Pro'
+              : `${advisor.advisor.profile.firstName} ${advisor.advisor.profile.lastName}`}
+          </span>
+        </button>
+      </Grid>
+
+      {/*    <div style={{ marginRight: '2%' }}>
         {showLogout && user && (
           <button className={classes.logout} onClick={onLogout}>
             <span className={classes.logout_text}>{user.profile.firstName}</span>
@@ -65,14 +94,15 @@ const Header = ({
             </div>
           </button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
 Header.defaultProps = {
   showLogout: true,
 };
-const mapStateToProps = ({ authUser }: ReduxState) => ({
+const mapStateToProps = ({ authUser, authAdvisor }: ReduxState) => ({
+  advisor: authAdvisor.advisor,
   user: authUser.user.user,
 });
 
@@ -80,6 +110,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   logout: () => dispatch(loginActions.logout()),
   openModal: (children: any) => dispatch(modalAction.openModal({ children })),
   closeModal: () => dispatch(modalAction.closeModal()),
+  logoutAdvisor: () => dispatch(advisorActions.logoutAdvisor()),
 });
 export default connect(
   mapStateToProps,
