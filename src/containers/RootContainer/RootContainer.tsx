@@ -84,7 +84,10 @@ const RootContainer = ({
   useDidUpdate(() => {
     if (isEmpty(user)) {
       history.push('/');
-    }
+    } else {
+			history.push('/profile/skills');
+
+		}
   }, [user]);
 
   if (!startupEnd) return <div />;
