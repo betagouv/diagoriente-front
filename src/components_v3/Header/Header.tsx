@@ -48,14 +48,13 @@ const Header = ({
 }: IProps & RouteComponentProps) => {
   function onNavigate() {
     if (location.pathname === '/profile/skills') {
-      history.push('/');
+      history.push('/profile/skills');
     } else if (location.pathname === '/') {
-      history.push('/');
+      history.push('/profile/skills');
     } else {
       history.push('/profile/skills');
     }
   }
-
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
@@ -71,13 +70,15 @@ const Header = ({
       <Grid className={classes.headerContainer} item xl={2}>
         <button
           className={classes.logout}
-          onClick={() => window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')}
+          onClick={() =>
+            (!user
+              ? window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')
+              : logout())
+          }
         >
           <span className={classes.logout_text}>
             {' '}
-            {!advisor.advisor
-              ? 'CONNEXION PRO'
-              : `${advisor.advisor.profile.firstName} ${advisor.advisor.profile.lastName}`}
+            {!user ? 'CONNEXION PRO' : 'DECONNEXION'}
           </span>
         </button>
       </Grid>
