@@ -13,7 +13,6 @@ const EntrepriseForm = ({ title }: Iprops) => {
   useDidMount(() => {
     appendWidget();
   });
-  console.log('title', title);
 
   return (
     <div className={classes.widgetContainer}>

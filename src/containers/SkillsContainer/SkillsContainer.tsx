@@ -68,7 +68,6 @@ const SkillsContainer = forwardRef(
     ref: Ref<RefProp>,
   ) => {
     useDidMount(() => {
-			console.log('get call');
       get.call(parcours._id);
     });
  /*    useEffect(() => {

@@ -6,7 +6,6 @@ import { ReduxState, Advisor, User } from 'reducers';
 
 import ArrowSeConnect from 'assets_v3/Home/Arrow_SeConnect.svg';
 import ArrowConnected from 'assets_v3/Home/Arrow_Connected.svg';
-
 import WithSub from 'components/ui/Sub/Sub';
 import Grid from 'components/ui/Grid/Grid';
 import Header from 'components_v3/Header/Header';
