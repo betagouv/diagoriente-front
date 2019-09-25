@@ -50,7 +50,7 @@ const Header = ({
     if (location.pathname === '/profile/skills') {
       history.push('/profile/skills');
     } else if (location.pathname === '/') {
-      history.push('/profile/skills');
+      history.push('/');
     } else {
       history.push('/profile/skills');
     }
