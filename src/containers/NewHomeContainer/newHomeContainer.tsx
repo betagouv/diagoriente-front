@@ -76,7 +76,7 @@ const NewHomeContainer = ({
             <img src={TTVFichier} alt="TrouveTaVoie" />
           </div>
           <div className={classes.groupBottonCommencer}>
-            {renderButton('INSCRIPTION', '#24d0fd', navigate('/profile'))}
+            {renderButton('INSCRIPTION', '#24d0fd', navigate('/login/user?from=%2Fprofile&register=true'))}
             {renderButton('CONNEXION', '#fc1262', navigate('/profile'))}
           </div>
           <div
