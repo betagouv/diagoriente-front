@@ -17,32 +17,30 @@ import MultiIcon from '../../icons/multiIcon/multiIcon';
 
 import classes from './sideBar.module.scss';
 
-const sideBarItems = [
+const sideBarItemsExplorama = [
   {
     path: 'skills',
     title: 'CARTE DE COMPÉTENCES',
     icon: SvgCompetence,
+    index: 0,
   },
-  /* {
-    path: 'perso',
-    title: 'EXPÉRIENCES PERSONNELLES',
-  }, */
-];
-const sideBarItemsExplorama = [
   {
     path: 'favoris',
     title: 'EXPLORER MES INTÉRÊTS',
     icon: SvgInterests,
+    index: 1,
   },
   {
     path: 'jobs',
     title: 'CHOISIR DES PISTES DE MÉTIERS',
     icon: SvgPistesMetiers,
+    index: 2,
   },
   {
     path: 'demarche',
     title: 'MES DÉMARCHES',
     icon: SvgMesDemarches,
+    index: 3,
   },
 ];
 
@@ -54,7 +52,10 @@ interface IDispatchToProps {
   closeModal: () => void;
   parcoursRequest: (args: IUpdateParcoursParams) => void;
 }
-interface Props extends RouteComponentProps, MapToProps, IDispatchToProps {}
+interface currentProps {
+  isHovred: boolean;
+}
+interface Props extends RouteComponentProps, currentProps, MapToProps, IDispatchToProps {}
 
 const SideBar = ({
   match,
@@ -64,6 +65,7 @@ const SideBar = ({
   closeModal,
   openModal,
   parcoursRequest,
+  isHovred,
 }: Props) => {
   const isAlloawed = parcours.data.skills.length;
 
@@ -86,61 +88,19 @@ const SideBar = ({
   };
   return (
     <div className={classes.container_Bar}>
-      {sideBarItems.map(item => (
-        <div
-          key={item.path}
-          className={classes.item}
-          onClick={
-            parcours.data.played
-              ? () => onNavigate(`${match.path}/${item.path}`)
-              : () => onOpenModal()
-          }
-        >
-          <div className={classes.iconContainer}>
-            <SvgCompetence
-              color={`${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF'}
-            />
-          </div>
-          <div className={classes.titleContainer}>
-            <span
-              className={classes.title}
-              style={{
-                color: `${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF',
-              }}
-            >
-              {item.title}
-            </span>
-          </div>
-        </div>
-      ))}
-      {/* <div className={classes.item}>
-        <MultiIcon
-          type="edit"
-          withText
-          text="EXPÉRIENCES PROFESSIONNELLES"
-          width="35"
-          sideBar
-          height="35"
-          onClick={isAlloawed !== 0 ? () => onNavigate(`${match.path}/pro`) : () => {}}
-          textColor={
-            isAlloawed !== 0
-              ? location.pathname === `${match.path}/pro`
-                ? '#ffba27'
-                : '#7992BF'
-              : 'gray'
-          }
-          Iconcolor={
-            isAlloawed !== 0
-              ? location.pathname === `${match.path}/pro`
-                ? '#ffba27'
-                : '#7992BF'
-              : 'gray'
-          }
-        />
-      </div> */}
       <div className={classes.itemsExplorama}>
         {sideBarItemsExplorama.map((item, i) => {
-          const condition = `${match.path}/${item.path}` === location.pathname ? '#ffba27' : '#7992BF';
+          const selectedItem = sideBarItemsExplorama.find(
+            side => `${match.path}/${side.path}` === location.pathname,
+          );
+          let condition = '';
+          if (selectedItem) {
+            condition = `${match.path}/${item.path}` === location.pathname
+                ? '#fc1262'
+                : selectedItem.index > i
+                ? '#243D77'
+                : '#b3b3b3';
+          }
 
           return (
             <div
@@ -162,6 +122,7 @@ const SideBar = ({
                       color={`${match.path}/${item.path}` === location.pathname ? '#666' : '#666'}
                     />
                   </div>
+
                   <div className={classes.titleContainer}>
                     <span
                       className={classes.title}
@@ -178,6 +139,9 @@ const SideBar = ({
                   <div className={classes.iconContainer}>
                     <item.icon color={isAlloawed !== 0 ? condition : 'gray'} />
                   </div>
+                  {`${match.path}/${item.path}` === location.pathname && !isHovred && (
+                    <div className={classes.arrowPointer} />
+                  )}
                   <div className={classes.titleContainer}>
                     <span
                       className={classes.title}

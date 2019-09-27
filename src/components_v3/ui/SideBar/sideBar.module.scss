@@ -29,3 +29,10 @@
   flex-direction: column;
   justify-content: center;
 }
+.arrowPointer {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7.5px 11px 7.5px 0;
+  border-color: transparent #fc1264 transparent transparent;
+}

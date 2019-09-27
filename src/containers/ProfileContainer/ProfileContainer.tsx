@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect } from 'react';
+import React, { Fragment, useRef, useEffect, useState } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -95,19 +95,20 @@ const ProfileContainer = ({
       );
     }
   }, []);
-  const expertiseRef = useRef(null);
+	const expertiseRef = useRef(null);
+	const [hoverSide, setHover] = useState(false);
   const oneCompetencesNoSetted = parcours.data.skills
     .filter(item => item.type === 'personal')
     .flatMap(item => item.competences.flat(2))
     .some(item => item.value === 5);
 
-  if (match.isExact) return <Redirect to="/profile/skills" />;
+	if (match.isExact) return <Redirect to="/profile/skills" />;
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
 
-      <div className={classes.sidebar_container}>
-        <SideBar />
+      <div className={classes.sidebar_container} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <SideBar isHovred={hoverSide} />
       </div>
       <div className={classes.content}>
         <Switch>
