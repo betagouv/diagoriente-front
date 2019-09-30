@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .logo {
   width: 150px;
@@ -7,6 +7,7 @@
 
 .headerContainer {
   display: flex;
+  width: 30%;
   align-items: center;
   padding-top: 40.1px !important;
   z-index: $zindex-fixed;
@@ -31,7 +32,7 @@
   &:hover {
     opacity: 0.5;
   }
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     border: none;
     padding: 0 10px;
     border-radius: 0;
@@ -50,7 +51,7 @@
   font-weight: bold;
   color: #666666;
   text-transform: capitalize;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     display: none;
   }
 }
@@ -63,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     right: 0;
   }
 }
@@ -71,7 +72,7 @@
 .logout_icon {
   height: 16px;
   width: 16px;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     height: 30px;
     width: 30px;
   }
@@ -80,7 +81,7 @@
 .headerContainer::before {
   height: 5px;
   background-image: linear-gradient(to right, #003189, #ff2215, #ffba27);
-  content: "";
+  content: '';
   position: fixed;
   top: 0;
   left: 0;
