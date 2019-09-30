@@ -191,7 +191,7 @@ const RegisterUserContainer = ({
               <div className={classes.container_select}>
                 <Grid item xl={12} md={12}>
                   <Input
-                    name="Code Groupe"
+                    name="Code Groupe (si vous êtes dans un groupe vous pouvez renseigner le code qui vous a été remis)"
                     validation={codeValid}
                     onChange={codeChange}
                     className={classes.container_input}
@@ -218,7 +218,7 @@ const RegisterUserContainer = ({
                     }}
                   />
                   <span style={{ margin: '-1px 0.5ex' }}>
-                    j&apos;accepte les conditions d&apos;utilisation de Diagoriente
+                    J&apos;accepte les conditions d&apos;utilisation de Diagoriente
                   </span>
                   <br />
                 </Grid>
