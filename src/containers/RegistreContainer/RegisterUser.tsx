@@ -27,6 +27,7 @@ import classes from './register.module.scss';
 // components
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
+import Button from 'components_v3/button/button';
 
 import Grid from '../../components/ui/Grid/Grid';
 import MultiIcon from '../../components_v3/icons/multiIcon/multiIcon';
@@ -226,7 +227,7 @@ const RegisterUserContainer = ({
             </div>
 
             <div className={classes.container_button}>
-              <MultiIcon
+              {/* <MultiIcon
                 type="connect"
                 withText
                 text="S’INSCRIRE"
@@ -235,7 +236,8 @@ const RegisterUserContainer = ({
                 textColor="#7a93bc"
                 onClick={onSubmit}
                 Iconcolor="#7a93bc"
-              />
+              /> */}
+              <Button title="S’INSCRIRE" color="red" style={{height: 40, padding: '0px 40px', fontSize: 14 }} onClick={onSubmit} />
             </div>
             <span style={{ margin: '4px 29px 23px 29px', fontSize: '11px', lineHeight: '1rem' }}>
               Les informations recueillies sur ce formulaire sont enregistrées dans un fichier

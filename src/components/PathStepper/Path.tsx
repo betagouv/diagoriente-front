@@ -33,14 +33,16 @@ const Stepper = ({ steps, stepName }: Props) => {
               <div
                 className={classes.step_content}
                 style={
-                  indexStep === i || indexStep >= i
-                    ? { backgroundColor: '#7a93bc' }
+                  indexStep === i
+                    ? { backgroundColor: '#ff0060', borderColor: '#ff0060' }
+                    : indexStep >= i
+                    ? { backgroundColor: '#00cfff' }
                     : { backgroundColor: '#fff' }
                 }
               >
                 <span
                   className={classes.step_content_title}
-                  style={indexStep >= i ? { color: 'white' } : { color: '#7a93bc' }}
+                  style={indexStep >= i ? { color: 'white' } : { color: '#00cfff' }}
                 >
                   {i + 1}
                 </span>
@@ -49,11 +51,15 @@ const Stepper = ({ steps, stepName }: Props) => {
             {i < steps.length - 1 && (
               <div
                 className={classes.bar}
-                style={indexStep > i ? { backgroundColor: '#7a93bc' } : { backgroundColor: '#7a93bc' }}
+                style={
+                  indexStep > i ? { backgroundColor: '#00cfff' } : { backgroundColor: '#00cfff' }
+                }
               />
             )}
           </div>
-          <span className={classes.step_title}>{step}</span>
+          <span className={classes.step_title} style={indexStep === i ? { color: '#ff0060' } : {} }>
+            {step}
+          </span>
         </div>
       ))}
     </div>

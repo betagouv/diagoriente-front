@@ -25,6 +25,7 @@ import VerticalStepper from '../../components/VerticalStepper/VerticalStepper';
 import { IUpdateParcoursParams } from '../../requests';
 import addPrevFamily from '../../utils/addPrevFamille';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Button from 'components_v3/button/button';
 
 interface IMapToProps {
   familles: IFamille[];
@@ -254,61 +255,52 @@ const FavorisContainer = forwardRef(
                         />
                       </Grid>
                       <div className={classes.btnContainer}>
-                        <MultiIcon
+                        <Button
+                          title=""
+                          color="blue"
                           type="prev"
-                          withText
-                          left
-                          text="PRÉCÉDENT"
-                          width="15"
-                          sideBar
-                          height="15"
-                          withBorder
                           onClick={() => changeDisplayedFamily(DisplayedFamily - 1)}
+                          className={classes.next}
                         />
-                        <div style={{ marginTop: 32 }}>
-                          <MultiIcon
-                            type="add"
-                            withText
-                            text={
+                        <div>
+                          <Button
+                            title={
                               flitredFamille[DisplayedFamily] !== undefined
                                 ? isChecked(flitredFamille[DisplayedFamily]._id)
-                                  ? 'DÉSÉLECTIONNER'
-                                  : 'SÉLECTIONNER'
+                                  ? 'AJOUTÉ'
+                                  : 'AJOUTER À MA SÉLECTION'
                                 : ''
                             }
-                            bottom
-                            width="37"
-                            sideBar
-                            height="37"
-                            withBorder
-                            onClick={() => handleClick()}
-                            textColor={
+                            type={
                               flitredFamille[DisplayedFamily] !== undefined
                                 ? isChecked(flitredFamille[DisplayedFamily]._id)
-                                  ? '#ff0060'
-                                  : '#ffba27'
-                                : 'gray'
+                                  ? 'checked'
+                                  : undefined
+                                : undefined
                             }
-                            Iconcolor={
+                            color="red"
+                            onClick={handleClick}
+                            style={
                               flitredFamille[DisplayedFamily] !== undefined
                                 ? isChecked(flitredFamille[DisplayedFamily]._id)
-                                  ? '#ff0060'
-                                  : '#ffba27'
-                                : 'gray'
+                                  ? {
+                                      height: 50,
+                                      width: 180,
+                                      background: '#ff80af',
+                                      color: 'white',
+                                      borderColor: '#ff80af'
+                                    }
+                                  : { height: 50, width: 180 }
+                                : { height: 50, width: 180 }
                             }
                           />
                         </div>
-
-                        <MultiIcon
+                        <Button
+                          title=""
                           type="next"
-                          withText
-                          text="SUIVANT"
-                          width="15"
-                          sideBar
-                          height="15"
-                          withBorder
-                          style={{ padding: 0 }}
+                          color="blue"
                           onClick={() => changeDisplayedFamily(DisplayedFamily + 1)}
+                          className={classes.next}
                         />
                       </div>
                     </Fragment>

@@ -4,6 +4,10 @@
   box-shadow: 0px 0px 7px rgba($color: #000000, $alpha: 0.5);
   margin: 10px;
   cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .cupContainer {
   width: 100%;
@@ -14,82 +18,101 @@
   height: 33%;
 }
 .width {
-    width: 70%;
+  width: 70%;
 }
 .jobName {
-    width: 85%;
-    text-align: center;
-    font-weight: 600;
-    height: 38px;
+  width: 85%;
+  text-align: center;
+  font-weight: 600;
+  height: 38px;
 }
 .description {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 .descriptionText {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 10px;
+  color: #696b6d;
+  height: 99px;
+  font-size: 13px;
+  @supports (-webkit-line-clamp: 6) {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 0 10px;
-    color: #696b6d;
-    height: 35px;
-    font-size: 13px;
-    @supports (-webkit-line-clamp: 2) {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: initial;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+  }
 }
 .activities {
-    height: 42%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+  height: 42%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .niveau {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .interestWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 33%;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
 }
 .number {
-    text-align: center;
-    position: absolute;
-    top: 10%;
-    font-weight: 600;
-    color: #696b6d;
+  text-align: center;
+  position: absolute;
+  top: 10%;
+  font-weight: 600;
+  color: #696b6d;
 }
 .verticalLine {
-    width: 1px;
-    height: 55%;
-    background-color: #696b6d;
+  width: 1px;
+  height: 55%;
+  background-color: #696b6d;
 }
 .titleInterest {
-    font-size: 12px;
-    color: #696b6d;
-    text-align: center;
+  font-size: 12px;
+  color: #696b6d;
+  text-align: center;
 }
 .niveauText {
-    color: #696b6d;
+  color: #696b6d;
 }
 .canvas {
-    width: 500px;
+  width: 500px;
+}
+.redButton {
+  height: 50px;
+  width: 140px;
+  background: rgb(255, 128, 175);
+  color: white;
+  border-color: rgb(255, 128, 175);
+}
+.redButtonAdd {
+    height: 50px;
+    width: 140px;
+    border-color: #ff80af;
+    font-size: 9px;
+}
+.buttonsContainer {
+  display: flex;
+  height: 29%;
+  align-items: flex-end;
+  justify-content: space-between;
 }

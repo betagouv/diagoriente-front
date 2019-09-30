@@ -1,5 +1,6 @@
 import React from 'react';
 import { Step } from 'containers/ThemeContainer/ThemeContainer';
+import Button from 'components_v3/button/button';
 import classes from './card.module.scss';
 import classNames from '../../../utils/classNames';
 import MultiIcon from '../../icons/multiIcon/multiIcon';
@@ -35,7 +36,7 @@ const Card = ({
       {children}
       <div className={classes.buttonsContainer}>
         <div {...close} className={classNames(classes.delete)}>
-          <MultiIcon
+          {/* <MultiIcon
             type="remove"
             width="30"
             height="30"
@@ -44,11 +45,12 @@ const Card = ({
             text={closeText}
             textColor="#ff001f"
             style={{ fontSize: 14 }}
-          />
+          /> */}
+          <Button title={closeText} color="liteRed" />
         </div>
         {selected ? null : (
           <div {...edit} className={!selected ? classes.edit : classes.hideButton}>
-            <MultiIcon
+            {/* <MultiIcon
               type="edit"
               width="30"
               height="30"
@@ -57,12 +59,13 @@ const Card = ({
               text="Modifier"
               textColor="#7992BF"
               style={{ fontSize: 14 }}
-            />
+            /> */}
+            <Button title="Modifier" color="blue" />
           </div>
         )}
         {!add ? null : (
           <div {...edit} className={!selected ? classes.edit : classes.hideButton}>
-            <MultiIcon
+            {/* <MultiIcon
               type="edit"
               width="30"
               height="30"
@@ -71,12 +74,13 @@ const Card = ({
               text="Modifier"
               textColor="#7992BF"
               style={{ fontSize: 14 }}
-            />
+            /> */}
+            <Button title="Modifier" color="blue" />
           </div>
         )}
         {selected && !add ? (
           <div {...edit} className={selected ? classes.editAdd : classes.hideButton}>
-            <MultiIcon
+            {/* <MultiIcon
               type="validate"
               width="30"
               height="30"
@@ -85,7 +89,8 @@ const Card = ({
               text="Valider"
               textColor="#ffc107"
               style={{ fontSize: 14 }}
-            />
+            /> */}
+            <Button title="Valider" color="blue" />
           </div>
         ) : (
           <div
@@ -97,7 +102,7 @@ const Card = ({
                 : classes.hideButton
             }
           >
-            <MultiIcon
+            {/* <MultiIcon
               type="validate"
               width="30"
               height="30"
@@ -106,12 +111,13 @@ const Card = ({
               text="continuer"
               textColor="gray"
               style={{ fontSize: 14 }}
-            />
+            /> */}
+            <Button title="continuer" color="red" style={{color: '#cccccc', borderColor: '#cccccc'}} />
           </div>
         )}
         {addTheme && add ? (
           <div {...edit} className={selected ? classes.editAdd : classes.hideButton}>
-            <MultiIcon
+            {/* <MultiIcon
               type="validate"
               width="30"
               height="30"
@@ -120,11 +126,12 @@ const Card = ({
               text="continuer"
               textColor="#ffc107"
               style={{ fontSize: 14 }}
-            />
+            /> */}
+            <Button title="continuer" color="red" />
           </div>
         ) : (
           <div className={addTheme ? classes.editAdd : classes.hideButton}>
-            <MultiIcon
+            {/* <MultiIcon
               type="validate"
               width="30"
               height="30"
@@ -133,7 +140,8 @@ const Card = ({
               text="Enregistrer"
               textColor="gray"
               style={{ fontSize: 14 }}
-            />
+            /> */}
+            <Button title="Enregistrer" color="liteRed" style={{color: 'gray', borderColor: 'gray'}} />
           </div>
         )}
       </div>

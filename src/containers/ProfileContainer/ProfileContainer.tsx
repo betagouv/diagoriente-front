@@ -20,6 +20,7 @@ import Header from 'components_v3/Header/Header';
 
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
+import Button from 'components_v3/button/button'
 
 // api
 import withApis, { ApiComponentProps } from 'hoc/withApi';
@@ -121,46 +122,19 @@ const ProfileContainer = ({
                 footerButtons={[
                   {
                     component: (
-                      <MultiIcon
-                        type="help"
-                        withText
-                        footer
-                        text="Aide"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
                     ),
                     key: 'help',
                   },
                   {
                     component: (
-                      <MultiIcon
-                        type="print"
-                        withText
-                        footer
-                        text="IMPRIMER"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="Imprimer" color="blue" className={classes.footerBottons} />
                     ),
                     key: 'print',
                   },
                   {
                     component: (
-                      <MultiIcon
-                        type="download"
-                        withText
-                        footer
-                        text="TÉLÉCHARGER"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="TÉLÉCHARGER" color="blue" className={classes.footerBottons} />
                     ),
                     key: 'download',
                   },
@@ -179,16 +153,7 @@ const ProfileContainer = ({
                 footerButtons={[
                   {
                     component: (
-                      <MultiIcon
-                        type="help"
-                        withText
-                        footer
-                        text="Aide"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
                     ),
                     key: 'help',
                   },
@@ -210,16 +175,7 @@ const ProfileContainer = ({
                   footerButtons={[
                     {
                       component: (
-                        <MultiIcon
-                          type="help"
-                          withText
-                          footer
-                          text="Aide"
-                          width="35"
-                          height="35"
-                          textColor="#7992BF"
-                          Iconcolor="#7992BF"
-                        />
+                        <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
                       ),
                       key: 'help',
                     },
@@ -245,16 +201,7 @@ const ProfileContainer = ({
                           <Spinner />
                         </div>
                       ) : (
-                        <MultiIcon
-                          type="validate"
-                          withText
-                          text="evaluer"
-                          width="35"
-                          footer
-                          height="35"
-                          textColor="#ffba27"
-                          Iconcolor="#ffba27"
-                        />
+                        <Button title="voir mes métiers" color="redFilled" className={classes.footerBottons} />
                       ),
                       key: 'valider',
                     },
