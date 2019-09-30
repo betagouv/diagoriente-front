@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 
 .container {
   display: flex;
@@ -34,11 +34,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px 0px 23px;
+  // margin: 20px 0px 23px;
 }
+
 .question {
   text-align: center;
-  width: 70%;
+  width: 100%;
+  border: 1px solid #6c757d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
 }
 .question_title {
   color: $text-muted;
@@ -46,8 +53,8 @@
 }
 .btn_container {
   display: flex;
-  width: 100%;
-  justify-content: center;
+  width: 80%;
+  justify-content: space-evenly;
 }
 .btn_remove {
   padding-left: 20px;
@@ -82,14 +89,20 @@
 .grayWork {
   color: $text-muted;
 }
-.btnValidate{
-background-color: $grey-blue;
-padding: 12px 20px;
+.btnValidate {
+  background-color: $grey-blue;
+  padding: 12px 20px;
 }
-.container_btn{
+.container_btn {
   margin-bottom: 25px;
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 8px
-
+  padding-bottom: 8px;
+}
+.yesNoButton {
+  width: 30%
+}
+.dotsContainer {
+  display: flex;
+  justify-content: center;
 }
