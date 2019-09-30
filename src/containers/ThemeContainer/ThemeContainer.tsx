@@ -203,12 +203,12 @@ const ThemeContainer = forwardRef(
                       </li>
                     ) : (
                       <div className={classes.activityCheck}>
-                        <input type="checkbox" checked={selected} className={classes.chekboxAct} />
+                        <input type="checkbox" checked={selected} className={classes.chekboxAct} style={selected ? { background: '#ff0060', border: 'none' } : {}} />
                         <span
                           className={classes.title_activity_check}
                           style={
                             selected
-                              ? { color: iconSkillcolor === '#fff' ? 'black' : iconSkillcolor }
+                              ? { color: '#ff0060', fontWeight: 500 }
                               : {}
                           }
                         >

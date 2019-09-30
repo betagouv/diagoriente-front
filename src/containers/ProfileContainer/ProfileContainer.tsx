@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect } from 'react';
+import React, { Fragment, useRef, useEffect, useState } from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -20,6 +20,7 @@ import Header from 'components_v3/Header/Header';
 
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
+import Button from 'components_v3/button/button'
 
 // api
 import withApis, { ApiComponentProps } from 'hoc/withApi';
@@ -95,19 +96,20 @@ const ProfileContainer = ({
       );
     }
   }, []);
-  const expertiseRef = useRef(null);
+	const expertiseRef = useRef(null);
+	const [hoverSide, setHover] = useState(false);
   const oneCompetencesNoSetted = parcours.data.skills
     .filter(item => item.type === 'personal')
     .flatMap(item => item.competences.flat(2))
     .some(item => item.value === 5);
 
-  if (match.isExact) return <Redirect to="/profile/skills" />;
+	if (match.isExact) return <Redirect to="/profile/skills" />;
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
 
-      <div className={classes.sidebar_container}>
-        <SideBar />
+      <div className={classes.sidebar_container} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <SideBar isHovred={hoverSide} />
       </div>
       <div className={classes.content}>
         <Switch>
@@ -120,46 +122,19 @@ const ProfileContainer = ({
                 footerButtons={[
                   {
                     component: (
-                      <MultiIcon
-                        type="help"
-                        withText
-                        footer
-                        text="Aide"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
                     ),
                     key: 'help',
                   },
                   {
                     component: (
-                      <MultiIcon
-                        type="print"
-                        withText
-                        footer
-                        text="IMPRIMER"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="Imprimer" color="blue" className={classes.footerBottons} />
                     ),
                     key: 'print',
                   },
                   {
                     component: (
-                      <MultiIcon
-                        type="download"
-                        withText
-                        footer
-                        text="TÉLÉCHARGER"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="TÉLÉCHARGER" color="blue" className={classes.footerBottons} />
                     ),
                     key: 'download',
                   },
@@ -178,16 +153,7 @@ const ProfileContainer = ({
                 footerButtons={[
                   {
                     component: (
-                      <MultiIcon
-                        type="help"
-                        withText
-                        footer
-                        text="Aide"
-                        width="35"
-                        height="35"
-                        textColor="#7992BF"
-                        Iconcolor="#7992BF"
-                      />
+                      <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
                     ),
                     key: 'help',
                   },
@@ -209,16 +175,7 @@ const ProfileContainer = ({
                   footerButtons={[
                     {
                       component: (
-                        <MultiIcon
-                          type="help"
-                          withText
-                          footer
-                          text="Aide"
-                          width="35"
-                          height="35"
-                          textColor="#7992BF"
-                          Iconcolor="#7992BF"
-                        />
+                        <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
                       ),
                       key: 'help',
                     },
@@ -244,16 +201,7 @@ const ProfileContainer = ({
                           <Spinner />
                         </div>
                       ) : (
-                        <MultiIcon
-                          type="validate"
-                          withText
-                          text="evaluer"
-                          width="35"
-                          footer
-                          height="35"
-                          textColor="#ffba27"
-                          Iconcolor="#ffba27"
-                        />
+                        <Button title="voir mes métiers" color="redFilled" className={classes.footerBottons} />
                       ),
                       key: 'valider',
                     },

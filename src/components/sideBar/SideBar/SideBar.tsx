@@ -80,7 +80,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
             };
             return (
               <div key={item._id} className={classes.rowItem} onClick={onClick}>
-                <input type="checkbox" checked={selected} />
+                <input type="checkbox" checked={selected} style={selected ? { background: '#ff0060', border: 'none' } : {}} />
                 <span className={classNames(selected ? classes.itemSelected : classes.item)}>
                   {item.title}
                 </span>
@@ -120,7 +120,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
             };
             return (
               <div key={item._id} className={classes.rowItem} onClick={onClickSecteur}>
-                <input type="checkbox" checked={selected} />
+                <input type="checkbox" checked={selected} style={selected ? { background: '#ff0060', border: 'none' } : {}} />
                 <span className={classNames(selected ? classes.itemSelected : classes.item)}>
                   {item.title}
                 </span>

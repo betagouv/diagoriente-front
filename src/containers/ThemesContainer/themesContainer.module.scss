@@ -1,12 +1,15 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 .cardNewContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  color: #7992bf;
+  color: #223a7a;
 }
 .titleStep {
   font-size: 25px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.2);
+  padding: 5px 25px;
+  border-radius: 5px;
 }
 .container {
   width: 100%;
@@ -21,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #f1f1f1;
+  background-color: #fff;
   width: 100%;
   color: blue;
   padding: 20px 7vw;
@@ -37,8 +40,8 @@
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;
-  margin: 25px 0;
-  @media (max-width: map-get($breakpoints , 'md' )) {
+  margin: 15px 0;
+  @media (max-width: map-get($breakpoints , "md" )) {
     justify-content: center;
   }
 }
@@ -150,8 +153,23 @@
   }
 }
 .themesSaved {
-  color: #7992bf;
+  color: grey;
   font-size: 20px;
   font-weight: bold;
-  text-transform: uppercase;
+}
+.savedWrapper {
+  width: 100%;
+}
+.line {
+  width: 100%;
+  height: 2px;
+  background: #a9a8a8;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.subLine {
+  width: 85%;
+  height: 2px;
+  background: grey;
 }

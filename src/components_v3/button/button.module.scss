@@ -1,21 +1,122 @@
-.button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: purple;
+.buttonRed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  color: #ff0060;
+  border-radius: 5px;
+  padding: 0px 20px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s all;
+  text-transform: uppercase;
+  border: 1px solid #ff0060;
+  height: 25px;
+  margin: 3px;
+  
+  &:hover {
     color: white;
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .5s all;
-    text-transform: uppercase; 
-    &:hover {
-        box-shadow: 0px 0px 10px 2px rgba(128, 0, 128, 0.5);
-    }
-    &:focus {
-        outline: none;
-    }
+    background: #ff0060;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.buttonBlue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  color: #00cfff;
+  border-radius: 5px;
+  padding: 0px 20px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s all;
+  text-transform: uppercase;
+  border: 1px solid #00cfff;
+  height: 25px;
+  margin: 3px;
+  &:hover {
+    color: white;
+    background: #00cfff;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.buttonDarkBlueFilled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  color: white;
+  background: #7533ff;
+  border-radius: 5px;
+  padding: 0px 20px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s all;
+  text-transform: uppercase;
+  border: 1px solid #7533ff;
+  height: 25px;
+  margin: 3px;
+
+  &:focus {
+    outline: none;
+  }
+}
+.ButtonRedFilled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  color: white;
+  background: #ff0060;
+  border-radius: 5px;
+  padding: 0px 20px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s all;
+  text-transform: uppercase;
+  border: 1px solid #ff0060;
+  height: 25px;
+  margin: 3px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
+.buttonLiteRed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  color: #e55e68;
+  border-radius: 5px;
+  padding: 0px 20px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s all;
+  text-transform: uppercase;
+  border: 1px solid #e55e68;
+  height: 25px;
+  margin: 3px;
+  &:hover {
+    color: white;
+    background: #e55e68;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.icon {
+  height: 35%;
+  width: 20%;
+}

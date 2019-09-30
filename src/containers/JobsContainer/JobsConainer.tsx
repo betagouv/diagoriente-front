@@ -34,6 +34,7 @@ import { useDidMount, useDidUpdate } from '../../hooks';
 import Spinner from '../../components/ui/Spinner/Spinner';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
+import Button from 'components_v3/button/button';
 
 interface IMapToProps {
   parcoursId: string;
@@ -210,6 +211,20 @@ const JobsContainer = ({
       }
     });
   });
+const [selectedJob, setJOb] = useState('')
+  const handleClick = (id: string) => {
+    createFavorites({
+      job: id,
+      parcour: parcoursId,
+      interested: true,
+    });
+    /* addfav(); */
+    getFav.call();
+    setJOb(id);
+  };
+
+
+// console.log(selectedJob)
   return (
     <div className={classes.container}>
       {fetching && (
@@ -244,7 +259,8 @@ const JobsContainer = ({
                   onClick={event => onJobRemove(item._id, event)}
                   className={classes.iconsContainer}
                 >
-                  <MultiIcon type="remove" width="22" height="22" className={classes.remove} />
+                 {/*  <MultiIcon type="remove" width="22" height="22" className={classes.remove} /> */}
+                  <Button title="x" color="red" className={classes.remove} />
                 </div>
               </JobSelection>
             ))}
@@ -285,13 +301,15 @@ const JobsContainer = ({
               return (
                 <JobCard
                   rating={rating}
-                  color={color}
+                  color="#fab82d"
                   jobName={metier.title}
                   jobAccessebility={metier.accessibility}
                   jobDescription={metier.description}
                   jobInterest={metier.interests}
-                  onClick={() => handleCard(metier._id)}
+                  modal={() => handleCard(metier._id)}
                   key={metier._id}
+                  add={() => handleClick(metier._id)}
+                  selected={selectedJob === metier._id ? true : false}
                 />
               );
             })}
@@ -319,8 +337,10 @@ const JobsContainer = ({
                 jobAccessebility={metier.accessibility}
                 jobDescription={metier.description}
                 jobInterest={metier.interests}
-                onClick={() => handleCard(metier._id)}
+                modal={() => handleCard(metier._id)}
                 key={metier._id}
+                add={() => handleClick(metier._id)}
+                selected={selectedJob === metier._id && true}
               />
             ))}
           </div>

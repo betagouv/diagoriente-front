@@ -112,7 +112,7 @@ const NewHomeContainer = ({
                 alt="arrow"
                 style={{ width: '11px', height: '13px', marginRight: '10px' }}
               />
-              <span>Diagoriente te propose des pistes pur ton orientation</span>
+              <span>Diagoriente te propose des pistes pour ton orientation</span>
             </div>
           </div>
         </div>

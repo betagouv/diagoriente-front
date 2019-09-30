@@ -19,7 +19,7 @@ import ModalInvalid from 'components/modals/InvalidModal/InvalidModal';
 import modalActions from 'reducers/modal';
 import { useCaptureRef } from 'hooks/useCaptureRef';
 import { beta1x } from 'assets/icons/logobeta/index';
-import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+// import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
@@ -28,7 +28,7 @@ import TutoModal from 'components/modals/Tutomodal/tutoModal';
 
 import { pdf2 } from 'utils/pdf';
 import tutoWrapper, { TutoFns } from 'hoc/tutoWrapper';
-
+import Button from 'components_v3/button/button';
 import classes from './skills.module.scss';
 
 interface MapToProps {
@@ -70,12 +70,12 @@ const SkillsContainer = forwardRef(
     useDidMount(() => {
       get.call(parcours._id);
     });
- /*    useEffect(() => {
+    /*    useEffect(() => {
       if (get.data.globalCopmetences === {}) {
         get.call(parcours._id);
       }
     }); */
-/*     useDidUpdate(() => {
+    /*     useDidUpdate(() => {
       if (!get.fetching) {
         get.call(parcours._id);
       }
@@ -127,7 +127,7 @@ const SkillsContainer = forwardRef(
         />,
       );
     };
-    console.log('global competences', get.data.globalCopmetences);
+    // console.log('global competences', get.data.globalCopmetences);
     return (
       <div className={classes.container}>
         <div className={classes.card}>
@@ -150,20 +150,22 @@ const SkillsContainer = forwardRef(
                 <span className={classes.experieceType}>EXPÉRIENCES PERSONNELLES</span>
 
                 {parcours.skills.filter(type => type.theme.type === 'personal').length === 0 ? (
-                  <MultiIcon
-                    type="add"
-                    withText
-                    text="Ajouter une experience"
-                    Iconcolor="#7992bf"
-                    width="65"
-                    height="65"
-                    onClick={
-                      parcours.played
-                        ? pushRoute('/profile/perso', 'select_theme')
-                        : () => onOpenModal()
-                    }
-                    className={classes.multiOverride}
-                  />
+                  <div className={classes.emptyExperienceContainer}>
+                    <div className={classes.textEmptyContainer}>
+                      <span>Aucune expérience renseignée</span>
+                    </div>
+                    <div className={classes.emptyButton}>
+                      <Button
+                        title="ajouter"
+                        color="red"
+                        onClick={
+                          parcours.played
+                            ? pushRoute('/profile/perso', 'select_theme')
+                            : () => onOpenModal()
+                        }
+                      />
+                    </div>
+                  </div>
                 ) : (
                   <Fragment>
                     <div className={classes.themesContainer}>
@@ -177,31 +179,21 @@ const SkillsContainer = forwardRef(
                         ))}
                     </div>
                     <div className={classes.buttonWrapper}>
-                      <MultiIcon
-                        type="add"
-                        Iconcolor="#7992bf"
-                        width="25"
-                        height="25"
-                        withText
-                        text="Ajouter"
-                        style={{ fontSize: 12, padding: 5 }}
-                        onClick={
-                          parcours.played
-                            ? pushRoute('/profile/perso', 'select_theme')
-                            : () => onOpenModal()
-                        }
-                      />
-                      <MultiIcon
-                        type="edit"
-                        Iconcolor="#7992bf"
-                        width="25"
-                        height="25"
-                        withText
-                        text="Modifier"
-                        style={{ fontSize: 12, padding: 5 }}
+                      <Button
+                        title="Modifier"
+                        color="blue"
                         onClick={
                           parcours.played
                             ? pushRoute('/profile/perso', 'edit_all')
+                            : () => onOpenModal()
+                        }
+                      />
+                      <Button
+                        title="ajouter"
+                        color="red"
+                        onClick={
+                          parcours.played
+                            ? pushRoute('/profile/perso', 'select_theme')
                             : () => onOpenModal()
                         }
                       />
@@ -213,16 +205,18 @@ const SkillsContainer = forwardRef(
                 <span className={classes.experieceType}>EXPÉRIENCES PROFESSIONNELLES</span>
 
                 {parcours.skills.filter(type => type.theme.type === 'professional').length === 0 ? (
-                  <MultiIcon
-                    type="add"
-                    withText
-                    text="Ajouter une experience"
-                    Iconcolor="#7992bf"
-                    width="65"
-                    height="65"
-                    onClick={pushRoute('/profile/pro', 'select_theme')}
-                    className={classes.multiOverride}
-                  />
+                  <div className={classes.emptyExperienceContainer}>
+                    <div className={classes.textEmptyContainer}>
+                      <span>Aucune expérience renseignée</span>
+                    </div>
+                    <div className={classes.emptyButton}>
+                      <Button
+                        title="ajouter"
+                        color="red"
+                        onClick={pushRoute('/profile/pro', 'select_theme')}
+                      />
+                    </div>
+                  </div>
                 ) : (
                   <Fragment>
                     <div className={classes.themesContainer}>
@@ -236,29 +230,19 @@ const SkillsContainer = forwardRef(
                         ))}
                     </div>
                     <div className={classes.buttonWrapper}>
-                      <MultiIcon
-                        type="add"
-                        Iconcolor="#7992bf"
-                        width="25"
-                        height="25"
-                        withText
-                        text="Ajouter"
-                        style={{ fontSize: 12, padding: 5 }}
-                        onClick={pushRoute('/profile/pro', 'select_theme')}
-                      />
-                      <MultiIcon
-                        type="edit"
-                        Iconcolor="#7992bf"
-                        width="25"
-                        height="25"
-                        withText
-                        text="Modifier"
-                        style={{ fontSize: 12, padding: 5 }}
+                      <Button
+                        title="Modifier"
+                        color="blue"
                         onClick={
                           parcours.played
                             ? pushRoute('/profile/pro', 'edit_all')
                             : () => onOpenModal()
                         }
+                      />
+                      <Button
+                        title="ajouter"
+                        color="red"
+                        onClick={pushRoute('/profile/pro', 'select_theme')}
                       />
                     </div>
                   </Fragment>

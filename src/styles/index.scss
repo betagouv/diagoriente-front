@@ -155,3 +155,9 @@ ul {
 a {
   text-decoration: none;
 }
+
+input[type='checkbox']:after {
+  content: '';
+  display: none;
+  border: none;
+}
