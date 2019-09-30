@@ -13,21 +13,22 @@ $footer_height: 55px;
 }
 
 .title_container {
-  background-color: #fff;
-  box-shadow: $box_shadow;
+   // background-color: #fff;
+  // box-shadow: $box_shadow; 
   position: fixed;
   align-items: center;
   display: flex;
   left: 0;
   top: $header_height;
-  padding-left: $sidebar_width;
-  height: $title_height;
+  /* padding-left: $sidebar_width; */
+  height: 55px;
   width: 100%;
   z-index: $header_zindex;
+  justify-content: center;
 }
 
 .title {
-  width: 100%;
+  // width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -35,10 +36,14 @@ $footer_height: 55px;
   margin: 0;
   text-align: center;
   color: #003189;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #fff;
 }
 
 .title_placeholder {
-  padding-top: $title_height;
+  padding-top: 55px;
 }
 
 .footer_placeholder {

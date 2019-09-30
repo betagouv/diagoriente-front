@@ -14,6 +14,7 @@ import RadarChart from 'components_v3/RadarChart/RadarChart';
 import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useDidUpdate } from 'hooks';
 import { Carousel } from 'react-responsive-carousel';
+import Button from 'components_v3/button/button';
 import classes from './jobModal.module.scss';
 
 type responseProps = {
@@ -168,13 +169,14 @@ const JobModal = ({
 
   return (
     <div className={classes.wrapperModal}>
-      <MultiIcon
+      {/* <MultiIcon
         type="remove"
         width="37"
         height="37"
         onClick={onCloseModal}
         className={classes.exit}
-      />
+      /> */}
+      <Button title="x" color="red" onClick={onCloseModal} className={classes.exit} />
       <div className={classes.header}>
         <div className={classes.container}>
           <JobIcon width="55" height="55" color="#fab82d" />
@@ -201,40 +203,50 @@ const JobModal = ({
         <div className={classes.btnContent}>
           <div className={classes.wrraperBtn}>
             <div className={classes.directionRowBtn}>
-              <div className={classes.directionRow}>
+              {/* <div className={classes.directionRow}>
                 <VerticalStepper
                   handleClick={changeDisplayedChild}
                   DisplayedFamily={DisplayedChild}
                   listItems={items}
                 />
-              </div>
+              </div> */}
               <div className={classes.directionRow}>
-                <MultiIcon
-                  width="15"
-                  height="15"
-                  type="prev"
-                  withBorder
-                  onClick={() => changeDisplayedChild(DisplayedChild - 1)}
-                />
-                <MultiIcon
+                {DisplayedChild > 0 && (
+                  <Button
+                    title=""
+                    color="blue"
+                    onClick={() => changeDisplayedChild(DisplayedChild - 1)}
+                    className={classes.next}
+                    type="prev"
+                  />
+                )}
+                {/* <MultiIcon
                   width="37"
                   height="37"
                   type={update ? 'remove' : 'validate'}
                   Iconcolor={update ? '#e55d67' : '#fab82d'}
                   onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
+                /> */}
+                <Button
+                  title="ajouter a ma selection"
+                  color="red"
+                  onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
+                  style={{ height: 50 }}
                 />
-                <MultiIcon
-                  width="15"
-                  height="15"
-                  type="next"
-                  withBorder
-                  onClick={() => changeDisplayedChild(DisplayedChild + 1)}
-                />
+                {DisplayedChild < 1 && (
+                  <Button
+                    title=""
+                    color="blue"
+                    onClick={() => changeDisplayedChild(DisplayedChild + 1)}
+                    type="next"
+                    className={classes.next}
+                  />
+                )}
               </div>
             </div>
           </div>
           <div className={classes.directionRowBtn2}>
-            <MultiIcon
+            {/* <MultiIcon
               width="15"
               height="15"
               type="next"
@@ -243,6 +255,12 @@ const JobModal = ({
               text="Trouver mon immersion"
               withBorder
               onClick={() => changeDisplayedChild(items.length - 1)}
+            /> */}
+            <Button
+              title="Trouver mon immersion"
+              color="red"
+              onClick={() => changeDisplayedChild(items.length - 1)}
+              style={{ height: 50 }}
             />
           </div>
         </div>

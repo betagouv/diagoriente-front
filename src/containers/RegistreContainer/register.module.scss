@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px 0px;
+  margin: 15px 0px;
   background-color: $white;
   background-position: center;
   background-size: cover;
@@ -21,7 +21,7 @@
       display: block;
       font-weight: bold;
       font-size: 24px;
-      color: $grey-blue;
+      color: #223a7a;
       line-height: 1.2;
       text-align: center;
     }
@@ -76,9 +76,10 @@
   height: auto;
   align-items: center;
   background-color: $white;
-  box-shadow: $box-shadow;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
   max-height: 80%;
   overflow: auto;
+  border-radius: 5px;
   .container_input {
     display: flex;
     flex-direction: column;

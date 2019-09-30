@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 .container {
   display: flex;
   align-items: center;
@@ -6,19 +6,25 @@
 .indexNumber {
   font-size: 28px;
   width: 25px;
-  color: $gray-600;
+  color: #223a7a;
+  font-weight: bold;
+  font-family: Nunito;
 }
 .arrowsContainer {
   display: flex;
   flex-direction: column;
   margin-right: 10px;
-  height: 100%;
+  height: 60%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .arrow {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #00cfff;
+  background: white;
+  border-radius: 5px;
+  padding: 4px;
 }
 .arrowDown {
   @extend .arrow;

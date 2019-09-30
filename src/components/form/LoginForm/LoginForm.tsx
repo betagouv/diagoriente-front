@@ -12,7 +12,7 @@ import classes from './loginForm.module.scss';
 import Input from '../Input/Input';
 import arrow from '../../../assets_v3/icons/arrow/arrow.svg';
 import MultiIcon from '../../../components_v3/icons/multiIcon/multiIcon';
-
+import Button from 'components_v3/button/button';
 interface Props {
   onSubmitForm: (email: string, password: string) => void;
   error?: string;
@@ -65,7 +65,7 @@ const LoginUserContainer = ({
           {footerComponent}
           <div className={classes.container_button}>
             {/* <Button onClick={submit}>Se connecter</Button> */}
-            <MultiIcon
+            {/* <MultiIcon
               type="connect"
               withText
               text="se connecter"
@@ -74,7 +74,8 @@ const LoginUserContainer = ({
               textColor="#7992BF"
               onClick={submit}
               Iconcolor="#7992BF"
-            />
+            /> */}
+            <Button title="se connecter" color="red" style={{height: 40, padding: '0px 40px', fontSize: 14 }} onClick={submit} />
           </div>
         </div>
       )}
