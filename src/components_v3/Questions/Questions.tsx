@@ -38,6 +38,8 @@ const Questions = ({
   parcourId,
   onCloseModal,
 }: IProps) => {
+
+  // console.log(responseQuestion)
   useEffect(() => {
     if (questions) {
       let updatedArray = [];
@@ -105,14 +107,21 @@ const Questions = ({
    //  onCloseModal();
   };
   const [DisplayedChild, changeDisplayedChild] = useState(0);
+  const [test, setTest] = useState<any>([]);
 
   const items = map(questions, (item: QuestionType, i) => {
     const { index, selected } = getSelected(
       responseQuestion,
       (r: any) => item._id === (r.questionJobId || r._id),
     );
+    
     const nextFilters: responseProps[] = [...responseQuestion];
     const onClick = (response: boolean) => {
+        const answers = [...test];
+        answers.push(response);
+        setTest(answers)
+       // console.log(answers);
+
       if (selected) {
         const question = nextFilters[index];
         if (question.response === response) {
@@ -182,11 +191,11 @@ const Questions = ({
     <Fragment>
       <div className={classes.title_container}>
         <div className={classes.contentTitle}>
-          <span className={classes.title}>CE MÉTIER EST-IL FAIT POUR MOI ?</span>
+          <span className={classes.title}>SUIS-JE PRÊT ?</span>
         </div>
-        <div className={classes.contentTitleScore}>
+        {/* <div className={classes.contentTitleScore}>
           <span className={classes.title}>{renderScore()}</span>
-        </div>
+        </div> */}
       </div>
       <div className={classes.container} id="element">
         <div className={classes.question_containers}>
@@ -218,6 +227,7 @@ const Questions = ({
             DisplayedFamily={DisplayedChild}
             listItems={items}
             forQuestions
+            responses={test}
           />
         </div>
       </div>

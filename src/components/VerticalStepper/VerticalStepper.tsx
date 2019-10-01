@@ -9,42 +9,40 @@ interface IProps {
   selectedFamilys?: IFamille[] | any;
   listItems?: IFamille[] | any;
   forQuestions?: boolean;
+  responses?: any[];
 }
 
 const VerticalStepper = ({
- handleClick, DisplayedFamily, listItems, forQuestions,
-}: IProps) => (
-  <Fragment>
-    {listItems.map((famille: IFamille, index: number) =>
-      (!forQuestions ? (
-        <div
-          key={famille._id}
-          className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
-          onClick={() => handleClick(index)}
-        />
-      ) : (
-        <React.Fragment>
-          {DisplayedFamily === index ? (
+  handleClick,
+  DisplayedFamily,
+  listItems,
+  forQuestions,
+  responses,
+}: IProps) => {
+  console.log(responses);
+  return (
+    <Fragment>
+      {listItems.map((famille: IFamille, index: number) =>
+        (!forQuestions ? (
+          <div
+            key={famille._id}
+            className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
+            onClick={() => handleClick(index)}
+          />
+        ) : (
+          <React.Fragment>
             <MultiIcons
               width="15"
               height="15"
-              type="validate"
+              type={DisplayedFamily === index && responses && responses[DisplayedFamily] === true ? 'validate' : 'remove'}
               onClick={() => handleClick(index)}
               className={classes.btn_validate}
-              Iconcolor="#00cfff"
+              Iconcolor={DisplayedFamily === index && responses && responses[DisplayedFamily] === true ? '#00cfff' : '#ff0060'}
             />
-          ) : (
-            <MultiIcons
-              width="15"
-              height="15"
-              type="remove"
-              onClick={() => handleClick(index)}
-              className={classes.btn_validate}
-              Iconcolor="#e55e68"
-            />
-          )}
-        </React.Fragment>
-      )))}
-  </Fragment>
-);
+          </React.Fragment>
+        )))}
+    </Fragment>
+  );
+};
+
 export default VerticalStepper;

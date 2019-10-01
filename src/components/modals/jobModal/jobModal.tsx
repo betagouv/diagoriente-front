@@ -304,13 +304,14 @@ const JobModal = ({
                   Iconcolor={update ? '#e55d67' : '#fab82d'}
                   onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
                 /> */}
-                {/* <Button
+                <Button
                   title="ajouter a ma selection"
                   color="red"
                   onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
                   style={{ height: 50 }}
-                /> */}
-                {DisplayedChild < 2 && (
+                  className={classes.immersion}
+                />
+                {DisplayedChild < 1 && (
                   <Button
                     title=""
                     color="blue"
