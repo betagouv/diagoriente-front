@@ -31,8 +31,6 @@ const VerticalStepper = ({
     return { index, selected };
   }
 
-  console.log({ responses });
-
   return (
     <Fragment>
       {listItems.map((famille: IFamille, index: number) => {
@@ -47,9 +45,9 @@ const VerticalStepper = ({
         }
 
         const { index: i, selected } = getSelected(responses, item => item._id === famille._id);
-        console.log(i, selected);
+
         let type = 'border';
-        let Iconcolor = '#000';
+        let Iconcolor = '#666';
 
         if (selected) {
           type = responses[i].selected ? 'validate' : 'remove';

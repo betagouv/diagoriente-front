@@ -27,6 +27,7 @@ export interface IJob {
   accessibility: string;
   interested: boolean | null;
   favoriteId: string | null;
+  environments: { _id: string; title: string }[];
 }
 
 export interface IJobQuestion {
