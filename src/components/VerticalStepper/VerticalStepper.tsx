@@ -8,41 +8,17 @@ interface IProps {
   DisplayedFamily: number;
   selectedFamilys?: IFamille[] | any;
   listItems?: IFamille[] | any;
-  forQuestions?: boolean;
-  responses?: any[];
 }
 
-const VerticalStepper = ({
-  handleClick,
-  DisplayedFamily,
-  listItems,
-  forQuestions,
-  responses,
-}: IProps) => {
-  console.log(responses);
-  return (
-    <Fragment>
-      {listItems.map((famille: IFamille, index: number) =>
-        (!forQuestions ? (
-          <div
-            key={famille._id}
-            className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
-            onClick={() => handleClick(index)}
-          />
-        ) : (
-          <React.Fragment>
-            <MultiIcons
-              width="15"
-              height="15"
-              type={DisplayedFamily === index && responses && responses[DisplayedFamily] === true ? 'validate' : 'remove'}
-              onClick={() => handleClick(index)}
-              className={classes.btn_validate}
-              Iconcolor={DisplayedFamily === index && responses && responses[DisplayedFamily] === true ? '#00cfff' : '#ff0060'}
-            />
-          </React.Fragment>
-        )))}
-    </Fragment>
-  );
-};
-
+const VerticalStepper = ({ handleClick, DisplayedFamily, listItems }: IProps) => (
+  <Fragment>
+    {listItems.map((famille: IFamille, index: number) => (
+      <div
+        key={famille._id}
+        className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
+        onClick={() => handleClick(index)}
+      />
+    ))}
+  </Fragment>
+);
 export default VerticalStepper;

@@ -10,7 +10,7 @@ import { useDidMount } from 'hooks';
 
 interface Props {
   title: string;
-  color: 'red' | 'blue' | 'darkblueFilled' | 'redFilled' | 'liteRed'| 'blueFilled';
+  color: 'red' | 'blue' | 'darkblueFilled' | 'redFilled' | 'liteRed';
   type?: 'next' | 'prev' | 'checked';
 }
 
@@ -50,7 +50,6 @@ const Button = ({
           ? classes.buttonDarkBlueFilled
           : color === 'liteRed'
           ? classes.buttonLiteRed
-          :color === "blueFilled" ? classes.blueFilled 
           : classes.ButtonRedFilled,
         className,
       )}

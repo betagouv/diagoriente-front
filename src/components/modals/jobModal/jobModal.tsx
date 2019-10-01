@@ -232,7 +232,6 @@ const JobModal = ({
                   color="red"
                   onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
                   style={{ height: 50 }}
-                  className={classes.immersion}
                 />
                 {DisplayedChild < 1 && (
                   <Button
