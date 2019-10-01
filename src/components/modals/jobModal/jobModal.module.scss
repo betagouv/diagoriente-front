@@ -31,7 +31,7 @@
 }
 .title {
   font-size: 18px;
-  color: #fab82d;
+  color: #4D4D4D;
   font-weight: 600;
 }
 .body {
@@ -191,7 +191,7 @@ li::before {
   flex-direction: column;
 }
 .bold1 {
-  color: #ff005f;
+  color: #4D4D4D;
   font-size: 25px;
   font-weight: bolder;
   font-family: Nunito;
@@ -263,4 +263,17 @@ li::before {
   color: #003189;
   font-weight: bolder;
   padding: 6px 45% 0px 0px;
+}
+.immersion {
+  height: 50px;
+  position: absolute;
+  top: 20px;
+  left: 490px;
+}
+.star {
+  margin: 0 3px;
+}
+.starsContainer {
+  display: flex;
+  padding-left: 10px;
 }

@@ -3,9 +3,9 @@ import MultiIcons from 'components_v3/icons/multiIcon/multiIcon';
 import { map } from 'lodash';
 import ValidButton from 'components/buttons/RoundButton/RoundButton';
 import Button from 'components_v3/button/button';
-import classes from './question.module.scss';
 import { Carousel } from 'react-responsive-carousel';
 import VerticalStepper from 'components/VerticalStepper/VerticalStepper';
+import classes from './question.module.scss';
 
 type responseProps = {
   questionJobId: string;
@@ -38,6 +38,7 @@ const Questions = ({
   parcourId,
   onCloseModal,
 }: IProps) => {
+  // console.log(responseQuestion)
   useEffect(() => {
     if (questions) {
       let updatedArray = [];
@@ -102,17 +103,26 @@ const Questions = ({
 
   const onValidate = () => {
     answersJobs.call({ parcourId, jobId, responses: responseQuestion }, 't');
-   //  onCloseModal();
+    //  onCloseModal();
   };
   const [DisplayedChild, changeDisplayedChild] = useState(0);
+  const [test, setTest] = useState<{ selected: boolean; _id: string }[]>([]);
 
   const items = map(questions, (item: QuestionType, i) => {
-    const { index, selected } = getSelected(
-      responseQuestion,
-      (r: any) => item._id === (r.questionJobId || r._id),
-    );
+    const { index, selected } = getSelected(test, r => item._id === r._id);
+
     const nextFilters: responseProps[] = [...responseQuestion];
     const onClick = (response: boolean) => {
+      const answers = [...test];
+      if (selected) {
+        answers[index] = { selected: response, _id: item._id };
+      } else {
+        answers.push({ selected: response, _id: item._id });
+      }
+
+      setTest(answers);
+      // console.log(answers);
+
       if (selected) {
         const question = nextFilters[index];
         if (question.response === response) {
@@ -134,58 +144,43 @@ const Questions = ({
 
     return (
       <div key={item._id} className={classes.question}>
-        <span>{i + 1}/{questions.length}</span>
+        <span>
+          {i + 1}
+/
+          {questions.length}
+        </span>
         <div className={classes.question_title}>{item.label}</div>
 
         <div className={classes.btn_container}>
-          {/* <MultiIcons
-            width="23"
-            height="23"
-            type="validate"
-            onClick={() => onClick(true)}
-            className={classes.btn_validate}
-            Iconcolor={selected ? initialStateValidate : '#7a93bc'}
-          /> */}
           <Button
             title="Oui"
             color="blue"
             onClick={() => {
-               onClick(true);
+              onClick(true);
               changeDisplayedChild(DisplayedChild + 1);
               onValidate();
-              }}
+            }}
             className={classes.yesNoButton}
           />
           <Button
             title="Non"
             color="red"
             onClick={() => {
-              onClick(false)
+              onClick(false);
               changeDisplayedChild(DisplayedChild + 1);
               onValidate();
             }}
             className={classes.yesNoButton}
           />
-          {/* <MultiIcons
-            width="23"
-            height="23"
-            type="remove"
-            onClick={() => onClick(false)}
-            className={classes.btn_remove}
-            Iconcolor={selected ? initialStateRemoeve : '#7a93bc'}
-          /> */}
         </div>
       </div>
     );
-  })
+  });
   return (
     <Fragment>
       <div className={classes.title_container}>
         <div className={classes.contentTitle}>
-          <span className={classes.title}>CE MÉTIER EST-IL FAIT POUR MOI ?</span>
-        </div>
-        <div className={classes.contentTitleScore}>
-          <span className={classes.title}>{renderScore()}</span>
+          <span className={classes.title}>SUIS-JE PRÊT ?</span>
         </div>
       </div>
       <div className={classes.container} id="element">
@@ -205,19 +200,13 @@ const Questions = ({
             {items}
           </Carousel>
         </div>
-        {/* questions && questions.length !== 0 && (
-          <div className={classes.container_btn}>
-            <ValidButton onClick={onValidate} className={classes.btnValidate}>
-              Valider
-            </ValidButton>
-          </div>
-        ) */}
         <div className={classes.dotsContainer}>
           <VerticalStepper
             handleClick={changeDisplayedChild}
             DisplayedFamily={DisplayedChild}
-            listItems={items}
+            listItems={questions || []}
             forQuestions
+            responses={test}
           />
         </div>
       </div>

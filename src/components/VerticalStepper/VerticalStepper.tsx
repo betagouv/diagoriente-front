@@ -9,42 +9,70 @@ interface IProps {
   selectedFamilys?: IFamille[] | any;
   listItems?: IFamille[] | any;
   forQuestions?: boolean;
+  responses: { _id: string; selected: boolean }[];
 }
 
 const VerticalStepper = ({
- handleClick, DisplayedFamily, listItems, forQuestions,
-}: IProps) => (
-  <Fragment>
-    {listItems.map((famille: IFamille, index: number) =>
-      (!forQuestions ? (
-        <div
-          key={famille._id}
-          className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
-          onClick={() => handleClick(index)}
-        />
-      ) : (
-        <React.Fragment>
-          {DisplayedFamily === index ? (
-            <MultiIcons
-              width="15"
-              height="15"
-              type="validate"
+  handleClick,
+  DisplayedFamily,
+  listItems,
+  forQuestions,
+  responses,
+}: IProps) => {
+  function getSelected<T>(
+    array: T[],
+    callback: (row: T, index: number, array: T[]) => boolean,
+  ): { index: number; selected: boolean } {
+    if (!array) {
+      return { index: -1, selected: false };
+    }
+    const index = array.findIndex(callback);
+    const selected = index !== -1;
+    return { index, selected };
+  }
+
+  console.log({ responses });
+
+  return (
+    <Fragment>
+      {listItems.map((famille: IFamille, index: number) => {
+        if (!forQuestions) {
+          return (
+            <div
+              key={famille._id}
+              className={DisplayedFamily === index ? classes.stepperCIRCLE : classes.stepperCircle}
               onClick={() => handleClick(index)}
-              className={classes.btn_validate}
-              Iconcolor="#00cfff"
             />
-          ) : (
-            <MultiIcons
-              width="15"
-              height="15"
-              type="remove"
-              onClick={() => handleClick(index)}
-              className={classes.btn_validate}
-              Iconcolor="#e55e68"
-            />
-          )}
-        </React.Fragment>
-      )))}
-  </Fragment>
-);
+          );
+        }
+
+        const { index: i, selected } = getSelected(responses, item => item._id === famille._id);
+        console.log(i, selected);
+        let type = 'border';
+        let Iconcolor = '#000';
+
+        if (selected) {
+          type = responses[i].selected ? 'validate' : 'remove';
+          Iconcolor = responses[i].selected ? '#00cfff' : '#ff0060';
+        }
+
+        return (
+          <MultiIcons
+            width="15"
+            height="15"
+            type={type as any}
+            onClick={() => handleClick(index)}
+            className={classes.btn_validate}
+            Iconcolor={Iconcolor}
+          />
+        );
+      })}
+    </Fragment>
+  );
+};
+
+VerticalStepper.defaultProps = {
+  responses: [],
+};
+
 export default VerticalStepper;

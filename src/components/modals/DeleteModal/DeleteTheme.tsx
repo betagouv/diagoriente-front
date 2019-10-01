@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/buttons/RoundButton/RoundButton';
+import Button from 'components_v3/button/button';
 import classes from './deleteModal.module.scss';
 
 interface IProps {
@@ -19,12 +19,8 @@ const DeleteModal = ({ onDelete, onCloseModal }: IProps) => {
           <span>Attention, vous allez supprimer ce theme !</span>
         </div>
         <div className={classes.btn_container}>
-          <Button onClick={onCloseModal} className={classes.btn}>
-            Annuler
-          </Button>
-          <Button onClick={deleteTheme} className={classes.btnOut}>
-            Supprimer
-          </Button>
+          <Button onClick={onCloseModal} className={classes.btn} title="Annuler" color="red"  />
+          <Button onClick={deleteTheme} className={classes.btn} title="Supprimer" color="blue"  />
         </div>
       </div>
     </div>

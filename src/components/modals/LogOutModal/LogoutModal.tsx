@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/buttons/RoundButton/RoundButton';
+import Button from 'components_v3/button/button';
 
 import classes from './logout.module.scss';
 
@@ -20,14 +20,8 @@ const LogoutModal = ({ onLogout, onClose }: IProps) => {
           <span>Attention, vous allez être déconnecté !</span>
         </div>
         <div className={classes.btn_container}>
-          <Button onClick={logout} className={classes.btnOut}>
-            Déconnecter
-            {' '}
-          </Button>
-          <Button onClick={onClose} className={classes.btn}>
-            Annuler
-            {' '}
-          </Button>
+          <Button onClick={logout} className={classes.btnOut} title="Déconnecter" color="blue" />
+          <Button onClick={onClose} className={classes.btn} title="Annuler" color="blue" />
         </div>
       </div>
     </div>
