@@ -262,6 +262,7 @@ const JobModal = ({
       <div className={classes.header}>
         <div className={classes.container}>
           <JobIcon width="55" height="55" color="#fab82d" />
+          <div className={classes.contentTitle} >
           <span className={classes.title}>{data.title}</span>
           <div className={classes.starsContainer}>
             {rating === 3 ? <Star height="15" width="15" color="#fab82d" className={classes.star} /> : null}
@@ -270,7 +271,7 @@ const JobModal = ({
             {rating && rating >= 1 ? (
               <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
           </div>
-          
+          </div>
         </div>
       </div>
       <div className={classes.contentModal2}>
