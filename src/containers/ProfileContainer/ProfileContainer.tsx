@@ -13,7 +13,6 @@ import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 import ThemesContainer from 'containers/ThemesContainer/ThemesContainer';
 import SkillsContainer from 'containers/SkillsContainer/SkillsContainer';
-import ExpertisesContainer from 'containers/ExpertisesContainer';
 import MesDemarches from 'containers/MesDemarchesContainer/MesDemarchesContainer';
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
