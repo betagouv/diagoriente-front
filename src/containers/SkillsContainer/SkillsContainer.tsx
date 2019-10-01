@@ -20,7 +20,7 @@ import modalActions from 'reducers/modal';
 import { useCaptureRef } from 'hooks/useCaptureRef';
 import { beta1x } from 'assets/icons/logobeta/index';
 // import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
-import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
+import logo from 'assets_v3/Home/logo.svg';
 import ApparationCard from 'components_v3/ApparationCard';
 import GraduationLevel from 'components_v3/GraduationLevel';
 import parcoursActions from 'reducers/parcours';

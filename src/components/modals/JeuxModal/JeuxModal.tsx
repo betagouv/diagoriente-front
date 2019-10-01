@@ -1,7 +1,7 @@
 import React from 'react';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 
-import ContinueButton from '../../buttons/ContinueButtom/ContinueButton';
+import Button from 'components_v3/button/button';
 
 import iconCheck from '../../../assets/icons/svg/icon-check-blue.svg';
 
@@ -34,9 +34,10 @@ const JeuxModal = ({ onClick }: Props) => (
           prêt maintenant pour réaliser ta propre carte de compétences
         </div>
         <div className={`flex_center ${classes.footer} ${classes.item}`}>
-          <ContinueButton
+          <Button
             onClick={onClick}
-            label="Continuer"
+            title="Continuer"
+            color="red"
             className={classNames(classes.continue_button)}
           />
         </div>
