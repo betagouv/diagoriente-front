@@ -9,7 +9,7 @@ import React, {
   Fragment,
 } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { map } from 'lodash';
 // hoc
@@ -99,6 +99,8 @@ const ThemesContainer = forwardRef(
     }: Props,
     ref: Ref<RefProp>,
   ) => {
+    if (!location.state) return <Redirect to="/profile/skills" />;
+
     function getSkills(skills: ISkillPopulated[]) {
       return skills.filter(skill => skill.theme.type === type);
     }
@@ -117,6 +119,7 @@ const ThemesContainer = forwardRef(
     const [step, stepChange] = useState<Step | 'select_theme' | null>(
       !currentSkills.length ? 'select_theme' : location.state.detail,
     );
+    const [action, setAction] = useState('');
 
     const [selectedTheme, selectedThemeChange] = useState<string | null>(null);
     const [skills, skillsChange] = useState(currentSkills);
@@ -233,7 +236,11 @@ const ThemesContainer = forwardRef(
 
     useDidUpdate(() => {
       if (!parcoursFetching && !parcoursError) {
-        history.push('/profile/skills');
+        if (action === 'delete') {
+          setAction('');
+        } else {
+          history.push('/profile/skills');
+        }
       }
     }, [parcoursFetching]);
 
@@ -555,6 +562,7 @@ const ThemesContainer = forwardRef(
                 openModal(
                   <DeleteModal
                     onDelete={() => {
+                      setAction('delete');
                       skillsChange(skills.filter(skill => skill.theme._id !== theme._id));
                       parcoursRequest({
                         skills: [

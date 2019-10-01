@@ -81,14 +81,13 @@ const RootContainer = ({
     startup();
   });
 
-  useDidUpdate(() => {
+ /*  useDidUpdate(() => {
     if (isEmpty(user)) {
       history.push('/');
     } else {
-			history.push('/profile/skills');
-
-		}
-  }, [user]);
+      history.push('/profile/skills');
+    }
+  }, [user]); */
 
   if (!startupEnd) return <div />;
   return (
