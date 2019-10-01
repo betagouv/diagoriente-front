@@ -68,7 +68,8 @@ const JobModal = ({
     getJobs.call(parcoursId);
     if (getOnejob.data) {
       setData(getOnejob.data);
-    }
+		}
+		
   }, [id]);
   useEffect(() => {
     if (getOnejob.data) {
@@ -100,7 +101,8 @@ const JobModal = ({
     if (!getOnejob.fetching && !get.fetching && !isEmpty(get)) {
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
-      RadarChart(ctx, get, getOnejob);
+			RadarChart(ctx, get, getOnejob);
+		
     }
   }, [getOnejob.fetching, get.fetching]);
 
