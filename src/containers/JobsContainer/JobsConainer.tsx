@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import {
- forEach, filter, map, isEmpty, differenceBy,
+ forEach, filter, map, isEmpty, differenceBy,find
 } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
@@ -181,7 +181,7 @@ const JobsContainer = ({
     const test = getFav.data.data.find((item: any) => item.job._id === id);
     return test ? test._id : null;
   };
-  const handleCard = (id: string, idFav?: string) => {
+  const handleCard = (id: string, idFav?: string, rating?: number) => {
     const idFavorie = idFav || isExistInFavAr(id);
     openModal(
       <JobModal
@@ -194,6 +194,7 @@ const JobsContainer = ({
         update={isExistInFav(id)}
         remove={(i, e) => onJobRemove(idFavorie, e)}
         addfav={() => getFav.call()}
+        rating={rating}
       />,
     );
   };
@@ -211,18 +212,14 @@ const JobsContainer = ({
       }
     });
   });
-const [selectedJob, setJOb] = useState('')
   const handleClick = (id: string) => {
     createFavorites({
       job: id,
       parcour: parcoursId,
       interested: true,
     });
-    /* addfav(); */
     getFav.call();
-    setJOb(id);
   };
-
 
 // console.log(selectedJob)
   return (
@@ -298,6 +295,7 @@ const [selectedJob, setJOb] = useState('')
                 rating = 1;
                 color = '#a67c52';
               }
+
               return (
                 <JobCard
                   rating={rating}
@@ -306,10 +304,11 @@ const [selectedJob, setJOb] = useState('')
                   jobAccessebility={metier.accessibility}
                   jobDescription={metier.description}
                   jobInterest={metier.interests}
-                  modal={() => handleCard(metier._id)}
+                  modal={() => handleCard(metier._id, undefined, rating)}
                   key={metier._id}
                   add={() => handleClick(metier._id)}
-                  selected={selectedJob === metier._id ? true : false}
+                  selected={metier._id}
+                  all={getFav.data.data}
                 />
               );
             })}
@@ -340,7 +339,8 @@ const [selectedJob, setJOb] = useState('')
                 modal={() => handleCard(metier._id)}
                 key={metier._id}
                 add={() => handleClick(metier._id)}
-                selected={selectedJob === metier._id && true}
+                selected={metier._id}
+                all={getFav.data.data}
               />
             ))}
           </div>

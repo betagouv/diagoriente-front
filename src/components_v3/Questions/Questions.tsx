@@ -147,14 +147,6 @@ const Questions = ({
         <div className={classes.question_title}>{item.label}</div>
 
         <div className={classes.btn_container}>
-          {/* <MultiIcons
-            width="23"
-            height="23"
-            type="validate"
-            onClick={() => onClick(true)}
-            className={classes.btn_validate}
-            Iconcolor={selected ? initialStateValidate : '#7a93bc'}
-          /> */}
           <Button
             title="Oui"
             color="blue"
@@ -175,14 +167,6 @@ const Questions = ({
             }}
             className={classes.yesNoButton}
           />
-          {/* <MultiIcons
-            width="23"
-            height="23"
-            type="remove"
-            onClick={() => onClick(false)}
-            className={classes.btn_remove}
-            Iconcolor={selected ? initialStateRemoeve : '#7a93bc'}
-          /> */}
         </div>
       </div>
     );
@@ -193,9 +177,6 @@ const Questions = ({
         <div className={classes.contentTitle}>
           <span className={classes.title}>SUIS-JE PRÊT ?</span>
         </div>
-        {/* <div className={classes.contentTitleScore}>
-          <span className={classes.title}>{renderScore()}</span>
-        </div> */}
       </div>
       <div className={classes.container} id="element">
         <div className={classes.question_containers}>
@@ -214,13 +195,6 @@ const Questions = ({
             {items}
           </Carousel>
         </div>
-        {/* questions && questions.length !== 0 && (
-          <div className={classes.container_btn}>
-            <ValidButton onClick={onValidate} className={classes.btnValidate}>
-              Valider
-            </ValidButton>
-          </div>
-        ) */}
         <div className={classes.dotsContainer}>
           <VerticalStepper
             handleClick={changeDisplayedChild}

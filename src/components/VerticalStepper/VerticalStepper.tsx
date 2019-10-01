@@ -19,7 +19,7 @@ const VerticalStepper = ({
   forQuestions,
   responses,
 }: IProps) => {
-  console.log(responses);
+ // console.log(responses);
   return (
     <Fragment>
       {listItems.map((famille: IFamille, index: number) =>

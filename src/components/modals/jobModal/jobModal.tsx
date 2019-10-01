@@ -15,6 +15,7 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useDidUpdate } from 'hooks';
 import { Carousel } from 'react-responsive-carousel';
 import Button from 'components_v3/button/button';
+import Star from 'components_v3/icons/starSvg/star';
 import classes from './jobModal.module.scss';
 
 type responseProps = {
@@ -35,6 +36,7 @@ interface MyProps {
   idFav?: string;
   addfav: () => void;
   remove: (id: string, e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  rating?: number;
 }
 
 type IProps = MyProps &
@@ -57,6 +59,7 @@ const JobModal = ({
   remove,
   idFav,
   addfav,
+  rating,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
@@ -243,7 +246,7 @@ const JobModal = ({
     addfav();
     onCloseModal();
   };
-  // console.log(data);
+   // console.log(rating);
   return (
     <div className={classes.wrapperModal}>
       {/* <MultiIcon
@@ -258,6 +261,14 @@ const JobModal = ({
         <div className={classes.container}>
           <JobIcon width="55" height="55" color="#fab82d" />
           <span className={classes.title}>{data.title}</span>
+          <div className={classes.starsContainer}>
+            {rating === 3 ? <Star height="15" width="15" color="#fab82d" className={classes.star} /> : null}
+            {rating && rating >= 2 ? (
+              <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
+            {rating && rating >= 1 ? (
+              <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
+          </div>
+          
         </div>
       </div>
       <div className={classes.contentModal2}>
