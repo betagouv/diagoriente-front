@@ -214,9 +214,10 @@ const RegisterUserContainer = ({
                     value="Car"
                     checked={conditionChecked}
                     onChange={() => {
-                      setChecked(!conditionChecked);
-                      changeConditionValidation(false);
+                    setChecked(!conditionChecked);
+                    changeConditionValidation(false);
                     }}
+                    style={conditionChecked ? { background: '#ff0060' } : {}}
                   />
                   <span style={{ margin: '-1px 0.5ex' }}>
                     J&apos;accepte les conditions d&apos;utilisation de Diagoriente
