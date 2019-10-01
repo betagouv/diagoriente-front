@@ -49,7 +49,7 @@ const VerticalStepper = ({
         const { index: i, selected } = getSelected(responses, item => item._id === famille._id);
         console.log(i, selected);
         let type = 'border';
-        let Iconcolor = '#000';
+        let Iconcolor = '#4D4D4D';
 
         if (selected) {
           type = responses[i].selected ? 'validate' : 'remove';

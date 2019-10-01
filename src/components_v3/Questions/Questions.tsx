@@ -139,8 +139,8 @@ const Questions = ({
 
       onChangeQuestion(nextFilters);
     };
-    const initialStateValidate: string = selected && responseQuestion[index].response ? '#ffba27' : '#666';
-    const initialStateRemoeve: string = selected && responseQuestion[index].response ? '#666' : '#e55d67';
+    const Validate = selected && responseQuestion[index].response ? 'blueFilled' : 'blue';
+    const Remove = selected && !responseQuestion[index].response ? 'redFilled' : 'red';
 
     return (
       <div key={item._id} className={classes.question}>
@@ -154,7 +154,7 @@ const Questions = ({
         <div className={classes.btn_container}>
           <Button
             title="Oui"
-            color="blue"
+            color={Validate}
             onClick={() => {
               onClick(true);
               changeDisplayedChild(DisplayedChild + 1);
@@ -164,7 +164,7 @@ const Questions = ({
           />
           <Button
             title="Non"
-            color="red"
+            color={Remove}
             onClick={() => {
               onClick(false);
               changeDisplayedChild(DisplayedChild + 1);
