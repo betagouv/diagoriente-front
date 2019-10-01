@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .fill {
   width: 100%;
@@ -12,8 +12,7 @@
 
 .card {
   @extend .fill;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
 }
@@ -29,18 +28,18 @@
     height: 5px;
     background-image: linear-gradient(
       to right,
-      #223b77 0%,
-      #223b77 39.4%,
-      #b62939 39.4%,
-      #b62939 46.3%,
-      #ea6f35 46.3%,
-      #ea6f35 47.8%,
-      #f7b73e 47.6%,
-      #f7b73e 50.5%,
-      #223b77 50.5%,
-      #223b77 100%
+      #233c78 0%,
+      #233c78 39.4%,
+      #fc1262 39.4%,
+      #fc1262 46.3%,
+      #24d0fd 46.3%,
+      #24d0fd 47.8%,
+      #7540fb 47.6%,
+      #7540fb 50.5%,
+      #233c78 50.5%,
+      #233c78 100%
     );
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -127,18 +126,18 @@
     height: 5px;
     background-image: linear-gradient(
       to right,
-      #223b77 0%,
-      #223b77 39.4%,
-      #b62939 39.4%,
-      #b62939 46.3%,
-      #ea6f35 46.3%,
-      #ea6f35 47.8%,
-      #f7b73e 47.6%,
-      #f7b73e 50.5%,
-      #223b77 50.5%,
-      #223b77 100%
+      #233c78 0%,
+      #233c78 39.4%,
+      #fc1262 39.4%,
+      #fc1262 46.3%,
+      #24d0fd 46.3%,
+      #24d0fd 47.8%,
+      #7540fb 47.6%,
+      #7540fb 50.5%,
+      #233c78 50.5%,
+      #233c78 100%
     );
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
@@ -225,7 +224,7 @@
   font-size: 12px;
 }
 li::before {
-  content: "\2022";
+  content: '\2022';
   color: #dedede;
   font-weight: bold;
   display: inline-block;

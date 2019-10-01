@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from 'components/buttons/RoundButton/RoundButton';
+//import Button from 'components/buttons/RoundButton/RoundButton';
+import Button from 'components_v3/button/button';
 
 import Grid from '../../ui/Grid/Grid';
 import classes from './confirm.module.scss';
@@ -42,18 +43,12 @@ const ConfirmModal = ({
 
             {ConfirmModals ? (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onAnnule} className={classes.btn}>
-                  Annuler
-                </Button>
-                <Button onClick={onSubmit} className={classes.btnOut}>
-                Confirmer
-                </Button>
+                <Button onClick={onAnnule} className={classes.btn} title="Annuler" color="red" />
+                <Button onClick={onSubmit} className={classes.btn} title="Confirmer" color="blue" />
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onSubmit} className={classes.btnOut}>
-                  Ok
-                </Button>
+                <Button onClick={onSubmit} className={classes.btnOut} title="OK" color="red" />
               </Grid>
             )}
           </Grid>

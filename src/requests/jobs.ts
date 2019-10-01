@@ -27,6 +27,7 @@ export interface IJob {
   accessibility: string;
   interested: boolean | null;
   favoriteId: string | null;
+  environments: { _id: string; title: string }[];
 }
 
 export interface IJobQuestion {
@@ -38,7 +39,7 @@ export const getMyJob = (
   parcourId: string,
   environments?: string,
   secteur?: string,
-  algoType: 'interest_family' | 'family' | 'interest' = 'interest_family',
+  algoType: 'interest_family' | 'family' | 'interest' = 'family',
 ): Promise<Response<IJob[]>> => {
   const env = environments && JSON.parse(environments).length ? environments : null;
   const sect = secteur && JSON.parse(secteur).length ? secteur : null;

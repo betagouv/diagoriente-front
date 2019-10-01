@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/buttons/RoundButton/RoundButton';
+import Button from 'components_v3/button/button';
 
 import classes from './invalid.module.scss';
 
@@ -17,9 +17,7 @@ const InvalidModal = ({ onCloseModal, text, onClick }: IProps) => (
       </div>
 
       <div className={classes.btn_container}>
-        <Button onClick={onClick || onCloseModal} className={classes.btnOut}>
-          {onClick ? 'Ok' : 'Retour'}
-        </Button>
+        <Button onClick={onClick || onCloseModal} className={classes.btnOut} title={onClick ? 'Ok' : 'Retour'} color="red" />
       </div>
     </div>
   </div>

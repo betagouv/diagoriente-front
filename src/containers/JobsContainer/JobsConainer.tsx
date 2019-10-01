@@ -1,9 +1,9 @@
 import React, {
- Dispatch, useEffect, useState, useRef,
+ Dispatch, useEffect, useState, useRef, useCallback,
 } from 'react';
 import { connect } from 'react-redux';
 import {
- forEach, filter, map, isEmpty, differenceBy,
+ uniqBy, filter, map, isEmpty, differenceBy,
 } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
@@ -18,6 +18,7 @@ import JobCard from 'components_v3/jobCard/jobCard';
 import JobModal from 'components/modals/jobModal/jobModal';
 import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components_v3/button/button';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
   getMyJob,
@@ -34,7 +35,6 @@ import { useDidMount, useDidUpdate } from '../../hooks';
 import Spinner from '../../components/ui/Spinner/Spinner';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
-import Button from 'components_v3/button/button';
 
 interface IMapToProps {
   parcoursId: string;
@@ -79,6 +79,10 @@ const JobsContainer = ({
   const [isSelectionOpen, setSelectionOpen] = useState(true);
   const [isRecommandedOpen, setRecommandedOpen] = useState(true);
   const [isOtherOpen, setOtherOpen] = useState(true);
+  const [other, setOther] = useState(false);
+  const otherJobsRef = useRef<IJob[]>([]);
+  const secteursRef = useRef<string[]>([]);
+  const filtersRef = useRef<string[]>([]);
 
   const setSelectionToggle = () => {
     setSelectionOpen(!isSelectionOpen);
@@ -114,6 +118,8 @@ const JobsContainer = ({
   }, [listJobs.fetching]);
 
   function filterJobs(filterArray: string[], secteurArray: string[]) {
+    secteursRef.current = secteurArray;
+    filtersRef.current = filterArray;
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
 
@@ -129,50 +135,10 @@ const JobsContainer = ({
     openModal(<DeleteModal onDelete={remove} onCloseModal={closeModal} />);
   };
 
-  const jobs: { secteur: ISecteur; jobs: IJob[] }[] = [];
-  forEach(listJobs.data, job => {
-    if (job.secteur[0]) {
-      const current = jobs.find(secteurJobs => secteurJobs.secteur._id === job.secteur[0]._id);
-      if (current) {
-        current.jobs.push(job);
-      } else {
-        jobs.push({ secteur: job.secteur[0], jobs: [job] });
-      }
-    }
-  });
-
-  const autres = {
-    secteur: {
-      _id: 'Autre',
-      title: 'Autre',
-      activities: null,
-      parentId: null,
-      search: '',
-      type: '',
-      resources: {
-        backgroundColor: '',
-        icon: '',
-      },
-    },
-    jobs: filter(listJobs.data, job => !job.secteur[0]),
-  };
-
-  const secteurs = jobs.map(job => ({
-    ...job.secteur,
-    isSelected: !!selectedSecteurs.find(id => id === job.secteur._id),
-  }));
-  if (autres.jobs.length) {
-    secteurs.push({
-      ...autres.secteur,
-      isSelected: !!selectedSecteurs.find(id => id === autres.secteur._id),
-    });
+  if (!otherJobsRef.current.length) {
+    otherJobsRef.current = filter(listJobs.data, job => !job.secteur[0]);
   }
 
-  let selectedJobs = jobs;
-
-  if (selectedSecteurs.length) {
-    selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
-  }
   const isExistInFav = (id: string) => {
     const test = getFav.data.data.some((item: any) => item.job._id === id);
     return test;
@@ -181,7 +147,7 @@ const JobsContainer = ({
     const test = getFav.data.data.find((item: any) => item.job._id === id);
     return test ? test._id : null;
   };
-  const handleCard = (id: string, idFav?: string) => {
+  const handleCard = (id: string, idFav?: string, rating?: number) => {
     const idFavorie = idFav || isExistInFavAr(id);
     openModal(
       <JobModal
@@ -194,35 +160,45 @@ const JobsContainer = ({
         update={isExistInFav(id)}
         remove={(i, e) => onJobRemove(idFavorie, e)}
         addfav={() => getFav.call()}
+        rating={rating}
       />,
     );
   };
-  const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
+  let jArray = listJobs.data.length ? listJobs.data : [];
+
+  if (other) {
+    let otherJobs = otherJobsRef.current;
+
+    if (filtersRef.current.length) {
+      otherJobs = otherJobs.filter(job =>
+        job.environments.find(env => filtersRef.current.find(ft => env._id === ft)));
+    }
+
+    jArray = secteursRef.current.length ? [...jArray, ...otherJobs] : [...otherJobs];
+    jArray = uniqBy(jArray, '_id');
+  }
+
   const recommandedArray = jArray.filter((j, i) => i < 9);
-   
+
   if (!jobsListRef.current.length && !isEmpty(jArray)) jobsListRef.current = recommandedArray;
   const otherArray = differenceBy(jArray, jobsListRef.current, '_id');
-   
+
   const arrayNew: any = [];
-  jobsListRef.current.map((item: any) => {
-    recommandedArray.filter((el: any) => {
+  jobsListRef.current.forEach((item: any) => {
+    recommandedArray.forEach((el: any) => {
       if (item._id === el._id) {
         arrayNew.push(item);
       }
     });
   });
-const [selectedJob, setJOb] = useState('')
   const handleClick = (id: string) => {
     createFavorites({
       job: id,
       parcour: parcoursId,
       interested: true,
     });
-    /* addfav(); */
     getFav.call();
-    setJOb(id);
   };
-
 
 // console.log(selectedJob)
   return (
@@ -232,7 +208,15 @@ const [selectedJob, setJOb] = useState('')
           <Spinner />
         </div>
       )}
-      <SideBar secteurs={getSecteurs.data} filterJobs={filterJobs} parcoursId={parcoursId} />
+      <SideBar
+        other={other}
+        onOtherChange={useCallback(() => {
+          setOther(!other);
+        }, [other])}
+        secteurs={getSecteurs.data}
+        filterJobs={filterJobs}
+        parcoursId={parcoursId}
+      />
       <div className={classes.jobs_container}>
         <div className={classes.selections}>
           <div className={classes.selection_title} onClick={setSelectionToggle}>
@@ -259,7 +243,7 @@ const [selectedJob, setJOb] = useState('')
                   onClick={event => onJobRemove(item._id, event)}
                   className={classes.iconsContainer}
                 >
-                 {/*  <MultiIcon type="remove" width="22" height="22" className={classes.remove} /> */}
+                  {/*  <MultiIcon type="remove" width="22" height="22" className={classes.remove} /> */}
                   <Button title="x" color="red" className={classes.remove} />
                 </div>
               </JobSelection>
@@ -298,6 +282,7 @@ const [selectedJob, setJOb] = useState('')
                 rating = 1;
                 color = '#a67c52';
               }
+
               return (
                 <JobCard
                   rating={rating}
@@ -306,10 +291,11 @@ const [selectedJob, setJOb] = useState('')
                   jobAccessebility={metier.accessibility}
                   jobDescription={metier.description}
                   jobInterest={metier.interests}
-                  modal={() => handleCard(metier._id)}
+                  modal={() => handleCard(metier._id, undefined, rating)}
                   key={metier._id}
                   add={() => handleClick(metier._id)}
-                  selected={selectedJob === metier._id ? true : false}
+                  selected={metier._id}
+                  all={getFav.data.data}
                 />
               );
             })}
@@ -340,7 +326,8 @@ const [selectedJob, setJOb] = useState('')
                 modal={() => handleCard(metier._id)}
                 key={metier._id}
                 add={() => handleClick(metier._id)}
-                selected={selectedJob === metier._id && true}
+                selected={metier._id}
+                all={getFav.data.data}
               />
             ))}
           </div>

@@ -15,6 +15,7 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { useDidUpdate } from 'hooks';
 import { Carousel } from 'react-responsive-carousel';
 import Button from 'components_v3/button/button';
+import Star from 'components_v3/icons/starSvg/star';
 import classes from './jobModal.module.scss';
 
 type responseProps = {
@@ -35,6 +36,7 @@ interface MyProps {
   idFav?: string;
   addfav: () => void;
   remove: (id: string, e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  rating?: number;
 }
 
 type IProps = MyProps &
@@ -57,6 +59,7 @@ const JobModal = ({
   remove,
   idFav,
   addfav,
+  rating,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
@@ -66,6 +69,10 @@ const JobModal = ({
     get.call(parcoursId);
     getOnejob.call(id, parcoursId);
     getJobs.call(parcoursId);
+    if (getOnejob.data) {
+      setData(getOnejob.data);
+		}
+		
   }, [id]);
   useEffect(() => {
     if (getOnejob.data) {
@@ -97,7 +104,8 @@ const JobModal = ({
     if (!getOnejob.fetching && !get.fetching && !isEmpty(get)) {
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
-      RadarChart(ctx, get, getOnejob);
+			RadarChart(ctx, get, getOnejob);
+		
     }
   }, [getOnejob.fetching, get.fetching]);
 
@@ -107,11 +115,21 @@ const JobModal = ({
       content: (
         <div className={classes.body}>
           <div className={classes.left}>
+            <div className={classes.titlePage}>
+              <span className={classes.number}>1.</span>
+              <span className={classes.textPage}>INFORMATION SUR CE MÉTIER</span>
+            </div>
             <div className={classes.top}>
               <span className={classes.descTitle}>Description</span>
               <span className={classes.descText}>{data.description}</span>
+              <div className={classes.info}>
+                <span className={classes.bold2}>NIVEAU D’ACCÈS AU MÉTIER</span>
+                <span className={classes.bold1}>{data.accessibility}</span>
+                <span className={classes.bold2}>SALAIRE MOYEN</span>
+                <span className={classes.bold1}>{data.salaire}</span>
+              </div>
             </div>
-            <div className={classes.bottom}>
+            {/* <div className={classes.bottom}>
               <span className={classes.descTitle}>Metiers similaires</span>
               {similaire.length > 0
                 && similaire
@@ -124,6 +142,70 @@ const JobModal = ({
                       key={el.title}
                     />
                   ))}
+            </div> */}
+          </div>
+          <div className={classes.right}>
+            <span className={classes.descTitle}>Metiers similaires</span>
+            {similaire.length > 0
+              && similaire
+                .slice(0, 8)
+                .filter((al: any) => al.title !== data.title)
+                .map((el: any) => (
+                  <JobSelection
+                    title={el.title}
+                    className={classes.jobSelection}
+                    key={el.title}
+                    big
+                  />
+                ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      _id: 1,
+      content: (
+        <div className={classes.body}>
+          <div className={classes.left}>
+            <div className={classes.titlePage}>
+              <span className={classes.number}>2.</span>
+              <span className={classes.textPage}> EN QUOI CE MÉTIER ME CORRESPOND ?</span>
+            </div>
+            <div className={classes.top} style={{ height: '35%' }}>
+              <span className={classes.interestTitle}>INTÉRÊTS LIÉS À CE MÉTIER</span>
+              <div className={classes.activities}>
+                {!getOnejob.fetching && data.interests && data.interests.map((el: any, index: any) => {
+                   // console.log(data.interests)
+                    const name = el.nom.split('/');
+                    return (
+                      index <= 2 && (
+                        <React.Fragment key={el.nom}>
+                          <div className={classes.interestWrapper}>
+                            <span className={classes.InterestNumber}>{index + 1}</span>
+                            {name.map((title: string) => (
+                              <span className={classes.titleInterest} key={title}>
+                                {title}
+                              </span>
+                            ))}
+                          </div>
+                          {index <= 1 && <div className={classes.verticalLine} />}
+                        </React.Fragment>
+                      )
+                    );
+                  })}
+              </div>
+            </div>
+            <div className={classes.bottom} style={{ height: '40%' }}>
+              <Questions
+                questions={data.questionJobs}
+                jobId={data._id}
+                responseQuestion={responseQuestion}
+                onChangeQuestion={setResponseQuestion}
+                answersJobs={answersJobs}
+                parcourId={parcoursId}
+                onCloseModal={onCloseModal}
+                update={update}
+              />
             </div>
           </div>
           <div className={classes.right}>
@@ -133,7 +215,7 @@ const JobModal = ({
       ),
     },
 
-    {
+    /* {
       _id: 2,
       content: (
         <Questions
@@ -147,7 +229,7 @@ const JobModal = ({
           update={update}
         />
       ),
-    },
+    }, */
     {
       _id: 3,
       content: <EntrepriseForm title={data.title} />,
@@ -166,7 +248,7 @@ const JobModal = ({
     addfav();
     onCloseModal();
   };
-
+   // console.log(rating);
   return (
     <div className={classes.wrapperModal}>
       {/* <MultiIcon
@@ -180,7 +262,16 @@ const JobModal = ({
       <div className={classes.header}>
         <div className={classes.container}>
           <JobIcon width="55" height="55" color="#fab82d" />
+          <div className={classes.contentTitle} >
           <span className={classes.title}>{data.title}</span>
+          <div className={classes.starsContainer}>
+            {rating === 3 ? <Star height="15" width="15" color="#fab82d" className={classes.star} /> : null}
+            {rating && rating >= 2 ? (
+              <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
+            {rating && rating >= 1 ? (
+              <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
+          </div>
+          </div>
         </div>
       </div>
       <div className={classes.contentModal2}>
@@ -232,6 +323,7 @@ const JobModal = ({
                   color="red"
                   onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
                   style={{ height: 50 }}
+                  className={classes.immersion}
                 />
                 {DisplayedChild < 1 && (
                   <Button

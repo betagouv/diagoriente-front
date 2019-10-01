@@ -1,4 +1,6 @@
-import React, { Fragment, useRef, useEffect, useState } from 'react';
+import React, {
+ Fragment, useRef, useEffect, useState,
+} from 'react';
 import {
  RouteComponentProps, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -11,7 +13,6 @@ import { ReduxState, ApiReducer, IParcoursResponse } from 'reducers';
 import FavorisContainer from 'containers/FavorisProContainer/FavorisContainer';
 import ThemesContainer from 'containers/ThemesContainer/ThemesContainer';
 import SkillsContainer from 'containers/SkillsContainer/SkillsContainer';
-import ExpertisesContainer from 'containers/ExpertisesContainer';
 import MesDemarches from 'containers/MesDemarchesContainer/MesDemarchesContainer';
 import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
@@ -20,7 +21,7 @@ import Header from 'components_v3/Header/Header';
 
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
-import Button from 'components_v3/button/button'
+import Button from 'components_v3/button/button';
 
 // api
 import withApis, { ApiComponentProps } from 'hoc/withApi';
@@ -96,19 +97,23 @@ const ProfileContainer = ({
       );
     }
   }, []);
-	const expertiseRef = useRef(null);
-	const [hoverSide, setHover] = useState(false);
+  const expertiseRef = useRef(null);
+  const [hoverSide, setHover] = useState(false);
   const oneCompetencesNoSetted = parcours.data.skills
     .filter(item => item.type === 'personal')
     .flatMap(item => item.competences.flat(2))
     .some(item => item.value === 5);
 
-	if (match.isExact) return <Redirect to="/profile/skills" />;
+  if (match.isExact) return <Redirect to="/profile/skills" />;
   return (
     <Fragment>
       <Header HeaderProfile showLogout />
 
-      <div className={classes.sidebar_container} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      <div
+        className={classes.sidebar_container}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
         <SideBar isHovred={hoverSide} />
       </div>
       <div className={classes.content}>
@@ -122,7 +127,11 @@ const ProfileContainer = ({
                 footerButtons={[
                   {
                     component: (
-                      <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
+                      <Button
+                        title="Aide"
+                        color="darkblueFilled"
+                        className={classes.footerBottons}
+                      />
                     ),
                     key: 'help',
                   },
@@ -153,7 +162,11 @@ const ProfileContainer = ({
                 footerButtons={[
                   {
                     component: (
-                      <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
+                      <Button
+                        title="Aide"
+                        color="darkblueFilled"
+                        className={classes.footerBottons}
+                      />
                     ),
                     key: 'help',
                   },
@@ -166,7 +179,7 @@ const ProfileContainer = ({
             exact
             render={props =>
               (oneCompetencesNoSetted ? (
-                <Redirect to="/profile/intermediate" />
+                <Redirect to="/profile/skills" />
               ) : (
                 <ThemesContainer
                   title=" "
@@ -175,7 +188,11 @@ const ProfileContainer = ({
                   footerButtons={[
                     {
                       component: (
-                        <Button title="Aide" color="darkblueFilled" className={classes.footerBottons} />
+                        <Button
+                          title="Aide"
+                          color="darkblueFilled"
+                          className={classes.footerBottons}
+                        />
                       ),
                       key: 'help',
                     },
@@ -189,7 +206,7 @@ const ProfileContainer = ({
             exact
             render={props =>
               (oneCompetencesNoSetted ? (
-                <Redirect to="/profile/intermediate" />
+                <Redirect to="/profile/skills" />
               ) : (
                 <FavorisContainer
                   {...props}
@@ -201,7 +218,11 @@ const ProfileContainer = ({
                           <Spinner />
                         </div>
                       ) : (
-                        <Button title="voir mes métiers" color="redFilled" className={classes.footerBottons} />
+                        <Button
+                          title="voir mes métiers"
+                          color="redFilled"
+                          className={classes.footerBottons}
+                        />
                       ),
                       key: 'valider',
                     },
@@ -215,7 +236,7 @@ const ProfileContainer = ({
             exact
             render={props =>
               (oneCompetencesNoSetted ? (
-                <Redirect to="/profile/intermediate" />
+                <Redirect to="/profile/skills" />
               ) : (
                 <JobsContainer
                   title="DÉCOUVRE ET AJOUTE LES MÉTIERS QUI T’INTÉRESSENT"
@@ -229,7 +250,7 @@ const ProfileContainer = ({
             path="/profile/mesDemarches"
             exact
             render={props =>
-              (oneCompetencesNoSetted ? <Redirect to="/profile/intermediate" /> : <MesDemarches />)
+              (oneCompetencesNoSetted ? <Redirect to="/profile/skills" /> : <MesDemarches />)
             }
           />
         </Switch>
