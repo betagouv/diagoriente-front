@@ -3,7 +3,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin-top: 5px;
   height: 100%;
   overflow: scroll;
   padding-bottom: 20px;
@@ -14,7 +14,7 @@
 .title_container {
   display: flex;
   justify-content: space-between;
-  margin: 10px 10px 10px 0px;
+  margin: 10px 10px 0px 0px;
 }
 .contentTitle {
   width: 50%;
@@ -26,7 +26,11 @@
   justify-content: center;
 }
 .title {
-  color: $grey-blue;
+  font-size: 20px;
+    font-family: Nunito;
+    color: #003189;
+    font-weight: bolder;
+    padding: 6px 45% 0px 0px;
 }
 .question_containers {
   display: flex;

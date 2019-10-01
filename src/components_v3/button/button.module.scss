@@ -120,3 +120,26 @@
   height: 35%;
   width: 20%;
 }
+.blueFilled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  color: white;
+  background: #00cfff;
+  border-radius: 5px;
+  padding: 0px 20px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s all;
+  text-transform: uppercase;
+  border: 1px solid #00cfff;
+  height: 25px;
+  margin: 3px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
