@@ -39,6 +39,7 @@ import classNames from 'utils/classNames';
 import { useDidMount, useDidUpdate, useListener } from 'hooks';
 
 // styles
+import Loader from 'components_v3/ui/Loader/Loader';
 import classes from './rootContainer.module.scss';
 
 const footerRoutes = ['/'];
@@ -81,7 +82,7 @@ const RootContainer = ({
     startup();
   });
 
- /*  useDidUpdate(() => {
+  /*  useDidUpdate(() => {
     if (isEmpty(user)) {
       history.push('/');
     } else {
@@ -89,7 +90,7 @@ const RootContainer = ({
     }
   }, [user]); */
 
-  if (!startupEnd) return <div />;
+  if (!startupEnd) return <Loader />;
   return (
     <div className={classNames(classes.container)}>
       <div className={classes.app_container}>
