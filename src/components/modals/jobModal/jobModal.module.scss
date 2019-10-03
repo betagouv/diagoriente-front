@@ -229,8 +229,8 @@ li::before {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 70%;
+  width: 100%;
+  height: 75%;
 }
 .interestWrapper {
   display: flex;
@@ -243,7 +243,7 @@ li::before {
 }
 .verticalLine {
   width: 1px;
-  height: 55%;
+  height: 75%;
   background-color: #696b6d;
 }
 .titleInterest {
@@ -255,7 +255,7 @@ li::before {
 .InterestNumber {
   text-align: center;
   position: absolute;
-  top: 10%;
+  top: 0;
   font-weight: bolder;
   color: #003189;
   font-family: Nunito;
