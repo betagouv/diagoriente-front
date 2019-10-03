@@ -44,7 +44,7 @@ const FaqContainer = () => {
     <div className={classes.container}>
       <Header showLogout />
       <div className={classes.TopBackground}>
-        <span className={classes.title}>Foire aux Questions</span>
+        <span className={classes.title}>Foire aux questions</span>
         <img src={home} alt="home" className={classes.image} />
       </div>
       <div className={classes.body}>
