@@ -69,7 +69,11 @@ const Header = ({
           <img src={logo2} alt="logo" className={classes.logo2} />
         </div>
       </div>
-      <span className={classes.faq} onClick={goToFaq}>
+      <span
+        className={classes.faq}
+        onClick={goToFaq}
+        style={location.pathname === '/faq' ? { color: '#223a7a' } : {}}
+      >
         FAQ
       </span>
 
