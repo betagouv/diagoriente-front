@@ -13,16 +13,31 @@ interface test {
 const FaqContainer = () => {
   const [list, setList] = useState<test | null>(null);
   const [faq, sertFaq] = useState<any>({});
+  const [selected, setSelected] = useState('');
+  const [rubrique, setRubrique] = useState('');
+  const [questionId, setId] = useState('');
 
-  const getOne = (id: string) => {
+  const getOne = (id: string, bigTitle?: string) => {
     getOneFaq(id).then(response => sertFaq(response.data));
+    setSelected(id);
+    if (bigTitle) {
+      setRubrique(bigTitle);
+    }
   };
   useDidMount(() => {
     getFaq().then(response => {
       setList(response.data);
-      getOne(response.data && response.data.data[0]._id);
+      getOne(response.data && response.data.data[0]._id, response.data.data[0].rebrique);
     });
   });
+
+  const showSelected = (id: string) => {
+    if (questionId.length === 0) {
+      setId(id);
+    } else {
+      setId('');
+    }
+  };
 
   console.log('this is faq', list);
   return (
@@ -36,19 +51,29 @@ const FaqContainer = () => {
         <div className={classes.rubriques}>
           {list
             && list.data.map((el: any) => (
-              <span className={classes.rubriqueTitle} onClick={() => getOne(el._id)} key={el._id}>
+              <span
+                className={classes.rubriqueTitle}
+                onClick={() => {
+                  getOne(el._id, el.rebrique);
+                }}
+                key={el._id}
+                style={selected === el._id ? { fontWeight: 'bolder' } : {}}
+              >
                 {el.rebrique}
               </span>
             ))}
         </div>
         <div className={classes.verticalLine} />
         <div className={classes.reponses}>
+          <span className={classes.bigTitle}>{rubrique}</span>
           {faq
             && faq.questions
             && faq.questions.map((item: any) => (
               <div className={classes.questionAnswer} key={item._id}>
-                <span className={classes.question}>{item.question}</span>
-                <span>{parse(item.response)}</span>
+                <span className={classes.question} onClick={() => showSelected(item._id)}>
+                  {item.question}
+                </span>
+                {questionId === item._id && <span>{parse(item.response)}</span>}
               </div>
             ))}
         </div>
