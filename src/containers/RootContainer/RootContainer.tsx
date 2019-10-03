@@ -40,6 +40,7 @@ import { useDidMount, useDidUpdate, useListener } from 'hooks';
 
 // styles
 import classes from './rootContainer.module.scss';
+import FaqContainer from 'containers/FaqContainer/FaqContainer';
 
 const footerRoutes = ['/'];
 
@@ -138,6 +139,7 @@ const RootContainer = ({
               />
             )}
           />
+          <Route path="/faq" component={FaqContainer} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

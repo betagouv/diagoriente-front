@@ -55,6 +55,9 @@ const Header = ({
       history.push('/profile/skills');
     }
   }
+  function goToFaq() {
+    history.push('/faq');
+  }
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
@@ -67,6 +70,11 @@ const Header = ({
         </div>
       </div>
 
+      {location.pathname !== '/faq' && (
+        <span className={classes.faq} onClick={goToFaq}>
+          FAQ
+        </span>
+      )}
       <Grid className={classes.headerContainer} item xl={2}>
         <button
           className={classes.logout}

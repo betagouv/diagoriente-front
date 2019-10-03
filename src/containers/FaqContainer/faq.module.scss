@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.TopBackground {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    justify-content: flex-end;
+    background-image: linear-gradient(to right bottom, #f2f4f7, #f2f4f7, #f1f3f7, #c6ccde, #929ebb);
+    position: relative;
+}
+.image {
+    height: 100%;
+}
+.title {
+    position: absolute;
+    left: 100px;
+    top: 50px;
+    font-size: 50px;
+    font-family: Nunito;
+    color: #223A7A;
+    font-weight: 600;
+}
+.rubriques {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    padding-top: 5%;
+}
+.body {
+    display: flex;
+}
+.reponses {
+    display: flex;
+    width: 75%;
+    justify-content: center;
+}
+.rubriqueTitle {
+    padding-left: 5%;
+    font-size: 18px;
+    font-family: Nunito;
+    text-transform: capitalize;
+    color: #223a7a;
+
+}
+.verticalLine {
+    width: 1px;
+    height: 70vh;
+    background: #2e4481;
+    margin-top: 15px;
+}
+.questionAnswer {
+    width: 90%;
+    padding-top: 5%;
+}
+.question {
+    font-size: 18px;
+    color: #223a7a;
+}

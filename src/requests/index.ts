@@ -17,3 +17,4 @@ export * from './commune';
 export * from './entreprise';
 export * from './Tutto';
 export * from './publicProfile';
+export * from './faq';
