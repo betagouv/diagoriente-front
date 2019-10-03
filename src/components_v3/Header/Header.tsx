@@ -51,6 +51,12 @@ const Header = ({
       history.push('/profile/skills');
     } else if (location.pathname === '/') {
       history.push('/');
+    } else if (location.pathname === '/faq') {
+      if (user) {
+        history.push('/profile/skills');
+      } else {
+        history.push('/');
+      }
     } else {
       history.push('/profile/skills');
     }
