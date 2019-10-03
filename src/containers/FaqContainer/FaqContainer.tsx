@@ -57,7 +57,7 @@ const FaqContainer = () => {
                   getOne(el._id, el.rebrique);
                 }}
                 key={el._id}
-                style={selected === el._id ? { fontWeight: 'bolder' } : {}}
+                style={selected === el._id ? { fontWeight: 'bolder', fontSize: 19, color: 'black' } : {}}
               >
                 {el.rebrique}
               </span>
@@ -70,9 +70,9 @@ const FaqContainer = () => {
             && faq.questions
             && faq.questions.map((item: any) => (
               <div className={classes.questionAnswer} key={item._id}>
-                <span className={classes.question} onClick={() => showSelected(item._id)}>
+                <h3 className={classes.question} onClick={() => showSelected(item._id)}>
                   {item.question}
-                </span>
+                </h3>
                 {questionId === item._id && <span>{parse(item.response)}</span>}
               </div>
             ))}

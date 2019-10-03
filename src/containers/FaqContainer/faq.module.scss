@@ -49,8 +49,9 @@
   font-size: 18px;
   font-family: Nunito;
   text-transform: capitalize;
-  color: #223a7a;
+  color: #6B6B6A;
   margin: 10px 0px;
+  cursor: pointer;
 }
 .verticalLine {
   width: 1px;
@@ -66,6 +67,7 @@
   font-size: 18px;
   color: #3d68ff;
   text-transform: capitalize;
+  cursor: pointer;
 }
 .bigTitle {
   font-family: Nunito;
@@ -77,4 +79,5 @@
   width: 90%;
   font-family: sans-serif;
   padding-top: 2%;
+  
 }
