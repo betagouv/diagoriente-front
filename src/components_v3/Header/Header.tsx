@@ -69,12 +69,10 @@ const Header = ({
           <img src={logo2} alt="logo" className={classes.logo2} />
         </div>
       </div>
+      <span className={classes.faq} onClick={goToFaq}>
+        FAQ
+      </span>
 
-      {location.pathname !== '/faq' && (
-        <span className={classes.faq} onClick={goToFaq}>
-          FAQ
-        </span>
-      )}
       <Grid className={classes.headerContainer} item xl={2}>
         <button
           className={classes.logout}
