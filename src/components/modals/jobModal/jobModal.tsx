@@ -71,8 +71,7 @@ const JobModal = ({
     getJobs.call(parcoursId);
     if (getOnejob.data) {
       setData(getOnejob.data);
-		}
-		
+    }
   }, [id]);
   useEffect(() => {
     if (getOnejob.data) {
@@ -104,8 +103,7 @@ const JobModal = ({
     if (!getOnejob.fetching && !get.fetching && !isEmpty(get)) {
       const canvas: any = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
-			RadarChart(ctx, get, getOnejob);
-		
+      RadarChart(ctx, get, getOnejob);
     }
   }, [getOnejob.fetching, get.fetching]);
 
@@ -174,8 +172,10 @@ const JobModal = ({
             <div className={classes.top} style={{ height: '35%' }}>
               <span className={classes.interestTitle}>INTÉRÊTS LIÉS À CE MÉTIER</span>
               <div className={classes.activities}>
-                {!getOnejob.fetching && data.interests && data.interests.map((el: any, index: any) => {
-                   // console.log(data.interests)
+                {!getOnejob.fetching
+                  && data.interests
+                  && data.interests.map((el: any, index: any) => {
+                    // console.log(data.interests)
                     const name = el.nom.split('/');
                     return (
                       index <= 2 && (
@@ -248,7 +248,7 @@ const JobModal = ({
     addfav();
     onCloseModal();
   };
-   // console.log(rating);
+  // console.log(rating);
   return (
     <div className={classes.wrapperModal}>
       {/* <MultiIcon
@@ -262,15 +262,19 @@ const JobModal = ({
       <div className={classes.header}>
         <div className={classes.container}>
           <JobIcon width="55" height="55" color="#fab82d" />
-          <div className={classes.contentTitle} >
-          <span className={classes.title}>{data.title}</span>
-          <div className={classes.starsContainer}>
-            {rating === 3 ? <Star height="15" width="15" color="#fab82d" className={classes.star} /> : null}
-            {rating && rating >= 2 ? (
-              <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
-            {rating && rating >= 1 ? (
-              <Star height="15" width="15" color="#fab82d" className={classes.star} />) : null}
-          </div>
+          <div className={classes.contentTitle}>
+            <span className={classes.title}>{data.title}</span>
+            <div className={classes.starsContainer}>
+              {rating === 3 ? (
+                <Star height="15" width="15" color="#fab82d" className={classes.star} />
+              ) : null}
+              {rating && rating >= 2 ? (
+                <Star height="15" width="15" color="#fab82d" className={classes.star} />
+              ) : null}
+              {rating && rating >= 1 ? (
+                <Star height="15" width="15" color="#fab82d" className={classes.star} />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
@@ -325,7 +329,7 @@ const JobModal = ({
                   style={{ height: 50 }}
                   className={classes.immersion}
                 />
-                {DisplayedChild < 1 && (
+                {DisplayedChild < items.length - 2 && (
                   <Button
                     title=""
                     color="blue"
@@ -348,12 +352,14 @@ const JobModal = ({
               withBorder
               onClick={() => changeDisplayedChild(items.length - 1)}
             /> */}
-            <Button
-              title="Trouver mon immersion"
-              color="red"
-              onClick={() => changeDisplayedChild(items.length - 1)}
-              style={{ height: 50 }}
-            />
+            {DisplayedChild <= items.length - 2 && (
+              <Button
+                title="Trouver mon immersion"
+                color="red"
+                onClick={() => changeDisplayedChild(items.length - 1)}
+                style={{ height: 50 }}
+              />
+            )}
           </div>
         </div>
       </div>
