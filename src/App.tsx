@@ -3,10 +3,10 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import CookieBanner from 'react-cookie-banner';
-
 import RootContainer from './containers/RootContainer/RootContainer';
 
 import store, { persistor } from './config/store';
+
 
 const styles = {
   banner: {

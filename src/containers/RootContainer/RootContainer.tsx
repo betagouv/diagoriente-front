@@ -1,9 +1,11 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch,useEffect } from 'react';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import {
  Switch, Route, RouteComponentProps, matchPath,
 } from 'react-router-dom';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history'
 
 // types
 import { AnyAction } from 'redux';
@@ -59,6 +61,7 @@ interface IDispatchToProps {
 }
 
 type Props = IMapToProps & IDispatchToProps & RouteComponentProps;
+ReactGA.initialize('UA-149341038-1');
 
 const RootContainer = ({
  modal, startup, startupEnd, location, user, history, logout,
@@ -74,6 +77,8 @@ const RootContainer = ({
     }
   };
 
+  
+ 
   useListener('mousemove', resetTimer);
   useListener('keypress', resetTimer);
   useListener('wheel', resetTimer);
@@ -81,6 +86,11 @@ const RootContainer = ({
 
   useDidMount(() => {
     startup();
+    ReactGA.pageview(location.pathname + location.search);
+    history.listen((location, action) => {
+      ReactGA.pageview(location.pathname + location.search);
+      console.log(' history ' ,location.pathname + location.search )
+    })
   });
 
   /*  useDidUpdate(() => {

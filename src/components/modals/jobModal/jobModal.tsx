@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { isEmpty } from 'lodash';
+import React, {useEffect, useState} from 'react';
+import {isEmpty} from 'lodash';
+import {connect} from 'react-redux';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import Questions from 'components_v3/Questions/Questions';
 import VerticalStepper from 'components/VerticalStepper/VerticalStepper';
@@ -8,15 +9,21 @@ import EntrepriseForm from 'components_v3/EntrepriseForm/EntrepriseForm';
 import JobIcon from 'components_v3/icons/jobIcon/jobIcon';
 import JobSelection from 'components_v3/jobSelection/jobSelction';
 import {
- getOneJob, getMyJob, getParcours, createFavorites, postResponseJobs,
+  getOneJob,
+  getMyJob,
+  getParcours,
+  createFavorites,
+  postResponseJobs,
 } from 'requests';
 import RadarChart from 'components_v3/RadarChart/RadarChart';
-import withApis, { ApiComponentProps } from 'hoc/withApi';
-import { useDidUpdate } from 'hooks';
-import { Carousel } from 'react-responsive-carousel';
+import withApis, {ApiComponentProps} from 'hoc/withApi';
+import {useDidUpdate} from 'hooks';
+import {Carousel} from 'react-responsive-carousel';
 import Button from 'components_v3/button/button';
 import Star from 'components_v3/icons/starSvg/star';
 import classes from './jobModal.module.scss';
+import ReactGA from 'react-ga';
+import {ReduxState, User, IUser} from 'reducers';
 
 type responseProps = {
   questionJobId: string;
@@ -37,6 +44,7 @@ interface MyProps {
   addfav: () => void;
   remove: (id: string, e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   rating?: number;
+  user?: IUser | undefined;
 }
 
 type IProps = MyProps &
@@ -60,6 +68,7 @@ const JobModal = ({
   idFav,
   addfav,
   rating,
+  user,
 }: IProps) => {
   const [data, setData] = useState<any>({});
   const [similaire, setSimilaire] = useState<any>([]);
@@ -115,7 +124,9 @@ const JobModal = ({
           <div className={classes.left}>
             <div className={classes.titlePage}>
               <span className={classes.number}>1.</span>
-              <span className={classes.textPage}>INFORMATION SUR CE MÉTIER</span>
+              <span className={classes.textPage}>
+                INFORMATION SUR CE MÉTIER
+              </span>
             </div>
             <div className={classes.top}>
               <span className={classes.descTitle}>Description</span>
@@ -144,8 +155,8 @@ const JobModal = ({
           </div>
           <div className={classes.right}>
             <span className={classes.descTitle}>Metiers similaires</span>
-            {similaire.length > 0
-              && similaire
+            {similaire.length > 0 &&
+              similaire
                 .slice(0, 8)
                 .filter((al: any) => al.title !== data.title)
                 .map((el: any) => (
@@ -167,35 +178,47 @@ const JobModal = ({
           <div className={classes.left}>
             <div className={classes.titlePage}>
               <span className={classes.number}>2.</span>
-              <span className={classes.textPage}> EN QUOI CE MÉTIER ME CORRESPOND ?</span>
+              <span className={classes.textPage}>
+                {' '}
+                EN QUOI CE MÉTIER ME CORRESPOND ?
+              </span>
             </div>
-            <div className={classes.top} style={{ height: '35%' }}>
-              <span className={classes.interestTitle}>INTÉRÊTS LIÉS À CE MÉTIER</span>
+            <div className={classes.top} style={{height: '35%'}}>
+              <span className={classes.interestTitle}>
+                INTÉRÊTS LIÉS À CE MÉTIER
+              </span>
               <div className={classes.activities}>
-                {!getOnejob.fetching
-                  && data.interests
-                  && data.interests.map((el: any, index: any) => {
+                {!getOnejob.fetching &&
+                  data.interests &&
+                  data.interests.map((el: any, index: any) => {
                     // console.log(data.interests)
                     const name = el.nom.split('/');
                     return (
                       index <= 2 && (
                         <React.Fragment key={el.nom}>
                           <div className={classes.interestWrapper}>
-                            <span className={classes.InterestNumber}>{index + 1}</span>
+                            <span className={classes.InterestNumber}>
+                              {index + 1}
+                            </span>
                             {name.map((title: string) => (
-                              <span className={classes.titleInterest} key={title}>
+                              <span
+                                className={classes.titleInterest}
+                                key={title}
+                              >
                                 {title}
                               </span>
                             ))}
                           </div>
-                          {index <= 1 && <div className={classes.verticalLine} />}
+                          {index <= 1 && (
+                            <div className={classes.verticalLine} />
+                          )}
                         </React.Fragment>
                       )
                     );
                   })}
               </div>
             </div>
-            <div className={classes.bottom} style={{ height: '40%' }}>
+            <div className={classes.bottom} style={{height: '40%'}}>
               <Questions
                 questions={data.questionJobs}
                 jobId={data._id}
@@ -209,7 +232,12 @@ const JobModal = ({
             </div>
           </div>
           <div className={classes.right}>
-            <canvas id="canvas" className={classes.canvas} width="300" height="200" />
+            <canvas
+              id="canvas"
+              className={classes.canvas}
+              width="300"
+              height="200"
+            />
           </div>
         </div>
       ),
@@ -236,7 +264,7 @@ const JobModal = ({
     },
   ];
   if (data.link) {
-    items.splice(1, 0, { _id: 1, content: <VideoContainer link={data.link} /> });
+    items.splice(1, 0, {_id: 1, content: <VideoContainer link={data.link} />});
   }
 
   const handleClick = () => {
@@ -245,6 +273,23 @@ const JobModal = ({
       parcour: parcoursId,
       interested: true,
     });
+    /*readonly profile: {
+    readonly firstName: string;
+    readonly lastName: string;
+  };*/
+    if (user) {
+      ReactGA.event({
+        category: 'Piste Metier',
+        action:
+          'Metier ajouté dans mes favoris : ' +
+          user.profile.firstName +
+          ' ' +
+          user.profile.lastName +
+          ': ' +
+          data.title,
+        label: 'PISTE_METIER_PAGE',
+      });
+    }
     addfav();
     onCloseModal();
   };
@@ -258,7 +303,12 @@ const JobModal = ({
         onClick={onCloseModal}
         className={classes.exit}
       /> */}
-      <Button title="x" color="red" onClick={onCloseModal} className={classes.exit} />
+      <Button
+        title="x"
+        color="red"
+        onClick={onCloseModal}
+        className={classes.exit}
+      />
       <div className={classes.header}>
         <div className={classes.container}>
           <JobIcon width="55" height="55" color="#fab82d" />
@@ -266,13 +316,28 @@ const JobModal = ({
             <span className={classes.title}>{data.title}</span>
             <div className={classes.starsContainer}>
               {rating === 3 ? (
-                <Star height="15" width="15" color="#fab82d" className={classes.star} />
+                <Star
+                  height="15"
+                  width="15"
+                  color="#fab82d"
+                  className={classes.star}
+                />
               ) : null}
               {rating && rating >= 2 ? (
-                <Star height="15" width="15" color="#fab82d" className={classes.star} />
+                <Star
+                  height="15"
+                  width="15"
+                  color="#fab82d"
+                  className={classes.star}
+                />
               ) : null}
               {rating && rating >= 1 ? (
-                <Star height="15" width="15" color="#fab82d" className={classes.star} />
+                <Star
+                  height="15"
+                  width="15"
+                  color="#fab82d"
+                  className={classes.star}
+                />
               ) : null}
             </div>
           </div>
@@ -325,8 +390,10 @@ const JobModal = ({
                 <Button
                   title="ajouter a ma selection"
                   color="red"
-                  onClick={update ? e => remove(idFav || '', e) : () => handleClick()}
-                  style={{ height: 50 }}
+                  onClick={
+                    update ? e => remove(idFav || '', e) : () => handleClick()
+                  }
+                  style={{height: 50}}
                   className={classes.immersion}
                 />
                 {DisplayedChild < items.length - 2 && (
@@ -353,12 +420,26 @@ const JobModal = ({
               onClick={() => changeDisplayedChild(items.length - 1)}
             /> */}
             {DisplayedChild <= items.length - 2 && (
-              <Button
-                title="Trouver mon immersion"
-                color="red"
-                onClick={() => changeDisplayedChild(items.length - 1)}
-                style={{ height: 50 }}
-              />
+            <Button
+              title="Trouver mon immersion"
+              color="red"
+              onClick={() => { 
+                if (user) {
+                  ReactGA.event({
+                    category: 'Piste Metier',
+                    action:
+                      'Trouver mon immersion : ' +
+                      user.profile.firstName +
+                      ' ' +
+                      user.profile.lastName +
+                      ': ' +
+                      data.title,
+                    label: 'PISTE_METIER_PAGE',
+                  });
+                }
+                changeDisplayedChild(items.length - 1) }}
+              style={{height: 50}}
+            />
             )}
           </div>
         </div>
@@ -366,9 +447,14 @@ const JobModal = ({
     </div>
   );
 };
-export default withApis({
-  get: getParcours,
-  answersJobs: postResponseJobs,
-  getJobs: getMyJob,
-  getOnejob: getOneJob,
-})(JobModal);
+const mapStateToProps = (state: ReduxState) => {
+  return {user: state.authUser.user.user};
+};
+export default connect(mapStateToProps)(
+  withApis({
+    get: getParcours,
+    answersJobs: postResponseJobs,
+    getJobs: getMyJob,
+    getOnejob: getOneJob,
+  })(JobModal)
+);
