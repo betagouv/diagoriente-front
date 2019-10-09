@@ -37,7 +37,7 @@ const LoginUserContainer = ({
 
   useDidUpdate(() => {
     if (!(fetching || error)) {
-      history.push('/');
+      history.push('/advisorSpace');
     }
   }, [fetching]);
 

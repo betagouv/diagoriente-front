@@ -12,8 +12,6 @@ import LogoutModal from '../../components/modals/LogOutModal/LogoutModal';
 // assets
 import logo from '../../assets_v3/Home/logo.svg';
 
-import logo2x from '../../assets/icons/logo/Diagoriente_Logo.svg';
-import logo3x from '../../assets/icons/logo/Diagoriente_Logo.svg';
 import logoutSvg from '../../assets/icons/svg/logout.svg';
 
 import classes from './header.module.scss';
@@ -48,11 +46,7 @@ const Header = ({
     <Grid className={classes.headerContainer} container>
       <Grid item xl={6}>
         <Link to={pathTo}>
-          <img
-            className={classes.logo}
-            src={logo}
-            alt="Logo"
-          />
+          <img className={classes.logo} src={logo} alt="Logo" />
         </Link>
       </Grid>
       <Grid className={classes.logout_container} item xl={6}>

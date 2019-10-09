@@ -1,0 +1,31 @@
+.GroupContainer {
+  width: 100%;
+  height: 100%;
+}
+.NewGroup {
+  height: 15%;
+  width: 100%;
+  background-color: #f6f6f6;
+}
+.contentGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+  width: 100%;
+}
+.testGroupe {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.groupeDisponible {
+  color: #bbbbba;
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ababaa;
+}
