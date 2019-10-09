@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, User } from 'reducers';
+import Button from 'components_v3/button/button';
 import arrow from '../../assets_v3/icons/arrow/arrow.svg';
 
 // hooks
@@ -29,10 +30,8 @@ import classes from './register.module.scss';
 // components
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
-import Button from 'components_v3/button/button';
 
 import Grid from '../../components/ui/Grid/Grid';
-import MultiIcon from '../../components_v3/icons/multiIcon/multiIcon';
 
 interface DispatchToProps {
   registerRequest: (

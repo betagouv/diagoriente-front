@@ -42,8 +42,9 @@ import { useDidMount, useDidUpdate, useListener } from 'hooks';
 
 // styles
 import Loader from 'components_v3/ui/Loader/Loader';
-import classes from './rootContainer.module.scss';
 import FaqContainer from 'containers/FaqContainer/FaqContainer';
+import EditProfile from 'containers/EditProfileContainer/editProfile';
+import classes from './rootContainer.module.scss';
 
 const footerRoutes = ['/'];
 
@@ -151,6 +152,8 @@ const RootContainer = ({
             )}
           />
           <Route path="/faq" component={FaqContainer} />
+          <Route path="/edit_profile" component={EditProfile} />
+          <Route path="/edit_profile_advisor" component={EditProfile} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

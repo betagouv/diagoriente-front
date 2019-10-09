@@ -30,6 +30,7 @@ export interface IUser {
   };
   readonly createdAt: string;
   readonly tutorial: boolean[];
+  readonly email: string;
 }
 
 export interface IAdvisor {
@@ -37,7 +38,7 @@ export interface IAdvisor {
   email: string;
   parcours: string[];
   platform: string;
-  profile: { pseudo: string; firstName: string; lastName: string };
+  profile: { pseudo: string; firstName: string; lastName: string; institution: string; };
   question: [];
   role: string;
   _id: string;
