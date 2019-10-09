@@ -53,23 +53,35 @@ const Editprofile = ({
 
   const { data } = list;
   const [email, emailChange, emailTouched] = useTextInput(
-    user.user ? user.user.email : advisor.advisor ? advisor.advisor.email : '',
+    location.pathname === '/profile/edit_profile'
+      ? user.user
+        ? user.user.email
+        : ''
+      : location.pathname === '/advisorSpace/edit_profile_advisor'
+      ? advisor.advisor
+        ? advisor.advisor.email
+        : ''
+      : '',
   );
   const [password, passwordChange, passwordTouched] = useTextInput('');
   const [OldPassword, OldpasswordChange, OldpasswordTouched] = useTextInput('');
   const [firstName, firstNameChange, firstNameTouched] = useTextInput(
-    location.pathname === '/edit_profile'
-      ? user.user ? user.user.profile.firstName : ''
-      : location.pathname === '/edit_profile_advisor'
+    location.pathname === '/profile/edit_profile'
+      ? user.user
+        ? user.user.profile.firstName
+        : ''
+      : location.pathname === '/advisorSpace/edit_profile_advisor'
       ? advisor.advisor
         ? advisor.advisor.profile.firstName
         : ''
       : '',
   );
   const [lastName, lastNameChange, lastNameTouched] = useTextInput(
-    location.pathname === '/edit_profile'
-      ? user.user ? user.user.profile.lastName : ''
-      : location.pathname === '/edit_profile_advisor'
+    location.pathname === '/profile/edit_profile'
+      ? user.user
+        ? user.user.profile.lastName
+        : ''
+      : location.pathname === '/advisorSpace/edit_profile_advisor'
       ? advisor.advisor
         ? advisor.advisor.profile.lastName
         : ''
@@ -91,55 +103,54 @@ const Editprofile = ({
   const [apiUser, setUser] = useState();
 
   const validate = () => {
-      if (location.pathname === '/edit_profile') {
-          if (user.user) {
-            const question: any = {
-              response,
-              _id: questionValue,
-            };
-            patchUser(
-              {
-                firstName,
-                lastName,
-                OldPassword,
-                password,
-                question,
-              },
-              user.user._id,
-            ).then(item => {
-              setUser(item.data);
-              setUserState(item.data);
-              const userStorage = { user: item.data, token };
-              // console.log(userStorage);
-              setItem('user', userStorage);
-            });
-          }
-      } else if (location.pathname === '/edit_profile_advisor') {
-
-          if (advisor) {
-            patchAdvisor(
-              {
-                firstName,
-                lastName,
-                OldPassword,
-                password,
-                email,
-                institution,
-              },
-              advisor.advisor ? advisor.advisor._id : '',
-            ).then(item => {
-              setAdvisorState(item.data);
-              const token = advisorToken
-              const advisorStorage = { advisor: item.data, token };
-              setItem('advisor', advisorStorage);
-            });
-          }
+    if (location.pathname === '/profile/edit_profile') {
+      if (user.user) {
+        const question: any = {
+          response,
+          _id: questionValue,
+        };
+        patchUser(
+          {
+            firstName,
+            lastName,
+            OldPassword,
+            password,
+            question,
+          },
+          user.user._id,
+        ).then(item => {
+          setUser(item.data);
+          setUserState(item.data);
+          const userStorage = { user: item.data, token };
+          // console.log(userStorage);
+          setItem('user', userStorage);
+        });
       }
+    } else if (location.pathname === '/advisorSpace/edit_profile_advisor') {
+      if (advisor) {
+        patchAdvisor(
+          {
+            firstName,
+            lastName,
+            OldPassword,
+            password,
+            email,
+            institution,
+          },
+          advisor.advisor ? advisor.advisor._id : '',
+        ).then(item => {
+          setAdvisorState(item.data);
+          const token = advisorToken;
+          const advisorStorage = { advisor: item.data, token };
+          setItem('advisor', advisorStorage);
+        }).catch((e) => console.log(e));
+      }
+    }
   };
 
   return (
     <div className={classes.container}>
-      <Header showLogout />
+      {/* <Header showLogout /> */}
       <div className={classes.body}>
         <div className={classes.tilteWrapper}>
           <span className={classes.title}>Modifier mon profil</span>
@@ -181,7 +192,7 @@ const Editprofile = ({
             className={classes.container_input}
             type="password"
           />
-          {location.pathname === '/edit_profile_advisor' && (
+          {location.pathname === '/advisorSpace/edit_profile_advisor' && (
             <Input
               name="Institution"
               validation={InstitutionValid}
@@ -190,7 +201,7 @@ const Editprofile = ({
               value={institution}
             />
           )}
-          {location.pathname === '/edit_profile' && (
+          {location.pathname === '/profile/edit_profile' && (
             <React.Fragment>
               <Select
                 options={map(data, question => ({

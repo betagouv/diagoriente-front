@@ -154,7 +154,7 @@ const RootContainer = ({
             )}
           />
           <Route path="/faq" component={FaqContainer} />
-          <Route path="/edit_profile" component={EditProfile} />
+         {/*  <Route path="/edit_profile" component={EditProfile} /> */}
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>
