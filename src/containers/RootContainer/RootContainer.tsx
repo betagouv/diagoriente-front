@@ -91,8 +91,8 @@ const RootContainer = ({
     ReactGA.pageview(location.pathname + location.search);
     history.listen((location, action) => {
       ReactGA.pageview(location.pathname + location.search);
-      console.log(' history ' ,location.pathname + location.search )
-    })
+/*       console.log(' history ' ,location.pathname + location.search )
+ */    })
   });
 
   /*  useDidUpdate(() => {
@@ -155,7 +155,6 @@ const RootContainer = ({
           />
           <Route path="/faq" component={FaqContainer} />
           <Route path="/edit_profile" component={EditProfile} />
-          <Route path="/edit_profile_advisor" component={EditProfile} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

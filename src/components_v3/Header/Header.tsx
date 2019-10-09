@@ -112,7 +112,7 @@ const Header = ({
                 <div className={classes.dropdownContent}>
                   <button
                     className={classes.dropDaowElement}
-                    onClick={() => history.push('/advisorSpace/profile')}
+                    onClick={() => history.push('/profile/edit_profile')}
                   >
                     Modifier le profil
                   </button>
@@ -154,7 +154,7 @@ const Header = ({
                     </button> */}
                     <button
                       className={classes.dropDaowElement}
-                      onClick={() => history.push('/advisorSpace/profile')}
+                      onClick={() => history.push('/advisorSpace/edit_profile_advisor')}
                     >
                       Modifier le profil
                     </button>

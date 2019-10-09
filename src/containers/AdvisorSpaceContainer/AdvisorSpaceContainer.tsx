@@ -14,6 +14,7 @@ import Grid from 'components/ui/Grid/Grid';
 import Header from 'components_v3/Header/Header';
 import CardHome from 'components_v3/CardHome';
 import AdvisorGroupeContainer from 'containers/AdvisorGroupeConataier/AdvisorGroupeConataier';
+import EditAdvisorProfile from 'containers/EditProfileContainer/editProfile';
 import advisorActions from 'reducers/authAdvisor/login';
 import HomeBackground from 'assets_v3/Home/ACCEUIL.svg';
 import TTVFichier from 'assets_v3/Home/TTVFichier.svg';
@@ -67,8 +68,7 @@ const AdvisorSpaceContainer = ({
       <div className={classes.bodyAdvisor}>
         <Switch>
           <Route path="/advisorSpace/mesGroupes" exact component={AdvisorGroupeContainer} />
-          <Route path="/profile" component={AdvisorGroupeContainer} />
-          <Route path="/psw" component={AdvisorGroupeContainer} />
+          <Route path="/advisorSpace/edit_profile_advisor" component={EditAdvisorProfile} />
         </Switch>
       </div>
     </div>

@@ -18,7 +18,7 @@ import JobsContainer from 'containers/JobsContainer/JobsConainer';
 import Spinner from 'components_v3/ui/Spinner/Spinner';
 import SideBar from 'components_v3/ui/SideBar/SideBar';
 import Header from 'components_v3/Header/Header';
-
+import editUserProfile from 'containers/EditProfileContainer/editProfile'
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 import Button from 'components_v3/button/button';
@@ -252,6 +252,11 @@ const ProfileContainer = ({
             render={props =>
               (oneCompetencesNoSetted ? <Redirect to="/profile/skills" /> : <MesDemarches />)
             }
+          />
+					    <Route
+            path="/profile/edit_profile"
+				component={editUserProfile}
+						
           />
         </Switch>
       </div>
