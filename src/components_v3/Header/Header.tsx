@@ -103,7 +103,7 @@ const Header = ({
 
       <Grid className={classes.headerContainer} item xl={2}>
         {!advisor.advisor && !user ? (
-          <button className={classes.logout} onClick={() => history.push('/login/advisor')}>
+          <button className={classes.logout} onClick={() => window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')}>
             <span className={classes.logout_text}>CONNEXION PRO</span>
           </button>
         ) : user ? (

@@ -20,7 +20,7 @@ const AboutContainer = () => {
       <Header showLogout />
 
       <div className={classes.TopBackground}>
-        <span className={classes.title}>Foire aux questions</span>
+        <span className={classes.title}>À PROPOS</span>
         <img src={home} alt="home" className={classes.image} />
       </div>
       <div className={classes.body}>
@@ -43,7 +43,7 @@ const AboutContainer = () => {
               développement web, UX/UI design... toutesces spécialités se sont conjuguées pour
               concevoir, tester, développer etaméliorer en continu l’application.Soutenu par la
               DGEFP (délégation générale à l’emploi et à la formationprofessionnelle) du Ministère
-              du Travail et la DINSIC (direction placée sousl'autorité du Premier ministre, chargée
+              du Travail et la DINSIC (direction placée sous l'autorité du Premier ministre, chargée
               de coordonner les actions desadministrations en matière de systèmes d'information)dans
               le cadre duprogramme StartUp d’Etat, DiagOriente est aussi le fruit d’un
               partenariatfertile incluant des organisations oeuvrant au quotidien pour l’éducation

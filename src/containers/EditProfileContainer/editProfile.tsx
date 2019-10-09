@@ -15,11 +15,13 @@ import { map } from 'lodash';
 import { useSelectInput } from 'hooks/useSelect';
 import Button from 'components_v3/button/button';
 import userActions from 'reducers/authUser/user';
+import modalActions from 'reducers/modal';
 import advisorActions from 'reducers/authAdvisor/advisor';
 import { setItem } from 'utils/localforage';
 import withApi, { ApiComponentProps } from '../../hoc/withApi';
 import Select from '../../components/form/Select/select';
 import classes from './editProfile.module.scss';
+import ConfirmModal from 'components/modals/ConfirmStar/ComfirmModal';
 
 interface MapToProps {
   user: User;
@@ -30,6 +32,8 @@ interface MapToProps {
 interface DispatchToProps {
   setUserState: (apiUser: { token: {}; user: {} }) => void;
   setAdvisorState: (apiAdvisor: { token: {}; advisor: {} }) => void;
+  openModal: (children: JSX.Element, backdropClassName?: string) => void;
+  closeModal: () => void;
 }
 
 type Props = ApiComponentProps<{ list: typeof listQuestions }> &
@@ -46,6 +50,9 @@ const Editprofile = ({
   advisorToken,
   setAdvisorState,
   location,
+  openModal,
+  closeModal,
+  history,
 }: Props) => {
   useDidMount(() => {
     list.call();
@@ -101,8 +108,10 @@ const Editprofile = ({
   const [response, responseChange, responseTouched] = useTextInput('');
   const responseValid = responseTouched ? validateNom(response) : '';
   const [apiUser, setUser] = useState();
+  const [loading, setloading] = useState(false);
 
   const validate = () => {
+    setloading(true);
     if (location.pathname === '/profile/edit_profile') {
       if (user.user) {
         const question: any = {
@@ -124,6 +133,16 @@ const Editprofile = ({
           const userStorage = { user: item.data, token };
           // console.log(userStorage);
           setItem('user', userStorage);
+          setloading(false);
+          openModal(
+            <ConfirmModal
+              onCloseModal={closeModal}
+              isConfirm={false}
+              text="Votre compte a été mis à jour"
+              confirme={()=> history.push('/profile')}
+              value={1}
+             />,
+          );
         });
       }
     } else if (location.pathname === '/advisorSpace/edit_profile_advisor') {
@@ -138,18 +157,30 @@ const Editprofile = ({
             institution,
           },
           advisor.advisor ? advisor.advisor._id : '',
-        ).then(item => {
-          setAdvisorState(item.data);
-          const token = advisorToken;
-          const advisorStorage = { advisor: item.data, token };
-          setItem('advisor', advisorStorage);
-        }).catch((e) => console.log(e));
+        )
+          .then(item => {
+            setAdvisorState(item.data);
+            const token = advisorToken;
+            const advisorStorage = { advisor: item.data, token };
+            setItem('advisor', advisorStorage);
+            setloading(false);
+            openModal(
+            <ConfirmModal
+              onCloseModal={closeModal}
+              isConfirm={false}
+              text="Votre compte a été mis à jour"
+              confirme={()=> history.push('/profile')}
+              value={1}
+             />,
+          );
+          })
+          .catch(e => console.log(e));
       }
     }
   };
 
   return (
-    <div className={classes.container}>
+    <div className={loading ? classes.containerLoading : classes.container}>
       {/* <Header showLogout /> */}
       <div className={classes.body}>
         <div className={classes.tilteWrapper}>
@@ -227,6 +258,12 @@ const Editprofile = ({
 
           <div className={classes.btnContainer}>
             <Button
+              title="Annuler"
+              color="blue"
+              onClick={() => history.push('/profile')}
+              style={{ width: 150, height: 35 }}
+            />
+            <Button
               title="valider"
               color="red"
               onClick={validate}
@@ -249,6 +286,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => (
   setUserState: (apiUser: any) => dispatch(userActions.userUpdate({ user: apiUser })),
   setAdvisorState: (apiAdvisor: any) =>
     dispatch(advisorActions.advisorUpdate({ advisor: apiAdvisor })),
+  openModal: (children, backdropClassName) =>
+    dispatch(modalActions.openModal({ children, backdropClassName })),
+  closeModal: () => dispatch(modalActions.closeModal()),
 });
 
 export default connect(
