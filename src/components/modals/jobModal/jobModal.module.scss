@@ -26,13 +26,16 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: center;
+   
   margin-left: 20px;
 }
 .title {
   font-size: 18px;
   color: #4D4D4D;
   font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%
 }
 .body {
   width: 100%;
@@ -192,7 +195,7 @@ li::before {
 }
 .bold1 {
   color: #4D4D4D;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bolder;
   font-family: Nunito;
   margin: 5px 0px;
@@ -226,8 +229,8 @@ li::before {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 70%;
+  width: 100%;
+  height: 75%;
 }
 .interestWrapper {
   display: flex;
@@ -240,7 +243,7 @@ li::before {
 }
 .verticalLine {
   width: 1px;
-  height: 55%;
+  height: 75%;
   background-color: #696b6d;
 }
 .titleInterest {
@@ -252,7 +255,7 @@ li::before {
 .InterestNumber {
   text-align: center;
   position: absolute;
-  top: 10%;
+  top: 0;
   font-weight: bolder;
   color: #003189;
   font-family: Nunito;
@@ -276,4 +279,11 @@ li::before {
 .starsContainer {
   display: flex;
   padding-left: 10px;
+}
+
+.contentTitle{
+  display: flex;
+  flex-direction: row;
+   
+  
 }

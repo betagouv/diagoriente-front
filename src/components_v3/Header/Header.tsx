@@ -55,9 +55,18 @@ const Header = ({
       history.push('/profile/skills');
     } else if (location.pathname === '/') {
       history.push('/');
+    } else if (location.pathname === '/faq') {
+      if (user) {
+        history.push('/profile/skills');
+      } else {
+        history.push('/');
+      }
     } else {
       history.push('/profile/skills');
     }
+  }
+  function goToFaq() {
+    history.push('/faq');
   }
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
@@ -70,6 +79,13 @@ const Header = ({
           <img src={logo2} alt="logo" className={classes.logo2} />
         </div>
       </div>
+      <span
+        className={classes.faq}
+        onClick={goToFaq}
+        style={location.pathname === '/faq' ? { color: '#223a7a' } : {}}
+      >
+        FAQ
+      </span>
 
       <Grid className={classes.headerContainer} item xl={2}>
         {!advisor.advisor && !user ? (

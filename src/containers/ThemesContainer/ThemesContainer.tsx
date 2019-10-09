@@ -238,6 +238,9 @@ const ThemesContainer = forwardRef(
       if (!parcoursFetching && !parcoursError) {
         if (action === 'delete') {
           setAction('');
+          if (!skills.length) {
+            history.push('/profile/skills');
+          }
         } else {
           history.push('/profile/skills');
         }

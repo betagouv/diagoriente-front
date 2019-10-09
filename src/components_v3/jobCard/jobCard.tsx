@@ -13,7 +13,7 @@ interface Props {
   jobAccessebility?: string;
   modal: () => void;
   add: () => void;
-  selected?: any;
+  selected?: string;
   all?: any;
 }
 
@@ -31,9 +31,9 @@ const JobCard = ({
   all,
   ...other
 }: React.HTMLAttributes<HTMLElement> & Props) => {
-//  console.log(all, "selected", selected)
-  const index = all.map((el: any) => el.job._id).find((el: any) => el === selected)
- //  console.log(index);
+  //  console.log(all, "selected", selected)
+  const index = all.map((el: any) => el.job._id).find((el: any) => el === selected);
+  //  console.log(index);
   return (
     <div className={classNames(classes.card, className)} {...other}>
       <div className={classes.cupContainer}>

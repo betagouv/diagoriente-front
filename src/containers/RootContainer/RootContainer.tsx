@@ -1,9 +1,11 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch,useEffect } from 'react';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import {
  Switch, Route, RouteComponentProps, matchPath,
 } from 'react-router-dom';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history'
 
 // types
 import { AnyAction } from 'redux';
@@ -40,6 +42,9 @@ import classNames from 'utils/classNames';
 import { useDidMount, useDidUpdate, useListener } from 'hooks';
 
 // styles
+import Loader from 'components_v3/ui/Loader/Loader';
+import FaqContainer from 'containers/FaqContainer/FaqContainer';
+import EditProfile from 'containers/EditProfileContainer/editProfile';
 import classes from './rootContainer.module.scss';
 
 const footerRoutes = ['/'];
@@ -58,6 +63,7 @@ interface IDispatchToProps {
 }
 
 type Props = IMapToProps & IDispatchToProps & RouteComponentProps;
+ReactGA.initialize('UA-149341038-1');
 
 const RootContainer = ({
  modal, startup, startupEnd, location, user, history, logout,
@@ -73,6 +79,8 @@ const RootContainer = ({
     }
   };
 
+  
+ 
   useListener('mousemove', resetTimer);
   useListener('keypress', resetTimer);
   useListener('wheel', resetTimer);
@@ -80,9 +88,14 @@ const RootContainer = ({
 
   useDidMount(() => {
     startup();
+    ReactGA.pageview(location.pathname + location.search);
+    history.listen((location, action) => {
+      ReactGA.pageview(location.pathname + location.search);
+      console.log(' history ' ,location.pathname + location.search )
+    })
   });
 
- /*  useDidUpdate(() => {
+  /*  useDidUpdate(() => {
     if (isEmpty(user)) {
       history.push('/');
     } else {
@@ -90,7 +103,7 @@ const RootContainer = ({
     }
   }, [user]); */
 
-  if (!startupEnd) return <div />;
+  if (!startupEnd) return <Loader />;
   return (
     <div className={classNames(classes.container)}>
       <div className={classes.app_container}>
@@ -140,6 +153,9 @@ const RootContainer = ({
               />
             )}
           />
+          <Route path="/faq" component={FaqContainer} />
+          <Route path="/edit_profile" component={EditProfile} />
+          <Route path="/edit_profile_advisor" component={EditProfile} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

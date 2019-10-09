@@ -1,9 +1,12 @@
 import React, { MouseEvent, useState } from 'react';
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 import { RouteComponentProps } from 'react-router';
+import { Redirect } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { ReduxState } from 'reducers';
+import { ReduxState, User } from 'reducers';
+import Button from 'components_v3/button/button';
 import arrow from '../../assets_v3/icons/arrow/arrow.svg';
 
 // hooks
@@ -27,10 +30,8 @@ import classes from './register.module.scss';
 // components
 import Input from '../../components/form/Input/Input';
 import Select from '../../components/form/Select/select';
-import Button from 'components_v3/button/button';
 
 import Grid from '../../components/ui/Grid/Grid';
-import MultiIcon from '../../components_v3/icons/multiIcon/multiIcon';
 
 interface DispatchToProps {
   registerRequest: (
@@ -49,6 +50,8 @@ interface DispatchToProps {
 interface MapToProps {
   fetching: boolean;
   error: string;
+  user: User;
+
 }
 interface Show {
   showRegister: boolean;
@@ -67,6 +70,7 @@ const RegisterUserContainer = ({
   error,
   history,
   showRegister,
+  user,
   ...other
 }: Props & React.HTMLAttributes<HTMLElement>) => {
   useDidMount(() => {
@@ -103,13 +107,15 @@ const RegisterUserContainer = ({
       changeConditionValidation(true);
     }
   };
-  useDidUpdate(() => {
+/*   useDidUpdate(() => {
     if (!(fetching || error)) {
-      const path = '/profile';
+      const path = '/profile/skills';
 
       history.push(path);
     }
-  }, [fetching]);
+  }, [fetching]); */
+
+  if (!isEmpty(user)) return <Redirect to="/profile" />;
 
   return (
     <div className={classes.container_home}>
@@ -263,6 +269,8 @@ const RegisterUserContainer = ({
 const mapStateToProps = ({ authUser }: ReduxState): MapToProps => ({
   fetching: authUser.register.fetching,
   error: authUser.register.error,
+  user: authUser.user,
+
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({

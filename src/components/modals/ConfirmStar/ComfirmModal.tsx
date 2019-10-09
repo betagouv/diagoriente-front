@@ -31,7 +31,7 @@ const ConfirmModal = ({
     <div className={classes.wrapperModal}>
       <div className={classes.container}>
         <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
-          <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }}>
+          <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }} className={classes.wrapperContainer} >
             <Grid item xl={12}>
               <div className={classes.title} />
             </Grid>
@@ -48,7 +48,7 @@ const ConfirmModal = ({
               </Grid>
             ) : (
               <Grid item xl={12} className={classes.container_button}>
-                <Button onClick={onSubmit} className={classes.btnOut} title="OK" color="red" />
+                <Button onClick={onSubmit} className={classes.btn} title="OK" color="red" />
               </Grid>
             )}
           </Grid>

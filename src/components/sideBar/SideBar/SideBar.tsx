@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, {
+ useState, ChangeEvent, MouseEvent, useCallback,
+} from 'react';
 import { useDidMount } from 'hooks';
 import { map } from 'lodash';
 
@@ -16,11 +18,15 @@ interface IProps {
   secteurs: ISecteur[];
   filterJobs: (filterArray: string[], secteurArray: string[]) => void;
   parcoursId: string;
+  other: boolean | null;
+  onOtherChange: () => void;
 }
 
 interface Props extends IProps, ApiComponentProps<{ get: typeof getListEnvironment }> {}
 
-const SideBar = ({ get, secteurs, filterJobs }: Props) => {
+const SideBar = ({
+ get, secteurs, filterJobs, other, onOtherChange,
+}: Props) => {
   useDidMount(() => {
     get.call();
   });
@@ -37,6 +43,11 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     setSecteurOpen(!isSecteurOpen);
   };
 
+  const onChange = (e: MouseEvent<any> | ChangeEvent<any>) => {
+    e.stopPropagation();
+    onOtherChange();
+  };
+
   function getSelected<T>(
     array: T[],
     callback: (row: T, index: number, array: T[]) => boolean,
@@ -45,6 +56,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
     const selected = index !== -1;
     return { index, selected };
   }
+
   return (
     <div className={classes.container_sideBar}>
       <div className={classes.filter_container}>
@@ -62,11 +74,9 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
           )}
         >
           {map(get.data.data, item => {
-            const { index, selected } = getSelected(
-              get.data.data,
-              () => !!filterArray.find(r => item._id === r),
-            );
-            const onClick = () => {
+            const { index, selected } = getSelected(filterArray, r => item._id === r);
+            const onClick = (e: MouseEvent<any> | ChangeEvent<any>) => {
+              e.stopPropagation();
               const nextFilters: any = [...filterArray];
               if (selected) {
                 nextFilters.splice(index, 1);
@@ -80,7 +90,12 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
             };
             return (
               <div key={item._id} className={classes.rowItem} onClick={onClick}>
-                <input type="checkbox" checked={selected} style={selected ? { background: '#ff0060', border: 'none' } : {}} />
+                <input
+                  type="checkbox"
+                  checked={selected}
+                  style={selected ? { background: '#ff0060', border: 'none' } : {}}
+                  onChange={onClick}
+                />
                 <span className={classNames(selected ? classes.itemSelected : classes.item)}>
                   {item.title}
                 </span>
@@ -105,9 +120,7 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
           )}
         >
           {map(secteurs, (item: any) => {
-            const { index, selected } = getSelected(secteurArray, (r: any) => {
-              return item._id === r;
-            });
+            const { index, selected } = getSelected(secteurArray, (r: any) => item._id === r);
             const nextFilters: any = [...secteurArray];
             const onClickSecteur = () => {
               if (selected) {
@@ -120,17 +133,41 @@ const SideBar = ({ get, secteurs, filterJobs }: Props) => {
             };
             return (
               <div key={item._id} className={classes.rowItem} onClick={onClickSecteur}>
-                <input type="checkbox" checked={selected} style={selected ? { background: '#ff0060', border: 'none' } : {}} />
+                <input
+                  type="checkbox"
+                  checked={selected}
+                  style={selected ? { background: '#ff0060', border: 'none' } : {}}
+                />
                 <span className={classNames(selected ? classes.itemSelected : classes.item)}>
                   {item.title}
                 </span>
               </div>
             );
           })}
+          {secteurs.length
+            ? other !== null && (
+            <div className={classes.rowItem} onClick={onChange}>
+              <input
+                type="checkbox"
+                checked={other}
+                style={other ? { background: '#ff0060', border: 'none' } : {}}
+                onChange={onChange}
+              />
+              <span className={classNames(other ? classes.itemSelected : classes.item)}>
+                {'Autre'}
+              </span>
+            </div>
+              )
+            : null}
         </div>
       </div>
     </div>
   );
+};
+
+SideBar.defaultProps = {
+  other: null,
+  onOtherChange: () => {},
 };
 
 export default withApis({ get: getListEnvironment })(SideBar);

@@ -1,15 +1,16 @@
 import React, {
- Dispatch, useEffect, useState, useRef,
+ Dispatch, useEffect, useState, useRef, useCallback,
 } from 'react';
 import { connect } from 'react-redux';
 import {
- forEach, filter, map, isEmpty, differenceBy,find
+ uniqBy, filter, map, isEmpty, differenceBy,
 } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
 import { AnyAction } from 'redux';
+import ReactGA from 'react-ga';
 
-import { ReduxState } from 'reducers';
+import { ReduxState, IUser } from 'reducers';
 import withLayout from 'hoc/withLayout';
 import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
 import classNames from 'utils/classNames';
@@ -18,6 +19,7 @@ import JobCard from 'components_v3/jobCard/jobCard';
 import JobModal from 'components/modals/jobModal/jobModal';
 import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components_v3/button/button';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
   getMyJob,
@@ -34,12 +36,12 @@ import { useDidMount, useDidUpdate } from '../../hooks';
 import Spinner from '../../components/ui/Spinner/Spinner';
 import classes from './jobsContainer.module.scss';
 import SideBar from '../../components/sideBar/SideBar/SideBar';
-import Button from 'components_v3/button/button';
 
 interface IMapToProps {
   parcoursId: string;
   families: string[];
   fetchingParcours: boolean;
+  user?: IUser | undefined;
 }
 interface IDispatchToProps {
   openModal: (children: JSX.Element, backdropClassName?: string) => void;
@@ -54,6 +56,7 @@ interface Props
       deleteFavorites: typeof deleteFavorites;
       getSecteurs: typeof getSecteurs;
       getFav: typeof getFavorites;
+      
     }>,
     IDispatchToProps,
     IMapToProps {}
@@ -71,6 +74,7 @@ const JobsContainer = ({
   openModal,
   closeModal,
   fetchingParcours,
+  user
 }: Props & RouteComponentProps) => {
   const [fetching, fetchingChange] = useState(false);
   const [selectedSecteurs, selectedSecteursChange] = useState([] as string[]);
@@ -79,6 +83,10 @@ const JobsContainer = ({
   const [isSelectionOpen, setSelectionOpen] = useState(true);
   const [isRecommandedOpen, setRecommandedOpen] = useState(true);
   const [isOtherOpen, setOtherOpen] = useState(true);
+  const [other, setOther] = useState(false);
+  const otherJobsRef = useRef<IJob[]>([]);
+  const secteursRef = useRef<string[]>([]);
+  const filtersRef = useRef<string[]>([]);
 
   const setSelectionToggle = () => {
     setSelectionOpen(!isSelectionOpen);
@@ -114,10 +122,12 @@ const JobsContainer = ({
   }, [listJobs.fetching]);
 
   function filterJobs(filterArray: string[], secteurArray: string[]) {
+    secteursRef.current = secteurArray;
+    filtersRef.current = filterArray;
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
 
-  const onJobRemove = (id: any, e?: React.MouseEvent<any>) => {
+  const onJobRemove = (id: any, e?: React.MouseEvent<any>,title?:String) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -125,54 +135,28 @@ const JobsContainer = ({
 
     function remove() {
       deleteFavorites.call(id);
+      if (user) {
+        ReactGA.event({
+          category: 'Piste Metier',
+          action:
+            'Metier enlevé  de mes favoris : ' +
+            user.profile.firstName +
+            ' ' +
+            user.profile.lastName +
+            ': ' +
+            title,
+          label: 'PISTE_METIER_PAGE',
+        });
+      }
+
     }
     openModal(<DeleteModal onDelete={remove} onCloseModal={closeModal} />);
   };
 
-  const jobs: { secteur: ISecteur; jobs: IJob[] }[] = [];
-  forEach(listJobs.data, job => {
-    if (job.secteur[0]) {
-      const current = jobs.find(secteurJobs => secteurJobs.secteur._id === job.secteur[0]._id);
-      if (current) {
-        current.jobs.push(job);
-      } else {
-        jobs.push({ secteur: job.secteur[0], jobs: [job] });
-      }
-    }
-  });
-
-  const autres = {
-    secteur: {
-      _id: 'Autre',
-      title: 'Autre',
-      activities: null,
-      parentId: null,
-      search: '',
-      type: '',
-      resources: {
-        backgroundColor: '',
-        icon: '',
-      },
-    },
-    jobs: filter(listJobs.data, job => !job.secteur[0]),
-  };
-
-  const secteurs = jobs.map(job => ({
-    ...job.secteur,
-    isSelected: !!selectedSecteurs.find(id => id === job.secteur._id),
-  }));
-  if (autres.jobs.length) {
-    secteurs.push({
-      ...autres.secteur,
-      isSelected: !!selectedSecteurs.find(id => id === autres.secteur._id),
-    });
+  if (!otherJobsRef.current.length) {
+    otherJobsRef.current = filter(listJobs.data, job => !job.secteur[0]);
   }
 
-  let selectedJobs = jobs;
-
-  if (selectedSecteurs.length) {
-    selectedJobs = jobs.filter(job => selectedSecteurs.find(id => job.secteur._id === id));
-  }
   const isExistInFav = (id: string) => {
     const test = getFav.data.data.some((item: any) => item.job._id === id);
     return test;
@@ -181,7 +165,7 @@ const JobsContainer = ({
     const test = getFav.data.data.find((item: any) => item.job._id === id);
     return test ? test._id : null;
   };
-  const handleCard = (id: string, idFav?: string, rating?: number) => {
+  const handleCard = (id: string, idFav?: string, rating?: number,title?:string) => {
     const idFavorie = idFav || isExistInFavAr(id);
     openModal(
       <JobModal
@@ -192,32 +176,59 @@ const JobsContainer = ({
         parcoursId={parcoursId}
         fetchingParcours={fetchingParcours}
         update={isExistInFav(id)}
-        remove={(i, e) => onJobRemove(idFavorie, e)}
+        remove={(i, e) => onJobRemove(idFavorie, e,title)}
         addfav={() => getFav.call()}
         rating={rating}
       />,
     );
   };
-  const jArray = jobs.map(el => el.jobs.map(al => al)).flat(1);
+  let jArray = listJobs.data.length ? listJobs.data : [];
+
+  if (other) {
+    let otherJobs = otherJobsRef.current;
+
+    if (filtersRef.current.length) {
+      otherJobs = otherJobs.filter(job =>
+        job.environments.find(env => filtersRef.current.find(ft => env._id === ft)));
+    }
+
+    jArray = secteursRef.current.length ? [...jArray, ...otherJobs] : [...otherJobs];
+    jArray = uniqBy(jArray, '_id');
+  }
+
   const recommandedArray = jArray.filter((j, i) => i < 9);
-   
+
   if (!jobsListRef.current.length && !isEmpty(jArray)) jobsListRef.current = recommandedArray;
   const otherArray = differenceBy(jArray, jobsListRef.current, '_id');
-   
+
   const arrayNew: any = [];
-  jobsListRef.current.map((item: any) => {
-    recommandedArray.filter((el: any) => {
+  jobsListRef.current.forEach((item: any) => {
+    recommandedArray.forEach((el: any) => {
       if (item._id === el._id) {
         arrayNew.push(item);
       }
     });
   });
-  const handleClick = (id: string) => {
+  const handleClick = (id: string,title?:string) => {
     createFavorites({
       job: id,
       parcour: parcoursId,
       interested: true,
     });
+    if (user) {
+      ReactGA.event({
+        category: 'Piste Metier',
+        action:
+          'Metier ajouté dans mes favoris from list  : ' +
+          user.profile.firstName +
+          ' ' +
+          user.profile.lastName +
+          ': ' +
+          title,
+        label: 'PISTE_METIER_PAGE',
+      });
+    }
+
     getFav.call();
   };
 
@@ -229,7 +240,15 @@ const JobsContainer = ({
           <Spinner />
         </div>
       )}
-      <SideBar secteurs={getSecteurs.data} filterJobs={filterJobs} parcoursId={parcoursId} />
+      <SideBar
+        other={other}
+        onOtherChange={useCallback(() => {
+          setOther(!other);
+        }, [other])}
+        secteurs={getSecteurs.data}
+        filterJobs={filterJobs}
+        parcoursId={parcoursId}
+      />
       <div className={classes.jobs_container}>
         <div className={classes.selections}>
           <div className={classes.selection_title} onClick={setSelectionToggle}>
@@ -249,14 +268,14 @@ const JobsContainer = ({
             {map(getFav.data.data, (item: any) => (
               <JobSelection
                 title={item.job.title}
-                onClick={() => handleCard(item.job._id, item._id)}
+                onClick={() => handleCard(item.job._id, item._id,undefined,item.job.title)}
                 key={item.job._id}
               >
                 <div
-                  onClick={event => onJobRemove(item._id, event)}
+                  onClick={event => onJobRemove(item._id, event,item.job.title)}
                   className={classes.iconsContainer}
                 >
-                 {/*  <MultiIcon type="remove" width="22" height="22" className={classes.remove} /> */}
+                  {/*  <MultiIcon type="remove" width="22" height="22" className={classes.remove} /> */}
                   <Button title="x" color="red" className={classes.remove} />
                 </div>
               </JobSelection>
@@ -306,7 +325,7 @@ const JobsContainer = ({
                   jobInterest={metier.interests}
                   modal={() => handleCard(metier._id, undefined, rating)}
                   key={metier._id}
-                  add={() => handleClick(metier._id)}
+                  add={() => handleClick(metier._id,metier.title)}
                   selected={metier._id}
                   all={getFav.data.data}
                 />
@@ -338,7 +357,7 @@ const JobsContainer = ({
                 jobInterest={metier.interests}
                 modal={() => handleCard(metier._id)}
                 key={metier._id}
-                add={() => handleClick(metier._id)}
+                add={() => handleClick(metier._id,metier.title)}
                 selected={metier._id}
                 all={getFav.data.data}
               />
@@ -349,11 +368,12 @@ const JobsContainer = ({
     </div>
   );
 };
-
-const mapStateToProps = ({ parcours }: ReduxState): IMapToProps => ({
+ 
+const mapStateToProps = ({ parcours,authUser }: ReduxState): IMapToProps => ({
   parcoursId: parcours.data._id,
   families: parcours.data.families,
   fetchingParcours: parcours.fetching,
+  user:  authUser.user.user
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   openModal: (children, backdropClassName) =>
