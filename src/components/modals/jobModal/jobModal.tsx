@@ -281,7 +281,7 @@ const JobModal = ({
       ReactGA.event({
         category: 'Piste Metier',
         action:
-          'Metier ajouté dans mes favoris : ' +
+          'Metier ajouté dans mes favoris from modal  : ' +
           user.profile.firstName +
           ' ' +
           user.profile.lastName +
