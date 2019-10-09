@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.TopBackground {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  justify-content: flex-end;
+  background-image: linear-gradient(to right bottom, #f2f4f7, #f2f4f7, #f1f3f7, #c6ccde, #929ebb);
+  position: relative;
+}
+.image {
+  height: 100%;
+}
+.title {
+  position: absolute;
+  left: 100px;
+  top: 50px;
+  font-size: 50px;
+  font-family: Nunito;
+  color: #223a7a;
+  font-weight: 600;
+}
+.rubriques {
+  display: flex;
+  flex-direction: column;
+  width: 22%;
+  padding-top: 5%;
+}
+.body {
+  display: flex;
+  margin-bottom: 10px;
+}
+.reponses {
+  display: flex;
+  width: 75%;
+  align-items: center;
+  flex-direction: column;
+}
+.rubriqueTitle {
+  padding-left: 5%;
+  font-size: 18px;
+  font-family: Nunito;
+  color: #6b6b6a;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+.verticalLine {
+  width: 1px;
+  height: 70vh;
+  background: #2e4481;
+  margin-top: 15px;
+}
+.questionAnswer {
+  width: 90%;
+  padding-top: 2%;
+}
+.question {
+  font-size: 18px;
+  color: #3d68ff;
+
+  cursor: pointer;
+}
+.bigTitle {
+  font-family: Nunito;
+  font-size: 35px;
+  display: flex;
+  margin-bottom: 15px;
+  font-weight: lighter;
+
+  width: 90%;
+  font-family: sans-serif;
+  padding-top: 2%;
+}

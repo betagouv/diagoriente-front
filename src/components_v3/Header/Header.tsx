@@ -71,7 +71,14 @@ const Header = ({
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          width: '60%',
+        }}
+      >
         <div className={classes.logoContainer} onClick={onNavigate}>
           <img src={logo} alt="logo" className={classes.logo} />
         </div>
@@ -79,6 +86,13 @@ const Header = ({
           <img src={logo2} alt="logo" className={classes.logo2} />
         </div>
       </div>
+      <span
+        className={classes.faq}
+        onClick={() => { history.push('/about') }}
+        style={location.pathname === '/about' ? { color: '#223a7a' } : {}}
+      >
+        QUI SOMMES-NOUS?
+      </span>
       <span
         className={classes.faq}
         onClick={goToFaq}
@@ -146,7 +160,7 @@ const Header = ({
 
                 {HoverDropDown && (
                   <div className={classes.dropdownContent}>
-                {/*     <button
+                    {/*     <button
                       className={classes.dropDaowElement}
                       onClick={() => history.push('/advisorSpace/mesGroupes')}
                     >
