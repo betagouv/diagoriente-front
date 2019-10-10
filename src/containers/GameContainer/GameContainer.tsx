@@ -50,7 +50,7 @@ const GameContainer = ({ history, openModal, closeModal }: Props) => {
           Iconcolor="#ffba27"
           onClick={onNavigate}
         /> */}
-        <Button title="COMMENCER MA CARTE" color="blue" style={{ height: 50 }} onClick={onNavigate} />
+        <Button title="COMMENCER MA CARTE" color="blue" style={{ height: 40 }} onClick={onNavigate} />
       </div>
     </Fragment>
   );
