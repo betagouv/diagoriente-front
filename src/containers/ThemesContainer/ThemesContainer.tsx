@@ -391,7 +391,7 @@ const ThemesContainer = forwardRef(
 
     function onSearch(e: React.ChangeEvent<HTMLInputElement>) {
       setSearch(e.target.value);
-      list.call({ search, type });
+      list.call({ search: e.target.value, type });
     }
 
     function renderAdd() {
