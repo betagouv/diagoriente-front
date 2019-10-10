@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { map } from 'lodash';
@@ -14,9 +14,8 @@ import withApi, { ApiComponentProps } from 'hoc/withApi';
 import { listQuestions } from 'requests/question';
 
 import resetActions from 'reducers/authUser/resetPassword';
-import logo from 'assets/icons/logo/Diagoriente_Logo.svg';
 import Input from '../Input/Input';
-import Button from '../../buttons/RoundButton/RoundButton';
+import Button from 'components_v3/button/button';
 import Grid from '../../ui/Grid/Grid';
 import Select from '../Select/select';
 import classes from './forget.module.scss';
@@ -36,6 +35,7 @@ interface DispatchToProps {
 interface IMapToProps {
   dataReset: any;
   fetching: boolean;
+  error: any;
 }
 type IProps = Props &
   DispatchToProps &
@@ -44,7 +44,7 @@ type IProps = Props &
   ApiComponentProps<{ list: typeof listQuestions }>;
 
 const ForgetForm = ({
- onCloseModal, list, resetRequest, dataReset, history,
+ onCloseModal, list, resetRequest, dataReset, history, error,
 }: IProps) => {
   useDidMount(() => {
     list.call();
@@ -55,9 +55,13 @@ const ForgetForm = ({
   const [reponse, reponseChange, reponseTouched] = useTextInput('');
   const reponseValid = reponseTouched ? validateNom(reponse) : '';
   const [questionValue, open, onChange, onOpen, onClose] = useSelectInput('');
+  const [errorText, setErrorText] = useState('');
 
   const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (email === '' || reponse === '' || questionValue === '') {
+      return setErrorText('Verifier vos champs');
+    }
     const question: any = {
       response: reponse,
       _id: questionValue,
@@ -71,54 +75,47 @@ const ForgetForm = ({
     }
   });
   return (
-    <div className={classes.wrapperModal}>
-      <div className={classes.container}>
-        <Grid container padding={{ xl: 0 }} spacing={{ xl: 0 }}>
-          <Grid item xl={12} className={classes.header}>
-            <img className={classes.logo} src={logo} alt="Logo" />
-            <button onClick={onCloseModal}>Fermer</button>
+    <div className={classes.container_home}>
+      <div className={classes.form_container}>
+        <div className={classes.container_title}>
+          <span>Merci de saisie votre email et question secret</span>
+        </div>
+        <div className={classes.error_input}>{error.message || errorText}</div>
+        <Grid container>
+          <Grid item xl={12}>
+            <Input
+              name="Email"
+              validation={emailValid}
+              onChange={emailChange}
+              type="email"
+              className={classes.container_input}
+            />
           </Grid>
-          <Grid container padding={{ xl: 30 }} spacing={{ xl: 0 }}>
-            <Grid item xl={12}>
-              <div className={classes.title} />
-            </Grid>
-            <Grid item xl={12}>
-              <Input
-                name="Email"
-                validation={emailValid}
-                onChange={emailChange}
-                type="email"
-                className={classes.container_input}
-              />
-            </Grid>
-
-            <Grid item xl={12}>
-              <Select
-                options={map(data, question => ({ value: question._id, label: question.title }))}
-                open={open}
-                onChange={onChange}
-                value={questionValue}
-                className={classes.container_input_select}
-                placeholder="Questions de sécurité"
-                selectOpen={onOpen}
-                selectClose={onClose}
-              />
-            </Grid>
-            <Grid item xl={12}>
-              <Input
-                name="Réponse"
-                validation={reponseValid}
-                onChange={reponseChange}
-                className={classes.container_input}
-              />
-            </Grid>
-
-            <Grid item xl={12} className={classes.container_button}>
-              <Button className={classes.btn} onClick={onSubmit}>
-                Envoyer
-              </Button>
-            </Grid>
+          <Grid item xl={12}>
+            <Select
+              options={map(data, question => ({ value: question._id, label: question.title }))}
+              open={open}
+              onChange={onChange}
+              value={questionValue}
+              className={classes.container_input_select}
+              placeholder="Questions de sécurité"
+              selectOpen={onOpen}
+              selectClose={onClose}
+            />
           </Grid>
+          <Grid item xl={12}>
+            <Input
+              name="Réponse"
+              validation={reponseValid}
+              onChange={reponseChange}
+              className={classes.container_input}
+            />
+          </Grid>
+
+          <div className={classes.container_button}>
+          <Button title="Envoyer" color="red" style={{height: 40, padding: '0px 40px', fontSize: 14 }} onClick={onSubmit} />
+
+          </div>
         </Grid>
       </div>
     </div>
@@ -127,6 +124,7 @@ const ForgetForm = ({
 const mapStateToProps = ({ authUser }: ReduxState): IMapToProps => ({
   dataReset: authUser.resetPassword.data,
   fetching: authUser.resetPassword.fetching,
+  error: authUser.resetPassword.error,
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchToProps => ({
   resetRequest: (email, question) => dispatch(resetActions.resetRequest({ email, question })),
