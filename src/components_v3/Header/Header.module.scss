@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 .HeaderContainer {
   height: 20%;
@@ -70,7 +70,7 @@
   &:hover {
     opacity: 0.5;
   }
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     border: none;
     padding: 0 10px;
     border-radius: 0;
@@ -89,7 +89,7 @@
   /* font-weight: bold; */
   color: white;
   text-transform: capitalize;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     display: none;
   }
 }
@@ -102,7 +102,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     right: 0;
   }
 }
@@ -110,7 +110,7 @@
 .logout_icon {
   height: 16px;
   width: 16px;
-  @media (max-width: map-get($breakpoints, "smd" )) {
+  @media (max-width: map-get($breakpoints, 'smd' )) {
     height: 30px;
     width: 30px;
   }
@@ -135,7 +135,7 @@
   border-top: 1px solid #fc488b;
   border-bottom: 1px solid #fc488b;
   border-left: 1px solid #fc488b;
-  min-width: 142px;
+  min-width: 160px;
   min-height: 31px;
   font-weight: bold;
   color: #fc488b;
@@ -177,13 +177,18 @@
   width: 100%;
   height: 31px;
   font-size: 14px;
+  cursor: pointer;
+  background-color: white;
+  z-index: 9999;
 }
 .faq {
-  width: 55%;
   display: flex;
   justify-content: flex-end;
+
   cursor: pointer;
   color: #6b6b6a;
+  padding-top: 10px;
   height: 100%;
+  font-size: 13px;
   align-items: center;
 }

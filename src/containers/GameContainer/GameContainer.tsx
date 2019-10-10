@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import Header from 'components_v3/Header/Header';
 
+import Button from 'components_v3/button/button';
 import classes from './game.module.scss';
 import modalActions from '../../reducers/modal';
 import JeuxModal from '../../components/modals/JeuxModal/JeuxModal';
@@ -38,7 +39,7 @@ const GameContainer = ({ history, openModal, closeModal }: Props) => {
         </div>
       </div>
       <div className={classes.btn_container}>
-        <MultiIcon
+        {/* <MultiIcon
           type="validate"
           withText
           footer
@@ -48,7 +49,8 @@ const GameContainer = ({ history, openModal, closeModal }: Props) => {
           textColor="#ffba27"
           Iconcolor="#ffba27"
           onClick={onNavigate}
-        />
+        /> */}
+        <Button title="COMMENCER MA CARTE" color="blue" style={{ height: 40 }} onClick={onNavigate} />
       </div>
     </Fragment>
   );

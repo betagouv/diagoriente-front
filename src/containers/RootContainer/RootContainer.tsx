@@ -1,11 +1,11 @@
-import React, { Dispatch,useEffect } from 'react';
+import React, { Dispatch, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import {
  Switch, Route, RouteComponentProps, matchPath,
 } from 'react-router-dom';
 import ReactGA from 'react-ga';
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history';
 
 // types
 import { AnyAction } from 'redux';
@@ -21,7 +21,8 @@ import LoginUserContainer from 'containers/LoginContainer/LoginContainer';
 import ProfileContainer from 'containers/ProfileContainer/ProfileContainer';
 import RegisterUserContainer from 'containers/RegistreContainer/RegisterContainer';
 import GameContainer from 'containers/GameContainer/GameContainer';
-
+import AdvisorSpaceContainer from 'containers/AdvisorSpaceContainer/AdvisorSpaceContainer';
+import AboutContainer from 'containers/aboutUsContaier/index';
 // components
 import Modal from 'components/ui/Modal/Modal';
 import SkillsContainer from 'containers/SkillsContainer/SkillsContainer';
@@ -29,6 +30,7 @@ import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
 import CartePublicContainer from 'containers/CartePublicContainer/CartePublicContainer';
 // hoc
 import ProtectedRoute from 'hoc/ProtectedRoute';
+import ProtectedRouteAdvisor from 'hoc/ProtectedRouteAdvisor';
 
 // actions
 import startupActions from 'reducers/startup';
@@ -42,8 +44,9 @@ import { useDidMount, useDidUpdate, useListener } from 'hooks';
 
 // styles
 import Loader from 'components_v3/ui/Loader/Loader';
-import classes from './rootContainer.module.scss';
 import FaqContainer from 'containers/FaqContainer/FaqContainer';
+import EditProfile from 'containers/EditProfileContainer/editProfile';
+import classes from './rootContainer.module.scss';
 
 const footerRoutes = ['/'];
 
@@ -77,8 +80,6 @@ const RootContainer = ({
     }
   };
 
-  
- 
   useListener('mousemove', resetTimer);
   useListener('keypress', resetTimer);
   useListener('wheel', resetTimer);
@@ -89,8 +90,9 @@ const RootContainer = ({
     ReactGA.pageview(location.pathname + location.search);
     history.listen((location, action) => {
       ReactGA.pageview(location.pathname + location.search);
-      console.log(' history ' ,location.pathname + location.search )
-    })
+      /*       console.log(' history ' ,location.pathname + location.search )
+       */
+    });
   });
 
   /*  useDidUpdate(() => {
@@ -110,6 +112,7 @@ const RootContainer = ({
           <Route path="/login" component={LoginUserContainer} />
           <Route path="/register" component={RegisterUserContainer} />
           <Route path="/game" exact component={GameContainer} />
+          <ProtectedRouteAdvisor path="/advisorSpace" component={AdvisorSpaceContainer} />
           <Route
             path="/public/:idUser"
             render={props => (
@@ -151,6 +154,8 @@ const RootContainer = ({
             )}
           />
           <Route path="/faq" component={FaqContainer} />
+          <Route path="/about" component={AboutContainer} />
+          <Route path="/edit_profile" component={EditProfile} />
           <ProtectedRoute path="/profile" component={ProfileContainer} />
           <Route component={NotFound} />
         </Switch>

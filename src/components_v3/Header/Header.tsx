@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Dispatch, AnyAction } from 'redux';
 import { ReduxState, IUser, Advisor } from 'reducers';
@@ -15,9 +15,11 @@ import ColoredLine from '../ColoredLine/ColoredLine';
 import loginActions from '../../reducers/authUser/login';
 import modalAction from '../../reducers/modal';
 import logoutSvg from '../../assets/icons/svg/logout.svg';
+import arrowHeader from '../../assets_v3/icons/header/arrowHeader.png';
 
 interface Props {
   HeaderProfile?: boolean;
+  modeAdvisor?: boolean;
 }
 interface IMapToProps {
   user: IUser | undefined;
@@ -39,6 +41,7 @@ const Header = ({
   history,
   showLogout,
   logoutAdvisor,
+  modeAdvisor,
   location,
   user,
   advisor,
@@ -46,6 +49,7 @@ const Header = ({
   closeModal,
   logout,
 }: IProps & RouteComponentProps) => {
+  const [HoverDropDown, setHover] = useState(false);
   function onNavigate() {
     if (location.pathname === '/profile/skills') {
       history.push('/profile/skills');
@@ -67,7 +71,14 @@ const Header = ({
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          width: '60%',
+        }}
+      >
         <div className={classes.logoContainer} onClick={onNavigate}>
           <img src={logo} alt="logo" className={classes.logo} />
         </div>
@@ -77,6 +88,15 @@ const Header = ({
       </div>
       <span
         className={classes.faq}
+        onClick={() => {
+          history.push('/about');
+        }}
+        style={location.pathname === '/about' ? { color: '#223a7a' } : {}}
+      >
+        À PROPOS
+      </span>
+      <span
+        className={classes.faq}
         onClick={goToFaq}
         style={location.pathname === '/faq' ? { color: '#223a7a' } : {}}
       >
@@ -84,19 +104,92 @@ const Header = ({
       </span>
 
       <Grid className={classes.headerContainer} item xl={2}>
-        <button
-          className={classes.logout}
-          onClick={() =>
-            (!user
-              ? window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')
-              : logout())
-          }
-        >
-          <span className={classes.logout_text}>
+        {!advisor.advisor && !user ? (
+          <button
+            className={classes.logout}
+            onClick={() => window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')}
+          >
+            <span className={classes.logout_text}>CONNEXION PRO</span>
+          </button>
+        ) : user ? (
+          <div
+            className={classes.dropDownContainer}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            <div className={classes.dropdown}>
+              <div className={classes.dropDownBtn}>
+                <button className={classes.nameContainer}>
+                  {`${user.profile.firstName} ${user.profile.lastName}`}
+                </button>
+                <div className={classes.arrowContainer}>
+                  <img className={classes.arrow} src={arrowHeader} alt="advisorArrow" />
+                </div>
+              </div>
+
+              {HoverDropDown && (
+                <div className={classes.dropdownContent}>
+                  <button
+                    className={classes.dropDaowElement}
+                    onClick={() => history.push('/profile/edit_profile')}
+                  >
+                    Modifier le profil
+                  </button>
+
+                  <button className={classes.dropDaowElement} onClick={() => logout()}>
+                    Se déconnecter
+                  </button>
+                </div>
+              )}
+            </div>
+            {/*             <button onClick={() => logoutAdvisor()}>log Out</button>
+             */}
             {' '}
-            {!user ? 'CONNEXION PRO' : 'DECONNEXION'}
-          </span>
-        </button>
+          </div>
+        ) : (
+          advisor.advisor && (
+            <div
+              className={classes.dropDownContainer}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              <div className={classes.dropdown}>
+                <div className={classes.dropDownBtn}>
+                  <button className={classes.nameContainer}>
+                    {`${advisor.advisor.profile.firstName} ${advisor.advisor.profile.lastName}`}
+                  </button>
+                  <div className={classes.arrowContainer}>
+                    <img className={classes.arrow} src={arrowHeader} alt="advisorArrow" />
+                  </div>
+                </div>
+
+                {HoverDropDown && (
+                  <div className={classes.dropdownContent}>
+                    {/*     <button
+                      className={classes.dropDaowElement}
+                      onClick={() => history.push('/advisorSpace/mesGroupes')}
+                    >
+                      Voir Mes Groupes
+                    </button> */}
+                    <button
+                      className={classes.dropDaowElement}
+                      onClick={() => history.push('/advisorSpace/edit_profile_advisor')}
+                    >
+                      Modifier le profil
+                    </button>
+
+                    <button className={classes.dropDaowElement} onClick={() => logoutAdvisor()}>
+                      Se déconnecter
+                    </button>
+                  </div>
+                )}
+              </div>
+              {/*             <button onClick={() => logoutAdvisor()}>log Out</button>
+               */}
+              {' '}
+            </div>
+          )
+        )}
       </Grid>
 
       {/*    <div style={{ marginRight: '2%' }}>

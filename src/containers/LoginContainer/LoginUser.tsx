@@ -66,7 +66,7 @@ const LoginUserContainer = ({
         );
       } */
 
-      const path = search.from || '/';
+      const path = '/profile/skills';
 
       history.push(path);
     }

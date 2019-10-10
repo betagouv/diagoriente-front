@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ReduxState, User } from 'reducers';
+import { ReduxState, Advisor } from 'reducers';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 
 import { encodeUri } from '../utils/url';
 
-type Props = { user: User } & RouteProps;
+type Props = { advisor: Advisor } & RouteProps;
 
-const ProtectedRoute = ({ user, ...other }: Props) => {
-  if (!user.user) {
+const ProtectedRoute = ({ advisor, ...other }: Props) => {
+  if (!advisor.advisor) {
     return <Redirect to="/" />;
   }
   return <Route {...other} />;
 };
 
 const mapStateToProps = (state: ReduxState) => ({
-  user: state.authUser.user,
+  advisor: state.authAdvisor.advisor,
 });
 
 export default connect(mapStateToProps)(ProtectedRoute);

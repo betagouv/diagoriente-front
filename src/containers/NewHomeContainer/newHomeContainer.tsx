@@ -45,11 +45,12 @@ const NewHomeContainer = ({
     history.push('/login/advisor');
   };
 
-  function renderButton(text: string, color: string, onClick?: () => void) {
+  function renderButton(text: string, color: string, onClick?: () => void, modeConnected = false) {
+    console.log('modeCommencer', modeConnected);
     return (
       <div
         onClick={onClick}
-        className={classes.commencerBtn}
+        className={modeConnected ? classes.longBtn : classes.commencerBtn}
         style={{ backgroundColor: `${color}` }}
       >
         <span className={classes.btn_text}>{text}</span>
@@ -75,9 +76,16 @@ const NewHomeContainer = ({
 						<span className={classes.bigText}>ta voie</span> */}
             <img src={TTVFichier} alt="TrouveTaVoie" />
           </div>
+
           <div className={classes.groupBottonCommencer}>
-            {renderButton('INSCRIPTION', '#24d0fd', navigate('/login/user?from=%2Fprofile&register=true'))}
-            {renderButton('CONNEXION', '#fc1262', navigate('/profile'))}
+            {!user.user
+              && renderButton(
+                'INSCRIPTION',
+                '#24d0fd',
+                navigate('/login/user?from=%2Fprofile&register=true'),
+              )}
+            {!user.user && renderButton('CONNEXION', '#fc1262', navigate('/login/user'))}
+            {user.user && renderButton('Commencer', '#fc1262', navigate('/profile'), true)}
           </div>
           <div
             style={{

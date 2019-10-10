@@ -1,0 +1,63 @@
+.groupeCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 15%;
+  width: 70%;
+  margin: 10px 0px;
+  padding: 12px;
+  -webkit-box-shadow: -1px 1px 5px 3px rgba(245, 245, 245, 0.92);
+  -moz-box-shadow: -1px 1px 5px 3px rgba(245, 245, 245, 0.92);
+  box-shadow: -1px 1px 5px 3px rgba(245, 245, 245, 0.92);
+}
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.nameContainer {
+  display: inline-flex;
+  align-items: center;
+  color: #6b6b6a;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 5px 0 5px;
+  border-color: #233c78 transparent transparent transparent;
+  cursor: pointer;
+}
+.codeGroupeContainer {
+  width: 33%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #6b6b6a;
+  font-weight: 500;
+  font-size: 17px;
+}
+.code {
+  color: #24d0fd;
+  font-weight: 600;
+  font-size: 13px;
+  align-self: center;
+}
+.playIcon {
+  width: 25px;
+  height: 25px;
+  padding: 4px;
+  border: 1.4px solid #5edcfe;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.headerContainer2 {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  color: #737372;
+}
