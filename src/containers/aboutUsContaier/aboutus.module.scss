@@ -34,9 +34,10 @@
 }
 .reponses {
   display: flex;
-  width: 75%;
-  align-items: center;
+  width: 100%;
+  align-items: flex-start;
   flex-direction: column;
+  padding-left: 35px;
 }
 .rubriqueTitle {
   padding-left: 5%;
