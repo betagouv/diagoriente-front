@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from 'components_v3/Header/Header';
 import home from 'assets_v3/Home/ACCUEIL.png';
 import parse from 'html-react-parser';
 import { useDidMount } from 'hooks';
-import { getAbout, IPage } from 'requests/about';
+import { getAbout } from 'requests/about';
+import withApi, { ApiComponentProps } from 'hoc/withApi';
 import classes from './aboutus.module.scss';
 
-type ITest = {
-  data: { title: string; type: string; page: { text: string; _id: string }[] }[];
-};
-const AboutContainer = () => {
-  const [list, setList] = useState<any | null>(null);
+interface test {
+  data: {
+    title: string;
+    type: string;
+    page: { text: string; _id: string }[];
+    _id: string;
+  }[];
+}
+type IProps = test & ApiComponentProps<{ get: typeof getAbout }>;
+
+const AboutContainer = ({ get }: IProps) => {
   useDidMount(() => {
-    getAbout().then(response => {
-      setList(response.data);
-      console.log(response.data);
-    });
+    get.call('about');
   });
+  const { data } = get.data;
+  const renderAbout = () => {
+    let result: any = [];
+    if (data) {
+      result = data.page.map((el: any) => <span key={el._id}>{parse(el.text)}</span>);
+    }
+    return <div>{result}</div>;
+  };
   return (
     <div className={classes.container}>
       <Header showLogout />
@@ -25,15 +37,9 @@ const AboutContainer = () => {
         <img src={home} alt="home" className={classes.image} />
       </div>
       <div className={classes.body}>
-        <div className={classes.reponses}>
-          {list
-            && list.data.page.map((item: any) => {
-              const result = <span>{parse(item.text)}</span>;
-              return <div>{result}</div>;
-            })}
-        </div>
+        <div className={classes.reponses}>{renderAbout()}</div>
       </div>
     </div>
   );
 };
-export default AboutContainer;
+export default withApi({ get: getAbout })(AboutContainer);
