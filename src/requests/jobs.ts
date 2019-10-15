@@ -39,7 +39,7 @@ export const getMyJob = (
   parcourId: string,
   environments?: string,
   secteur?: string,
-  algoType: 'interest_family' | 'family' | 'interest' = 'interest',
+  algoType: 'interest_family' | 'family' | 'interest' = 'family',
 ): Promise<Response<IJob[]>> => {
   const env = environments && JSON.parse(environments).length ? environments : null;
   const sect = secteur && JSON.parse(secteur).length ? secteur : null;
