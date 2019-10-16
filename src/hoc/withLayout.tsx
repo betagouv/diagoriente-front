@@ -46,7 +46,7 @@ function withLayout<P>(WrappedComponent: React.ComponentType<P>) {
         )}
       >
         <WrappedComponent {...(other as P)} ref={captureRef} />
-        {title && (
+        {title && title.trim() && (
           <div className={classes.title_container}>
             <h1 className={classes.title}>{title}</h1>
           </div>

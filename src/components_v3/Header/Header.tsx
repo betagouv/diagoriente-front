@@ -88,10 +88,12 @@ const Header = ({
       </div>
       <span
         className={classes.faq}
-        onClick={() => { history.push('/about') }}
+        onClick={() => {
+          history.push('/about');
+        }}
         style={location.pathname === '/about' ? { color: '#223a7a' } : {}}
       >
-        QUI SOMMES-NOUS?
+        À PROPOS
       </span>
       <span
         className={classes.faq}
@@ -103,7 +105,10 @@ const Header = ({
 
       <Grid className={classes.headerContainer} item xl={2}>
         {!advisor.advisor && !user ? (
-          <button className={classes.logout} onClick={() => history.push('/login/advisor')}>
+          <button
+            className={classes.logout}
+            onClick={() => window.location.replace('https://admin.diagoriente.beta.gouv.fr/login')}
+          >
             <span className={classes.logout_text}>CONNEXION PRO</span>
           </button>
         ) : user ? (
