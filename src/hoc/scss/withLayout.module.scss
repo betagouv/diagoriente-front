@@ -13,8 +13,8 @@ $footer_height: 55px;
 }
 
 .title_container {
-   // background-color: #fff;
-  // box-shadow: $box_shadow; 
+  // background-color: #fff;
+  // box-shadow: $box_shadow;
   position: fixed;
   align-items: center;
   display: flex;
@@ -23,7 +23,6 @@ $footer_height: 55px;
   /* padding-left: $sidebar_width; */
   height: 55px;
   width: 100%;
-  z-index: $header_zindex;
   justify-content: center;
 }
 
