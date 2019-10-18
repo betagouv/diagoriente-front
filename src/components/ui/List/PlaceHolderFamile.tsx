@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import ContentLoader from 'react-content-loader';
 import IndexList from 'components_v3/listIndex/indexList';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Button from 'components_v3/button/button';
 import classes from './placeholder.module.scss';
 
 interface IProps {
@@ -33,7 +34,7 @@ const PlaceHolderFamile = ({ index }: IProps) => (
         </ContentLoader>
         <div className={classes.delete_container}>
           <button className={classes.delete}>
-            <MultiIcon type="remove" width="20" height="20" Iconcolor="gray" />
+            <Button title="x" color="red" className={classes.button} />
           </button>
         </div>
       </div>

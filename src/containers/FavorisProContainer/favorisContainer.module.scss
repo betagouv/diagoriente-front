@@ -32,8 +32,9 @@ html {
 }
 .item2 {
   display: flex;
-  flex-direction: column;
-  background-color: $card_background;
+  flex-direction: row-reverse;
+  // background-color: $card_background;
+  justify-content: center;
 }
 .gridContainer {
   display: flex;
@@ -146,7 +147,7 @@ box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  background: #dddddd
+  // background: #dddddd
 }
 .container_loading {
   width: 100%;
@@ -201,5 +202,22 @@ box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
   width: 60px;
   img {
     width: 50%;
+  }
+}
+.carouselContainer {
+  width: 77%;
+
+}
+.underContainer {
+  flex-direction: row-reverse;
+    width: 100%;
+}
+@media only screen and (max-width: 768px) {
+  .carouselContainer {
+    width: 60%;
+  }
+  .underContainer {
+    flex-direction: row-reverse;
+      width: 90%;
   }
 }

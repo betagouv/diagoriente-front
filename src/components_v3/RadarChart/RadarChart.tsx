@@ -95,7 +95,7 @@ const RadarChart = (ctx: any, get: any, job: any) => {
       legend: {
         position: 'bottom',
         label: {
-          fontSize: 16,
+          fontSize: 8,
         },
       },
       title: {
@@ -111,6 +111,8 @@ const RadarChart = (ctx: any, get: any, job: any) => {
           max: 4,
           stepSize: 1,
         },
+        responsive: false,
+        
       } /* ,
              tooltips: {
                 enabled: false,
