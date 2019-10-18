@@ -38,7 +38,7 @@ export interface IAdvisor {
   email: string;
   parcours: string[];
   platform: string;
-  profile: { pseudo: string; firstName: string; lastName: string; institution: string; };
+  profile: { pseudo: string; firstName: string; lastName: string; institution: string };
   question: [];
   role: string;
   _id: string;
@@ -107,6 +107,7 @@ export interface IParcoursResponse {
   userId: string;
   _id: string;
   played: boolean;
+  skillsAlgo?: string[];
 }
 export interface IRestResponse {
   readonly email: string;

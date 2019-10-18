@@ -21,8 +21,8 @@ interface IApiState<T> {
   errors: any[];
 }
 
-export type ApiComponentProps
-  <R extends { [key: string]: (...args: any[]) => Promise<Response<any>> }
+export type ApiComponentProps<
+  R extends { [key: string]: (...args: any[]) => Promise<Response<any>> }
 > = {
   [K in keyof R]: {
     fetching: boolean;
@@ -63,16 +63,9 @@ function useApiState<
 
   async function call(...params: Parameters<Fn>) {
     try {
-      const apiParams = params.map((param: any) => {
-        if (typeof param === 'object') {
-          return pickBy(param, val => val !== undefined);
-        }
-        return param;
-      });
-
       await dispatch(actions.fetching());
 
-      const response = await fn(...apiParams);
+      const response = await fn(...params);
       if (response.code >= 200 && response.code < 400 && response.data) {
         await dispatch(actions.success({ data: response.data }));
       } else if (response.code === 401) {
