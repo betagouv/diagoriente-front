@@ -26,16 +26,15 @@
 .container {
   display: flex;
   align-items: center;
-   
   margin-left: 20px;
 }
 .title {
   font-size: 18px;
-  color: #4D4D4D;
+  color: #4d4d4d;
   font-weight: 600;
   display: flex;
   flex-wrap: wrap;
-  width: 70%
+  width: 70%;
 }
 .body {
   width: 100%;
@@ -194,7 +193,7 @@ li::before {
   flex-direction: column;
 }
 .bold1 {
-  color: #4D4D4D;
+  color: #4d4d4d;
   font-size: 22px;
   font-weight: bolder;
   font-family: Nunito;
@@ -265,7 +264,10 @@ li::before {
   font-family: Nunito;
   color: #003189;
   font-weight: bolder;
-  padding: 6px 45% 0px 0px;
+  padding-top: 6px;
+  display: flex;
+  justify-content: flex-start;
+  width: 92%;
 }
 .immersion {
   height: 50px;
@@ -281,9 +283,90 @@ li::before {
   padding-left: 10px;
 }
 
-.contentTitle{
+.contentTitle {
   display: flex;
   flex-direction: row;
-   
-  
+}
+
+.rightCanvas {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+  height: 80%;
+  flex-direction: column;
+  position: relative;
+}
+.showChart {
+  display: none;
+}
+.bodyChart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  box-shadow: inset 0px 3px 6px 0px rgba(0, 0, 0, 0.12),
+    inset 0px -3px 6px 0px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+.canvasContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  .interestTitle {
+    font-size: 13px;
+  }
+  .immersion {
+    left: 450px;
+  }
+  .number {
+    font-size: 20px;
+  }
+  .textPage {
+    font-size: 14px;
+  }
+  .canvas {
+    display: none !important;
+  }
+  .rightCanvasPopUp {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    position: absolute;
+    background: white;
+  }
+  .showChart {
+    display: block;
+  }
+  .hidebuttonShow {
+    display: none;
+  }
+  .canvasShow {
+    display: block;
+  }
+  .canvasContainer {
+    position: relative;
+    height: 80vh;
+    width: 80vw;
+  }
+  .hidebuttonShow {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .hiddenButton {
+    display: none;
+  }
+  .closeChartModal {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
