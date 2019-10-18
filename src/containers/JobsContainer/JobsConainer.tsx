@@ -19,6 +19,7 @@ import JobCard from 'components_v3/jobCard/jobCard';
 import JobModal from 'components/modals/jobModal/jobModal';
 import DeleteModal from 'components/modals/DeleteModal/DeleteTheme';
 import MultiIcon from 'components_v3/icons/multiIcon/multiIcon';
+import Job from 'components_v3/ModalCompJob/ModalCompJob';
 import Button from 'components_v3/button/button';
 import withApis, { ApiComponentProps } from '../../hoc/withApi';
 import {
@@ -30,6 +31,7 @@ import {
   getSecteurs,
   ISecteur,
   deleteFavorites,
+  UpdateAlogSkills,
 } from '../../requests';
 
 import { useDidMount, useDidUpdate } from '../../hooks';
@@ -56,7 +58,7 @@ interface Props
       deleteFavorites: typeof deleteFavorites;
       getSecteurs: typeof getSecteurs;
       getFav: typeof getFavorites;
-      
+      patch: typeof UpdateAlogSkills;
     }>,
     IDispatchToProps,
     IMapToProps {}
@@ -74,7 +76,8 @@ const JobsContainer = ({
   openModal,
   closeModal,
   fetchingParcours,
-  user
+  user,
+  patch,
 }: Props & RouteComponentProps) => {
   const [fetching, fetchingChange] = useState(false);
   const [selectedSecteurs, selectedSecteursChange] = useState([] as string[]);
@@ -98,11 +101,18 @@ const JobsContainer = ({
   const setOthertoggle = () => {
     setOtherOpen(!isOtherOpen);
   };
-
+  const submitHandler = (skillsChecked: string[]) => {
+    patch.call(parcoursId, skillsChecked);
+    if (!patch.fetching && !patch.error) {
+      listJobs.call(parcoursId);
+      closeModal();
+    }
+  };
   useDidMount(() => {
     getParcours.call(parcoursId);
     getSecteurs.call();
     getFav.call();
+    openModal(<Job submitHandler={submitHandler} />);
   });
   useEffect(() => {
     if (!addFavorites.fetching && !addFavorites.error) {
@@ -127,7 +137,7 @@ const JobsContainer = ({
     listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
   }
 
-  const onJobRemove = (id: any, e?: React.MouseEvent<any>,title?:String) => {
+  const onJobRemove = (id: any, e?: React.MouseEvent<any>, title?: String) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -138,17 +148,10 @@ const JobsContainer = ({
       if (user) {
         ReactGA.event({
           category: 'Piste Metier',
-          action:
-            'Metier enlevé  de mes favoris : ' +
-            user.profile.firstName +
-            ' ' +
-            user.profile.lastName +
-            ': ' +
-            title,
+          action: `Metier enlevé  de mes favoris : ${user.profile.firstName} ${user.profile.lastName}: ${title}`,
           label: 'PISTE_METIER_PAGE',
         });
       }
-
     }
     openModal(<DeleteModal onDelete={remove} onCloseModal={closeModal} />);
   };
@@ -165,7 +168,7 @@ const JobsContainer = ({
     const test = getFav.data.data.find((item: any) => item.job._id === id);
     return test ? test._id : null;
   };
-  const handleCard = (id: string, idFav?: string, rating?: number,title?:string) => {
+  const handleCard = (id: string, idFav?: string, rating?: number, title?: string) => {
     const idFavorie = idFav || isExistInFavAr(id);
     openModal(
       <JobModal
@@ -176,7 +179,7 @@ const JobsContainer = ({
         parcoursId={parcoursId}
         fetchingParcours={fetchingParcours}
         update={isExistInFav(id)}
-        remove={(i, e) => onJobRemove(idFavorie, e,title)}
+        remove={(i, e) => onJobRemove(idFavorie, e, title)}
         addfav={() => getFav.call()}
         rating={rating}
       />,
@@ -209,7 +212,7 @@ const JobsContainer = ({
       }
     });
   });
-  const handleClick = (id: string,title?:string) => {
+  const handleClick = (id: string, title?: string) => {
     createFavorites({
       job: id,
       parcour: parcoursId,
@@ -218,13 +221,7 @@ const JobsContainer = ({
     if (user) {
       ReactGA.event({
         category: 'Piste Metier',
-        action:
-          'Metier ajouté dans mes favoris from list  : ' +
-          user.profile.firstName +
-          ' ' +
-          user.profile.lastName +
-          ': ' +
-          title,
+        action: `Metier ajouté dans mes favoris from list  : ${user.profile.firstName} ${user.profile.lastName}: ${title}`,
         label: 'PISTE_METIER_PAGE',
       });
     }
@@ -232,7 +229,6 @@ const JobsContainer = ({
     getFav.call();
   };
 
-// console.log(selectedJob)
   return (
     <div className={classes.container}>
       {fetching && (
@@ -268,11 +264,11 @@ const JobsContainer = ({
             {map(getFav.data.data, (item: any) => (
               <JobSelection
                 title={item.job.title}
-                onClick={() => handleCard(item.job._id, item._id,undefined,item.job.title)}
+                onClick={() => handleCard(item.job._id, item._id, undefined, item.job.title)}
                 key={item.job._id}
               >
                 <div
-                  onClick={event => onJobRemove(item._id, event,item.job.title)}
+                  onClick={event => onJobRemove(item._id, event, item.job.title)}
                   className={classes.iconsContainer}
                 >
                   {/*  <MultiIcon type="remove" width="22" height="22" className={classes.remove} /> */}
@@ -325,7 +321,7 @@ const JobsContainer = ({
                   jobInterest={metier.interests}
                   modal={() => handleCard(metier._id, undefined, rating)}
                   key={metier._id}
-                  add={() => handleClick(metier._id,metier.title)}
+                  add={() => handleClick(metier._id, metier.title)}
                   selected={metier._id}
                   all={getFav.data.data}
                 />
@@ -357,7 +353,7 @@ const JobsContainer = ({
                 jobInterest={metier.interests}
                 modal={() => handleCard(metier._id)}
                 key={metier._id}
-                add={() => handleClick(metier._id,metier.title)}
+                add={() => handleClick(metier._id, metier.title)}
                 selected={metier._id}
                 all={getFav.data.data}
               />
@@ -368,12 +364,12 @@ const JobsContainer = ({
     </div>
   );
 };
- 
-const mapStateToProps = ({ parcours,authUser }: ReduxState): IMapToProps => ({
+
+const mapStateToProps = ({ parcours, authUser }: ReduxState): IMapToProps => ({
   parcoursId: parcours.data._id,
   families: parcours.data.families,
   fetchingParcours: parcours.fetching,
-  user:  authUser.user.user
+  user: authUser.user.user,
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => ({
   openModal: (children, backdropClassName) =>
@@ -392,5 +388,6 @@ export default connect(
     getSecteurs,
     addFavorites: createFavorites,
     getFav: getFavorites,
+    patch: UpdateAlogSkills,
   })(withLayout(JobsContainer)),
 );
