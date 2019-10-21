@@ -17,7 +17,7 @@
   margin: 10px 10px 0px 0px;
 }
 .contentTitle {
-  width: 50%;
+  width: 100%;
   padding-left: 20px;
 }
 .contentTitleScore {
@@ -109,4 +109,16 @@
 .dotsContainer {
   display: flex;
   justify-content: center;
+}
+@media only screen and (max-width: 768px) {
+  .title {
+    font-size: 13px;
+  }
+  .question {
+    margin: 0 85px 0 85px;
+    width: auto;
+  }
+  .question_title {
+    font-size: 12px;
+  }
 }

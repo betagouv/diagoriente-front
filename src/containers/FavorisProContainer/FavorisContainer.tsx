@@ -151,14 +151,9 @@ const FavorisContainer = forwardRef(
     });
     return (
       <div className={classes.container}>
-        <Grid
-          container
-          spacing={{ xl: 0 }}
-          padding={{ xl: 0 }}
-          style={{ flexDirection: 'row-reverse' }}
-        >
-          <Grid item xl={3} className={classes.item2}>
-            <Grid item xl={12} className={classes.sideBarWrapper}>
+        <div className={classes.underContainer}>
+          <div className={classes.item2}>
+            <div className={classes.sideBarWrapper}>
               <List
                 famileSelected={selectedFamily}
                 onDragEnd={onDragEnd}
@@ -169,19 +164,13 @@ const FavorisContainer = forwardRef(
                 fetchingFamille={fetching}
                 renderAllPlaceholder={renderAllPlaceholder}
               />
-            </Grid>
-          </Grid>
-          <Grid item xl={9}>
-            <Grid
-              container
-              padding={{ xl: 15, lg: 15 }}
-              spacing={{ xl: 9, lg: 9 }}
+            </div>
+            <div className={classes.carouselContainer}>
+            <div
               style={{ margin: '50px 0px' }}
             >
-              <Grid item xl={11} className="flex_center">
-                <Grid
-                  item
-                  xl={12}
+              <div className="flex_center">
+                <div
                   style={{
                     width: '90%',
                     margin: '0 auto',
@@ -235,16 +224,14 @@ const FavorisContainer = forwardRef(
                           />
                         ))}
                       </Carousel>
-                      <Grid
-                        item
-                        xl={1}
+                      <div
                         className="flex_center"
                         style={{
                           position: 'relative',
                           display: 'flex',
                           right: '1%',
                           top: '2%',
-                          maxWidth: '30px',
+                          flexWrap: 'wrap',
                         }}
                       >
                         <VerticalStepper
@@ -253,7 +240,7 @@ const FavorisContainer = forwardRef(
                           selectedFamilys={selectedFamily}
                           listItems={flitredFamille}
                         />
-                      </Grid>
+                      </div>
                       <div className={classes.btnContainer}>
                         <Button
                           title=""
@@ -305,11 +292,13 @@ const FavorisContainer = forwardRef(
                       </div>
                     </Fragment>
                   )}
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          
+        </div>
       </div>
     );
   },
