@@ -31,7 +31,7 @@ function getWidgetIframe(attributes: any) {
   iframe.className = 'immersion-widget-iframe';
   iframe.style.width = '1px';
   iframe.style.height = '600px';
-
+  iframe.style.margin = '0';
   iframe.style.minWidth = '100%';
   iframe.style.minHeight = '100%';
   iframe.scrolling = 'no';
