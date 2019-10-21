@@ -119,3 +119,8 @@
   font-size: 16px;
   color: #223b77;
 }
+@media only screen and (max-width: 768px) {
+  .modalContainer {
+    margin: 5% 5%;
+  }
+}
