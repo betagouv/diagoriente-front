@@ -42,7 +42,5 @@ export const updateParcoursCompetences = (
 export const UpdateAlogSkills = (
   id: string,
   data: string[],
-): Promise<Response<IParcoursResponse>> => {
-  console.log('data', data);
-  return axiosPatch(`v1/parcours/${id}`, { data: { skillsAlgo: data } });
-};
+): Promise<Response<IParcoursResponse>> =>
+  axiosPatch(`v1/parcours/${id}`, { data: { skillsAlgo: data } });
