@@ -7,10 +7,14 @@ import {
 } from 'lodash';
 import { RouteComponentProps } from 'react-router-dom';
 import modalActions from 'reducers/modal';
+import parcoursActions from 'reducers/parcours';
+import {
+ ApiReducer, IParcoursResponse, ReduxState, IUser,
+} from 'reducers';
+
 import { AnyAction } from 'redux';
 import ReactGA from 'react-ga';
 
-import { ReduxState, IUser } from 'reducers';
 import withLayout from 'hoc/withLayout';
 import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
 import classNames from 'utils/classNames';
@@ -48,6 +52,7 @@ interface IMapToProps {
 interface IDispatchToProps {
   openModal: (children: JSX.Element, backdropClassName?: string) => void;
   closeModal: () => void;
+  updateParcour: (parcours: IParcoursResponse) => any;
 }
 
 interface Props
@@ -71,6 +76,7 @@ const JobsContainer = ({
   getSecteurs,
   families,
   history,
+  updateParcour,
   deleteFavorites,
   getFav,
   openModal,
@@ -91,6 +97,14 @@ const JobsContainer = ({
   const secteursRef = useRef<string[]>([]);
   const filtersRef = useRef<string[]>([]);
 
+  useEffect(() => {
+    if (!patch.fetching && !patch.error) {
+      getParcours.call(parcoursId);
+      listJobs.call(parcoursId);
+      closeModal();
+    }
+  }, [patch.fetching]);
+
   const setSelectionToggle = () => {
     setSelectionOpen(!isSelectionOpen);
   };
@@ -103,10 +117,6 @@ const JobsContainer = ({
   };
   const submitHandler = (skillsChecked: string[]) => {
     patch.call(parcoursId, skillsChecked);
-    if (!patch.fetching && !patch.error) {
-      listJobs.call(parcoursId);
-      closeModal();
-    }
   };
   useDidMount(() => {
     getParcours.call(parcoursId);
@@ -375,6 +385,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): IDispatchToProps => 
   openModal: (children, backdropClassName) =>
     dispatch(modalActions.openModal({ children, backdropClassName })),
   closeModal: () => dispatch(modalActions.closeModal()),
+  updateParcour: () => dispatch(parcoursActions.parcoursSuccess()),
 });
 
 export default connect(
