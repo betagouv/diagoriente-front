@@ -221,7 +221,7 @@ const JobModal = ({
               className={!show ? classes.showChart : classes.hidebuttonShow}
               onClick={() => setShow(true)}
             />
-            <Button color="red" title="x" className={show ? classes.closeChartModal : classes.hiddenButton} onClick={ () => setShow(false)} />
+            <Button color="red" title="x" className={show ? classes.closeChartModal : classes.hiddenButton} onClick={() => setShow(false)} />
             <div className={classes.canvasContainer}>
               <canvas id="canvas" className={show ? classes.canvasShow : classes.canvas} width="300" height="200" />
             </div>

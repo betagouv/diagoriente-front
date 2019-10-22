@@ -71,14 +71,7 @@ const Header = ({
   return (
     <div className={HeaderProfile ? classes.Header : classes.HeaderContainer}>
       <ColoredLine />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          width: '60%',
-        }}
-      >
+      <div className={classes.headerWrapperLogo}>
         <div className={classes.logoContainer} onClick={onNavigate}>
           <img src={logo} alt="logo" className={classes.logo} />
         </div>
