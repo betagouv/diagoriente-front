@@ -93,7 +93,7 @@ const SideBar = ({
           const selectedItem = sideBarItemsExplorama.find(
             side => `${match.path}/${side.path}` === location.pathname,
           );
-          let condition = '';
+          let condition = '#243D77';
           if (selectedItem) {
             condition = `${match.path}/${item.path}` === location.pathname
                 ? '#fc1262'
@@ -101,12 +101,11 @@ const SideBar = ({
                 ? '#243D77'
                 : '#b3b3b3';
           }
-
           return (
             <div
               key={item.path}
               className={classes.item}
-              onClick={isAlloawed !== 0 ? () => onNavigate(`${match.path}/${item.path}`) : () => {}}
+              onClick={isAlloawed !== 0 && i !== 3 ? () => onNavigate(`${match.path}/${item.path}`) : () => {}}
             >
               {i === sideBarItemsExplorama.length - 1 ? (
                 <Fragment>
