@@ -72,7 +72,7 @@ const List = ({
       </DragDropContext>
     )}
     {!fetchingFamille && renderPlaceholder()}
-    {fetchingFamille && renderAllPlaceholder()}
+    {fetchingFamille && renderPlaceholder()}
   </div>
 );
 

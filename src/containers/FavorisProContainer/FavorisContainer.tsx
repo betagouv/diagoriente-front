@@ -140,14 +140,14 @@ const FavorisContainer = forwardRef(
 
     const renderPlaceholder = () => {
       const array: JSX.Element[] = [];
-      for (let i = selectedFamily.length + 1; i <= 5; i += 1) {
+      for (let i = selectedFamily.length; i <= 4; i += 1) {
         array.push(<PlaceHolderFamile index={i} key={i} />);
       }
       return array;
     };
     const renderAllPlaceholder = () => {
       const array: JSX.Element[] = [];
-      for (let i = 1; i <= 5; i += 1) {
+      for (let i = 0; i <= 4; i += 1) {
         array.push(<PlaceHolderFamile index={i} key={i} />);
       }
       return array;
