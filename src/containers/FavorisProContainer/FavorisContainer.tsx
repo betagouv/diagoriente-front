@@ -238,17 +238,22 @@ const FavorisContainer = forwardRef(
                           style={{
                             position: 'relative',
                             display: 'flex',
-                            right: '1%',
                             top: '2%',
-                            flexWrap: 'wrap',
+                            width: '100%',
+                            right: '1%',
+                           
                           }}
                         >
-                          <VerticalStepper
+                          <span className={classes.progress}>
+                            {`${flitredFamille.length} / ${familles.length}`}
+                          </span>
+
+                        {/*   <VerticalStepper
                             handleClick={changeDisplayedFamily}
                             DisplayedFamily={DisplayedFamily}
                             selectedFamilys={selectedFamily}
                             listItems={flitredFamille}
-                          />
+                          /> */}
                         </div>
                         <div className={classes.btnContainer}>
                           <Button
