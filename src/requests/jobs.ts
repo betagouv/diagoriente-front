@@ -39,14 +39,18 @@ export const getMyJob = (
   parcourId: string,
   environments?: string,
   secteur?: string,
+  accessibility?: string,
   algoType: 'interest_family' | 'family' | 'interest' = 'interest_family',
 ): Promise<Response<IJob[]>> => {
+  console.log('herrrree test', accessibility)
   const env = environments && JSON.parse(environments).length ? environments : null;
   const sect = secteur && JSON.parse(secteur).length ? secteur : null;
+  const niv = accessibility && JSON.parse(accessibility).length ? accessibility : null;
   return axiosGet('v1/jobs/myJobs', {
     params: {
       parcourId,
       algoType,
+      accessibility: niv,
       environments: env,
       secteur: sect,
     },
