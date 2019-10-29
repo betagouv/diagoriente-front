@@ -46,14 +46,12 @@ interface DispatchProps {
 
 const AdvisorGroupe = ({ advisor, user, get }: Props & DispatchProps) => {
   useDidMount(() => {
-    console.log('did mount');
     if (advisor.advisor) {
       get.call({ advisorId: advisor.advisor._id });
     }
   });
 
   const nbrGroupe = get.data.data ? get.data.data.length : 0;
-  console.log('get', get.data.data);
   return (
     <div className={classes.GroupContainer}>
       <div className={classes.NewGroup} />
