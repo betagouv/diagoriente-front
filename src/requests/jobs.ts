@@ -42,7 +42,7 @@ export const getMyJob = (
   accessibility?: string,
   algoType: 'interest_family' | 'family' | 'interest' = 'interest_family',
 ): Promise<Response<IJob[]>> => {
-   const env = environments && JSON.parse(environments).length ? environments : null;
+  const env = environments && JSON.parse(environments).length ? environments : null;
   const sect = secteur && JSON.parse(secteur).length ? secteur : null;
   const niv = accessibility && JSON.parse(accessibility).length ? accessibility : null;
 
