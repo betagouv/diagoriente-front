@@ -141,10 +141,15 @@ const JobsContainer = ({
     fetchingChange(listJobs.fetching);
   }, [listJobs.fetching]);
 
-  function filterJobs(filterArray: string[], secteurArray: string[]) {
+  function filterJobs(filterArray: string[], secteurArray: string[], niveauArray: string[]) {
     secteursRef.current = secteurArray;
     filtersRef.current = filterArray;
-    listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
+    listJobs.call(
+      parcoursId,
+      JSON.stringify(filterArray),
+      JSON.stringify(secteurArray),
+      JSON.stringify(niveauArray),
+    );
   }
 
   const onJobRemove = (id: any, e?: React.MouseEvent<any>, title?: String) => {

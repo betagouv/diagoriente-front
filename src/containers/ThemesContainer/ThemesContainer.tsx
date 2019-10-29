@@ -17,7 +17,7 @@ import withApi, { ApiComponentProps } from 'hoc/withApi';
 import withLayout from 'hoc/withLayout';
 
 // api
-import { listThemes, IUpdateParcoursParams, ISkill } from 'requests';
+import { listThemes, IUpdateParcoursParams } from 'requests';
 
 // container
 import ThemeContainer, { Step, ThemeRefObject } from 'containers/ThemeContainer/ThemeContainer';
@@ -27,7 +27,7 @@ import Card from 'components_v3/ui/Card/Card';
 import ThemeIcon from 'components_v3/icons/themeIcon/themeIcon';
 
 // hooks
-import { useDidUpdate, useCaptureRef, useDidMount } from 'hooks';
+import { useDidUpdate, useCaptureRef } from 'hooks';
 
 // reducers
 import parcoursActions from 'reducers/parcours';
@@ -94,7 +94,6 @@ const ThemesContainer = forwardRef(
       closeModal,
       activity,
       tutoShowed,
-      showTuto,
       location,
     }: Props,
     ref: Ref<RefProp>,
@@ -129,6 +128,14 @@ const ThemesContainer = forwardRef(
 
     const onMouseEnter = (id: string) => {
       getActivity({ id });
+    };
+    const onNavigateBack = (stepNamePressed: string) => {
+      if (stepNamePressed === 'select_theme' && (step === 'activities_edit' || step === 'expertise_edit')) {
+        stepChange(stepNamePressed);
+      }
+      if (stepNamePressed === 'activities_edit' && step === 'expertise_edit') {
+        stepChange(stepNamePressed);
+      }
     };
     const renderTitle = () => {
       if (step === 'select_theme') {
@@ -615,6 +622,7 @@ const ThemesContainer = forwardRef(
             steps={['Choix du thème', 'Sélection des activités', 'Evaluation des compétences']}
             indexStep={1}
             stepName={step}
+            onNavigateBack={onNavigateBack}
           />
         )}
       </div>

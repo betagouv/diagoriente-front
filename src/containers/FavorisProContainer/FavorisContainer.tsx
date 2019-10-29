@@ -127,17 +127,27 @@ const FavorisContainer = forwardRef(
       const items: any = reorder(selectedFamily, result.source.index, result.destination.index);
       changeSelectedFamily(items);
     };
+    const onChangeTo = (direction: string, index: number) => {
+      if (direction === 'TOP') {
+        const items: any = reorder(selectedFamily, index, index - 1);
+        changeSelectedFamily(items);
+      }
+      if (direction === 'DOWN' && index !== selectedFamily.length) {
+        const items: any = reorder(selectedFamily, index, index + 1);
+        changeSelectedFamily(items);
+      }
+    };
 
     const renderPlaceholder = () => {
       const array: JSX.Element[] = [];
-      for (let i = selectedFamily.length + 1; i <= 5; i += 1) {
+      for (let i = selectedFamily.length; i <= 4; i += 1) {
         array.push(<PlaceHolderFamile index={i} key={i} />);
       }
       return array;
     };
     const renderAllPlaceholder = () => {
       const array: JSX.Element[] = [];
-      for (let i = 1; i <= 5; i += 1) {
+      for (let i = 0; i <= 4; i += 1) {
         array.push(<PlaceHolderFamile index={i} key={i} />);
       }
       return array;
@@ -163,141 +173,144 @@ const FavorisContainer = forwardRef(
                 fetching={parcoursFetching}
                 fetchingFamille={fetching}
                 renderAllPlaceholder={renderAllPlaceholder}
+                onChangeTo={onChangeTo}
               />
             </div>
             <div className={classes.carouselContainer}>
-            <div
-              style={{ margin: '50px 0px' }}
-            >
-              <div className="flex_center">
-                <div
-                  style={{
-                    width: '90%',
-                    margin: '0 auto',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                  }}
-                >
-                  {fetching ? (
-                    <div className={classes.container_loading}>
-                      <Spinner />
-                      <Carousel
-                        showThumbs={false}
-                        showIndicators={false}
-                        showStatus={false}
-                        selectedItem={DisplayedFamily}
-                        onChange={index => changeDisplayedFamily(index)}
-                        className={classes.carou}
-                        width="97%"
-                        stopOnHover={false}
-                      >
-                        <div className={classes.loaderImage} />
-                      </Carousel>
-                    </div>
-                  ) : (
-                    <Fragment>
-                      <Carousel
-                        showThumbs={false}
-                        showIndicators={false}
-                        showStatus={false}
-                        selectedItem={DisplayedFamily}
-                        onChange={index => changeDisplayedFamily(index)}
-                        className={classes.carou}
-                        width="100%"
-                        stopOnHover={false}
-                        axis="vertical"
-                        infiniteLoop
-                        emulateTouch
-                        showArrows={false}
-                      >
-                        {flitredFamille.map(famille => (
-                          <CardImage
-                            resources={famille.resources}
-                            handleClick={handleClick}
-                            id={famille._id}
-                            checked={isChecked(famille._id)}
-                            index={selectedFamily.findIndex(elem => elem._id === famille._id)}
-                            nom={famille.nom}
-                            famille={famille}
-                          />
-                        ))}
-                      </Carousel>
-                      <div
-                        className="flex_center"
-                        style={{
-                          position: 'relative',
-                          display: 'flex',
-                          right: '1%',
-                          top: '2%',
-                          flexWrap: 'wrap',
-                        }}
-                      >
-                        <VerticalStepper
-                          handleClick={changeDisplayedFamily}
-                          DisplayedFamily={DisplayedFamily}
-                          selectedFamilys={selectedFamily}
-                          listItems={flitredFamille}
-                        />
+              <div style={{ margin: '50px 0px' }}>
+                <div className="flex_center">
+                  <div
+                    style={{
+                      width: '90%',
+                      margin: '0 auto',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {fetching ? (
+                      <div className={classes.container_loading}>
+                        <Spinner />
+                        <Carousel
+                          showThumbs={false}
+                          showIndicators={false}
+                          showStatus={false}
+                          selectedItem={DisplayedFamily}
+                          onChange={index => changeDisplayedFamily(index)}
+                          className={classes.carou}
+                          width="97%"
+                          stopOnHover={false}
+                        >
+                          <div className={classes.loaderImage} />
+                        </Carousel>
                       </div>
-                      <div className={classes.btnContainer}>
-                        <Button
-                          title=""
-                          color="blue"
-                          type="prev"
-                          onClick={() => changeDisplayedFamily(DisplayedFamily - 1)}
-                          className={classes.next}
-                        />
-                        <div>
+                    ) : (
+                      <Fragment>
+                        <Carousel
+                          showThumbs={false}
+                          showIndicators={false}
+                          showStatus={false}
+                          selectedItem={DisplayedFamily}
+                          onChange={index => changeDisplayedFamily(index)}
+                          className={classes.carou}
+                          width="100%"
+                          stopOnHover={false}
+                          axis="vertical"
+                          infiniteLoop
+                          emulateTouch
+                          showArrows={false}
+                        >
+                          {flitredFamille.map(famille => (
+                            <CardImage
+                              resources={famille.resources}
+                              handleClick={handleClick}
+                              id={famille._id}
+                              checked={isChecked(famille._id)}
+                              index={selectedFamily.findIndex(elem => elem._id === famille._id)}
+                              nom={famille.nom}
+                              famille={famille}
+                            />
+                          ))}
+                        </Carousel>
+                        <div
+                          className="flex_center"
+                          style={{
+                            position: 'relative',
+                            display: 'flex',
+                            top: '2%',
+                            width: '100%',
+                            right: '1%',
+                           
+                          }}
+                        >
+                          <span className={classes.progress}>
+                            {`${flitredFamille.length} / ${familles.length}`}
+                          </span>
+
+                        {/*   <VerticalStepper
+                            handleClick={changeDisplayedFamily}
+                            DisplayedFamily={DisplayedFamily}
+                            selectedFamilys={selectedFamily}
+                            listItems={flitredFamille}
+                          /> */}
+                        </div>
+                        <div className={classes.btnContainer}>
                           <Button
-                            title={
-                              flitredFamille[DisplayedFamily] !== undefined
-                                ? isChecked(flitredFamille[DisplayedFamily]._id)
-                                  ? 'AJOUTÉ'
-                                  : 'AJOUTER À MA SÉLECTION'
-                                : ''
-                            }
-                            type={
-                              flitredFamille[DisplayedFamily] !== undefined
-                                ? isChecked(flitredFamille[DisplayedFamily]._id)
-                                  ? 'checked'
+                            title=""
+                            color="blue"
+                            type="prev"
+                            onClick={() => changeDisplayedFamily(DisplayedFamily - 1)}
+                            className={classes.next}
+                          />
+                          <div>
+                            <Button
+                              title={
+                                flitredFamille[DisplayedFamily] !== undefined
+                                  ? isChecked(flitredFamille[DisplayedFamily]._id)
+                                    ? 'AJOUTÉ'
+                                    : 'AJOUTER À MA SÉLECTION'
+                                  : ''
+                              }
+                              type={
+                                flitredFamille[DisplayedFamily] !== undefined
+                                  ? isChecked(flitredFamille[DisplayedFamily]._id)
+                                    ? 'checked'
+                                    : undefined
                                   : undefined
-                                : undefined
-                            }
-                            color="red"
-                            onClick={handleClick}
-                            style={
-                              flitredFamille[DisplayedFamily] !== undefined
-                                ? isChecked(flitredFamille[DisplayedFamily]._id)
-                                  ? {
-                                      height: 50,
-                                      width: 180,
-                                      background: '#ff80af',
-                                      color: 'white',
-                                      borderColor: '#ff80af'
-                                    }
+                              }
+                              color="red"
+                              onClick={handleClick}
+                              style={
+                                flitredFamille[DisplayedFamily] !== undefined
+                                  ? isChecked(flitredFamille[DisplayedFamily]._id)
+                                    ? {
+                                        height: 50,
+                                        width: 180,
+                                        background: '#ff80af',
+                                        color: 'white',
+                                        borderColor: '#ff80af',
+                                      }
+                                    : { height: 50, width: 180 }
                                   : { height: 50, width: 180 }
-                                : { height: 50, width: 180 }
-                            }
+                              }
+                            />
+                          </div>
+                          <Button
+                            title=""
+                            type="next"
+                            color="blue"
+                            onClick={() => changeDisplayedFamily(DisplayedFamily + 1)}
+                            className={classes.next}
                           />
                         </div>
-                        <Button
-                          title=""
-                          type="next"
-                          color="blue"
-                          onClick={() => changeDisplayedFamily(DisplayedFamily + 1)}
-                          className={classes.next}
-                        />
-                      </div>
-                    </Fragment>
-                  )}
+                      </Fragment>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-          
         </div>
       </div>
     );

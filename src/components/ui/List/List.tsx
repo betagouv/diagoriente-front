@@ -10,6 +10,7 @@ import classes from './list.module.scss';
 interface IProps {
   renderPlaceholder: () => void;
   onDragEnd: (result: any) => void;
+  onChangeTo: (direction: string, index: number) => void;
   famileSelected: IFamille[];
   handleDeleteClick: (id: number) => void;
   disable: number;
@@ -26,6 +27,7 @@ const List = ({
   famileSelected,
   handleDeleteClick,
   fetchingFamille,
+  onChangeTo,
 }: IProps) => (
   <div style={{ width: '100%' }}>
     <div className={classes.containerText}>
@@ -52,7 +54,7 @@ const List = ({
                       {...provided.dragHandleProps}
                     >
                       <div style={{ display: 'flex', width: '100%' }}>
-                        <IndexList index={index + 1} isLast={5} />
+                        <IndexList index={index} isLast={4} onChangeTo={onChangeTo} />
                         <FamileSelected
                           famile={item}
                           index={index}
@@ -70,7 +72,7 @@ const List = ({
       </DragDropContext>
     )}
     {!fetchingFamille && renderPlaceholder()}
-    {fetchingFamille && renderAllPlaceholder()}
+    {fetchingFamille && renderPlaceholder()}
   </div>
 );
 
