@@ -25,6 +25,7 @@ export interface IJob {
   jobRank: number;
   secteur: ISecteur[];
   accessibility: string;
+  niveau: { _id: string; name: string }[];
   interested: boolean | null;
   favoriteId: string | null;
   environments: { _id: string; title: string }[];
@@ -40,16 +41,19 @@ export const getMyJob = (
   environments?: string,
   secteur?: string,
   accessibility?: string,
+  niveau?: string,
   algoType: 'interest_family' | 'family' | 'interest' = 'interest_family',
 ): Promise<Response<IJob[]>> => {
   const env = environments && JSON.parse(environments).length ? environments : null;
   const sect = secteur && JSON.parse(secteur).length ? secteur : null;
-  const niv = accessibility && JSON.parse(accessibility).length ? accessibility : null;
+  const acc = accessibility && JSON.parse(accessibility).length ? accessibility : null;
+  const niv = niveau && JSON.parse(niveau).length ? niveau : null;
   return axiosGet('v1/jobs/myJobs', {
     params: {
       parcourId,
       algoType,
-      accessibility: niv,
+      accessibility: acc,
+      niveau: niv,
       environments: env,
       secteur: sect,
     },

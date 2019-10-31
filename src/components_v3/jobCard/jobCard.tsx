@@ -11,6 +11,7 @@ interface Props {
   jobDescription?: string;
   jobInterest?: any;
   jobAccessebility?: string;
+  jobNiveau?: string;
   modal: () => void;
   add: () => void;
   selected?: string;
@@ -22,6 +23,7 @@ const JobCard = ({
   color,
   jobName,
   jobAccessebility,
+  jobNiveau,
   jobDescription,
   jobInterest,
   className,
@@ -54,7 +56,7 @@ const JobCard = ({
       </div>
       <div className={classes.niveau}>
         <span className={classes.titleInterest}>Niveau d’accès au métier :</span>
-        <span className={classes.niveauText}>{jobAccessebility}</span>
+        <span className={classes.niveauText}>{jobNiveau || jobAccessebility}</span>
       </div>
       <div className={classes.buttonsContainer}>
         <Button title="EN SAVOIR PLUS" color="blue" style={{ height: 50 }} onClick={modal} />
