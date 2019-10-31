@@ -1,6 +1,4 @@
-import React, {
- useState, useEffect, Fragment, forwardRef, Ref, useRef,
-} from 'react';
+import React, { useState, useEffect, Fragment, forwardRef, Ref, useRef } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 
 import { connect } from 'react-redux';
@@ -20,6 +18,7 @@ import List from '../../components/ui/List/List';
 import CardImage from '../../components/cards/CardImage/CardImage';
 import PlaceHolderFamile from '../../components/ui/List/PlaceHolderFamile';
 import Spinner from '../../components/Spinner/Spinner';
+import LoadingIndicator from 'components_v3/ui/Spinner/Spinner';
 import VerticalStepper from '../../components/VerticalStepper/VerticalStepper';
 // assets
 import { IUpdateParcoursParams } from '../../requests';
@@ -241,14 +240,21 @@ const FavorisContainer = forwardRef(
                             top: '2%',
                             width: '100%',
                             right: '1%',
-                           
                           }}
                         >
+                          {flitredFamille.length < familles.length && (
+                            <LoadingIndicator size={18} color={'#ff0060'} />
+                          )}
+
                           <span className={classes.progress}>
-                            {`${flitredFamille.length} / ${familles.length}`}
+                            {`${
+                              flitredFamille.length < familles.length
+                                ? flitredFamille.length
+                                : DisplayedFamily + 1
+                            } / ${familles.length}`}
                           </span>
 
-                        {/*   <VerticalStepper
+                          {/*   <VerticalStepper
                             handleClick={changeDisplayedFamily}
                             DisplayedFamily={DisplayedFamily}
                             selectedFamilys={selectedFamily}
