@@ -46,7 +46,6 @@ const NewHomeContainer = ({
   };
 
   function renderButton(text: string, color: string, onClick?: () => void, modeConnected = false) {
-    console.log('modeCommencer', modeConnected);
     return (
       <div
         onClick={onClick}

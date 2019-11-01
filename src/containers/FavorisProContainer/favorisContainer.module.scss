@@ -193,7 +193,7 @@ box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
     width: $sidebar_open_width;
   }
 }
-.btnContainer{
+.btnContainer {
   display: flex;
   height: 100px;
 }
@@ -206,11 +206,10 @@ box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
 }
 .carouselContainer {
   width: 77%;
-
 }
 .underContainer {
   flex-direction: row-reverse;
-    width: 100%;
+  width: 100%;
 }
 @media only screen and (max-width: 768px) {
   .carouselContainer {
@@ -218,6 +217,14 @@ box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.4);
   }
   .underContainer {
     flex-direction: row-reverse;
-      width: 90%;
+    width: 90%;
   }
+}
+
+.progress {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  color: #00cfff;
+  margin-left: 5px;
 }

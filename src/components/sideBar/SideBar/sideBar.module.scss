@@ -30,6 +30,7 @@
     transition: all 0.3s ease;
     animation: slidein 0.3s ease 1 normal;
   }
+  
   .selection_title {
     color: $grey-blue;
     font-weight: 600;
@@ -56,6 +57,25 @@
     transition: all 0.3s ease-in-out;
     animation: slidein 0.3s ease 1 normal;
   }
+  .niveau_container_child {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 0px;
+    padding: 5px 0px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  .niveau_containerOpen_child {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px 0px;
+    max-height: 100vh;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    animation: slidein 0.3s ease 1 normal;
+  }
   .rowItem {
     display: flex;
     align-items: center;
@@ -65,7 +85,6 @@
     font-size: 13px;
     margin-left: 5px;
     margin: 5px;
-    text-transform: capitalize;
     cursor: pointer;
     width: 100%;
   }
@@ -73,7 +92,6 @@
     color: #ff0060;
     font-size: 13px;
     margin-left: 5px;
-    text-transform: capitalize;
     margin: 5px;
     cursor: pointer;
     width: 100%;

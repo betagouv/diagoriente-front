@@ -4,7 +4,6 @@ import createRedux from '../utils/createRedux';
 
 const INITIAL_STATE: ApiReducer<IFamille[]> = {
   fetching: false,
-
   error: '',
   data: [],
 };

@@ -8,6 +8,7 @@ import classes from './placeholder.module.scss';
 interface IProps {
   index: number;
 }
+const onChangeTo = () => {};
 const PlaceHolderFamile = ({ index }: IProps) => (
   <Fragment>
     <div
@@ -18,7 +19,7 @@ const PlaceHolderFamile = ({ index }: IProps) => (
         marginBottom: 15,
       }}
     >
-      <IndexList index={index} isLast={5} />
+      <IndexList index={index} isLast={5} onChangeTo={onChangeTo} />
       <div className={classes.container}>
         <ContentLoader
           height={120}

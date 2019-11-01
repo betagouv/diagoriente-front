@@ -127,7 +127,6 @@ const SkillsContainer = forwardRef(
         />,
       );
     };
-    // console.log('global competences', get.data.globalCopmetences);
     return (
       <div className={classes.container}>
         <div className={classes.card}>

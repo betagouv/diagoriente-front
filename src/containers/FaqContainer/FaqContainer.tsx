@@ -39,7 +39,6 @@ const FaqContainer = () => {
     }
   };
 
-  console.log('this is faq', list);
   return (
     <div className={classes.container}>
       <Header showLogout />

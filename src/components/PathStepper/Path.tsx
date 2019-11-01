@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import classes from './path.module.scss';
 
@@ -7,10 +8,11 @@ interface IProps {
   indexStep: number;
   stepName: string | null;
   steps: string[];
+  onNavigateBack: (stepName: string) => void;
 }
 type Props = IProps & RouteComponentProps;
 
-const Stepper = ({ steps, stepName }: Props) => {
+const Stepper = ({ steps, stepName, onNavigateBack }: Props) => {
   const [indexStep, setIndexStep] = useState(0);
   useEffect(() => {
     if (stepName === 'select_theme') {
@@ -23,12 +25,25 @@ const Stepper = ({ steps, stepName }: Props) => {
       setIndexStep(-1);
     }
   });
+  const changeStep = (step: string) => {
+    let stepToGo = '';
+    if (step === 'Choix du thème') {
+      stepToGo = 'select_theme';
+    }
+    if (step === 'Sélection des activités') {
+      stepToGo = 'activities_edit';
+    }
+    if (step === 'Evaluation des compétences') {
+      stepToGo = 'expertise_edit';
+    }
+    onNavigateBack(stepToGo);
+  };
 
   return (
     <div className={classes.stepper_container}>
       {steps.map((step, i) => (
         <div key={step} className={classes.step_container}>
-          <div className={classes.block}>
+          <div className={classes.block} onClick={() => changeStep(step)}>
             <div className={classes.circle_container}>
               <div
                 className={classes.step_content}
@@ -57,7 +72,7 @@ const Stepper = ({ steps, stepName }: Props) => {
               />
             )}
           </div>
-          <span className={classes.step_title} style={indexStep === i ? { color: '#ff0060' } : {} }>
+          <span className={classes.step_title} style={indexStep === i ? { color: '#ff0060' } : {}}>
             {step}
           </span>
         </div>

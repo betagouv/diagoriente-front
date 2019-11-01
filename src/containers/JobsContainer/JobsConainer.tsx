@@ -141,10 +141,21 @@ const JobsContainer = ({
     fetchingChange(listJobs.fetching);
   }, [listJobs.fetching]);
 
-  function filterJobs(filterArray: string[], secteurArray: string[]) {
+  function filterJobs(
+    filterArray: string[],
+    secteurArray: string[],
+    niveauArray: string[],
+    accessibilityArray: string[],
+  ) {
     secteursRef.current = secteurArray;
     filtersRef.current = filterArray;
-    listJobs.call(parcoursId, JSON.stringify(filterArray), JSON.stringify(secteurArray));
+    listJobs.call(
+      parcoursId,
+      JSON.stringify(filterArray),
+      JSON.stringify(secteurArray),
+      JSON.stringify(niveauArray),
+      JSON.stringify(accessibilityArray),
+    );
   }
 
   const onJobRemove = (id: any, e?: React.MouseEvent<any>, title?: String) => {
@@ -329,6 +340,7 @@ const JobsContainer = ({
                   color="#fab82d"
                   jobName={metier.title}
                   jobAccessebility={metier.accessibility}
+                  jobNiveau={metier.niveau.length !== 0 ? metier.niveau[0].name : ''}
                   jobDescription={metier.description}
                   jobInterest={metier.interests}
                   modal={() => handleCard(metier._id, undefined, rating)}
@@ -362,6 +374,7 @@ const JobsContainer = ({
                 jobName={metier.title}
                 jobAccessebility={metier.accessibility}
                 jobDescription={metier.description}
+                jobNiveau={metier.niveau.length !== 0 ? metier.niveau[0].name : ''}
                 jobInterest={metier.interests}
                 modal={() => handleCard(metier._id)}
                 key={metier._id}
