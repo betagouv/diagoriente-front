@@ -189,7 +189,7 @@ const SideBar = ({
             : null}
         </div>
       </div>
-      <div className={classes.filter_container}>
+ {/*      <div className={classes.filter_container}>
         <div className={classes.selection_title} onClick={setNiveauToggle}>
           <img
             src={arrow}
@@ -234,16 +234,16 @@ const SideBar = ({
             );
           })}
         </div>
-      </div>
+      </div> */}
 
-     {/*  <div className={classes.filter_container}>
+      <div className={classes.filter_container}>
         <div className={classes.selection_title} onClick={setAccessibilityToggle}>
           <img
             src={arrow}
             alt="l"
             className={isAccessibilityOpen ? classes.arrowRoteted : classes.arrow}
           />
-           <div>test accessiblity</div>
+           <div>NIVEAU D'ACCES</div>
         </div>
 
         <div
@@ -283,7 +283,7 @@ const SideBar = ({
             );
           })}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
