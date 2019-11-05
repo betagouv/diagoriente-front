@@ -7,7 +7,9 @@ import withApis, { ApiComponentProps } from 'hoc/withApi';
 import { ISecteur } from 'requests/jobs';
 
 import arrow from 'assets_v3/icons/arrow/arrowFIlter.png';
-
+import Button from 'components_v3/button/button';
+import EntrepriseForm from 'components_v3/EntrepriseForm/EntrepriseForm';
+import ImmersionModale from 'components_v3/ModalImmersion/ModalImmersion';
 // style
 import classNames from 'utils/classNames';
 import classes from './sideBar.module.scss';
@@ -23,6 +25,8 @@ interface IProps {
   parcoursId: string;
   other: boolean | null;
   onOtherChange: () => void;
+	openModal: (children: JSX.Element, backdropClassName?: string | undefined) => void;
+	closeModal: () => void;
 }
 
 interface Props
@@ -34,11 +38,7 @@ interface Props
     }> {}
 
 const SideBar = ({
-  get,
-  secteurs,
-  filterJobs,
-  other,
-  onOtherChange,
+ get, secteurs, filterJobs, other, onOtherChange, closeModal,openModal,
   getListNiveau,
   getListAccessibility,
 }: Props) => {
@@ -87,6 +87,14 @@ const SideBar = ({
   }
   return (
     <div className={classes.container_sideBar}>
+      <Button
+        title="Trouver mon immersion"
+        color="red"
+        onClick={() => {
+          openModal(<ImmersionModale onCloseModal={closeModal} />);
+        }}
+        style={{ height: 50, margin: '10px auto' }}
+      />
       <div className={classes.filter_container}>
         <div className={classes.selection_title} onClick={setFilterToggle}>
           <img

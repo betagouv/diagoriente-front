@@ -265,6 +265,8 @@ const JobsContainer = ({
         secteurs={getSecteurs.data}
         filterJobs={filterJobs}
         parcoursId={parcoursId}
+        openModal={openModal}
+        closeModal={closeModal}
       />
       <div className={classes.jobs_container}>
         <div className={classes.selections}>
@@ -345,7 +347,7 @@ const JobsContainer = ({
                   key={metier._id}
                   add={() => handleClick(metier._id, metier.title)}
                   selected={metier._id}
-                  all={getFav.data.data}
+                  all={getFav.data.data ? getFav.data.data : {}}
                 />
               );
             })}
