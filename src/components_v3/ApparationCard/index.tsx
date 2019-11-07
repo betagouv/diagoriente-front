@@ -56,17 +56,8 @@ const ApparationCard = ({
 }: Props & React.HTMLAttributes<HTMLElement>) => {
   function onChange(value: number) {
     if (clickHandler) {
-      if (value !== 4) {
+      if (value) {
         clickHandler(value);
-      } else {
-        openModal(
-          <ConfirmModal
-            onCloseModal={closeModal}
-            confirme={() => clickHandler(value)}
-            value={value}
-            text="Niveau max de la compétence, confirme ou réévalue"
-          />,
-        );
       }
     }
   }
@@ -91,7 +82,9 @@ const ApparationCard = ({
             type="light"
             className={classes.tooltip}
           >
-            <span style={{ fontWeight: 600 , display: 'block' }}>{expertise && expertise.niveau[i].title}</span>
+            <span style={{ fontWeight: 600, display: 'block' }}>
+              {expertise && expertise.niveau[i].title}
+            </span>
             <span>{expertise && expertise.niveau[i].sub_title}</span>
           </ReactTooltip>
         </div>,
