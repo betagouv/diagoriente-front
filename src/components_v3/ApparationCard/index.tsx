@@ -56,9 +56,7 @@ const ApparationCard = ({
 }: Props & React.HTMLAttributes<HTMLElement>) => {
   function onChange(value: number) {
     if (clickHandler) {
-      if (value) {
         clickHandler(value);
-      }
     }
   }
 
