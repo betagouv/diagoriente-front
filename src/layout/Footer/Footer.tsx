@@ -8,11 +8,17 @@ import {
 import Grid from '../../components/ui/Grid/Grid';
 import { useListener } from '../../hooks/useListner';
 
+const pdf = require('../../assets_v3/id6.pdf');
+
 const Footer = () => {
   const [width, widthChange] = useState(window.innerWidth);
   useListener('resize', () => {
     widthChange(window.innerWidth);
   });
+
+  function openPdf() {
+    window.open(pdf);
+  }
 
   const firstRowImages = (
     <Fragment>
@@ -41,7 +47,11 @@ const Footer = () => {
     <div className={classes.footerWrapper}>
       <Grid container className={classes.footerContainer} style={{ padding: '0px 11px' }}>
         <Grid className={classes.textFooter} item xl={4} lg={12}>
-        DiagOriente une startup d’Etat de la DGEFP en partenariat avec Id6 - DINUM Services du 1er Ministre
+          DiagOriente une startup d’Etat de la DGEFP en partenariat avec
+          <span onClick={openPdf} className={classes.link}>
+            Id6
+          </span>
+          - DINUM Services du 1er Ministre
         </Grid>
 
         <Grid className={classes.images} item xl={8} lg={12}>
