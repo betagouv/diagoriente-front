@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .footerWrapper {
   width: 100%;
@@ -25,7 +25,7 @@
   line-height: 1.33;
   letter-spacing: normal;
   color: $footer_color;
-  @media (max-width: map-get($breakpoints, 'lg' )) {
+  @media (max-width: map-get($breakpoints, "lg" )) {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -59,7 +59,7 @@
   width: 75px;
   height: auto;
   margin: 15px;
-  @media (max-width: map-get($breakpoints, 'smd' )) {
+  @media (max-width: map-get($breakpoints, "smd" )) {
     height: auto;
   }
 }
@@ -73,7 +73,7 @@
   display: flex;
   flex-wrap: wrap;
 
-  @media (max-width: map-get($breakpoints, 'lg' )) {
+  @media (max-width: map-get($breakpoints, "lg" )) {
     justify-content: space-between;
     align-items: center;
     img {
@@ -81,7 +81,7 @@
     }
   }
 
-  @media (max-width: map-get($breakpoints, 'smd' )) {
+  @media (max-width: map-get($breakpoints, "smd" )) {
     justify-content: space-between;
     align-items: center;
     .row {
@@ -95,4 +95,10 @@
       }
     }
   }
+}
+
+.link {
+  color: #00cfff;
+  cursor: pointer;
+  margin: 0 2px;
 }
