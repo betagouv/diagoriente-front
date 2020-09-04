@@ -11,7 +11,7 @@
     "jspdf": "^1.5.3",
     "localforage": "^1.7.3",
     "lodash": "^4.17.11",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",
     "react-content-loader": "^4.2.1",
